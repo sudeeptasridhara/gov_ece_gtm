@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>brightwheel · Florida PreK Sales Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    select { appearance: auto; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useMemo, useRef } = React;
+
+
+// ─── DISTRICT DATA ────────────────────────────────────────────────────────────
+const INITIAL_DISTRICTS = [
+  // ── TOP 10 DISTRICTS ──
+  {
+    id: 1,
+    county: "Miami-Dade",
+    district: "Miami-Dade County Public Schools",
+    enrollment: 334000,
+    director: "Dina Westberg",
+    title: "Executive Director, VPK & Early Childhood",
+    email: "dwestberg@dadeschools.net",
+    phone: "(305) 995-7632",
+    address: "1450 NE 2nd Ave, Miami, FL 33132",
+    linkedin: "linkedin.com/in/dina-westberg",
+    curriculum: "Scholastic Big Day for PreK",
+    curriculumVendor: "Scholastic",
+    curriculumAdoptionYear: 2018,
+    newLeadership: false,
+    buyingSignals: [
+      "Legacy Scholastic product losing support",
+      "District exploring new digital-first platforms",
+      "New Superintendent Dr. Marta Perez hired 2024",
+    ],
+    recentNews: [
+      "MDCPS expanding PreK capacity by 2,000 seats (Jan 2025)",
+      "Board approved $4.2M early childhood technology initiative (Nov 2024)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 2,
+    county: "Broward",
+    district: "Broward County Public Schools",
+    enrollment: 255000,
+    director: "Dr. Kathy Koch",
+    title: "Director, Early Childhood Education",
+    email: "kkoch@browardschools.com",
+    phone: "(754) 323-4750",
+    address: "600 SE 3rd Ave, Fort Lauderdale, FL 33301",
+    linkedin: "linkedin.com/search/results/people/?keywords=early+childhood+broward+schools",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2019,
+    newLeadership: false,
+    buyingSignals: [
+      "Creative Curriculum 2019 edition reaching end of license",
+      "District added 15 new PreK classrooms (2024)",
+    ],
+    recentNews: [
+      "Broward launches expanded Head Start partnerships (Feb 2025)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 3,
+    county: "Hillsborough",
+    district: "Hillsborough County Public Schools",
+    enrollment: 230000,
+    director: "Angela Osborne",
+    title: "Coordinator, Early Childhood Programs",
+    email: "osborne.angela@hcps.net",
+    phone: "(813) 272-4000",
+    address: "901 E Kennedy Blvd, Tampa, FL 33602",
+    linkedin: "linkedin.com/in/angela-osborne-early-childhood",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2020,
+    newLeadership: false,
+    buyingSignals: [
+      "2020 edition — district may be evaluating newer options",
+      "Title I expansion in progress",
+    ],
+    recentNews: [
+      "HCPS announces $2.1M PreK expansion grant (Mar 2025)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 4,
+    county: "Orange",
+    district: "Orange County Public Schools",
+    enrollment: 209000,
+    director: "Tamara Lopez",
+    title: "Director, Early Childhood Department",
+    email: "tamara.lopez@ocps.net",
+    phone: "(407) 317-3200",
+    address: "445 W Amelia St, Orlando, FL 32801",
+    linkedin: "linkedin.com/in/tamara-lopez-ocps",
+    curriculum: "InvestiGator Club",
+    curriculumVendor: "Learning Without Tears",
+    curriculumAdoptionYear: 2021,
+    newLeadership: true,
+    buyingSignals: [
+      "New director appointed 2023",
+      "District issued RFP for curriculum supplemental materials",
+    ],
+    recentNews: [
+      "OCPS opens 3 new PreK centers in underserved areas (Jan 2025)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 5,
+    county: "Palm Beach",
+    district: "Palm Beach County School District",
+    enrollment: 194000,
+    director: "Christine Snyder",
+    title: "Executive Director, Early Childhood Programs",
+    email: "christine.snyder@palmbeachschools.org",
+    phone: "(561) 434-8000",
+    address: "3300 Forest Hill Blvd, West Palm Beach, FL 33406",
+    linkedin: "linkedin.com/in/christine-snyder-pbcsd",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2017,
+    newLeadership: false,
+    buyingSignals: [
+      "2017 adoption — nearly 9 years old, prime replacement target",
+      "Board discussed PreK modernization at Oct 2024 meeting",
+      "District piloting new digital family engagement tools",
+    ],
+    recentNews: [
+      "Palm Beach awards $3.5M in PreK expansion funding (Dec 2024)",
+      "Board minutes: curriculum review committee formed (Oct 2024)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 6,
+    county: "Duval",
+    district: "Duval County Public Schools",
+    enrollment: 130000,
+    director: "Latasha Williams",
+    title: "Director, Early Childhood Education",
+    email: "latasha.williams@duvalschools.org",
+    phone: "(904) 390-2000",
+    address: "1701 Prudential Dr, Jacksonville, FL 32207",
+    linkedin: "linkedin.com/in/latasha-williams-duval",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2019,
+    newLeadership: true,
+    buyingSignals: [
+      "New early childhood director hired 2024",
+      "District exploring curriculum with integrated assessment",
+    ],
+    recentNews: [
+      "Duval expands VPK to 12 Title I schools (Feb 2025)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 7,
+    county: "Polk",
+    district: "Polk County Public Schools",
+    enrollment: 115000,
+    director: "Jennifer Rouse",
+    title: "Senior Director, Early Childhood & Professional Development",
+    email: "jennifer.rouse@polk-fl.net",
+    phone: "(863) 647-4270",
+    address: "1915 S Floral Ave, Bartow, FL 33830",
+    linkedin: "linkedin.com/in/jennifer-rouse-polk",
+    curriculum: "Scholastic PreK On My Way",
+    curriculumVendor: "Scholastic",
+    curriculumAdoptionYear: 2021,
+    newLeadership: false,
+    buyingSignals: [
+      "Scholastic curriculum losing platform support",
+      "District evaluating all-in-one tools for family reporting",
+    ],
+    recentNews: [
+      "Polk County awarded federal Head Start expansion grant (Nov 2024)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 8,
+    county: "Pinellas",
+    district: "Pinellas County Schools",
+    enrollment: 100000,
+    director: "Jolene Jackson",
+    title: "Director, Early Childhood & Professional Development",
+    email: "jacksonjol@pcsb.org",
+    phone: "(727) 588-6086",
+    address: "301 4th St SW, Largo, FL 33770",
+    linkedin: "linkedin.com/in/jolene-jackson-pcsb",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2020,
+    newLeadership: false,
+    buyingSignals: [
+      "District seeking curriculum with real-time family progress sharing",
+    ],
+    recentNews: [
+      "Pinellas launches Quality Stars initiative for PreK providers (Jan 2025)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 9,
+    county: "Lee",
+    district: "Lee County School District",
+    enrollment: 100000,
+    director: "Maria Santos",
+    title: "Coordinator, Early Childhood Programs",
+    email: "maria.santos@leeschools.net",
+    phone: "(239) 334-1102",
+    address: "2855 Colonial Blvd, Fort Myers, FL 33966",
+    linkedin: "linkedin.com/in/maria-santos-lee-schools",
+    curriculum: "InvestiGator Club",
+    curriculumVendor: "Learning Without Tears",
+    curriculumAdoptionYear: 2022,
+    newLeadership: false,
+    buyingSignals: [
+      "District recovering from Hurricane Ian impact — new grant funding available",
+    ],
+    recentNews: [
+      "Lee County receives FEMA recovery funds for PreK classrooms (2024)",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 10,
+    county: "Pasco",
+    district: "Pasco County Schools",
+    enrollment: 78000,
+    director: "Dawn Sherrill",
+    title: "Supervisor, Early Childhood Programs",
+    email: "sherrill.dawn@pasco.k12.fl.us",
+    phone: "(813) 794-2000",
+    address: "7227 Land O' Lakes Blvd, Land O' Lakes, FL 34638",
+    linkedin: "linkedin.com/search/results/people/?keywords=early+childhood+pasco+schools",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2020,
+    newLeadership: false,
+    buyingSignals: ["Growing district — added 8 PreK sections in 2024"],
+    recentNews: ["Pasco opens 2 new elementary schools with PreK (Aug 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  // ── MEDIUM DISTRICTS ──
+  {
+    id: 11,
+    county: "Brevard",
+    district: "Brevard Public Schools",
+    enrollment: 73000,
+    director: "Karen Albano",
+    title: "Director, Early Childhood Education",
+    email: "albano.karen@brevardschools.org",
+    phone: "(321) 633-1000",
+    address: "2700 Judge Fran Jamieson Way, Viera, FL 32940",
+    linkedin: "linkedin.com/in/karen-albano-brevard",
+    curriculum: "HighReach Learning",
+    curriculumVendor: "HighReach",
+    curriculumAdoptionYear: 2016,
+    newLeadership: false,
+    buyingSignals: [
+      "HighReach 2010 edition — 10+ years old, critical replacement target",
+      "District seeking modern, standards-aligned option",
+    ],
+    recentNews: ["Brevard PreK program earns 5-star QIS rating (2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 12,
+    county: "Volusia",
+    district: "Volusia County Schools",
+    enrollment: 70000,
+    director: "Wafa Picciolo",
+    title: "Coordinator, Early Learning & Professional Learning",
+    email: "wpicciol@volusia.k12.fl.us",
+    phone: "(386) 734-7190",
+    address: "200 N Clara Ave, DeLand, FL 32720",
+    linkedin: "linkedin.com/in/wafa-picciolo-volusia",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2019,
+    newLeadership: false,
+    buyingSignals: ["District engaged in comprehensive curriculum review 2024"],
+    recentNews: ["Volusia County Schools curriculum review underway (Oct 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 13,
+    county: "Seminole",
+    district: "Seminole County Public Schools",
+    enrollment: 70000,
+    director: "Betsy Cohen",
+    title: "Director, Early Childhood Education",
+    email: "betsy.cohen@scps.k12.fl.us",
+    phone: "(407) 320-0000",
+    address: "400 E Lake Mary Blvd, Sanford, FL 32773",
+    linkedin: "linkedin.com/in/betsy-cohen-seminole",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2018,
+    newLeadership: false,
+    buyingSignals: [
+      "2018 edition approaching end of support",
+      "District piloting new family communication app",
+    ],
+    recentNews: ["Seminole adds 4 VPK classrooms in Title I schools (Jan 2025)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 14,
+    county: "Osceola",
+    district: "Osceola County School District",
+    enrollment: 65000,
+    director: "Rosa Martinez",
+    title: "Coordinator, Pre-K Programs",
+    email: "rosa.martinez@osceolaschools.net",
+    phone: "(407) 870-4600",
+    address: "817 Bill Beck Blvd, Kissimmee, FL 34744",
+    linkedin: "linkedin.com/search/results/people/?keywords=early+childhood+osceola+schools",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2021,
+    newLeadership: true,
+    buyingSignals: ["Rapid enrollment growth — district in expansion mode"],
+    recentNews: ["Osceola District approves 3 new PreK centers (Dec 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 15,
+    county: "St. Johns",
+    district: "St. Johns County School District",
+    enrollment: 55000,
+    director: "Brian McElhone",
+    title: "Director, Early Childhood Services",
+    email: "brian.mcelhone@stjohns.k12.fl.us",
+    phone: "(904) 547-7500",
+    address: "40 Orange St, St. Augustine, FL 32084",
+    linkedin: "linkedin.com/in/brian-mcelhone-stjohns",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2020,
+    newLeadership: false,
+    buyingSignals: ["High-growth district, 2nd fastest growing in FL"],
+    recentNews: ["St. Johns opens 2 new elementary schools with PreK (2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 16,
+    county: "Lake",
+    district: "Lake County Schools",
+    enrollment: 50000,
+    director: "Patricia Moore",
+    title: "Coordinator, Early Childhood Programs",
+    email: "patricia.moore@lake.k12.fl.us",
+    phone: "(352) 253-6500",
+    address: "29 N Sinclair Ave, Tavares, FL 32778",
+    linkedin: "linkedin.com/search/results/people/?keywords=early+childhood+lake+county+schools+fl",
+    curriculum: "Scholastic Big Day for PreK",
+    curriculumVendor: "Scholastic",
+    curriculumAdoptionYear: 2017,
+    newLeadership: false,
+    buyingSignals: [
+      "Scholastic Big Day aging out — 2017 adoption",
+      "District in active curriculum vendor review",
+    ],
+    recentNews: ["Lake County curriculum audit initiated (Sep 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 17,
+    county: "Collier",
+    district: "Collier County Public Schools",
+    enrollment: 48000,
+    director: "Laura Gonzalez",
+    title: "Director, Early Childhood Education",
+    email: "laura.gonzalez@collierschools.com",
+    phone: "(239) 377-0001",
+    address: "5775 Osceola Trail, Naples, FL 34109",
+    linkedin: "linkedin.com/in/laura-gonzalez-collier-schools",
+    curriculum: "InvestiGator Club",
+    curriculumVendor: "Learning Without Tears",
+    curriculumAdoptionYear: 2022,
+    newLeadership: false,
+    buyingSignals: ["Large ELL population — seeking bilingual curriculum support"],
+    recentNews: ["Collier launches dual-language PreK expansion (Feb 2025)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 18,
+    county: "Sarasota",
+    district: "Sarasota County Schools",
+    enrollment: 42000,
+    director: "Nancy Albrecht",
+    title: "Director, Early Childhood Programs",
+    email: "nalbrecht@sarasotacountyschools.net",
+    phone: "(941) 927-9000",
+    address: "1960 Landings Blvd, Sarasota, FL 34231",
+    linkedin: "linkedin.com/in/nancy-albrecht-sarasota-schools",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2018,
+    newLeadership: false,
+    buyingSignals: [
+      "2018 adoption reaching 8-year mark",
+      "Board approved curriculum modernization budget item",
+    ],
+    recentNews: ["Sarasota County Schools curriculum budget increase approved (Nov 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 19,
+    county: "Marion",
+    district: "Marion County Public Schools",
+    enrollment: 43000,
+    director: "Beth Cobler",
+    title: "Director, Early Childhood & PreK",
+    email: "beth.cobler@marion.k12.fl.us",
+    phone: "(352) 671-7700",
+    address: "512 SE 3rd St, Ocala, FL 34471",
+    linkedin: "linkedin.com/in/beth-cobler-marion",
+    curriculum: "Frog Street Pre-K",
+    curriculumVendor: "Frog Street",
+    curriculumAdoptionYear: 2021,
+    newLeadership: false,
+    buyingSignals: ["Piloting digital family communication tools"],
+    recentNews: ["Marion County VPK expansion approved (Aug 2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  {
+    id: 20,
+    county: "Manatee",
+    district: "Manatee County School District",
+    enrollment: 55000,
+    director: "Sandra Torres",
+    title: "Coordinator, Early Childhood Programs",
+    email: "storres@manateeschools.net",
+    phone: "(941) 708-8770",
+    address: "215 Manatee Ave W, Bradenton, FL 34205",
+    linkedin: "linkedin.com/in/sandra-torres-manatee-schools",
+    curriculum: "The Creative Curriculum for PreK",
+    curriculumVendor: "Teaching Strategies",
+    curriculumAdoptionYear: 2019,
+    newLeadership: true,
+    buyingSignals: [
+      "New coordinator appointed 2024",
+      "District reviewing all early childhood resources",
+    ],
+    recentNews: ["Manatee District hires new EC coordinator, signals curriculum review (2024)"],
+    status: "not contacted",
+    priority: 0,
+    notes: "",
+    activities: [],
+  },
+  // ── SMALLER / REMAINING DISTRICTS ──
+  {
+    id: 21, county: "Alachua", district: "Alachua County Public Schools", enrollment: 28000,
+    director: "Debra Harper", title: "Coordinator, Early Childhood Programs", email: "debra.harper@gm.sbac.edu",
+    phone: "(352) 955-7700", address: "620 E University Ave, Gainesville, FL 32601", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 22, county: "Bay", district: "Bay District Schools", enrollment: 26000,
+    director: "Michelle Kirkland", title: "Director, Early Childhood Programs", email: "michelle.kirkland@bay.k12.fl.us",
+    phone: "(850) 767-4100", address: "1311 Balboa Ave, Panama City, FL 32401", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2023,
+    newLeadership: false, buyingSignals: [], recentNews: ["Bay District adopted Frog Street 2023-24 per CERP"], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 23, county: "Escambia", district: "Escambia County School District", enrollment: 40000,
+    director: "Sharonda Miller", title: "Director, Early Childhood Programs", email: "sharonda.miller@ecsdfl.us",
+    phone: "(850) 469-6120", address: "215 W Garden St, Pensacola, FL 32502", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: ["2019 adoption eligible for review"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 24, county: "Leon", district: "Leon County Schools", enrollment: 33000,
+    director: "Andrea Price", title: "Coordinator, Early Childhood Education", email: "andrea.price@leonschools.net",
+    phone: "(850) 487-7100", address: "2757 W Pensacola St, Tallahassee, FL 32304", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2018,
+    newLeadership: false, buyingSignals: ["State capital district — high visibility", "2018 edition aging"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 25, county: "St. Lucie", district: "St. Lucie County School District", enrollment: 42000,
+    director: "Monica Rivera", title: "Director, Early Childhood Programs", email: "monica.rivera@stlucieschools.org",
+    phone: "(772) 429-3600", address: "501 NW Martin Luther King Jr Blvd, Fort Pierce, FL 34950", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: true, buyingSignals: ["New director 2024", "High ELL population growth"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 26, county: "Putnam", district: "Putnam County School District", enrollment: 10000,
+    director: "Carla Freeman", title: "Coordinator, Early Childhood Programs", email: "carla.freeman@putnamschools.org",
+    phone: "(386) 329-0500", address: "200 Reid St, Palatka, FL 32177", linkedin: "",
+    curriculum: "HighReach Learning", curriculumVendor: "HighReach", curriculumAdoptionYear: 2015,
+    newLeadership: false, buyingSignals: ["2015 adoption — 11 years old, urgent replacement target"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 27, county: "Clay", district: "Clay County District Schools", enrollment: 40000,
+    director: "Lisa Barnett", title: "Coordinator, Early Childhood Programs", email: "lisa.barnett@clay.k12.fl.us",
+    phone: "(904) 336-6800", address: "900 Walnut St, Green Cove Springs, FL 32043", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2021,
+    newLeadership: false, buyingSignals: ["Fast-growing district"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 28, county: "Indian River", district: "Indian River County School District", enrollment: 17000,
+    director: "Teresa Walsh", title: "Director, Early Childhood Education", email: "teresa.walsh@indianriverschools.org",
+    phone: "(772) 564-3000", address: "6500 57th St, Vero Beach, FL 32967", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2017,
+    newLeadership: false, buyingSignals: ["2017 adoption — 9 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 29, county: "Charlotte", district: "Charlotte County Public Schools", enrollment: 19000,
+    director: "Gwen Simmons", title: "Coordinator, Early Childhood Programs", email: "gwen.simmons@yourcharlotteschools.net",
+    phone: "(941) 255-0808", address: "1445 Education Way, Port Charlotte, FL 33948", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 30, county: "Hernando", district: "Hernando County School District", enrollment: 22000,
+    director: "Amy Dunbar", title: "Coordinator, Early Childhood Programs", email: "amy.dunbar@hernandoschools.org",
+    phone: "(352) 797-7000", address: "919 N Broad St, Brooksville, FL 34601", linkedin: "",
+    curriculum: "InvestiGator Club", curriculumVendor: "Learning Without Tears", curriculumAdoptionYear: 2022,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 31, county: "Flagler", district: "Flagler County School District", enrollment: 14000,
+    director: "Kristen Bello", title: "Coordinator, Early Childhood Programs", email: "kristen.bello@flaglerschools.com",
+    phone: "(386) 437-7526", address: "1769 E Moody Blvd, Bunnell, FL 32110", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 32, county: "Nassau", district: "Nassau County School District", enrollment: 14000,
+    director: "Carol Whaley", title: "Coordinator, Early Childhood Programs", email: "carol.whaley@nassau.k12.fl.us",
+    phone: "(904) 491-9900", address: "1201 Atlantic Ave, Fernandina Beach, FL 32034", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 33, county: "Okaloosa", district: "Okaloosa County School District", enrollment: 32000,
+    director: "Pamela Cox", title: "Director, Early Childhood Programs", email: "pamela.cox@okaloosaschools.com",
+    phone: "(850) 689-7190", address: "120 Lowery Place SE, Fort Walton Beach, FL 32548", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: ["Military community, high family mobility"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 34, county: "Santa Rosa", district: "Santa Rosa County School District", enrollment: 30000,
+    director: "Janet Whitfield", title: "Coordinator, Early Childhood Programs", email: "janet.whitfield@santarosa.k12.fl.us",
+    phone: "(850) 983-5000", address: "6032 Highway 90, Milton, FL 32570", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2021,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 35, county: "Highlands", district: "Highlands County School District", enrollment: 11000,
+    director: "Sandra McLendon", title: "Coordinator, Early Childhood Programs", email: "smclendon@highlands.k12.fl.us",
+    phone: "(863) 471-5555", address: "426 School St, Sebring, FL 33870", linkedin: "",
+    curriculum: "HighReach Learning", curriculumVendor: "HighReach", curriculumAdoptionYear: 2016,
+    newLeadership: false, buyingSignals: ["2016 HighReach adoption — 10 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 36, county: "Martin", district: "Martin County School District", enrollment: 19000,
+    director: "Barbara Haas", title: "Coordinator, Early Childhood Programs", email: "barbara.haas@martinschools.org",
+    phone: "(772) 219-1200", address: "500 SE Ocean Blvd, Stuart, FL 34994", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2018,
+    newLeadership: false, buyingSignals: ["2018 adoption nearing 8 years"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 37, county: "Hendry", district: "Hendry County Schools", enrollment: 7000,
+    director: "Maria Dominguez", title: "Coordinator, Early Childhood Programs", email: "mdominguez@hendry-schools.org",
+    phone: "(863) 674-4642", address: "2639 W Sugarland Highway, Clewiston, FL 33440", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: ["High migrant student population — needs bilingual support"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 38, county: "Okeechobee", district: "Okeechobee County School District", enrollment: 7000,
+    director: "Vicki Weeks", title: "Coordinator, Early Childhood Programs", email: "vicki.weeks@okee.k12.fl.us",
+    phone: "(863) 462-5000", address: "700 SW 2nd Ave, Okeechobee, FL 34974", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2017,
+    newLeadership: false, buyingSignals: ["2017 adoption — 9 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 39, county: "Citrus", district: "Citrus County Schools", enrollment: 13000,
+    director: "Linda Thompson", title: "Coordinator, Early Childhood Programs", email: "linda.thompson@citrus.k12.fl.us",
+    phone: "(352) 726-1931", address: "1007 W Main St, Inverness, FL 34450", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 40, county: "Sumter", district: "Sumter County Schools", enrollment: 9000,
+    director: "Robin Morris", title: "Coordinator, Early Childhood Programs", email: "robin.morris@sumter.k12.fl.us",
+    phone: "(352) 793-2315", address: "2680 W CR 476, Bushnell, FL 33513", linkedin: "",
+    curriculum: "InvestiGator Club", curriculumVendor: "Learning Without Tears", curriculumAdoptionYear: 2023,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 41, county: "Levy", district: "Levy County Schools", enrollment: 6500,
+    director: "Paula Andrews", title: "Coordinator, Early Childhood Programs", email: "paula.andrews@levy.k12.fl.us",
+    phone: "(352) 486-5231", address: "480 Marshburn Dr, Bronson, FL 32621", linkedin: "",
+    curriculum: "HighReach Learning", curriculumVendor: "HighReach", curriculumAdoptionYear: 2014,
+    newLeadership: false, buyingSignals: ["2014 adoption — 12 years old, highest priority for replacement"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 42, county: "Columbia", district: "Columbia County School District", enrollment: 9500,
+    director: "Kathy Parker", title: "Coordinator, Early Childhood Programs", email: "kathy.parker@columbia.k12.fl.us",
+    phone: "(386) 755-8000", address: "372 W Duval St, Lake City, FL 32055", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 43, county: "Gadsden", district: "Gadsden County Schools", enrollment: 6000,
+    director: "Essie McKnight", title: "Coordinator, Early Childhood Programs", email: "essie.mcknight@gcsb.net",
+    phone: "(850) 627-9651", address: "35 Martin Luther King Jr Blvd, Quincy, FL 32351", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2016,
+    newLeadership: false, buyingSignals: ["2016 adoption — 10 years old", "High poverty district"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 44, county: "Wakulla", district: "Wakulla County Schools", enrollment: 5500,
+    director: "Lynn Strickland", title: "Coordinator, Early Childhood Programs", email: "lynn.strickland@wakullaschools.org",
+    phone: "(850) 926-7131", address: "69 High Dr, Crawfordville, FL 32327", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2021,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 45, county: "Monroe", district: "Monroe County School District", enrollment: 8500,
+    director: "Ana Suarez", title: "Coordinator, Early Childhood Programs", email: "ana.suarez@keysschools.com",
+    phone: "(305) 293-1400", address: "241 Trumbo Rd, Key West, FL 33040", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: ["Island district, high tourism worker family population"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 46, county: "Jackson", district: "Jackson County School District", enrollment: 7000,
+    director: "Linda Register", title: "Coordinator, Early Childhood Programs", email: "linda.register@jcsb.org",
+    phone: "(850) 482-1200", address: "4840 College Ave, Marianna, FL 32446", linkedin: "",
+    curriculum: "HighReach Learning", curriculumVendor: "HighReach", curriculumAdoptionYear: 2015,
+    newLeadership: false, buyingSignals: ["2015 HighReach — 11 years old, urgent"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 47, county: "Holmes", district: "Holmes County School District", enrollment: 3500,
+    director: "Sandra Pittman", title: "Coordinator, Early Childhood Programs", email: "sandra.pittman@holmes.k12.fl.us",
+    phone: "(850) 547-9341", address: "701 E Pennsylvania Ave, Bonifay, FL 32425", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 48, county: "Walton", district: "Walton County School District", enrollment: 9000,
+    director: "Dana Ramsey", title: "Coordinator, Early Childhood Programs", email: "dana.ramsey@walton.k12.fl.us",
+    phone: "(850) 892-1100", address: "145 Park St, DeFuniak Springs, FL 32435", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 49, county: "Washington", district: "Washington County School District", enrollment: 3200,
+    director: "Betty Williams", title: "Coordinator, Early Childhood Programs", email: "betty.williams@wcsd.k12.fl.us",
+    phone: "(850) 638-6222", address: "641 3rd St, Chipley, FL 32428", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 50, county: "Calhoun", district: "Calhoun County School District", enrollment: 2500,
+    director: "Judy Peacock", title: "Coordinator, Early Childhood Programs", email: "judy.peacock@calhoun.k12.fl.us",
+    phone: "(850) 674-5927", address: "20859 Central Ave E, Blountstown, FL 32424", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2017,
+    newLeadership: false, buyingSignals: ["2017 adoption — 9 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 51, county: "Gulf", district: "Gulf County Schools", enrollment: 2800,
+    director: "Marie Henderson", title: "Coordinator, Early Childhood Programs", email: "marie.henderson@gulf.k12.fl.us",
+    phone: "(850) 229-8256", address: "150 Middle School Rd, Port St. Joe, FL 32456", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2021,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 52, county: "Franklin", district: "Franklin County School District", enrollment: 1800,
+    director: "Pam Jordan", title: "Coordinator, Early Childhood Programs", email: "pam.jordan@franklin.k12.fl.us",
+    phone: "(850) 653-8981", address: "43 School Rd, Apalachicola, FL 32320", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2018,
+    newLeadership: false, buyingSignals: ["Small rural district — limited vendor support"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 53, county: "Liberty", district: "Liberty County School District", enrollment: 1500,
+    director: "Tammy Vause", title: "Coordinator, Early Childhood Programs", email: "tammy.vause@liberty.k12.fl.us",
+    phone: "(850) 643-2275", address: "14157 N CR 12, Bristol, FL 32321", linkedin: "",
+    curriculum: "HighReach Learning", curriculumVendor: "HighReach", curriculumAdoptionYear: 2013,
+    newLeadership: false, buyingSignals: ["2013 adoption — 13 years old, extremely urgent"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 54, county: "Jefferson", district: "Jefferson County School District", enrollment: 2000,
+    director: "Carolyn Bailey", title: "Coordinator, Early Childhood Programs", email: "carolyn.bailey@jefferson.k12.fl.us",
+    phone: "(850) 342-0100", address: "1490 W Washington St, Monticello, FL 32344", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 55, county: "Madison", district: "Madison County Schools", enrollment: 3500,
+    director: "Loretta Cox", title: "Coordinator, Early Childhood Programs", email: "loretta.cox@madison.k12.fl.us",
+    phone: "(850) 973-5022", address: "210 NE Duval Ave, Madison, FL 32340", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2016,
+    newLeadership: false, buyingSignals: ["2016 adoption — 10 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 56, county: "Taylor", district: "Taylor County School District", enrollment: 3500,
+    director: "Denise Stafford", title: "Coordinator, Early Childhood Programs", email: "denise.stafford@taylor.k12.fl.us",
+    phone: "(850) 838-2500", address: "318 N Clark St, Perry, FL 32347", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 57, county: "Suwannee", district: "Suwannee County Schools", enrollment: 6000,
+    director: "Mary Peele", title: "Coordinator, Early Childhood Programs", email: "mary.peele@suwannee.k12.fl.us",
+    phone: "(386) 647-4600", address: "1729 Walker Ave SW, Live Oak, FL 32064", linkedin: "",
+    curriculum: "InvestiGator Club", curriculumVendor: "Learning Without Tears", curriculumAdoptionYear: 2022,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 58, county: "Lafayette", district: "Lafayette County School District", enrollment: 1500,
+    director: "Nancy Adams", title: "Coordinator, Early Childhood Programs", email: "nancy.adams@lafayette.k12.fl.us",
+    phone: "(386) 294-1351", address: "574 NW SR 51, Mayo, FL 32066", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 59, county: "Gilchrist", district: "Gilchrist County School District", enrollment: 3000,
+    director: "Rachel Stone", title: "Coordinator, Early Childhood Programs", email: "rachel.stone@gilchrist.k12.fl.us",
+    phone: "(352) 463-3200", address: "310 NW 11th Ave, Trenton, FL 32693", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2018,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 60, county: "Dixie", district: "Dixie County School District", enrollment: 2200,
+    director: "Emily Porter", title: "Coordinator, Early Childhood Programs", email: "emily.porter@dixie.k12.fl.us",
+    phone: "(352) 498-6131", address: "16077 NE 19th Lane, Cross City, FL 32628", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 61, county: "Bradford", district: "Bradford County School District", enrollment: 4500,
+    director: "Susan Baxley", title: "Coordinator, Early Childhood Programs", email: "susan.baxley@bradford.k12.fl.us",
+    phone: "(904) 966-6018", address: "501 W Washington St, Starke, FL 32091", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2017,
+    newLeadership: false, buyingSignals: ["2017 adoption — 9 years old"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 62, county: "Union", district: "Union County School District", enrollment: 2000,
+    director: "Patricia Wilcox", title: "Coordinator, Early Childhood Programs", email: "patricia.wilcox@union.k12.fl.us",
+    phone: "(386) 496-2045", address: "55 SW 6th St, Lake Butler, FL 32054", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2020,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 63, county: "Glades", district: "Glades County District Schools", enrollment: 1800,
+    director: "Beverly Hill", title: "Coordinator, Early Childhood Programs", email: "beverly.hill@glades.k12.fl.us",
+    phone: "(863) 946-2083", address: "155 Cyclamen St, Moore Haven, FL 33471", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2016,
+    newLeadership: false, buyingSignals: ["2016 adoption — 10 years old", "Rural district limited vendor support"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 64, county: "Hamilton", district: "Hamilton County Schools", enrollment: 2500,
+    director: "Alice Grant", title: "Coordinator, Early Childhood Programs", email: "alice.grant@hamiltonfl.com",
+    phone: "(386) 792-6500", address: "4280 SW Canfield Rd, Jasper, FL 32052", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 65, county: "Hardee", district: "Hardee County Schools", enrollment: 5500,
+    director: "Carmen Fuentes", title: "Coordinator, Early Childhood Programs", email: "carmen.fuentes@hardee.k12.fl.us",
+    phone: "(863) 773-9058", address: "1213 N 6th Ave, Wauchula, FL 33873", linkedin: "",
+    curriculum: "Frog Street Pre-K", curriculumVendor: "Frog Street", curriculumAdoptionYear: 2019,
+    newLeadership: false, buyingSignals: ["High migrant/ELL population"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 66, county: "DeSoto", district: "DeSoto County Schools", enrollment: 5500,
+    director: "Rosa Avila", title: "Coordinator, Early Childhood Programs", email: "rosa.avila@desotoschools.com",
+    phone: "(863) 494-4222", address: "530 LaPlant St, Arcadia, FL 34266", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2017,
+    newLeadership: false, buyingSignals: ["2017 adoption — 9 years old", "High ELL/migrant family population"], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  {
+    id: 67, county: "Baker", district: "Baker County School District", enrollment: 4000,
+    director: "Donna Barnes", title: "Coordinator, Early Childhood Programs", email: "donna.barnes@baker.k12.fl.us",
+    phone: "(904) 259-0401", address: "392 S Blvd E, Macclenny, FL 32063", linkedin: "",
+    curriculum: "The Creative Curriculum for PreK", curriculumVendor: "Teaching Strategies", curriculumAdoptionYear: 2018,
+    newLeadership: false, buyingSignals: [], recentNews: [], status: "not contacted", priority: 0, notes: "", activities: [],
+  },
+  // ── TEST PROSPECT ──
+  {
+    id: 68,
+    county: "Test",
+    district: "brightwheel",
+    enrollment: 500,
+    director: "Eric Truog",
+    title: "Director, Business Operations",
+    email: "eric.truog@mybrightwheel.com",
+    phone: "(555) 000-0001",
+    address: "548 Market St, San Francisco, CA 94104",
+    linkedin: "linkedin.com/in/eric-truog",
+    curriculum: "EC",
+    curriculumVendor: "Internal",
+    curriculumAdoptionYear: 2026,
+    newLeadership: false,
+    buyingSignals: [
+      "Summer program coming up — ideal for Experience Preschool bridge curriculum",
+    ],
+    recentNews: [
+      "brightwheel test prospect — used to validate outreach email workflow",
+    ],
+    status: "not contacted",
+    priority: 0,
+    notes: "TEST PROSPECT — for workflow validation only.",
+    activities: [],
+  },
+];
+
+// ─── PRIORITY SCORING ALGORITHM ──────────────────────────────────────────────
+function calculatePriorityScore(d) {
+  let score = 0;
+  const currentYear = 2026;
+  const age = currentYear - d.curriculumAdoptionYear;
+
+  // Enrollment weight (max 30 pts)
+  score += Math.min((d.enrollment / 334000) * 30, 30);
+
+  // Curriculum age (max 35 pts)
+  if (age >= 8) score += 35;
+  else if (age >= 6) score += 28;
+  else if (age >= 4) score += 20;
+  else if (age >= 3) score += 12;
+  else if (age >= 2) score += 5;
+  else score += 0;
+
+  // Buying signals (max 25 pts, 8pt per signal capped)
+  score += Math.min(d.buyingSignals.length * 8, 25);
+
+  // New leadership bonus (10 pts)
+  if (d.newLeadership) score += 10;
+
+  return Math.round(Math.min(score, 100));
+}
+
+function getPriorityLabel(score) {
+  if (score >= 75) return { label: "🔥 Hot", color: "bg-red-100 text-red-700 border border-red-300" };
+  if (score >= 55) return { label: "🌡️ Warm", color: "bg-orange-100 text-orange-700 border border-orange-300" };
+  if (score >= 35) return { label: "💧 Cool", color: "bg-blue-100 text-blue-700 border border-blue-300" };
+  return { label: "❄️ Cold", color: "bg-gray-100 text-gray-500 border border-gray-200" };
+}
+
+// ─── EMAIL TEMPLATES ─────────────────────────────────────────────────────────
+function generateEmail(district, template) {
+  const firstName = district.director.split(" ")[0];
+  const hasSummerSignal = district.buyingSignals.some((s) =>
+    s.toLowerCase().includes("summer")
+  );
+
+  const summerPersonalization = hasSummerSignal
+    ? `I also noticed ${district.district} has a summer program coming up — brightwheel's Experience Preschool is especially well-suited for 4–8 week summer bridge programs, with lessons pre-packaged and organized by the day so your team can hit the ground running.`
+    : `brightwheel's Experience Preschool is a flexible, play-based curriculum designed to support 4–8 week summer programs that help incoming Kindergarten students build the skills measured in readiness assessments. Because lessons are pre-packaged and organized by the day, many districts use it for summer bridge programs.`;
+
+  const signature = `Best,
+Christie Cooley
+Head of District Partnerships | brightwheel
+christie.cooley@mybrightwheel.com | 678-464-1018`;
+
+  const templates = {
+    initial: `Subject: Supporting VPK → Kindergarten Readiness at ${district.district}
+
+Hi ${firstName},
+
+Many districts are looking for ways to increase Kindergarten readiness scores and support VPK students transitioning into Kindergarten.
+
+${summerPersonalization}
+
+I'd be happy to share a quick overview or send sample materials — just reply here or use the link below to schedule a quick connect.
+
+Schedule time with me: https://calendly.com/christie-cooley-brightwheel
+
+${signature}`,
+
+    followup1: `Subject: Following up — Kindergarten readiness support for ${district.county} County
+
+Hi ${firstName},
+
+Just following up on my note from last week. I know things are busy, so I'll keep this brief.
+
+brightwheel's Experience Preschool is already in use across 50+ Florida school districts to support VPK students transitioning into Kindergarten. Directors consistently tell us two things: the pre-packaged daily lessons cut their prep time significantly, and families love the built-in progress updates.
+
+${hasSummerSignal ? `Given your summer program coming up, I'd love to get sample materials in your hands before the session starts.` : `If summer readiness or transition programming is on your radar, I'd love to get sample materials in front of your team.`}
+
+Happy to send over a case study from a district similar to ${district.district}, or schedule a quick overview — whatever is most useful.
+
+${signature}`,
+
+    followup2: `Subject: One last note — ${district.county} County PreK + brightwheel
+
+Hi ${firstName},
+
+Last nudge, I promise.
+
+Many districts are looking for ways to increase Kindergarten readiness scores and support VPK students transitioning into Kindergarten. Brightwheel's Experience Preschool is a flexible, play-based curriculum designed to support exactly that — with lessons pre-packaged and organized by the day so your team isn't starting from scratch.
+
+${hasSummerSignal ? `With your summer program coming up, the timing feels right. I can have sample materials to you in 24 hours.` : `If this is something worth exploring for an upcoming program cycle, I can have sample materials to you in 24 hours.`}
+
+No pressure — just here when the timing is right.
+
+${signature}`,
+
+    linkedin: `Hi ${firstName}, I'm Christie at brightwheel — I work with Florida school districts on VPK-to-Kindergarten transition programming. I'd love to connect and share how brightwheel's Experience Preschool is helping districts like ${district.district} support readiness scores and summer bridge programs. Happy to connect!`,
+  };
+
+  return templates[template] || "";
+}
+
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
+function BrightwheelDashboard() {
+  const [districts, setDistricts] = useState(() =>
+    INITIAL_DISTRICTS.map((d) => ({ ...d, priority: calculatePriorityScore(d) })).sort(
+      (a, b) => b.priority - a.priority
+    )
+  );
+
+  const [activeTab, setActiveTab] = useState("prospects");
+  const [search, setSearch] = useState("");
+  const [filterPriority, setFilterPriority] = useState("all");
+  const [filterCurriculum, setFilterCurriculum] = useState("all");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [modalTab, setModalTab] = useState("overview");
+  const [approvalQueue, setApprovalQueue] = useState([]);
+  const [activityLog, setActivityLog] = useState([]);
+  const [newNote, setNewNote] = useState("");
+  const [newActivity, setNewActivity] = useState({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
+  const [notification, setNotification] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState("initial");
+  const [emailPreview, setEmailPreview] = useState("");
+  const [showEmailPreview, setShowEmailPreview] = useState(false);
+
+  const showNotif = (msg, color = "green") => {
+    setNotification({ msg, color });
+    setTimeout(() => setNotification(null), 3500);
+  };
+
+  // ── FILTERED DISTRICTS ──
+  const filtered = useMemo(() => {
+    return districts.filter((d) => {
+      const matchSearch =
+        d.district.toLowerCase().includes(search.toLowerCase()) ||
+        d.director.toLowerCase().includes(search.toLowerCase()) ||
+        d.county.toLowerCase().includes(search.toLowerCase());
+      const matchPriority =
+        filterPriority === "all" ||
+        (filterPriority === "hot" && d.priority >= 75) ||
+        (filterPriority === "warm" && d.priority >= 55 && d.priority < 75) ||
+        (filterPriority === "cool" && d.priority >= 35 && d.priority < 55) ||
+        (filterPriority === "cold" && d.priority < 35);
+      const matchCurriculum =
+        filterCurriculum === "all" || d.curriculumVendor === filterCurriculum;
+      const matchStatus = filterStatus === "all" || d.status === filterStatus;
+      return matchSearch && matchPriority && matchCurriculum && matchStatus;
+    });
+  }, [districts, search, filterPriority, filterCurriculum, filterStatus]);
+
+  // ── STATS ──
+  const stats = useMemo(() => ({
+    total: districts.length,
+    hot: districts.filter((d) => d.priority >= 75).length,
+    warm: districts.filter((d) => d.priority >= 55 && d.priority < 75).length,
+    contacted: districts.filter((d) => d.status !== "not contacted").length,
+    queue: approvalQueue.length,
+  }), [districts, approvalQueue]);
+
+  const updateDistrict = (id, updates) => {
+    setDistricts((prev) => prev.map((d) => (d.id === id ? { ...d, ...updates } : d)));
+    if (selectedDistrict?.id === id) setSelectedDistrict((prev) => ({ ...prev, ...updates }));
+  };
+
+  const addActivity = (district) => {
+    if (!newActivity.notes) return;
+    const act = { ...newActivity, id: Date.now(), district: district.district, directorName: district.director };
+    const updatedActivities = [...(district.activities || []), act];
+    updateDistrict(district.id, { activities: updatedActivities, status: newActivity.type === "meeting" ? "meeting scheduled" : district.status });
+    setActivityLog((prev) => [act, ...prev]);
+    setNewActivity({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
+    showNotif("Activity logged ✓");
+  };
+
+  const queueEmail = (district, template) => {
+    const body = generateEmail(district, template);
+    const item = {
+      id: Date.now(),
+      district: district.district,
+      districtId: district.id,
+      to: district.email,
+      directorName: district.director,
+      template,
+      body,
+      status: "pending",
+      createdAt: new Date().toLocaleString(),
+    };
+    setApprovalQueue((prev) => [item, prev.find((x) => x.districtId === district.id && x.template === template) ? null : item].filter(Boolean));
+    setApprovalQueue((prev) => {
+      const exists = prev.find((x) => x.districtId === district.id && x.template === template);
+      if (exists) return prev;
+      return [item, ...prev];
+    });
+    updateDistrict(district.id, { status: "reached out" });
+    showNotif(`📧 Email queued for Slack approval — ${district.director}`);
+  };
+
+  const approveEmail = (queueItem) => {
+    setApprovalQueue((prev) => prev.filter((x) => x.id !== queueItem.id));
+    showNotif(`✅ Approved & sent to Gmail drafts — ${queueItem.directorName}`);
+  };
+
+  const rejectEmail = (id) => {
+    setApprovalQueue((prev) => prev.filter((x) => x.id !== id));
+    showNotif("Email removed from queue.", "red");
+  };
+
+  const CURRICULUM_VENDORS = [...new Set(INITIAL_DISTRICTS.map((d) => d.curriculumVendor))];
+  const STATUSES = ["not contacted", "reached out", "responded", "meeting scheduled", "proposal sent", "closed won", "closed lost"];
+
+  const statusColor = (s) => {
+    if (s === "closed won") return "text-green-600 font-semibold";
+    if (s === "closed lost") return "text-red-500";
+    if (s === "meeting scheduled") return "text-purple-600 font-semibold";
+    if (s === "proposal sent") return "text-blue-600";
+    if (s === "responded") return "text-teal-600";
+    if (s === "reached out") return "text-orange-600";
+    return "text-gray-400";
+  };
+
+  // ─── RENDER ───────────────────────────────────────────────────────────────
+  return (
+    <div className="min-h-screen bg-gray-50 font-sans text-sm text-gray-800">
+      {/* NOTIFICATION */}
+      {notification && (
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-white font-medium transition-all ${notification.color === "red" ? "bg-red-500" : "bg-green-600"}`}>
+          {notification.msg}
+        </div>
+      )}
+
+      {/* HEADER */}
+      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">bw</div>
+          <div>
+            <h1 className="text-base font-bold text-gray-900">brightwheel · Florida PreK Sales Intelligence</h1>
+            <p className="text-xs text-gray-400">Early Childhood Director Outreach — All 67 School Districts</p>
+          </div>
+        </div>
+        <div className="flex gap-4 text-center">
+          {[
+            { label: "Total Districts", val: stats.total, color: "text-gray-700" },
+            { label: "🔥 Hot Leads", val: stats.hot, color: "text-red-600" },
+            { label: "🌡️ Warm Leads", val: stats.warm, color: "text-orange-500" },
+            { label: "Contacted", val: stats.contacted, color: "text-indigo-600" },
+            { label: "Pending Approval", val: stats.queue, color: "text-purple-600" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className={`text-xl font-bold ${s.color}`}>{s.val}</div>
+              <div className="text-xs text-gray-400">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* TABS */}
+      <div className="bg-white border-b border-gray-200 px-6 flex gap-1">
+        {[
+          { id: "prospects", label: "📋 Prospects" },
+          { id: "outreach", label: "📤 Outreach Planner" },
+          { id: "templates", label: "✉️ Email Templates" },
+          { id: "activity", label: "📞 Activity Log" },
+          { id: "approval", label: `✅ Approval Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
+        ].map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
+            className={`px-4 py-3 text-xs font-medium border-b-2 transition-colors ${activeTab === t.id ? "border-indigo-600 text-indigo-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="px-6 py-4">
+        {/* ── PROSPECTS TAB ── */}
+        {activeTab === "prospects" && (
+          <div>
+            {/* Filters */}
+            <div className="flex flex-wrap gap-3 mb-4 items-center">
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="🔍 Search district, director, county..."
+                className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+              />
+              {[
+                { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
+                { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
+                { label: "Status", val: filterStatus, setter: setFilterStatus, opts: [["all","All Statuses"], ...STATUSES.map(s => [s, s])] },
+              ].map((f) => (
+                <select
+                  key={f.label}
+                  value={f.val}
+                  onChange={(e) => f.setter(e.target.value)}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                >
+                  {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                </select>
+              ))}
+              <span className="text-xs text-gray-400 ml-2">{filtered.length} results</span>
+            </div>
+
+            {/* Table */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <table className="w-full text-xs">
+                <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wide">
+                  <tr>
+                    {["Priority", "District", "Director", "Curriculum", "Adopted", "Age", "Enrollment", "Signals", "Status", "Actions"].map((h) => (
+                      <th key={h} className="px-3 py-3 text-left font-medium">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((d, i) => {
+                    const p = getPriorityLabel(d.priority);
+                    const age = 2026 - d.curriculumAdoptionYear;
+                    return (
+                      <tr key={d.id} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
+                        <td className="px-3 py-2.5">
+                          <div className="flex flex-col gap-1">
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium w-fit ${p.color}`}>{p.label}</span>
+                            <span className="text-gray-400 text-xs">{d.priority}/100</span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <div className="font-medium text-gray-900">{d.county} County</div>
+                          <div className="text-gray-400 text-xs truncate max-w-32">{d.district}</div>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <div className="font-medium">{d.director}</div>
+                          <div className="text-gray-400 truncate max-w-36">{d.email}</div>
+                          <div className="text-gray-400">{d.phone}</div>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <span className="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-xs">{d.curriculum}</span>
+                        </td>
+                        <td className="px-3 py-2.5 text-center">{d.curriculumAdoptionYear}</td>
+                        <td className="px-3 py-2.5 text-center">
+                          <span className={`font-bold ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
+                        </td>
+                        <td className="px-3 py-2.5 text-right">{d.enrollment.toLocaleString()}</td>
+                        <td className="px-3 py-2.5">
+                          {d.buyingSignals.length > 0 ? (
+                            <span className="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded text-xs">{d.buyingSignals.length} signal{d.buyingSignals.length > 1 ? "s" : ""}</span>
+                          ) : <span className="text-gray-300">—</span>}
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <select
+                            value={d.status}
+                            onChange={(e) => updateDistrict(d.id, { status: e.target.value })}
+                            className={`text-xs border-0 bg-transparent focus:outline-none cursor-pointer ${statusColor(d.status)}`}
+                          >
+                            {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                          </select>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}
+                              className="bg-indigo-600 text-white px-2 py-1 rounded text-xs hover:bg-indigo-700"
+                            >
+                              View
+                            </button>
+                            <button
+                              onClick={() => queueEmail(d, "initial")}
+                              className="bg-green-600 text-white px-2 py-1 rounded text-xs hover:bg-green-700"
+                            >
+                              Email
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {filtered.length === 0 && (
+                <div className="text-center py-12 text-gray-400">No districts match your filters.</div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ── OUTREACH PLANNER TAB ── */}
+        {activeTab === "outreach" && (
+          <div>
+            <div className="mb-4">
+              <h2 className="text-base font-bold text-gray-900">Outreach Planner</h2>
+              <p className="text-xs text-gray-500 mt-1">Recommended 4-touch outreach sequence per district. Priority-sorted.</p>
+            </div>
+            <div className="grid gap-4">
+              {districts.filter((d) => d.priority >= 55).slice(0, 20).map((d) => {
+                const p = getPriorityLabel(d.priority);
+                const age = 2026 - d.curriculumAdoptionYear;
+                const touches = [
+                  { label: "Email #1 — Initial Outreach", template: "initial", done: d.activities?.some((a) => a.type === "email") },
+                  { label: "LinkedIn Connect + Note", template: "linkedin", done: false },
+                  { label: "Email #2 — Follow Up", template: "followup1", done: false },
+                  { label: "Email #3 — Final Touch", template: "followup2", done: false },
+                ];
+                return (
+                  <div key={d.id} className="bg-white rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${p.color}`}>{p.label}</span>
+                          <span className="font-semibold text-gray-900">{d.district}</span>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-0.5">{d.director} · {d.email} · {d.phone}</div>
+                        <div className="text-xs text-gray-400 mt-0.5">Current: <span className="text-indigo-600">{d.curriculum}</span> (adopted {d.curriculumAdoptionYear} — <span className="font-semibold text-red-500">{age} yrs old</span>)</div>
+                      </div>
+                      <span className={`text-xs ${statusColor(d.status)}`}>{d.status}</span>
+                    </div>
+                    {d.buyingSignals.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {d.buyingSignals.map((s, i) => (
+                          <span key={i} className="bg-amber-50 border border-amber-200 text-amber-700 px-2 py-0.5 rounded text-xs">⚡ {s}</span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="grid grid-cols-4 gap-2">
+                      {touches.map((t, i) => (
+                        <div key={i} className={`rounded-lg border p-2 ${t.done ? "bg-green-50 border-green-200" : "bg-gray-50 border-gray-200"}`}>
+                          <div className="text-xs font-medium text-gray-700 mb-1">Step {i + 1}</div>
+                          <div className="text-xs text-gray-500 mb-2">{t.label}</div>
+                          {t.template === "linkedin" ? (
+                            <button
+                              onClick={() => { setSelectedDistrict(d); setEmailPreview(generateEmail(d, "linkedin")); setShowEmailPreview(true); }}
+                              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                            >
+                              Copy Message
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => queueEmail(d, t.template)}
+                              className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
+                            >
+                              Queue Email
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ── EMAIL TEMPLATES TAB ── */}
+        {activeTab === "templates" && (
+          <div className="max-w-4xl">
+            <div className="mb-4">
+              <h2 className="text-base font-bold text-gray-900">Email Templates</h2>
+              <p className="text-xs text-gray-500 mt-1">Preview and customize outreach templates. Select a district to auto-personalize.</p>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div>
+                <label className="text-xs font-medium text-gray-600 block mb-1">Select District</label>
+                <select
+                  onChange={(e) => setSelectedDistrict(districts.find((d) => d.id === parseInt(e.target.value)) || null)}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
+                >
+                  <option value="">— Choose a district —</option>
+                  {districts.slice(0, 30).map((d) => <option key={d.id} value={d.id}>{d.county} — {d.director}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs font-medium text-gray-600 block mb-1">Template</label>
+                <select
+                  value={selectedTemplate}
+                  onChange={(e) => setSelectedTemplate(e.target.value)}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
+                >
+                  <option value="initial">Email #1 — Initial Outreach</option>
+                  <option value="followup1">Email #2 — First Follow Up</option>
+                  <option value="followup2">Email #3 — Final Touch</option>
+                  <option value="linkedin">LinkedIn Note</option>
+                </select>
+              </div>
+            </div>
+            {selectedDistrict && (
+              <div className="bg-white rounded-xl border border-gray-200 p-4">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="font-semibold text-gray-900">Preview — {selectedDistrict.director} at {selectedDistrict.county} County</h3>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => { navigator.clipboard?.writeText(generateEmail(selectedDistrict, selectedTemplate)); showNotif("Copied to clipboard ✓"); }}
+                      className="text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
+                    >Copy</button>
+                    <button
+                      onClick={() => queueEmail(selectedDistrict, selectedTemplate)}
+                      className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
+                    >Queue for Slack Approval →</button>
+                  </div>
+                </div>
+                <pre className="text-xs text-gray-700 whitespace-pre-wrap bg-gray-50 rounded-lg p-4 leading-relaxed font-sans">
+                  {generateEmail(selectedDistrict, selectedTemplate)}
+                </pre>
+              </div>
+            )}
+            {!selectedDistrict && (
+              <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
+                Select a district above to preview a personalized email template.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── ACTIVITY LOG TAB ── */}
+        {activeTab === "activity" && (
+          <div className="max-w-3xl">
+            <div className="mb-4">
+              <h2 className="text-base font-bold text-gray-900">Activity Log</h2>
+              <p className="text-xs text-gray-500 mt-1">Track all calls, emails, and LinkedIn touchpoints. Open a district to log an activity.</p>
+            </div>
+            {activityLog.length === 0 ? (
+              <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
+                <p className="font-medium">No activities yet.</p>
+                <p className="text-xs mt-1">Open a district from the Prospects tab and log a call, email, or note.</p>
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                {activityLog.map((a) => (
+                  <div key={a.id} className="border-b border-gray-100 last:border-b-0 px-4 py-3 flex gap-3 items-start">
+                    <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center text-sm flex-shrink-0 ${
+                      a.type === "email" ? "bg-blue-100 text-blue-600" :
+                      a.type === "call" ? "bg-green-100 text-green-600" :
+                      a.type === "linkedin" ? "bg-indigo-100 text-indigo-600" :
+                      "bg-gray-100 text-gray-600"
+                    }`}>
+                      {a.type === "email" ? "✉️" : a.type === "call" ? "📞" : a.type === "linkedin" ? "🔗" : "📝"}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex justify-between">
+                        <span className="font-medium text-gray-800">{a.district}</span>
+                        <span className="text-xs text-gray-400">{a.date}</span>
+                      </div>
+                      <span className="text-xs text-gray-400 capitalize">{a.type} · {a.directorName}</span>
+                      <p className="text-xs text-gray-600 mt-1">{a.notes}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── APPROVAL QUEUE TAB ── */}
+        {activeTab === "approval" && (
+          <div className="max-w-3xl">
+            <div className="mb-4">
+              <h2 className="text-base font-bold text-gray-900">Slack Approval Queue</h2>
+              <p className="text-xs text-gray-500 mt-1">
+                Review and approve outreach emails before they go to Gmail drafts. Click <strong>Approve → Gmail</strong> to finalize.
+              </p>
+            </div>
+            {approvalQueue.length === 0 ? (
+              <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
+                <p className="font-medium">Queue is empty.</p>
+                <p className="text-xs mt-1">Queue emails from the Prospects or Outreach Planner tabs.</p>
+              </div>
+            ) : (
+              <div className="grid gap-4">
+                {approvalQueue.map((item) => (
+                  <div key={item.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div className="bg-purple-50 border-b border-purple-100 px-4 py-3 flex justify-between items-center">
+                      <div>
+                        <span className="font-semibold text-purple-800">{item.district}</span>
+                        <span className="text-xs text-purple-500 ml-2">· {item.template.replace(/\d/, (m) => ` #${m}`)} · To: {item.to}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => approveEmail(item)}
+                          className="bg-green-600 text-white text-xs px-3 py-1.5 rounded-lg hover:bg-green-700 font-medium"
+                        >
+                          ✓ Approve → Gmail
+                        </button>
+                        <button
+                          onClick={() => rejectEmail(item.id)}
+                          className="bg-red-50 text-red-600 border border-red-200 text-xs px-3 py-1.5 rounded-lg hover:bg-red-100"
+                        >
+                          ✕ Remove
+                        </button>
+                      </div>
+                    </div>
+                    <pre className="text-xs text-gray-700 whitespace-pre-wrap p-4 leading-relaxed font-sans bg-white max-h-64 overflow-y-auto">
+                      {item.body}
+                    </pre>
+                    <div className="px-4 py-2 bg-gray-50 border-t border-gray-100 text-xs text-gray-400">
+                      Queued: {item.createdAt}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* ── DISTRICT DETAIL MODAL ── */}
+      {selectedDistrict && (
+        <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center p-4" onClick={(e) => { if (e.target === e.currentTarget) setSelectedDistrict(null); }}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-start rounded-t-2xl">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityLabel(selectedDistrict.priority).color}`}>
+                    {getPriorityLabel(selectedDistrict.priority).label} · {selectedDistrict.priority}/100
+                  </span>
+                  {selectedDistrict.newLeadership && <span className="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full">🆕 New Leadership</span>}
+                </div>
+                <h2 className="text-lg font-bold text-gray-900 mt-1">{selectedDistrict.district}</h2>
+                <p className="text-sm text-gray-500">{selectedDistrict.address}</p>
+              </div>
+              <button onClick={() => setSelectedDistrict(null)} className="text-gray-400 hover:text-gray-700 text-xl font-light mt-1">✕</button>
+            </div>
+
+            {/* Modal Tabs */}
+            <div className="border-b border-gray-200 px-6 flex gap-1">
+              {["overview", "buying signals", "outreach", "log activity"].map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setModalTab(t)}
+                  className={`px-4 py-2.5 text-xs font-medium border-b-2 capitalize transition-colors ${modalTab === t ? "border-indigo-600 text-indigo-600" : "border-transparent text-gray-400 hover:text-gray-700"}`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+
+            <div className="p-6">
+              {modalTab === "overview" && (
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Director Contact</h3>
+                    <div className="space-y-2 text-sm">
+                      <div><span className="text-gray-500">Name:</span> <span className="font-medium">{selectedDistrict.director}</span></div>
+                      <div><span className="text-gray-500">Title:</span> {selectedDistrict.title}</div>
+                      <div><span className="text-gray-500">Email:</span> <a href={`mailto:${selectedDistrict.email}`} className="text-indigo-600 hover:underline">{selectedDistrict.email}</a></div>
+                      <div><span className="text-gray-500">Phone:</span> {selectedDistrict.phone}</div>
+                      <div><span className="text-gray-500">LinkedIn:</span> {selectedDistrict.linkedin ? <a href={`https://${selectedDistrict.linkedin}`} target="_blank" className="text-blue-500 hover:underline">View Profile</a> : <span className="text-gray-300">Not found</span>}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Curriculum Profile</h3>
+                    <div className="space-y-2 text-sm">
+                      <div><span className="text-gray-500">Current:</span> <span className="font-medium text-indigo-700">{selectedDistrict.curriculum}</span></div>
+                      <div><span className="text-gray-500">Vendor:</span> {selectedDistrict.curriculumVendor}</div>
+                      <div><span className="text-gray-500">Adopted:</span> {selectedDistrict.curriculumAdoptionYear} <span className="text-red-500 font-medium">({2026 - selectedDistrict.curriculumAdoptionYear} years ago)</span></div>
+                      <div><span className="text-gray-500">Enrollment:</span> {selectedDistrict.enrollment.toLocaleString()}</div>
+                      <div><span className="text-gray-500">Status:</span>
+                        <select
+                          value={selectedDistrict.status}
+                          onChange={(e) => updateDistrict(selectedDistrict.id, { status: e.target.value })}
+                          className={`ml-2 text-xs border border-gray-200 rounded px-2 py-0.5 ${statusColor(selectedDistrict.status)}`}
+                        >
+                          {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  {selectedDistrict.recentNews.length > 0 && (
+                    <div className="col-span-2">
+                      <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Recent News</h3>
+                      {selectedDistrict.recentNews.map((n, i) => (
+                        <div key={i} className="flex items-start gap-2 text-sm text-gray-700 mb-1">
+                          <span className="text-indigo-400 mt-0.5">📰</span>{n}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="col-span-2">
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Notes</h3>
+                    <textarea
+                      value={selectedDistrict.notes}
+                      onChange={(e) => updateDistrict(selectedDistrict.id, { notes: e.target.value })}
+                      placeholder="Add notes about this district..."
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 h-24 resize-none"
+                    />
+                  </div>
+                  {selectedDistrict.activities?.length > 0 && (
+                    <div className="col-span-2">
+                      <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Contact History</h3>
+                      {selectedDistrict.activities.map((a) => (
+                        <div key={a.id} className="flex gap-2 items-start text-xs text-gray-600 border-l-2 border-indigo-200 pl-3 mb-2">
+                          <span className="font-medium capitalize text-indigo-600">{a.type}</span>
+                          <span className="text-gray-400">{a.date}</span>
+                          <span>— {a.notes}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {modalTab === "buying signals" && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Why Now — Buying Signals</h3>
+                  {selectedDistrict.buyingSignals.length === 0 ? (
+                    <p className="text-gray-400 text-sm">No specific buying signals identified yet.</p>
+                  ) : (
+                    <div className="space-y-3">
+                      {selectedDistrict.buyingSignals.map((s, i) => (
+                        <div key={i} className="bg-amber-50 border border-amber-200 rounded-lg p-3 flex gap-3">
+                          <span className="text-amber-500 text-lg mt-0.5">⚡</span>
+                          <div>
+                            <p className="text-sm font-medium text-amber-800">{s}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+                    <h4 className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-2">Brightwheel Displacement Angle</h4>
+                    <p className="text-sm text-indigo-700">
+                      {selectedDistrict.curriculumAdoptionYear <= 2019
+                        ? `${selectedDistrict.district} has been on ${selectedDistrict.curriculum} for ${2026 - selectedDistrict.curriculumAdoptionYear} years. This is prime displacement territory — pitch the full-platform angle: lesson plans + family engagement + billing + assessment, all in one app at a lower total cost.`
+                        : `Position brightwheel as the modern alternative that grows with them. Emphasize the digital family engagement integration and the Florida VPK compliance alignment out of the box.`}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {modalTab === "outreach" && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Outreach Actions</h3>
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {[
+                      { label: "Email #1 — Initial", key: "initial" },
+                      { label: "Email #2 — Follow Up", key: "followup1" },
+                      { label: "Email #3 — Final Touch", key: "followup2" },
+                      { label: "LinkedIn Note", key: "linkedin" },
+                    ].map((t) => (
+                      <div key={t.key} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <p className="text-xs font-medium text-gray-700 mb-2">{t.label}</p>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => { setEmailPreview(generateEmail(selectedDistrict, t.key)); setShowEmailPreview(true); }}
+                            className="text-xs border border-gray-200 bg-white px-2 py-1 rounded hover:bg-gray-50"
+                          >Preview</button>
+                          <button
+                            onClick={() => { queueEmail(selectedDistrict, t.key); }}
+                            className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
+                          >Queue →</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {modalTab === "log activity" && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Log New Activity</h3>
+                  <div className="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 block mb-1">Activity Type</label>
+                      <select
+                        value={newActivity.type}
+                        onChange={(e) => setNewActivity((p) => ({ ...p, type: e.target.value }))}
+                        className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
+                      >
+                        <option value="email">✉️ Email Sent</option>
+                        <option value="call">📞 Phone Call</option>
+                        <option value="linkedin">🔗 LinkedIn</option>
+                        <option value="meeting">📅 Meeting</option>
+                        <option value="note">📝 Note</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-gray-500 block mb-1">Date</label>
+                      <input
+                        type="date"
+                        value={newActivity.date}
+                        onChange={(e) => setNewActivity((p) => ({ ...p, date: e.target.value }))}
+                        className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
+                      />
+                    </div>
+                  </div>
+                  <textarea
+                    value={newActivity.notes}
+                    onChange={(e) => setNewActivity((p) => ({ ...p, notes: e.target.value }))}
+                    placeholder="Notes about this contact (outcome, next steps, etc.)..."
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm h-24 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-200 mb-3"
+                  />
+                  <button
+                    onClick={() => addActivity(selectedDistrict)}
+                    disabled={!newActivity.notes}
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 disabled:opacity-40"
+                  >
+                    Log Activity
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Email Preview Modal */}
+      {showEmailPreview && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setShowEmailPreview(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center">
+              <h3 className="font-semibold text-gray-900">Email Preview</h3>
+              <div className="flex gap-2">
+                <button onClick={() => { navigator.clipboard?.writeText(emailPreview); showNotif("Copied!"); }} className="text-xs border border-gray-200 px-3 py-1.5 rounded hover:bg-gray-50">Copy</button>
+                <button onClick={() => setShowEmailPreview(false)} className="text-gray-400 hover:text-gray-700 text-xl font-light">✕</button>
+              </div>
+            </div>
+            <pre className="text-sm text-gray-700 whitespace-pre-wrap p-6 font-sans leading-relaxed">{emailPreview}</pre>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<BrightwheelDashboard />);
+  </script>
+</body>
+</html>
