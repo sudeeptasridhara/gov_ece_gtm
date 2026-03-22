@@ -30,7 +30,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-10-01",
@@ -44,7 +44,27 @@
       "fullName": "Michelle Chaidez",
       "email": "mpgarrido@dadeschools.net",
       "enrollment": 8149
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-01-18",
+        "summary": "The Children\u2019s Trust Significantly Expands Comprehensive School-Based Health Services to Pre-K through 12th Grade Students with nearly $26 Million Annual Investment - Florida Hospital News and Healthcare Report",
+        "source": "https://news.google.com/rss/articles/CBMipwJBVV95cUxQSkZuR2l3QXBsd2wybmZjSmo5ZXhua1dfaTBqRUlUbGh4TzhFU0tjd0xaX2drVGYzLTRxOUxrMzQtc3NVbDJwQ05DaVZyeXp3OXJGeGM3djVXNHpORi12VlhBbVdVMmhFWFowOElzZDJmdHkzb1hsTEx5YVZLcHdBTjNUYV9OeksydV9iQU5tOXNYUV9Mb0Z4UGEyTzdzdkp6YURIcTZwWndOc3BEcEZaQ0hVMy1VZXBQRTFTckppMG84cXBBUU9JOWF3MnZOb2Rkc0ZsVENoUVFJR2ZwZHdySFFhMFNBUDVvS0RicGZIRFZTZmZzVlFFSjE1MWNBaThfUTgzOHFXTnR4c1hVOEZ0eFR4VTdzRUtRaG5LNkdpRlVockRmT0Fv?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-05-15",
+        "summary": "As enrollment dwindles, Miami-Dade school board aims to repurpose buildings for early learning - WLRN",
+        "source": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOdC1xVFFfVmpwTGI1NUNkWVNaVHRwNWF0cXJkWTRmaE1DLWtvOXdrejdJVW04Qko3VUFDVWNaZjU1YzBQRjMwb1lTX2FIWURnZzdfdThoR1dWQ3c0UU1tR0VhZDlJNVlDb3h2aEtGRjRmc21tQU5kbThjcXVfYU90czF1NWtaS09Md1JjOGM4YVBZdTgzVEFBcEdkdDBnN2NkTGFj?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-09-30",
+        "summary": "Enrollment open for Miami-Dade schools magnet and VPK programs - WLRN",
+        "source": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNN25xMHRxZ2UycThTRmxDQ1Z6X1R0X0FSaXA3V2FNLUlmeTVvUmlhQks4VUVsMFI3c2szbGlCS2p6X2hhdmVhWWJ2ZnRzS2xFclE0Y19ObkVFVzRVakJMTEM4MzhvVm5vU3BKWW1fX1dCWV9YOHNoc0l5d1ozQ05qSnZ3bjRTb3l6elpEem9JVG9jdnMza3JzRFA0UUdieTEzUjVWV0JYZw?oc=5"
+      }
+    ]
   },
   {
     "id": 2,
@@ -75,14 +95,15 @@
       "2nd largest FL district, 6th largest in US. 80+ sites",
       "Howard Hepburn (Apr 2024) \u2014 district in leadership transition, good time to build new relationships",
       "Heggerty phonological awareness added alongside CC \u2014 strong literacy focus signals openness to supplemental programs",
-      "CC upgrade convo (6th Ed \u2192 CC for Pre-K 2024) is the lead"
+      "CC upgrade convo (6th Ed \u2192 CC for Pre-K 2024) is the lead",
+      "\ud83d\udcb0 Funding: Distinguished Alumni of Broward County Public Schools Honored at Broward Education Foundation\u2019s 2025 Hall of Fame Award Breakfast - The Westside Gazette (2025-12-31)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-04-01",
@@ -96,7 +117,39 @@
       "fullName": "Lori Canning",
       "email": "lori.canning@browardschools.com",
       "enrollment": 5782
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2025-05-15",
+        "summary": "As enrollment dwindles, Miami-Dade school board aims to repurpose buildings for early learning - WLRN",
+        "source": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOdC1xVFFfVmpwTGI1NUNkWVNaVHRwNWF0cXJkWTRmaE1DLWtvOXdrejdJVW04Qko3VUFDVWNaZjU1YzBQRjMwb1lTX2FIWURnZzdfdThoR1dWQ3c0UU1tR0VhZDlJNVlDb3h2aEtGRjRmc21tQU5kbThjcXVfYU90czF1NWtaS09Md1JjOGM4YVBZdTgzVEFBcEdkdDBnN2NkTGFj?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-09-04",
+        "summary": "BCPS Seeks Community Participation as Second Phase of the Redefining Our Schools Initiative Begins - Broward County Public Schools",
+        "source": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQN3JoU1R1Y2NCajNTR1JINGpVemxKUjg0ZWhEQTdWWVZWazJjcnBxRnZvQkt6c3dVNEtFUzIzUTJER0VDamt6cXBuNnBpSTFSUGY5dmthV1NvQjdlUC1aT2wzTElxWE56bU5yRFdOYlZYT1NvTXNVbEY4YlA5RWczbE4zc3FWVTRFcjBmNDdTWGc1WGI2Y1E3SHk0akctZ0g5eDJ2U0R4OUNPSzlMNTlzSWFrWFprazNwdHJYNlJIYWJEdTlvcEpzM3dJN1dqZVRzR1VncnpLS1M3dDZlYVZUTDVHaWdOaDV0VG5LbFlHcGJ2R0xiMWpfbHdQdE5KQUJ0WWxFdQ?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-12-31",
+        "summary": "Distinguished Alumni of Broward County Public Schools Honored at Broward Education Foundation\u2019s 2025 Hall of Fame Award Breakfast - The Westside Gazette",
+        "source": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQS05hU2V4LUZEZlpNc1hYY2NnT2FzdGJqYkFCMVhWVHNydVlmSGhHU3k1WUZNMU44cXpwY2xtY3dRYk96VHB4N3BKcDRYVnhyczExYWVyUmtWenE4NVl1cjUxYU1KUUVFTjhKQkh1NVFxLTZXLUNvNzhDV2FFQnRWekUzaWpBT0ZkcmFteTQ5SVBpRHVldnpEUXNMVElTUzVrS25OQTFjRXNVX0ZYaDVCcXpic1AzNFNGNFdhWXpxM0IwenV5V2RLRVF5SU0tNEJVMnJkSjAxNzZDX0ZiV1lzQzlzMFFkcWRSelhjSklmamZSZw?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2026-01-05",
+        "summary": "Broward Teachers Union 29th Annual Innovative Teacher IDEA EXPO Set for Saturday, January 31 - Miami's Community News",
+        "source": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNZ3dkRFhkQzNqRXl2U3h1OGEzQzBRUlg3NEc4NUg0dHVJQXNRV2JsQzVhUGtXNlFtLU11bE5GUTZrcGoyT2l6OGp4NlpuczFhejdfcHdHWlZjVlh3VFlzVW5CY1pWU3QtbWc0cnRkMkVIQUhONnBwbkhoeXRuZFVGZ3dRWEJUbUp1bTIyN09lNFg2ejd3NXItLS1qZkJxOFpwZVlOeXlQZjdiOW9wX1BqRDJ2T0V3ZnJ1M1NXLUNxU1hrWUFUa0JMR1JLMmw?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Voluntary Pre-Kindergarten (VPK) Skip To Main Content Close the menu overlay Close the schools overlay Close the translate overlay Close the search overlay Search Clear Search Last Name",
+        "source": "https://www.browardschools.com/vpk"
+      }
+    ]
   },
   {
     "id": 3,
@@ -121,14 +174,16 @@
       "Senior Administrator, Early Childhood",
       "Also contact: Kimberly Pe\u00f1a-Rodriguez (VPK Program Coordinator) 407-250-6260 ext",
       "6352255 / Kimberly.Pena-Rodriguez@ocps.net",
-      "VPK not offered at every elementary school"
+      "VPK not offered at every elementary school",
+      "\ud83d\udcb0 Funding: Orange County Schools could lose $27.8M in funding over drop in enrollment - Spectrum News 13 (2025-04-23)",
+      "\ud83d\udcb0 Funding: Shutdown won\u2019t immediately impact most federal school funding in Orange County - OCDE Newsroom (2025-10-01)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-01-01",
@@ -142,7 +197,33 @@
       "fullName": "Pamela Clark",
       "email": "pamela.clark@ocps.net",
       "enrollment": 2603
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-04-23",
+        "summary": "Orange County Schools could lose $27.8M in funding over drop in enrollment - Spectrum News 13",
+        "source": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOX05hTk9PcVVCeGRmUVhuTmw2MDBmT0hnR3RRN05LbVFNcTFLcWpWT1R5cldISldwT2FPTTl4dDRqaDFOX1A1dGtlYl93dVEydHJOOUs1QWc2b0dpRXkxVnlwY2hPdThxSks0bVhwSmM4bkJibTBuN2Z3WFVfTUhpMEVXTkJDbTZyYl9Qd1AyZnpiOXpSV0RKeGNvY1h6RjY5TWFXdFktNkdjc1lUQ1B4Um5TN1F5ZG5PelpvT1I5YWphVnJR?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-10-01",
+        "summary": "Shutdown won\u2019t immediately impact most federal school funding in Orange County - OCDE Newsroom",
+        "source": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNWkxPeEh5eHNpbEdDRGw1QW93ak1mdU9MTGdRMTJoODBWTWhmemJ4T054VC1CNXdxc0RHQVpEM3l3MUsyZHV2RWNEemNDa2JNak4xZldfdmcxdzh0OTJNZTM2a1Q2MjlqeFM3UmRwMmY1d241bU5WR0Z3czZkZ1VEVFFsM1Nrcmo4QzM3SHF5T1pCOXJNNThrYXp4bjB1c3E5andsVEtfMA?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-10-22",
+        "summary": "Florida Head Start programs feeling the effects of federal shutdown - Tampa Bay Times",
+        "source": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQ1dYVnU0NVNkamNHVHJmM0VuYXJkblNYWGdXMXVDR2h4RFg0a2NfQVgwR0VWNGhmMDZsYmFvZVZOLUJvVjN5SWVkMENNUEdTNGdkNXdXU3JZaURYdTYwR2lRUnhRSWR3bWVldEVHQ2M5SkVGSHhIbFBzU3ZONVhqRVd0RXpWbkRyNkFnRW93elZrR2NkYVhLNV9FMlU3RE5vWUVmMnRtbzhVa0dKcVlJYVpn?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-10-29",
+        "summary": "Federal shutdown could impact CalFresh benefits, but school meals will continue - OCDE Newsroom",
+        "source": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQc0dPY2p5N2ZFLWkxZW5pY0N4LTc0aVVMSjk3bUdZaW5tMklmTVNYYzBHbV9ZNk1IODM2dU5aTThpeFBUMUdPeFotZVVvVThvRVJ6QlVBOFhOMlBGdmoxSkdUaGZLWDZ4bkR1MmVjY1gtUlRMaTRGQVNHSnUwNkszNDk1MTM0MHNZbmZSa1I2MHpZSzB6cGx6RDdEcFplWTFSSFE?oc=5"
+      }
+    ]
   },
   {
     "id": 4,
@@ -182,14 +263,15 @@
       "90.9% graduation rate \u2014 historic high",
       "Early literacy is a top district initiative (UFLI, myON, 'Paige' Literacy Bus)",
       "Lead with CC upgrade + literacy angle",
-      "Call (813) 272-4000, ask for Early Childhood Programs & Kindergarten dept"
+      "Call (813) 272-4000, ask for Early Childhood Programs & Kindergarten dept",
+      "\ud83d\udcb0 Funding: News - Tinker K-8 School expands thanks to DOD grant - DVIDS (2025-03-28)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-01-01",
@@ -203,7 +285,27 @@
       "fullName": "Tracie Bergman",
       "email": "tracie.bergman@hcps.net",
       "enrollment": 2696
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-04-30",
+        "summary": "Head Start advocates work to persuade Trump administration not to eliminate the program - WUSF",
+        "source": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQZFJNa0VzdzJ1WWU0eEl3NUllbXhPTGxRTTk0MGpWaHctZVJ3TWtibXd0YnM2X1cxYThpcEx0eEQwRGdGZEJpT3NNdWFnV3ZsWUs0TDJFa1FnTTBPdUJKby1lQVJCanVOQmxfR01jbzdTemJEak54UnphcTBiNUZDYVhtN0pVUnF2c2FPaHR0ekRzcHNNbXBRRnloZDBFb3Bjbm9EMEZQdlJWQ184NUpmdjFmX1g?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-03-28",
+        "summary": "News - Tinker K-8 School expands thanks to DOD grant - DVIDS",
+        "source": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNVEFCUm52TnVtTk5OZjQyRll3TDdhOGk5V0xaTGZ0cWdQM2ZOcWZGSnhfNHRpQ0p2aWIyTmd4NGRzdWpDRHF5RXVPZWh3NUhHSC1rcjFkMzhJZWp2NG15emp5SEtmTjdXanhpLXBtSzRuTWt1eTMzM0RyMG9xeGpwOUxJa3puUQ?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Voluntary Prekindergarten (VPK) | Hillsborough County Public Schools",
+        "source": "https://www.sdhc.k12.fl.us/vpk"
+      }
+    ]
   },
   {
     "id": 5,
@@ -228,14 +330,16 @@
       "District piloting new digital family engagement tools",
       "Director of Early Childhood Education",
       "general line: 561-434-8720 / earlychildhooded@palmbeachschools.org",
-      "Multiple VPK funding models: HS, Migrant, Title I, Parent Fee"
+      "Multiple VPK funding models: HS, Migrant, Title I, Parent Fee",
+      "Inside Florida's Push to Replicate Texas' Bluebonnet Curriculum, And Why It's On 'Life Support' - Education Week (2026-02-20)",
+      "\ud83d\udcb0 Funding: Palm Beach couple offer new $250K challenge grant for music education - Palm Beach Daily News (2025-12-29)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2024-10-01",
@@ -254,7 +358,21 @@
       "fullName": "M.J. Steele",
       "email": "m.j.steele@palmbeachschools.org",
       "enrollment": 3060
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-12-29",
+        "summary": "Palm Beach couple offer new $250K challenge grant for music education - Palm Beach Daily News",
+        "source": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQTGZJa0pmcmpleFFUWHZjdnNBSF8tVFNOUkxxa1FMUmQ2UEVUMUNJMmtHV2l3Wm1Oc2ZFLWZPMXpwSEdFOEtxd01SWGdrODV3RG9xUkJWekFpOWV0S1VvLWx1OWhCS09wS2x1aF9RMUg0NDJwSnQtTVpEUGg0ckdsNG4xSU9FZC1fTkg0SHZOeG9fTF9GNGVQWlF1M3pWdVluT0NCbVlSWWRtQ1VQWWVvUUJqSllZRHdla2N6eDdjdXNfM1hGWWpGTHBRdkV1SnFYTS1NNEF1UmJJekxx?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Voluntary Prekindergarten (VPK) Programs - Palm Beach County School District Skip To Main Content Close Menu Search Clear Search Voluntary Prekindergarten (VPK) Programs What is VPK? The Florida Voluntary Prekindergarten (VPK) program prepares 4-year-old children for success in kindergarten and beyond. The District offers VPK programs in many, but not all, elementary schools through four program m",
+        "source": "https://www.palmbeachschools.org/vpk"
+      }
+    ]
   },
   {
     "id": 6,
@@ -292,7 +410,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-08-25",
@@ -306,7 +424,21 @@
       "fullName": "Sonya McSwain",
       "email": "mcswains@duvalschools.org",
       "enrollment": 2121
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2025-08-25",
+        "summary": "Investment in early learning may pay dividends for Duval\u2019s literacy woes - JaxToday",
+        "source": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQXzdDRXR5a3lOTVRPTG5SWVNDSUtTVDUwU01VcDBsWEl1ejNzbnd3TUtkUVJCX2hicG9EWTFYTnZBUFBlY285QkhXbWotZksxWDZiekdhTnROc0dXNFlKNXB4TE5aMTJLWkVYckR3UmZoN0tfZ1BObUp5R0JvRE9ZWlBSUWZNU1A3TUtEWnRJaW1mSFJYeHp1c1ZFZW5ROGM2a2xyVkpkYw?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Early Childhood (Pre-K) | Duval County Public Schools",
+        "source": "https://dcps.duvalschools.org/vpk"
+      }
+    ]
   },
   {
     "id": 7,
@@ -335,14 +467,16 @@
       "2,500+ enrolled in EC programs; 1,200 waitlisted \u2014 supply constraint driving expansion interest",
       "Only 44% of incoming K students were kindergarten-ready in 2024 (vs FL avg) \u2014 strong need argument for higher-quality curriculum",
       "Large Hispanic population; migrant farmworker families in eastern Polk",
-      "Fast-growing: one of FL's fastest-growing districts by student count"
+      "Fast-growing: one of FL's fastest-growing districts by student count",
+      "Early Childhood Applications Available for 2026-27 - Polk County Public Schools (2026-02-10)",
+      "\ud83d\udcb0 Funding: Polk County Public Schools Face \"Critical\" Funding Shortfalls Due to State and Federal Budget Cuts - LakeWalesNews.net (2025-07-18)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-01-01",
@@ -356,7 +490,39 @@
       "fullName": "Fredrick Brooks",
       "email": "fredrick.brooks@polk-fl.net",
       "enrollment": 1910
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-02-10",
+        "summary": "Early Childhood Applications Available for 2026-27 - Polk County Public Schools",
+        "source": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZnZsSmNKNkFBR2tZRWh3WVB2ZkhJS295Y2p3cHg2QWRRbVJINE5JckNlclAtZXNxUmZZU0dlUnBrZWcwS3VHanIwd01CQ2N4bVBWdkNLNGZsdHBlNG0wNE1CMVVwbk80cjFxcmdkRjZWb1JEX1AzUTg4MlZvS0VxZ1Fya3Z4ZGc3?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-05-06",
+        "summary": "YMCA plans to offer early childhood programs in fall at McLaughlin Academy in Lake Wales - Lakeland Ledger",
+        "source": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPWkEtcC1yQ2x1bjJZanh0dHVGcGVJLVd0WS1tbG1Mbm05UXBkUVFmV1F2d0E3VGx4MHJ3NGlPcFhRcjMzZ2UyZmtOek4ycEtLWmd3VVdhTUhQVkFtMEl0ei01Q09vcVU5eFRGS1ZjN2ptRFFqUFlsUmd3MkhXWVc2LXNWaHVqMm5rTC1tY0t0UEFyVkxjYWcyYnhOUlZUczh4bHp3OWtZZXNMcEF2ck96OTYyU1R2SUtoaFBxWnJOS04?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-07-17",
+        "summary": "Polk County school district sounds dire financial warning amid state reductions, federal freeze - Lakeland Ledger",
+        "source": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNaHU2ZnBPakdBUmZDZnhSQm5WYTh1cjNld3c4S1RZcnN1Tm1uNzBQcXZhRHppVEFOSkl1UjZteTdTTVZkY1hQekJIZEZwY2hmTUVOWmlUQ3d4RUtSQmd6UzVnMUV4TEpfY0hVWUM0MS1jR3pHRnhfLUZtMTg3b3lWTWpTak16LU10N0hGbE1DcHZZal93Z3dTZ2hsN0duQ0ZqNWFqam13NDNzQU43WlIxb1ZTYzJjN28yLVcxY1ZKUmhqRmNGeVhlalB3eEoyM2c?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-07-18",
+        "summary": "Polk County Public Schools Face \"Critical\" Funding Shortfalls Due to State and Federal Budget Cuts - LakeWalesNews.net",
+        "source": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQUFpSRlZPWUZySVdpaVZ3ODk5c3JEeVdxUDQxYkdPTjR3UnFUV3ZXRDZOdlZlYkZsY0xsWlNpMmVsMlhxTHp1MEpPUEtESUcyYnFVMnJXUnhwbWhrV1oyX2NWa3VROE9HSExENUJaZU51YXA4MmM3aHZrS3NLV2VOUWYwM1ZLMUNqd3l2NTN2SlFWa3hSVEFSZGQwVEJBVEJfcV95MnJIQ2xXNFJubms1MXlMcVVJZW9SOGM5YlRwLXVScmxCN2dzLS1Xa1JfN21IdFBZdUUyVzFieUt6aWd3Y2NnVmJld29sRFJyd2dVQQ?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Early Childhood Programs - Polk County Public Schools Skip to Content Language View Original Arabic Cantonese Chinese Haitian Creole French Gujarati German Hindi Italian Korean Portuguese Russian Spanish Tagalog Vietnamese News Calendar Facebook Page Follow us on Instagram Twitter Feed Youtube Channel Search Button Login {1} ##LOC[OK]## Home About PCPS About The District Board Meetings Budget & Fi",
+        "source": "https://www.polk-fl.net/vpk"
+      }
+    ]
   },
   {
     "id": 8,
@@ -388,14 +554,17 @@
       "Full-day VPK free for income-eligible families",
       "Record-high graduation rate 2024-25",
       "90%+ of schools A or B grade",
-      "CC upgrade (6th Ed \u2192 CC for Pre-K 2024) is the lead"
+      "CC upgrade (6th Ed \u2192 CC for Pre-K 2024) is the lead",
+      "Pinellas County VPK and Pre-K 3 enrollment now open - wtsp.com (2025-12-05)",
+      "Budget insights: At least $102M could flow to Pinellas County under House plan - Florida Politics (2026-02-13)",
+      "\ud83d\udcb0 Funding: Legislative Session preview: Tampa Bay area lawmakers collectively seek some $400M in funding for local projects - Florida Politics (2026-01-12)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -409,7 +578,39 @@
       "fullName": "Jennifer Mekler",
       "email": "meklerj@pcsb.org",
       "enrollment": 2306
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-03-10",
+        "summary": "Pinellas schools focusing on early learning as enrollments decline - St Pete Catalyst",
+        "source": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNeFhubmVnejRGZzVUX25BYkhpTTVrVFhQendCM0JsLWp6V2NpTWhLZ0R3V3FabUtYQkQtSGFCSmN6UWFjTm1CU1FYNnlfVlpUazRKTEt4TGFzQUFUU0JFd2JGT0tOM2RpTDk5YVFJZ0dNNnM5bmxKV0Q3ek1pLVN3cGhLa2E3RkdqR1lNb2RZUnN2SS1HYnoyd1J3?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-09-30",
+        "summary": "SPONSORED Early learning gets a big lift in Pinellas County - Axios",
+        "source": "https://news.google.com/rss/articles/CBMingFBVV95cUxQak1hMEVoaDBJazRYU05XSWw1Tk85R25DaDVBSl9xOTh4SjA4WGZEbEx6Z2tzQ1ZlcXRLN09pQzYwb2Y4LW5SaW12NFc3N1A4RGhFWkNtbDcxQ1ZBb25JRVVNSlRRbF9JZGpkb0VHUTBNRGpORkxwd2xxODRSd1ZXQnMzd0lZaDltUVdyNHMtd054d1NELUpMbVlPZnEydw?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-07-16",
+        "summary": "Federal freeze, state cuts cost Pinellas schools $10.7 million - St Pete Catalyst",
+        "source": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQU2dYQmwxOWh3ZnBOUmlTeFh5bUkxem9YVUR3eTd0VXhCeGFfdEh6RWdiUmM2SGo5MUVKMUhnYUlHR3lkYzZkeW5idDU4U05fNUZUZUxZaG9wOUZtWXlkMTBCeGNNYW9hdnl4Q3l5b2cwbUEwdkpyMWJ6SHJPMUY4eUR6WXl5NUZjUzFWQllhWHVYZw?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2026-01-12",
+        "summary": "Legislative Session preview: Tampa Bay area lawmakers collectively seek some $400M in funding for local projects - Florida Politics",
+        "source": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQZG41dWU0dC1GbERIZ3Q3bkVQVGpEakN1OEdpY2ZsRnZyRkF5RnI4MWctZVVPLUJIQWplYXlGMjZ0OTd4TmZFcHktYkExUmZDRndmd1VLNEhpdUFiRzhZSXdaSXFTaTdfNUpPUllybjRtcFhVRTVzeWU5Sjdud1M0RHVpREsxM1pZY21teUVrcHFBbTJrUU1ZZ19nUU9qMkxKYnRiYy1BNXNfeGVXdVJJOS1Qd1lvYnIzY2lXR3dqSUM0U0hJMGlxZFRvc2l2WklaSFNydllkNnJoVlc4SjRxUlNwcFYycGlSblR3?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Early Childhood Education Skip To Main Content Search Clear Search News Operation Safe & Sober brings life-saving lessons to East Lake High and the community March 12, 2026 - Crash simulation and first responder demonstration show students the real-life consequences of impaired driving.",
+        "source": "https://www.pcsb.org/vpk"
+      }
+    ]
   },
   {
     "id": 9,
@@ -446,7 +647,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-11-01",
@@ -460,7 +661,15 @@
       "fullName": "Melissa Ziemer",
       "email": "melissacz@leeschools.net",
       "enrollment": 1463
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-11-10",
+        "summary": "Lee County School District expanding Voluntary Pre-Kindergarten - WINK News",
+        "source": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQeDMwSTBhT1hvS29rQVJXOGRrT19FUEF6c3pYdFpoelN5Tkc0LUFlYUJadE9qQ2E1UXVlX3JsYXlVanJUQTJxLTFpeUpCcVNjOGhENGpDUUZLTUhvTnlrOS05amFHcVpDNjBCQzBxcjNlQThKVGNPWkJhY09YSG10bFNsbG9JV3RQQkxvalBDNXhTVUxyQ3RHUEFBSGJ3VGt0MnFpWWRldl96a2ROMnhHSUpPdGR2UjU4Z2x3Mjk0M24xX1A1S0lzMVhCREYteWZZcUtQN1ltOFdJMXJ0UU90Ng?oc=5"
+      }
+    ]
   },
   {
     "id": 10,
@@ -550,14 +759,15 @@
       "DeArmas Graham, Senior Director Student Services (dearmas.graham@stjohns.k12.fl.us, 904-547-7536)",
       "Early Childhood Services at 40 Orange St + FCTC campus (partnership with First Coast Technical College)",
       "Head Start + VPK + ESE PreK at same campus",
-      "2025-27 budget consolidation \u2014 lead with cost-efficiency + ROI angle"
+      "2025-27 budget consolidation \u2014 lead with cost-efficiency + ROI angle",
+      "\ud83d\udcb0 Funding: First Coast Cultural Center wins $10,000 Autism Grant - Florida NewsLine (2025-11-03)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -571,7 +781,21 @@
       "fullName": "Brian McElhone",
       "email": "brian.mcelhone@stjohns.k12.fl.us",
       "enrollment": 682
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-11-03",
+        "summary": "First Coast Cultural Center wins $10,000 Autism Grant - Florida NewsLine",
+        "source": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeFdINTU5LUxpeDBQMlgtY2w3dFQwU3M2MVZjbXQzN1ZKVlhTa1pVSC1wZkhmV21pcWd3LWlpMXhRMjV4ajVoU24tcFNPYkIwaHpPVHBWX1pjODJpUE95eExMa05zRGpfOW1JelZEQU9HX2J2aTRjNlZ6c1l2NzhiQ1V6UUJyckZGQmpKbHF6SGhhbjY4WGtSb0lJQXFuNEY2?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Asplen Departments Directory of Departments Department Websites - Select a department - Accountability & Intervention Services Accounting Accounts Payable Advanced Academic Programs Applications & Position Control Arts Curriculum Budget Business & Fiscal Services Career & Technical Education Charter Schools Community Relations Curriculum & Instruction Deaf or Hard of Hearing Program Early Childhoo",
+        "source": "https://www.stjohns.k12.fl.us/vpk"
+      }
+    ]
   },
   {
     "id": 12,
@@ -607,7 +831,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -621,7 +845,21 @@
       "fullName": "Latrina Singleton",
       "email": "singleton2l@manateeschools.net",
       "enrollment": 1069
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2025-10-27",
+        "summary": "Inside Manatee County\u2019s hands-on learning lab that could boost literacy rates - Bradenton Herald",
+        "source": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBveFBrRm84MVhOcUg4dmpycjN3dU9MeVJTZzkwSWZUOUR0UUJuOW1RVUxqazVVNTVGUW5Ia1BpY1JTdlhEeGFYc296aVRvZ3RfS0padkk1RF9sOExCYXlrQm1QZkkyMC0yal9wZGdfM1M5OFAweEdv0gF3QVVfeXFMUG9lZWFXbzFxd0JKQWNWV3dsUnJvZXhid3JYcEprOGdwSlNhWWtFYnN1Qm9GeHRZSGI0Rlk5cjJOcjRrZ2NOd21DUVZEZDFKNzQ4a0VTZFJkSFhOaHgwa2FDdTJ1NzFLX0JhUEJGVWZNeHZYeDF4V3c?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Voluntary Pre-Kindergarten (VPK) | School District of Manatee County",
+        "source": "https://www.manateeschools.net/vpk"
+      }
+    ]
   },
   {
     "id": 13,
@@ -702,14 +940,15 @@
       "VPK in every elementary school except Hamilton",
       "Full-day option $360/mo",
       "Maria Longa (ECTAC Director) 407-320-0244",
-      "Affluent Orlando suburb"
+      "Affluent Orlando suburb",
+      "\ud83d\udcb0 Funding: Orlando Magic Youth Foundation Will Distribute $1.6 Million in Grants to Local Nonprofits This Season - NBA (2025-08-21)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -723,7 +962,21 @@
       "fullName": "Marian Cummings",
       "email": "marian_cummings@scps.k12.fl.us",
       "enrollment": 929
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-08-21",
+        "summary": "Orlando Magic Youth Foundation Will Distribute $1.6 Million in Grants to Local Nonprofits This Season - NBA",
+        "source": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNN1lvaGgxUGpsbWYwUl9peXZpQlM3N29seWpaLUx3eDNXdG5CbkQtRW1LcmJnS0l2Q2ZkMWFvSjRuMzRCYXR1Y3A5TEtMXzVOYk5uRkdEZnBrMFFfRlVXa1dfTmczNElSc0J6YThReTFrRXpDWTZfQjNqaWl4aWVwM1F4elgzeDRUVlBlSjF0VjdPV05LWEQ2TWFoT1lzU3RJNGpjWDFsNEFvNnVmaDhJbGt5bHNZbVdxNEpLMEdwS3dpdWE1WGN3bGRVWGpYU19SV2s1aXBB?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Seminole County Public Schools - Home Skip to main content \u00d7 Close \u00d7 Close Home Voluntary Pre-K Voluntary Pre-K Applying for VPK Contact Us Frequently Asked Questions Parents Program Starting school is one of the significant milestones in a child's life. We believe all children can learn and should have access to quality early learning experiences that will support their developmental growth. Our",
+        "source": "https://www.scps.k12.fl.us/vpk"
+      }
+    ]
   },
   {
     "id": 15,
@@ -763,7 +1016,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -777,7 +1030,15 @@
       "fullName": "Adrea McDonough",
       "email": "mcdonough.adrea@brevardschools.org",
       "enrollment": 1427
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-03-02",
+        "summary": "Little Free Libraries to story time, here's how Brevard supports literacy - Florida Today",
+        "source": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNVGx3SkU1dlAta1pLWld4eDlxZzdjYXI3QUtnOFZvSnltbUtKUjFTcXJpRTkzdmJXSWlRV2lZcVZjdm9xbG5lYUpGMldpWnNBYmVpRGJkNE5vU1JHSGtILTdseDhUczgzTDhuU3Z4T25SZXhMa3Q3V0NqRkxEWmR1RDJQMUl0elRzd2F2VU8wWEgwRzFHWVpxNDZneVQtMjNGcW9TcldDR1UxNGNfQXB2MzhqVGV3dVh6alhuZ1pkVHBHSTNvTmMzRjFzalFZM1pQd0RoRUhYaw?oc=5"
+      }
+    ]
   },
   {
     "id": 16,
@@ -908,14 +1169,15 @@
       "Chief of Elementary Schools: Jennifer Mainelli (Jennifer.Mainelli@sarasotacountyschools.net)",
       "No separate named Early Learning director published \u2014 ECE sits under elementary leadership",
       "Found on Departmental Contacts Elementary Schools page",
-      "Building 1970, Maroon Awning, 1960 Landings Blvd \u2014 visitors need photo ID"
+      "Building 1970, Maroon Awning, 1960 Landings Blvd \u2014 visitors need photo ID",
+      "VPK application window opening soon in Sarasota County - ABC7 WWSB (2026-01-29)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-01-01",
@@ -967,7 +1229,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -981,7 +1243,15 @@
       "fullName": "Trish Rodriguez",
       "email": "rodrigueztm@gm.sbac.edu",
       "enrollment": 177
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-02-06",
+        "summary": "Alachua County officials evaluate school district\u2019s \u2018Future Ready\u2019 initiative - Mainstreet Daily News Gainesville",
+        "source": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNLVF2ZVNzMXZoUGZ6bF9TUk5IdE9XVzRBazRfQnA2TmQzRV95YkV5dGk2V0dpSDA0LVRZRElTS251MktNazZ6OVdnc245R2hBVGk2X3htTWZXa0l6RWx3M01tVFM1ajdkYjhlXzlZalNxSGY0ckR4aVJDOGRPYjVsWFFwRzl6M2JrRy1va1B0akcxQlVmdHc?oc=5"
+      }
+    ]
   },
   {
     "id": 20,
@@ -1011,14 +1281,16 @@
       "Programs serve birth-5 across 23 sites + 3 Early Learning Centers + every LCS elementary school",
       "TAPP (Teenage Parent Program) also under this dept",
       "Tallahassee state-capital district; FSU + FAMU community",
-      "CC upgrade (6th Ed \u2192 CC for Pre-K 2024) is the key conversation"
+      "CC upgrade (6th Ed \u2192 CC for Pre-K 2024) is the key conversation",
+      "\u2018We\u2019re really looking to reduce barriers\u2019: Leon County Schools rolls out new VPK registration - WCTV (2026-02-04)",
+      "\ud83d\udcb0 Funding: \u2018Almost like they want public schools to fail\u2019: Leon County Schools leader calls out state amid funding \u2018crisis\u2019 - WCTV (2025-07-16)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-02-05",
@@ -1032,7 +1304,39 @@
       "fullName": "Brooke Brunner",
       "email": "brunnerb@leonschools.net",
       "enrollment": 253
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-07-16",
+        "summary": "\u2018Almost like they want public schools to fail\u2019: Leon County Schools leader calls out state amid funding \u2018crisis\u2019 - WCTV",
+        "source": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOOUJ3R045d1VGNm91RjRzLUhkUWhpaWlSdEg2Z1d5RDRyZWNMVUpJb0RTb2hFY0VNamlQTzVTcExqMnJ1VVBjWGFvWGRTYlUxd2VyOUI5ajdSc2dSaWVDQ0wwc2FSckxzN25JTEhnQ0dTWEFOQkNHN1NhOVVNV0wydVU1VmdqMC1OSlNPd1U1NUxvX0xCeVR1N2pJb2ljeFRJNTlIVUFBQ3J2Y1NVbkFkN3F4TEQ4bWs3MEo1T2VVLU5MU2RUa0xqMWFwYUNxd2ZsLUE?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2026-02-02",
+        "summary": "Early learning director speaks on the impact of expanding Head Start for Leon County Schools - WCTV",
+        "source": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNT2gxSVlucXRkR0oyUGJuOTFpcDVGd2ZLY3JQbTdoUzZ3cElpYTRBNEQ4TkxwRmx3Z29kd09xbzlCYnZSakJKal9XMDRubk9XdndBUGpDZjB5UFRUbWFFMlhueEdJSmxraXpYVEJKaTFtc09WWVI0ejNNcVFDVms1U0ptNXdhREY3RlItV25GblNBZzNwdnJMN1JpRzR5VXQ0U2QzeFVqNUlaZEMwZjhB?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2026-01-28",
+        "summary": "Leon County School Board expands Head Start programs to prepare more children for kindergarten - WTXL ABC 27 Tallahassee News",
+        "source": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNQzBzeldtYURzUl9DalI3NTFZMnRaZHVvTF9QcjVwTlliSWpMOU5HTFRGaGg5b1k4cFZNTWpyVW1paXkwRHZIbmp3RkxMdi1HVnd5akpKNlB0MlRTOTFEcEZIZVVhZkdzbTNmU2dwbzNuRkRWS1lhVTRPSU5NWkVCOThjOEN5X1dEZE5VdlVyNG90aXdMM1NjM3IwZzJoUGpoSlJQZ3paTl9xZldiWG5fZzRPQkp5b2owd1M1RWxBWEtMTlFvTEVIQ0c3akw?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-11-18",
+        "summary": "Leon County Schools looks to expand Head Start programs - WCTV",
+        "source": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQd0hzNEZLZEJoS25hb2tXWm9ETVZGcTFrQmRFVHRDYzR4ZkRZT211NGJYV3RMV1prM1N2MWtqVE9NTHNVVDZQdGJweEh6dm16cFFBaVdQcGx5ZHlnNzNTVkdHQzJ1amJmdXZUekJHMkRkOHdHMzBzZ3dNY0dSWmthN0dOMmxEdllLTWhjZ9IBoAFBVV95cUxQM3VuaFRueDJMSFJoY2xYYlVyeGFHQ3FpUkF1T3REbTA5ZlNBbVBURGpRSVNxN0FMMVQ0VU83bWNZT19GeWtnM3VjaWxaWXpWQkhtdXF0X0RkWGNoSXM2MWlwdmxtWFlqbERrX2RGa1FzYW9PelpGVG9IWlNNUFo2RWFlVThOS1hnb0x3Mi1BVUpySDAzN2o5R1hyQnFNZF9T?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-07-15",
+        "summary": "Rocky Hanna: A Leon schools 'financial crisis' and the state, federal cuts that fuel it - Tallahassee Democrat",
+        "source": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNaWp6WWRSUWZCM196RkFLWks5MlhDNHFCenhhdDE5eFpPbnBkaW9oLUtKYkdKT1lRdmVMRFE0QlBYRWV3N1hPRjg0RmtNVXI4RUhuWXYzZGRnUWFvalFqNENMT0V6Smh4QmdZQ3E3ZlQ1RHlWaG5qQnpxUmM4M1d5cWpkVXlNQ2V5ZGhwNHVPUnpQSGNxU3JwakkxMFIxSzU4eEEtLU5FOUNoak5HTmhtczc5aG5mV1RHSXMzdGx5eUhWS3pFOXRPY0pCYl85UXlTSWRyYWN2M2RsaUliblI0dUlaNllaeEp5amNB?oc=5"
+      }
+    ]
   },
   {
     "id": 21,
@@ -1061,14 +1365,15 @@
       "Central FL; Clermont/Minneola adjacent to Orlando metro \u2014 fast-growing bedroom community",
       "| VPK program confirmed under Teaching, Learning & Leadership > Student Support > Federal Programs (lake.k12.fl.us/departments/teachinglearningandleadership/)",
       "No named Early Childhood director published",
-      "Call (352) 728-0208, ask for VPK/Early Childhood coordinator"
+      "Call (352) 728-0208, ask for VPK/Early Childhood coordinator",
+      "\ud83d\udcb0 Funding: Illinois Budget Adds $307M to Equitable School Funding, Yet Gaps Remain - Chicago Parent (2026-03-14)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -1082,7 +1387,21 @@
       "fullName": "Elizabeth West",
       "email": "weste@lake.k12.fl.us",
       "enrollment": 793
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2025-09-22",
+        "summary": "Is universal pre-k available for all students in Chicago? - Chicago Parent",
+        "source": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPc3NMbXplOFZVaGd4Y2NIRTFUQld5TTN6em1LNEcwY0VRWF9IMGJlNk1JVmV6cTAzZF9qMm5FaTlHd1FzbmVaaWxsV2VFeDFSUDhVOWFxYjdfR3hDUTNBTWVOX2QwTmhZbDM2TF90Zk9nb1dQekh4cllJN3B0WDAweEUycUJjQ2RGZXZvRU9HdFMtTmxPWTczWFRNM19GR1BaTU5j?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2026-03-14",
+        "summary": "Illinois Budget Adds $307M to Equitable School Funding, Yet Gaps Remain - Chicago Parent",
+        "source": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOX3pGSHJITDBpVnFTeDNnRjhNaXBveE0xYlZWSHJNQmxkeTJtYThhRUppWm9Sd1dKQ1NudF9wRi1kX2dkd3JMSzdaclYxR2drcklaOTdKWG5JZENkUGFWQ1lXdWkwQmVnYVNtZF9xSFg0MGlyTnFERXM1UUNjVGJLRnJqRjJPMTRUcFZhTHhaZDVONDNYWlpmMU9xSm9nbHMtdml5aEJIRk00ZHd6VDBuSWZ6QWVsQWQ5djc0?oc=5"
+      }
+    ]
   },
   {
     "id": 22,
@@ -1171,7 +1490,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2022-08-01",
@@ -1185,7 +1504,15 @@
       "fullName": "Jennifer Beck",
       "email": "jennifer.beck@marion.k12.fl.us",
       "enrollment": 711
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-07-10",
+        "summary": "Orange County Schools, other districts call out Trump admin for freezing federal funds - Central Florida Public Media",
+        "source": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPUjl0dkRpeHp6SVlZVmkzdDVNTFJ2bUxlRW00Z1hKd29rVFJsTWpiYXUzSXVydjFtZTRfWGc2VTQ2UEJMSEs5c2Q0a3BSeVVpcXJNanAwYVBqeHByeVNSalhDZmhPa2hBWk9YeHNGMUVvZHJubUJYcDZHOUlpUmI1OUx6SXVFMDJ5YjVQT2dEZXdJcGZFZ1NnU0xmYXBwZE02NWxub0xXSkNBc0ZBWWZhcQ?oc=5"
+      }
+    ]
   },
   {
     "id": 24,
@@ -1217,7 +1544,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-02-28",
@@ -1236,7 +1563,15 @@
       "fullName": "Beth Sebastianelli",
       "email": "sebastianellie@flaglerschools.com",
       "enrollment": 55
-    }
+    },
+    "districtContext": [
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Voluntary Prekindergarten - Flagler Schools Skip To Main Content Close Menu Voluntary Prekindergarten Voluntary Prekindergarten (VPK) is a free educational program offered by the State of Florida. VPK gives children the opportunity to develop skills that will be needed for success in school and life Your web browser does not support the <video> tag. Eligibility In order to be eligible for admissio",
+        "source": "https://www.flaglerschools.com/vpk"
+      }
+    ]
   },
   {
     "id": 25,
@@ -1267,7 +1602,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -1281,7 +1616,15 @@
       "fullName": "Brooke Flood",
       "email": "brooke.flood@indianriverschools.org",
       "enrollment": 221
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2025-07-16",
+        "summary": "Teacher Feature: IRC littlest learners get summer head start thanks to 17-yr Pre-K teacher - WPEC",
+        "source": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPR2RnSFpuT2JhRnhSYVdnd2hEU3hCeV9uN3lpX1hvQWQ0c3dISjB2UEt5RWpETF9nblZOWHByUndiUjZxYW10NXNUaHdsVlRDenAwZWxIckFaVGJGallFM3hkMzdfY2NSc3dORlVwRU9uUzVJYjZEcTg3OEcxbDc2cUpVdEs5MnBGVExqak9qVWRPejFMcnBJU3BJbkJWU0xvWDdqSFB4MmRZVXdPbzJSTWZucw?oc=5"
+      }
+    ]
   },
   {
     "id": 26,
@@ -1316,7 +1659,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -1330,7 +1673,27 @@
       "fullName": "Mary Huffstetter",
       "email": "mary.huffstetter@stlucieschools.org",
       "enrollment": 462
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-02-16",
+        "summary": "Better Together, First United Methodist Church of Fort Pierce to host community job fair March 25 in Fort Pierce - Priority Marketing",
+        "source": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQYmVjU2JIZ1ZJRnEtUWNYNFI5UUQ1bFo2bmhfNGtmVTgwalhObmJUM09jYUlibXEycUZodDBIamt3OGY0RkdPcWxFdC1IOGVPSjlMb2YyMnNkM1hZQjRVYU5jeDdGcjIyOFhEU2QwbG1IUUpSNnlEMjB3MG5hZ3lqU1pvVTRKeUw1RUt0T1l1UDJBYWl1WVNwTEVXZzAwMWhtRFQwZE9GRUdFVjN4ZHRIeUsyVHllZUkyNFNmYWs3N2RMam9TQWg5Z080N0wwbFQtcDFIV0lDcmhQUQ?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-07-29",
+        "summary": "Trump administration releases some Title I money, but schools still will feel the hit - Treasure Coast News",
+        "source": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQYzBDQncxX1pYXzBxaUNGRmRpMXlhZ1N0VTZFNV9nN19GaFdwa3F3ZEJZRlU5eUZXU0dFTmU3NTlMbjdxTVd3amhjaW4wNE5hR3Z3UG8ta1A2TWhsUlFzWC1kQi1hQ1ptV1Z3czdVeEpUVG1hR0wxbUUxakFQSnNDMVVZejJzT01OUWhROHNLd0IyOGU1ZEF3TGN3VGQ2WTNLVmZsaDFrNlZNUVV1cjZhVnZWdkxESGVVV1dMZEJlYmdIX2ZHMmZCSTByTHBESlpC?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Early Childhood \u2013 St Lucie Public Schools Skip to content Webmail Canvas Mosaic Canvas Resources Skyward Family Access Skyward Employee TeamSLPS LucieLink AskLucie Quick Links Home Our District Parents and Students Our Schools Employees Executive Offices and Departments Directory Contact Us Webmail Canvas Mosaic Canvas Resources Skyward Family Access Skyward Employee TeamSLPS LucieLink AskLucie Po",
+        "source": "https://www.stlucieschools.org/departments/early-childhood"
+      }
+    ]
   },
   {
     "id": 27,
@@ -1354,14 +1717,15 @@
       "| No named Early Childhood director on public site",
       "Secondary: Jill Kolasa, Director Student Services (kolasa_j@hcsb.k12.fl.us, 352-797-7008)",
       "Note: district email domain is @hcsb.k12.fl.us",
-      "Brooksville / Nature Coast; growing Tampa metro exurb with strong enrollment growth"
+      "Brooksville / Nature Coast; growing Tampa metro exurb with strong enrollment growth",
+      "HCSD Looking to Expand VPK Program - Hernando Sun (2026-02-15)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-07-25",
@@ -1375,7 +1739,27 @@
       "fullName": "Kelly Downey",
       "email": "downey_k@hcsb.k12.fl.us",
       "enrollment": 386
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2026-02-15",
+        "summary": "HCSD Looking to Expand VPK Program - Hernando Sun",
+        "source": "https://news.google.com/rss/articles/CBMif0FVX3lxTE55Yi11SnlzMVNiOEU4R2dBcjR2endpNklPakplZ0JuLVA1RHJUNHZjVm5nc180bk5WMUhiQmFXcy1LRUFoaEd2Y1I4RjdSRHNOU0tJXzBnWjVrdnFTQkhfOFdLdVFWSXdrSFFVYUc4dDdvd3Y5RklDckFHZE0xbGs?oc=5"
+      },
+      {
+        "type": "funding",
+        "date": "2025-06-02",
+        "summary": "School Board Approves Continuation of VPK Program - Hernando Sun",
+        "source": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQUV95aloxMERrUVh1QmhjVWZWSTdRbl9SV3h3N3VRX0RwVUh4cDhKck95WEJ1VUlXQ2FEX1RZUGZkaWVpUVZsZDZSUjhFelc4Ul9DX1ZzbEk1SVJDb1ZxT0dxbE85RXR4Sl84REppMF9yOEg4MllHRjVMVGVEOWhubXpYYUZMS3NaYVZsVkpxUXdqdmc?oc=5"
+      },
+      {
+        "type": "website",
+        "date": "2026-03-22",
+        "summary": "Hernando County School District - Departments Skip to main content \u00d7 Close Departments A Athletics B Budget & Finance C College & Career Communications & Government Relations Curriculum E Exceptional Student Education (ESE) F Facilities & Construction Federal Programs Food & Nutrition H Human Resources L Labor Relations and Professional Standards M Maintenance P Professional Learning Purchasing R",
+        "source": "https://www.hernandoschools.org/departments/early-childhood"
+      }
+    ]
   },
   {
     "id": 28,
@@ -1443,14 +1827,16 @@
       "Military community, high family mobility",
       "Fort Walton Beach/Niceville/Crestview; Eglin AFB & Hurlburt Field military community",
       "Family Engagement / Early Childhood Coordinator",
-      "| Student Services secondary: Tracey Lamb, Director Student Services (LambT@Okaloosaschools.com, 850-833-4208)"
+      "| Student Services secondary: Tracey Lamb, Director Student Services (LambT@Okaloosaschools.com, 850-833-4208)",
+      "Free Kindergarten & VPK Registration Family Movie Afternoon - Okaloosa County School District (2026-01-10)",
+      "Lights, Camera, Futures: Okaloosa Schools Roll Out a Free VPK Movie Experience - Mid Bay News (2026-01-10)"
     ],
     "recentNews": [],
     "status": "not contacted",
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2025-01-01",
@@ -1464,7 +1850,27 @@
       "fullName": "Amy Bowles",
       "email": "bowlesa@okloosaschools.com",
       "enrollment": 414
-    }
+    },
+    "districtContext": [
+      {
+        "type": "strategic",
+        "date": "2026-01-10",
+        "summary": "Free Kindergarten & VPK Registration Family Movie Afternoon - Okaloosa County School District",
+        "source": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBFT0VfeHV5cVpPU1lzbEliVlNTZDNzSFFvVkNWem5FRUoweHItcDBRbTlFbzRhYVptYkl4MlJTU004SXR4QS1TUXJYSllUVGRsMGZvV0VoNHNmbk0?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-08-26",
+        "summary": "Okaloosa VPK Classrooms Earn Exceptional State Designations - Okaloosa County School District",
+        "source": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5VdlhjVjdpb3diTzVnaEtlVS1HRWEtanJjTEx2UXU1LWVLUkN6NUZpSnBmcjB2WWkwZjIzRGp1NS1PNGdfb0NGbV9sOWhFc1hQNlVNdWJLMWYxX3M?oc=5"
+      },
+      {
+        "type": "strategic",
+        "date": "2025-05-09",
+        "summary": "Summer Bridge Program: Preparing VPK Students for Kindergarten Success! - Okaloosa County School District",
+        "source": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5xSDBmbEFYMmNHOFZGTnpwQUVURWtBWVlwT1AwSE1CNXRNYWFUZThLeWxTRUNFbzI1M1YyWmJ4NmdsVUFHZGxPWWFISWdHaEZoN3F1UnNoMmdub1U?oc=5"
+      }
+    ]
   },
   {
     "id": 30,
@@ -1673,7 +2079,7 @@
     "priority": 0,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-19",
+    "lastUpdated": "2026-03-22",
     "boardNotes": [
       {
         "date": "2026-03-19",
@@ -1687,7 +2093,15 @@
       "fullName": "Jennier Corkern",
       "email": "corkerj@martinschools.org",
       "enrollment": 221
-    }
+    },
+    "districtContext": [
+      {
+        "type": "funding",
+        "date": "2025-04-30",
+        "summary": "Free VPK helps ready young children for school, but for some families it's unavailable - Treasure Coast News",
+        "source": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOU3A1c3d0Q2hfejl4LS1xQmVyeWFSOUhCM3I1MFRndlN1LVd4a2VJQlB6UnpWNnFsUlFMTGR5bHo1WnI1S01Ud01mYVVFWWZXNHJsdC04UnJDeGt2bFBDcE44U0p5T2JRYTZwanpoeE9oSEU1QXJ0cEZoYktfbmlZVnZySDNCYzIwSXF1S1dQWG9rUW03R0lvTkZrOUphSmlqQ1RTMGVlVUFNZktyaW01TWkwYk1fXy1KRTlhUUsxYWV6TThJWXRISzMwNzczT1BTVkE?oc=5"
+      }
+    ]
   },
   {
     "id": 35,
