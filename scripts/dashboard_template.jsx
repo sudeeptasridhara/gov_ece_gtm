@@ -277,6 +277,19 @@ function generateEmail(district, template) {
   const unsubUrl = buildUnsubUrl(unsubRecipientName, unsubRecipientEmail, district.district);
 
   const templates = {
+    // ── Original Email (all states) ───────────────────────────────────────────
+    original: buildHtmlEmail(
+      `Improve Kindergarten Readiness Scores`,
+      hiGreeting +
+      ep(`Many districts are looking for ways to increase Kindergarten readiness scores and support students transitioning into Kindergarten.`) +
+      ep(`Brightwheel's Experience Preschool is a flexible, play-based curriculum designed to support 4–8 week summer programs that help incoming Kindergarten students build the skills measured in readiness assessments. Because lessons are pre-packaged and organized by the day, many districts use it for summer programs.`) +
+      ep(`${ea("https://drive.google.com/file/d/1T0MH4mV0OvG5JmZgU8qK-5EF7xcSUIpO/view", "Click here to learn more")} if your program is planning summer readiness or transition programming.`) +
+      ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
+      calendlyLink,
+      unsubUrl,
+      false
+    ),
+
     // ── Summer Long (all states) ──────────────────────────────────────────────
     summerLong: buildHtmlEmail(
       `Improve Kindergarten Readiness with Play-Based Summer Learning`,
@@ -419,7 +432,7 @@ export default function BrightwheelDashboard() {
     if (afterConnect) pendingDraftRef.current = afterConnect;
     window.google.accounts.oauth2.initTokenClient({
       client_id: GOOGLE_CLIENT_ID,
-      scope: "https://www.googleapis.com/auth/gmail.compose",
+      scope: "https://www.googleapis.com/auth/gmail.send",
       callback: (resp) => {
         if (resp.access_token) {
           setGmailToken(resp.access_token);
@@ -434,24 +447,24 @@ export default function BrightwheelDashboard() {
     }).requestAccessToken();
   };
 
-  const createGmailDraft = async (item, token) => {
+  const sendEmail = async (item, token) => {
     const useToken = token || gmailToken;
-    if (!useToken) { connectGmail((t) => createGmailDraft(item, t)); return; }
+    if (!useToken) { connectGmail((t) => sendEmail(item, t)); return; }
     const { subject, body } = parseEmailParts(item.body);
     const raw = buildRawEmail(item.to, subject, body);
     try {
-      const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/drafts", {
+      const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
         method: "POST",
         headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
-        body: JSON.stringify({ message: { raw } }),
+        body: JSON.stringify({ raw }),
       });
       if (res.ok) {
         rejectEmail(item.id);
-        showNotif("✅ Gmail draft created — " + item.directorName);
+        showNotif("✅ Email sent — " + item.directorName);
       } else if (res.status === 401) {
         setGmailToken(null); setGmailConnected(false);
         showNotif("Gmail session expired — reconnecting...", "red");
-        connectGmail((t) => createGmailDraft(item, t));
+        connectGmail((t) => sendEmail(item, t));
       } else {
         showNotif("Gmail error " + res.status + " — check console", "red");
       }
@@ -460,11 +473,10 @@ export default function BrightwheelDashboard() {
     }
   };
 
-
-  const createAllGmailDrafts = async () => {
-    if (!gmailToken && GOOGLE_CLIENT_ID) { connectGmail((t) => { /* drafts will fire from pending */ }); }
+  const sendAllEmails = async () => {
+    if (!gmailToken && GOOGLE_CLIENT_ID) { connectGmail((t) => { /* sends will fire from pending */ }); }
     for (const item of [...approvalQueue]) {
-      await createGmailDraft(item, gmailToken);
+      await sendEmail(item, gmailToken);
       await new Promise((r) => setTimeout(r, 400));
     }
   };
@@ -520,7 +532,7 @@ export default function BrightwheelDashboard() {
     const isFLOnly = template === "summerBridge" || template === "summerBridgeShort";
     const toQueue = districts.filter((d) => selectedIds.has(d.id) && (!isFLOnly || (d.state || "FL") === "FL"));
     toQueue.forEach((d) => queueEmail(d, template, true)); // silent=true — suppress per-item toasts
-    showNotif(`📧 ${toQueue.length} email${toQueue.length !== 1 ? "s" : ""} added to Draft Queue ✓`);
+    showNotif(`📧 ${toQueue.length} email${toQueue.length !== 1 ? "s" : ""} added to Send Queue ✓`);
     clearSelection();
   };
 
@@ -621,7 +633,7 @@ export default function BrightwheelDashboard() {
             { label: "🔥 Hot Leads", val: stats.hot, color: "text-red-600" },
             { label: "🌡️ Warm Leads", val: stats.warm, color: "text-orange-500" },
             { label: "Contacted", val: stats.contacted, color: "text-indigo-600" },
-            { label: "Pending Approval", val: stats.queue, color: "text-purple-600" },
+            { label: "Send Queue", val: stats.queue, color: "text-purple-600" },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className={`text-xl font-bold ${s.color}`}>{s.val}</div>
@@ -638,7 +650,7 @@ export default function BrightwheelDashboard() {
           { id: "outreach", label: "📤 Outreach Planner" },
           { id: "templates", label: "✉️ Email Templates" },
           { id: "activity", label: "📞 Activity Log" },
-          { id: "approval", label: `✉️ Draft Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
+          { id: "approval", label: `📤 Send Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
         ].map((t) => (
           <button
             key={t.id}
@@ -785,6 +797,7 @@ export default function BrightwheelDashboard() {
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   {[
+                                    { label: "📧 Original Email", key: "original" },
                                     { label: "☀️ Summer Long", key: "summerLong" },
                                     { label: "☀️ Summer Short", key: "summerShort" },
                                     ...((d.state || "FL") === "FL" ? [
@@ -832,6 +845,7 @@ export default function BrightwheelDashboard() {
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs text-gray-400 mr-1">Queue for all:</span>
                     {[
+                      { label: "📧 Original", key: "original", color: "bg-indigo-600 hover:bg-indigo-500" },
                       { label: "☀️ Summer Long", key: "summerLong", color: "bg-indigo-600 hover:bg-indigo-500" },
                       { label: "☀️ Summer Short", key: "summerShort", color: "bg-indigo-600 hover:bg-indigo-500" },
                     ].map((t) => (
@@ -878,7 +892,8 @@ export default function BrightwheelDashboard() {
                 const p = getPriorityLabel(d.priority);
                 const age = 2026 - d.curriculumAdoptionYear;
                 const touches = [
-                  { label: "☀️ Summer Long Email", template: "summerLong", done: d.activities?.some((a) => a.type === "email") },
+                  { label: "📧 Original Email", template: "original", done: d.activities?.some((a) => a.type === "email") },
+                  { label: "☀️ Summer Long Email", template: "summerLong", done: false },
                   { label: "☀️ Summer Short Email", template: "summerShort", done: false },
                   { label: "LinkedIn Connect + Note", template: "linkedin", done: false },
                 ];
@@ -902,7 +917,7 @@ export default function BrightwheelDashboard() {
                         ))}
                       </div>
                     )}
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-4 gap-2">
                       {touches.map((t, i) => (
                         <div key={i} className={`rounded-lg border p-2 ${t.done ? "bg-green-50 border-green-200" : "bg-gray-50 border-gray-200"}`}>
                           <div className="text-xs font-medium text-gray-700 mb-1">Step {i + 1}</div>
@@ -957,6 +972,7 @@ export default function BrightwheelDashboard() {
                   onChange={(e) => setSelectedTemplate(e.target.value)}
                   className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
                 >
+                  <option value="original">📧 Original Email</option>
                   <option value="summerLong">☀️ Summer Long</option>
                   <option value="summerShort">☀️ Summer Short</option>
                   <option value="summerBridge">🌴 FL Summer Bridge (Long)</option>
@@ -976,7 +992,7 @@ export default function BrightwheelDashboard() {
                     <button
                       onClick={() => queueEmail(selectedDistrict, selectedTemplate)}
                       className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
-                    >Add to Draft Queue →</button>
+                    >Add to Send Queue →</button>
                   </div>
                 </div>
                 <pre className="text-xs text-gray-700 whitespace-pre-wrap bg-gray-50 rounded-lg p-4 leading-relaxed font-sans">
@@ -1037,9 +1053,9 @@ export default function BrightwheelDashboard() {
             <div className="mb-4">
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div>
-                  <h2 className="text-base font-bold text-gray-900">Draft Queue</h2>
+                  <h2 className="text-base font-bold text-gray-900">Send Queue</h2>
                   <p className="text-xs text-gray-500 mt-1">
-                    Create Gmail drafts directly — no copy-paste needed.
+                    Send emails directly from Gmail — no copy-paste needed.
                   </p>
                 </div>
                 {/* Gmail connection badge */}
@@ -1056,10 +1072,10 @@ export default function BrightwheelDashboard() {
               {approvalQueue.length > 0 && (
                 <div className="flex gap-2 mt-3 flex-wrap">
                   <button
-                    onClick={createAllGmailDrafts}
+                    onClick={sendAllEmails}
                     className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-lg font-semibold"
                   >
-                    ✉️ Create All Gmail Drafts ({approvalQueue.length})
+                    📤 Send All ({approvalQueue.length})
                   </button>
                 </div>
               )}
@@ -1067,12 +1083,13 @@ export default function BrightwheelDashboard() {
             {approvalQueue.length === 0 ? (
               <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
                 <p className="font-medium">Queue is empty.</p>
-                <p className="text-xs mt-1">Queue emails from the Prospects or Outreach Planner tabs.</p>
+                <p className="text-xs mt-1">Queue emails from the Prospects or Outreach Planner tabs, then send them here.</p>
               </div>
             ) : (
               <div className="grid gap-4">
                 {approvalQueue.map((item) => {
                   const templateLabel =
+                    item.template === "original" ? "📧 Original Email" :
                     item.template === "summerBridge" ? "🌴 FL Summer Bridge (Long)" :
                     item.template === "summerBridgeShort" ? "🌴 FL Summer Bridge (Short)" :
                     item.template === "summerLong" ? "☀️ Summer Long" :
@@ -1090,10 +1107,10 @@ export default function BrightwheelDashboard() {
                         </div>
                         <div className="flex gap-2 flex-shrink-0 flex-wrap">
                           <button
-                            onClick={() => createGmailDraft(item)}
+                            onClick={() => sendEmail(item)}
                             className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold"
                           >
-                            ✉️ → Gmail Draft
+                            📤 Send
                           </button>
                           <button
                             onClick={() => rejectEmail(item.id)}
@@ -1340,6 +1357,7 @@ export default function BrightwheelDashboard() {
                   {/* Standard sequence — all states */}
                   <div className="grid grid-cols-2 gap-3 mb-5">
                     {[
+                      { label: "📧 Original Email", key: "original", desc: "General outreach — Kindergarten readiness, summer programs, learn more link." },
                       { label: "☀️ Summer Long", key: "summerLong", desc: "Full pitch — state-tailored, kit details, pricing, 3 bullets, learn more link." },
                       { label: "☀️ Summer Short", key: "summerShort", desc: "Quick intro — 4 bullets, pricing, casual CTA." },
                     ].map((t) => (
