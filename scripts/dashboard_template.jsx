@@ -62,7 +62,7 @@ function ep(text) { return `<p style="${S.p}">${text}</p>`; }
 function ea(href, label) { return `<a href="${href}" style="${S.a}">${label}</a>`; }
 
 function emailSignature() {
-  return `<div style="${S.sig}"><img src="${BW_LOGO_URL}" alt="brightwheel" width="130" style="display:block;margin-bottom:12px;" /><br>Best,<br><strong style="color:#222;">Christie Cooley</strong><br>Head of District Partnerships | brightwheel<br>${ea("mailto:christie.cooley@mybrightwheel.com","christie.cooley@mybrightwheel.com")} | 678-464-1018</div>`;
+  return `<div style="${S.sig}"><table cellpadding="0" cellspacing="0" border="0"><tr><td style="vertical-align:middle;padding-right:12px;"><img src="${BW_LOGO_URL}" alt="brightwheel" width="36" height="36" style="display:block;border-radius:6px;" /></td><td style="vertical-align:middle;font-size:13px;color:#555555;">Best,<br><strong style="color:#222;">Christie Cooley</strong><br>Head of District Partnerships | brightwheel<br>${ea("mailto:christie.cooley@mybrightwheel.com","christie.cooley@mybrightwheel.com")} | 678-464-1018</td></tr></table></div>`;
 }
 
 function buildUnsubUrl(name, email, district) {
