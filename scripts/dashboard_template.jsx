@@ -9,6 +9,8 @@ const SLACK_WEBHOOK_URL = ""; // e.g. "https://hooks.slack.com/services/T.../B..
 const UNSUB_PAGE = "https://sudeeptasridhara.github.io/gov_ece_gtm/unsubscribe.html";
 // Learn-more redirect — routes through GitHub Pages so Gmail doesn't show a Drive attachment preview
 const LEARN_MORE_URL = "https://sudeeptasridhara.github.io/gov_ece_gtm/learn-more.html";
+// brightwheel logo shown in email signature — upload bw-logo.png to assets/ folder in the repo
+const BW_LOGO_URL = "https://sudeeptasridhara.github.io/gov_ece_gtm/assets/bw-logo.png";
 
 // Parse "Subject: ..." off the first line of a generated email body
 function parseEmailParts(fullBody) {
@@ -60,7 +62,7 @@ function ep(text) { return `<p style="${S.p}">${text}</p>`; }
 function ea(href, label) { return `<a href="${href}" style="${S.a}">${label}</a>`; }
 
 function emailSignature() {
-  return `<div style="${S.sig}">Best,<br><strong style="color:#222;">Christie Cooley</strong><br>Head of District Partnerships | brightwheel<br>${ea("mailto:christie.cooley@mybrightwheel.com","christie.cooley@mybrightwheel.com")} | 678-464-1018</div>`;
+  return `<div style="${S.sig}"><img src="${BW_LOGO_URL}" alt="brightwheel" width="130" style="display:block;margin-bottom:12px;" /><br>Best,<br><strong style="color:#222;">Christie Cooley</strong><br>Head of District Partnerships | brightwheel<br>${ea("mailto:christie.cooley@mybrightwheel.com","christie.cooley@mybrightwheel.com")} | 678-464-1018</div>`;
 }
 
 function buildUnsubUrl(name, email, district) {
@@ -196,8 +198,6 @@ function generateEmail(district, template) {
   let greetingName;
   if (isSummerBridgeTemplate && district.summerBridgeContact) {
     greetingName = district.summerBridgeContact.firstName;
-  } else if (district.callToConfirm) {
-    greetingName = district.director;
   } else {
     greetingName = district.director.split(" ")[0];
   }
