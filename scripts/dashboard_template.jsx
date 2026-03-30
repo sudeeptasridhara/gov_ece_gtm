@@ -379,6 +379,11 @@ export default function BrightwheelDashboard() {
   const [expandedContactId, setExpandedContactId] = useState(null);
   const [inlineActivity, setInlineActivity] = useState({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
 
+  // ── GMAIL SYNC ──
+  const [syncedMsgIds, setSyncedMsgIds] = useState(new Set()); // dedup Gmail message IDs
+  const [gmailSyncing, setGmailSyncing] = useState(false);
+  const [lastSyncTime, setLastSyncTime] = useState(null);
+
   // ── GMAIL OAUTH ──
   const [gmailToken, setGmailToken] = useState(null);
   const [gmailConnected, setGmailConnected] = useState(false);
@@ -429,6 +434,8 @@ export default function BrightwheelDashboard() {
           }).then((r) => r.json()).then((profile) => {
             if (profile.emailAddress) setGmailUser(profile.emailAddress);
           }).catch(() => {});
+          // Auto-sync Gmail activity on connect
+          setTimeout(() => syncGmailActivity(resp.access_token), 800);
           if (pendingDraftRef.current) {
             pendingDraftRef.current(resp.access_token);
             pendingDraftRef.current = null;
@@ -452,6 +459,23 @@ export default function BrightwheelDashboard() {
       if (res.ok) {
         rejectEmail(item.id);
         showNotif("✅ Email sent — " + item.directorName);
+        // Auto-log the send as an activity on the district
+        const sentActivity = {
+          id: Date.now(),
+          type: "email",
+          date: new Date().toISOString().split("T")[0],
+          notes: `Sent "${item.template}" email via dashboard to ${item.to}`,
+          district: item.district,
+          directorName: item.directorName,
+          source: "dashboard",
+        };
+        setDistricts((prev) => prev.map((d) => {
+          if (d.id !== item.districtId) return d;
+          const already = (d.activities || []).some((a) => a.source === "dashboard" && a.notes === sentActivity.notes && a.date === sentActivity.date);
+          if (already) return d;
+          return { ...d, activities: [...(d.activities || []), sentActivity], status: d.status === "not contacted" ? "reached out" : d.status };
+        }));
+        setActivityLog((prev) => [sentActivity, ...prev]);
       } else if (res.status === 401) {
         setGmailToken(null); setGmailConnected(false);
         showNotif("Gmail session expired — reconnecting...", "red");
@@ -470,6 +494,158 @@ export default function BrightwheelDashboard() {
       await sendEmail(item, gmailToken);
       await new Promise((r) => setTimeout(r, 400));
     }
+  };
+
+  // ── GMAIL ACTIVITY SYNC ───────────────────────────────────────────────────
+  // Searches Gmail Sent (for emails sent outside the dashboard) and Inbox
+  // (for replies from district contacts). Logs new findings as activities.
+  const syncGmailActivity = async (token) => {
+    const useToken = token || gmailToken;
+    if (!useToken) { connectGmail((t) => syncGmailActivity(t)); return; }
+    setGmailSyncing(true);
+
+    // Build a fast lookup: email address → district
+    const emailToDistrict = {};
+    districts.forEach((d) => {
+      if (d.email) emailToDistrict[d.email.toLowerCase().trim()] = d;
+      if (d.summerBridgeContact?.email) emailToDistrict[d.summerBridgeContact.email.toLowerCase().trim()] = d;
+    });
+
+    // Gmail API helper
+    const gmailGet = async (path) => {
+      const res = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/${path}`, {
+        headers: { Authorization: "Bearer " + useToken },
+      });
+      if (!res.ok) throw new Error(`Gmail API ${res.status}`);
+      return res.json();
+    };
+
+    // Search Gmail and return message stubs
+    const searchMessages = async (query, maxResults = 100) => {
+      try {
+        const data = await gmailGet(`messages?q=${encodeURIComponent(query)}&maxResults=${maxResults}`);
+        return data.messages || [];
+      } catch { return []; }
+    };
+
+    // Fetch minimal metadata for a message (To, From, Subject, Date headers only)
+    const getMeta = async (id) => {
+      try {
+        const data = await gmailGet(`messages/${id}?format=metadata&metadataHeaders=To&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`);
+        const h = {};
+        (data.payload?.headers || []).forEach(({ name, value }) => { h[name.toLowerCase()] = value; });
+        return { id: data.id, threadId: data.threadId, headers: h };
+      } catch { return null; }
+    };
+
+    // Look back 90 days
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 90);
+    const afterStr = `${cutoff.getFullYear()}/${String(cutoff.getMonth()+1).padStart(2,"0")}/${String(cutoff.getDate()).padStart(2,"0")}`;
+
+    let newActivities = [];
+    const newSyncedIds = new Set(syncedMsgIds);
+
+    try {
+      // ── PASS 1: Sent emails (catches sends outside the dashboard) ──────────
+      const sentMsgs = await searchMessages(`in:sent after:${afterStr}`, 200);
+      for (const stub of sentMsgs) {
+        if (newSyncedIds.has(stub.id)) continue;
+        const msg = await getMeta(stub.id);
+        if (!msg) continue;
+        const toHeader = (msg.headers.to || "").toLowerCase();
+        // Check if To: contains any district email
+        const matchedDistrict = Object.entries(emailToDistrict).find(([email]) => toHeader.includes(email));
+        if (!matchedDistrict) { newSyncedIds.add(stub.id); continue; }
+        const [recipEmail, district] = matchedDistrict;
+        // Check if already logged for this district+day+type
+        const dateStr = msg.headers.date ? new Date(msg.headers.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+        const subject = msg.headers.subject || "(no subject)";
+        const activity = {
+          id: stub.id, // use Gmail message ID so it's always unique
+          type: "email",
+          date: dateStr,
+          notes: `Sent "${subject}" to ${recipEmail} (Gmail)`,
+          district: district.district,
+          directorName: district.director,
+          source: "gmail_sent",
+          gmailMsgId: stub.id,
+        };
+        newActivities.push({ districtId: district.id, activity });
+        newSyncedIds.add(stub.id);
+        await new Promise(r => setTimeout(r, 50)); // gentle rate limit
+      }
+
+      // ── PASS 2: Inbox replies from district contacts ─────────────────────
+      // Build search: from any district email
+      const allEmails = Object.keys(emailToDistrict);
+      // Chunk into groups of 30 to keep query length manageable
+      const chunks = [];
+      for (let i = 0; i < allEmails.length; i += 30) chunks.push(allEmails.slice(i, i + 30));
+
+      for (const chunk of chunks) {
+        const fromQuery = `in:inbox after:${afterStr} from:(${chunk.join(" OR ")})`;
+        const replyMsgs = await searchMessages(fromQuery, 50);
+        for (const stub of replyMsgs) {
+          if (newSyncedIds.has(stub.id)) continue;
+          const msg = await getMeta(stub.id);
+          if (!msg) continue;
+          const fromHeader = (msg.headers.from || "").toLowerCase();
+          const matchedDistrict = Object.entries(emailToDistrict).find(([email]) => fromHeader.includes(email));
+          if (!matchedDistrict) { newSyncedIds.add(stub.id); continue; }
+          const [replyEmail, district] = matchedDistrict;
+          const dateStr = msg.headers.date ? new Date(msg.headers.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
+          const subject = msg.headers.subject || "(no subject)";
+          const activity = {
+            id: stub.id,
+            type: "note",
+            date: dateStr,
+            notes: `↩️ Reply received: "${subject}" from ${replyEmail}`,
+            district: district.district,
+            directorName: district.director,
+            source: "gmail_reply",
+            gmailMsgId: stub.id,
+          };
+          newActivities.push({ districtId: district.id, activity, isReply: true });
+          newSyncedIds.add(stub.id);
+          await new Promise(r => setTimeout(r, 50));
+        }
+      }
+    } catch (e) {
+      showNotif("Sync error: " + e.message, "red");
+      setGmailSyncing(false);
+      return;
+    }
+
+    // Apply all new activities to district state
+    if (newActivities.length > 0) {
+      setDistricts((prev) => {
+        const updated = [...prev];
+        newActivities.forEach(({ districtId, activity, isReply }) => {
+          const idx = updated.findIndex(d => d.id === districtId);
+          if (idx === -1) return;
+          const d = updated[idx];
+          // Skip if this gmailMsgId already logged
+          if ((d.activities || []).some(a => a.gmailMsgId === activity.gmailMsgId)) return;
+          const newStatus = isReply
+            ? (d.status === "reached out" || d.status === "not contacted" ? "responded" : d.status)
+            : (d.status === "not contacted" ? "reached out" : d.status);
+          updated[idx] = { ...d, activities: [...(d.activities || []), activity], status: newStatus };
+        });
+        return updated;
+      });
+      setActivityLog((prev) => [...newActivities.map(x => x.activity), ...prev]);
+    }
+
+    setSyncedMsgIds(newSyncedIds);
+    setLastSyncTime(new Date().toLocaleTimeString());
+    setGmailSyncing(false);
+    const sentCount = newActivities.filter(a => a.activity.source === "gmail_sent").length;
+    const replyCount = newActivities.filter(a => a.activity.source === "gmail_reply").length;
+    showNotif(newActivities.length === 0
+      ? "Gmail sync complete — no new activity found"
+      : `Gmail sync: ${sentCount} sent email${sentCount !== 1 ? "s" : ""} + ${replyCount} repl${replyCount !== 1 ? "ies" : "y"} logged ✓`
+    );
   };
 
   // ── BULK SELECTION ──
@@ -1047,10 +1223,22 @@ export default function BrightwheelDashboard() {
                   <h2 className="text-base font-bold text-gray-900">Contact Tracking</h2>
                   <p className="text-xs text-gray-500 mt-1">Full outreach history per district. Log calls, emails, and meetings. Click a row to expand.</p>
                 </div>
-                <div className="flex gap-4 text-center">
-                  <div><div className="text-lg font-bold text-indigo-600">{totalContacted}</div><div className="text-xs text-gray-400">Contacted</div></div>
-                  <div><div className="text-lg font-bold text-green-600">{totalReplied}</div><div className="text-xs text-gray-400">Replied/Meeting</div></div>
-                  <div><div className="text-lg font-bold text-gray-500">{districts.length - totalContacted}</div><div className="text-xs text-gray-400">Not Yet Contacted</div></div>
+                <div className="flex items-center gap-4">
+                  <div className="flex gap-4 text-center">
+                    <div><div className="text-lg font-bold text-indigo-600">{totalContacted}</div><div className="text-xs text-gray-400">Contacted</div></div>
+                    <div><div className="text-lg font-bold text-green-600">{totalReplied}</div><div className="text-xs text-gray-400">Replied/Meeting</div></div>
+                    <div><div className="text-lg font-bold text-gray-500">{districts.length - totalContacted}</div><div className="text-xs text-gray-400">Not Yet Contacted</div></div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <button
+                      onClick={() => gmailConnected ? syncGmailActivity() : connectGmail((t) => syncGmailActivity(t))}
+                      disabled={gmailSyncing}
+                      className={`text-xs px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 border transition-colors ${gmailSyncing ? "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed" : "bg-white text-indigo-600 border-indigo-200 hover:bg-indigo-50 cursor-pointer"}`}
+                    >
+                      {gmailSyncing ? "⏳ Syncing Gmail..." : "🔄 Sync Gmail Activity"}
+                    </button>
+                    {lastSyncTime && <span className="text-xs text-gray-400">Last synced {lastSyncTime}</span>}
+                  </div>
                 </div>
               </div>
 
