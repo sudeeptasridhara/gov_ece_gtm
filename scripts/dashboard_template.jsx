@@ -12,6 +12,38 @@ const LEARN_MORE_URL = "https://bw-gov.github.io/gov_ece_gtm/learn-more.html";
 // brightwheel logo shown in email signature — upload bw-logo.png to assets/ folder in the repo
 const BW_LOGO_URL = "https://bw-gov.github.io/gov_ece_gtm/assets/bw-logo.png";
 
+// ─── REP PROFILES ─────────────────────────────────────────────────────────────
+// Add reps here; key = their brightwheel email address
+const REP_PROFILES = {
+  "christie.cooley@mybrightwheel.com": {
+    name: "Christie Cooley",
+    title: "Head of District Partnerships",
+    email: "christie.cooley@mybrightwheel.com",
+    phone: "678-464-1018",
+    calendly: "https://mybrightwheel.chilipiper.com/me/christie-cooley/meeting-with-christie-cooley",
+    color: "bg-purple-100 text-purple-700",
+    initials: "CC",
+  },
+  "eric.truog@mybrightwheel.com": {
+    name: "Eric Truog",
+    title: "Director of Business Operations",
+    email: "eric.truog@mybrightwheel.com",
+    phone: "",
+    calendly: "https://mybrightwheel.chilipiper.com/me/eric-truog/meeting-with-eric-truog",
+    color: "bg-blue-100 text-blue-700",
+    initials: "ET",
+  },
+};
+const DEFAULT_REP = REP_PROFILES["christie.cooley@mybrightwheel.com"];
+// Map each state to its assigned rep email
+const STATE_REP_EMAIL = {
+  FL: "christie.cooley@mybrightwheel.com",
+  AL: "christie.cooley@mybrightwheel.com",
+  GA: "christie.cooley@mybrightwheel.com",
+  MI: "christie.cooley@mybrightwheel.com",
+  ID: "eric.truog@mybrightwheel.com",
+};
+
 // Parse "Subject: ..." off the first line of a generated email body
 function parseEmailParts(fullBody) {
   const lines = fullBody.split("\n");
@@ -61,19 +93,21 @@ const S = {
 function ep(text) { return `<p style="${S.p}">${text}</p>`; }
 function ea(href, label) { return `<a href="${href}" style="${S.a}">${label}</a>`; }
 
-function emailSignature() {
-  return `<div style="${S.sig}"><table cellpadding="0" cellspacing="0" border="0"><tr><td style="vertical-align:middle;padding-right:12px;"><img src="${BW_LOGO_URL}" alt="brightwheel" width="36" height="36" style="display:block;border-radius:6px;" /></td><td style="vertical-align:middle;font-size:13px;color:#555555;">Best,<br><strong style="color:#222;">Christie Cooley</strong><br>Head of District Partnerships | brightwheel<br>${ea("mailto:christie.cooley@mybrightwheel.com","christie.cooley@mybrightwheel.com")} | 678-464-1018</td></tr></table></div>`;
+function emailSignature(rep) {
+  const r = rep || DEFAULT_REP;
+  const phoneStr = r.phone ? ` | ${r.phone}` : "";
+  return `<div style="${S.sig}"><table cellpadding="0" cellspacing="0" border="0"><tr><td style="vertical-align:middle;padding-right:12px;"><img src="${BW_LOGO_URL}" alt="brightwheel" width="36" height="36" style="display:block;border-radius:6px;" /></td><td style="vertical-align:middle;font-size:13px;color:#555555;">Best,<br><strong style="color:#222;">${r.name}</strong><br>${r.title} | brightwheel<br>${ea("mailto:"+r.email,r.email)}${phoneStr}</td></tr></table></div>`;
 }
 
 function buildUnsubUrl(name, email, district) {
   return `${UNSUB_PAGE}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&district=${encodeURIComponent(district)}`;
 }
 
-function buildHtmlEmail(subject, bodyHtml, unsubUrl) {
+function buildHtmlEmail(subject, bodyHtml, unsubUrl, rep) {
   const unsubFooter = unsubUrl
     ? `<div style="margin-top:28px;padding-top:12px;border-top:1px solid #e5e7eb;font-size:11px;color:#b0b7c3;text-align:center;">Don't want to receive these emails?&nbsp;<a href="${unsubUrl}" style="color:#b0b7c3;text-decoration:underline;">Unsubscribe</a></div>`
     : "";
-  const html = `<!DOCTYPE html><html><body style="${S.wrap}">${bodyHtml}${emailSignature()}${unsubFooter}</body></html>`;
+  const html = `<!DOCTYPE html><html><body style="${S.wrap}">${bodyHtml}${emailSignature(rep)}${unsubFooter}</body></html>`;
   return `Subject: ${subject}\n\n${html}`;
 }
 
@@ -187,7 +221,8 @@ function resolveContact(district, template) {
   };
 }
 
-function generateEmail(district, template) {
+function generateEmail(district, template, rep) {
+  const r = rep || REP_PROFILES[STATE_REP_EMAIL[district.state || "FL"]] || DEFAULT_REP;
   const contact = resolveContact(district, template);
 
   const stateCode = district.state || "FL";
@@ -204,7 +239,7 @@ function generateEmail(district, template) {
   const helloGreeting = ep(`Hello ${greetingName},`);
   const hiGreeting    = ep(`Hi ${greetingName},`);
 
-  const calendlyLink = ep(ea("https://mybrightwheel.chilipiper.com/me/christie-cooley/meeting-with-christie-cooley", "Schedule time with me →"));
+  const calendlyLink = ep(ea(r.calendly, "Schedule time with me →"));
 
   // Build a per-recipient unsubscribe URL so clicks are logged against the right contact
   const unsubRecipientName = (isSummerBridgeTemplate && district.summerBridgeContact)
@@ -226,6 +261,7 @@ function generateEmail(district, template) {
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
+      r,
     ),
 
     // ── Summer Long (all states) ──────────────────────────────────────────────
@@ -245,6 +281,7 @@ function generateEmail(district, template) {
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
+      r,
     ),
 
     // ── Summer Short (all states) ─────────────────────────────────────────────
@@ -263,6 +300,7 @@ function generateEmail(district, template) {
       ep(`Happy to send additional materials or jump on a quick call if it's helpful. Schedule time with me at the link below or just reply and we can find a time.`) +
       calendlyLink,
       unsubUrl,
+      r,
     ),
 
     // ── FL Summer Bridge (Long) ───────────────────────────────────────────────
@@ -282,6 +320,7 @@ function generateEmail(district, template) {
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
+      r,
     ),
 
     // ── FL Summer Bridge (Short) ──────────────────────────────────────────────
@@ -300,6 +339,7 @@ function generateEmail(district, template) {
       ep(`Happy to send additional materials or jump on a quick call if it's helpful. Schedule time with me at the link below or just reply and we can find a time.`) +
       calendlyLink,
       unsubUrl,
+      r,
     ),
   };
 
@@ -335,8 +375,12 @@ export default function BrightwheelDashboard() {
   // ── GMAIL OAUTH ──
   const [gmailToken, setGmailToken] = useState(null);
   const [gmailConnected, setGmailConnected] = useState(false);
+  const [gmailUser, setGmailUser] = useState(null); // logged-in email, used to pick rep profile
   const [gisReady, setGisReady] = useState(false);
   const pendingDraftRef = useRef(null);
+
+  // Rep profile for the currently logged-in user (falls back to Christie if unrecognized)
+  const currentRep = REP_PROFILES[gmailUser] || DEFAULT_REP;
 
   const [emailPickerId, setEmailPickerId] = useState(null); // must be declared before the useEffect below
 
@@ -372,6 +416,12 @@ export default function BrightwheelDashboard() {
           setGmailToken(resp.access_token);
           setGmailConnected(true);
           showNotif("Gmail connected ✓");
+          // Identify the logged-in user to select the right rep signature
+          fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
+            headers: { Authorization: "Bearer " + resp.access_token },
+          }).then((r) => r.json()).then((profile) => {
+            if (profile.emailAddress) setGmailUser(profile.emailAddress);
+          }).catch(() => {});
           if (pendingDraftRef.current) {
             pendingDraftRef.current(resp.access_token);
             pendingDraftRef.current = null;
@@ -495,7 +545,7 @@ export default function BrightwheelDashboard() {
   };
 
   const queueEmail = (district, template, silent = false) => {
-    const body = generateEmail(district, template);
+    const body = generateEmail(district, template, currentRep);
     const contact = resolveContact(district, template);
     const item = {
       id: Date.now() + Math.random(), // unique even when called rapidly in bulk
@@ -561,19 +611,31 @@ export default function BrightwheelDashboard() {
             <p className="text-xs text-gray-400">Early Childhood Director Outreach</p>
           </div>
         </div>
-        <div className="flex gap-4 text-center">
-          {[
-            { label: "Total Districts", val: stats.total, color: "text-gray-700" },
-            { label: "🔥 Hot Leads", val: stats.hot, color: "text-red-600" },
-            { label: "🌡️ Warm Leads", val: stats.warm, color: "text-orange-500" },
-            { label: "Contacted", val: stats.contacted, color: "text-indigo-600" },
-            { label: "Send Queue", val: stats.queue, color: "text-purple-600" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className={`text-xl font-bold ${s.color}`}>{s.val}</div>
-              <div className="text-xs text-gray-400">{s.label}</div>
+        <div className="flex items-center gap-6">
+          <div className="flex gap-4 text-center">
+            {[
+              { label: "Total Districts", val: stats.total, color: "text-gray-700" },
+              { label: "🔥 Hot Leads", val: stats.hot, color: "text-red-600" },
+              { label: "🌡️ Warm Leads", val: stats.warm, color: "text-orange-500" },
+              { label: "Contacted", val: stats.contacted, color: "text-indigo-600" },
+              { label: "Send Queue", val: stats.queue, color: "text-purple-600" },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <div className={`text-xl font-bold ${s.color}`}>{s.val}</div>
+                <div className="text-xs text-gray-400">{s.label}</div>
+              </div>
+            ))}
+          </div>
+          {/* Logged-in rep indicator */}
+          <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentRep.color}`}>
+              {currentRep.initials}
             </div>
-          ))}
+            <div>
+              <div className="text-xs font-semibold text-gray-700">{gmailConnected ? currentRep.name : "Not connected"}</div>
+              <div className="text-xs text-gray-400">{gmailConnected ? currentRep.title : "Connect Gmail to send"}</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -641,8 +703,13 @@ export default function BrightwheelDashboard() {
                         title={allVisibleSelected ? "Deselect all" : "Select all visible"}
                       />
                     </th>
-                    {["Priority", "District", "Director", "Curriculum", "Adopted", "Age", "Enrollment", "Signals", "Status", "Actions"].map((h) => (
-                      <th key={h} className="px-3 py-3 text-left font-medium">{h}</th>
+                    {[
+                      { h: "Priority" }, { h: "District" }, { h: "Director" }, { h: "Curriculum" },
+                      { h: "Adopted" }, { h: "Age" }, { h: "Enrollment" },
+                      { h: "Signals", style: { minWidth: "220px" } },
+                      { h: "Status" }, { h: "Actions" },
+                    ].map(({ h, style }) => (
+                      <th key={h} className="px-3 py-3 text-left font-medium" style={style}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -674,6 +741,7 @@ export default function BrightwheelDashboard() {
                           </div>
                           <div className="text-gray-400 text-xs truncate max-w-32">{d.district}</div>
                           {d.lastUpdated && <div className="text-green-600 text-xs mt-0.5">🔄 {d.lastUpdated}</div>}
+                          {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1.5 py-0 rounded font-semibold mt-0.5 inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="font-medium">{d.director}</div>
@@ -688,10 +756,10 @@ export default function BrightwheelDashboard() {
                           <span className={`font-bold ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
                         </td>
                         <td className="px-3 py-2.5 text-right">{d.enrollment.toLocaleString()}</td>
-                        <td className="px-3 py-2.5">
-                          <div className="flex flex-col gap-1">
+                        <td className="px-3 py-2.5" style={{ minWidth: "220px" }}>
+                          <div className="flex flex-wrap gap-1">
                             {d.buyingSignals.length > 0 && (
-                              <span className="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded text-xs">{d.buyingSignals.length} signal{d.buyingSignals.length > 1 ? "s" : ""}</span>
+                              <span className="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded text-xs">⚡ {d.buyingSignals.length} signal{d.buyingSignals.length > 1 ? "s" : ""}</span>
                             )}
                             {d.boardNotes && d.boardNotes.length > 0 && (
                               <span className="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-xs">📋 {d.boardNotes.length} board note{d.boardNotes.length > 1 ? "s" : ""}</span>
@@ -858,7 +926,7 @@ export default function BrightwheelDashboard() {
                           <div className="text-xs text-gray-500 mb-2">{t.label}</div>
                           {t.template === "linkedin" ? (
                             <button
-                              onClick={() => { setSelectedDistrict(d); setEmailPreview(generateEmail(d, "linkedin")); setShowEmailPreview(true); }}
+                              onClick={() => { setSelectedDistrict(d); setEmailPreview(generateEmail(d, "linkedin", currentRep)); setShowEmailPreview(true); }}
                               className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
                             >
                               Copy Message
@@ -920,7 +988,7 @@ export default function BrightwheelDashboard() {
                   <h3 className="font-semibold text-gray-900">Preview — {selectedDistrict.director} at {selectedDistrict.county} County</h3>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => { navigator.clipboard?.writeText(generateEmail(selectedDistrict, selectedTemplate)); showNotif("Copied to clipboard ✓"); }}
+                      onClick={() => { navigator.clipboard?.writeText(generateEmail(selectedDistrict, selectedTemplate, currentRep)); showNotif("Copied to clipboard ✓"); }}
                       className="text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
                     >Copy</button>
                     <button
@@ -930,7 +998,7 @@ export default function BrightwheelDashboard() {
                   </div>
                 </div>
                 <pre className="text-xs text-gray-700 whitespace-pre-wrap bg-gray-50 rounded-lg p-4 leading-relaxed font-sans">
-                  {generateEmail(selectedDistrict, selectedTemplate)}
+                  {generateEmail(selectedDistrict, selectedTemplate, currentRep)}
                 </pre>
               </div>
             )}
@@ -1300,7 +1368,7 @@ export default function BrightwheelDashboard() {
                         <p className="text-xs text-gray-400 mb-2">{t.desc}</p>
                         <div className="flex gap-2">
                           <button
-                            onClick={() => { setEmailPreview(generateEmail(selectedDistrict, t.key)); setShowEmailPreview(true); }}
+                            onClick={() => { setEmailPreview(generateEmail(selectedDistrict, t.key, currentRep)); setShowEmailPreview(true); }}
                             className="text-xs border border-gray-200 bg-white px-2 py-1 rounded hover:bg-gray-50"
                           >Preview</button>
                           <button
@@ -1343,7 +1411,7 @@ export default function BrightwheelDashboard() {
                             <p className="text-xs text-green-600 mb-2">FL-specific — kit details, pricing, 3 bullets, learn more link.</p>
                             <div className="flex gap-2">
                               <button
-                                onClick={() => { setEmailPreview(generateEmail(selectedDistrict, "summerBridge")); setShowEmailPreview(true); }}
+                                onClick={() => { setEmailPreview(generateEmail(selectedDistrict, "summerBridge", currentRep)); setShowEmailPreview(true); }}
                                 className="text-xs border border-green-300 bg-white text-green-700 px-2 py-1 rounded hover:bg-green-50"
                               >Preview</button>
                               <button
@@ -1358,7 +1426,7 @@ export default function BrightwheelDashboard() {
                             <p className="text-xs text-green-600 mb-2">Quick intro — 4 bullets, pricing, casual CTA.</p>
                             <div className="flex gap-2">
                               <button
-                                onClick={() => { setEmailPreview(generateEmail(selectedDistrict, "summerBridgeShort")); setShowEmailPreview(true); }}
+                                onClick={() => { setEmailPreview(generateEmail(selectedDistrict, "summerBridgeShort", currentRep)); setShowEmailPreview(true); }}
                                 className="text-xs border border-green-300 bg-white text-green-700 px-2 py-1 rounded hover:bg-green-50"
                               >Preview</button>
                               <button
