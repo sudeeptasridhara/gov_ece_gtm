@@ -878,12 +878,12 @@ export default function BrightwheelDashboard() {
         {activeTab === "prospects" && (
           <div>
             {/* Filters */}
-            <div className="flex flex-wrap gap-3 mb-4 items-center">
+            <div className="flex flex-nowrap gap-3 mb-4 items-center overflow-x-auto pb-1">
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="🔍 Search district, director, county..."
-                className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                className="border border-gray-200 rounded-lg px-3 py-2 text-sm flex-shrink-0 w-56 focus:outline-none focus:ring-2 focus:ring-indigo-200"
               />
               {[
                 { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","🌴 Florida"],["AL","Alabama"],["ID","Idaho"]] },
@@ -895,12 +895,13 @@ export default function BrightwheelDashboard() {
                   key={f.label}
                   value={f.val}
                   onChange={(e) => f.setter(e.target.value)}
-                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  style={{ maxWidth: "180px" }}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 >
                   {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               ))}
-              <span className="text-xs text-gray-400 ml-2">{filtered.length} results</span>
+              <span className="text-xs text-gray-400 ml-1 flex-shrink-0 whitespace-nowrap">{filtered.length} results</span>
             </div>
 
             {/* Table */}
