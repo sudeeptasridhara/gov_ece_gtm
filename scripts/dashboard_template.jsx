@@ -609,7 +609,7 @@ export default function BrightwheelDashboard() {
                 className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-indigo-200"
               />
               {[
-                { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","🌴 Florida"],["AL","Alabama"]] },
+                { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","🌴 Florida"],["AL","Alabama"],["ID","Idaho"]] },
                 { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
                 { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
                 { label: "Status", val: filterStatus, setter: setFilterStatus, opts: [["all","All Statuses"], ...STATUSES.map(s => [s, s])] },
