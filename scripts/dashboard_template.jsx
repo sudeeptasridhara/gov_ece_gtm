@@ -191,7 +191,7 @@ function generateEmail(district, template) {
   const contact = resolveContact(district, template);
 
   const stateCode = district.state || "FL";
-  const STATE_NAMES = { FL: "Florida", AL: "Alabama" };
+  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho" };
   const stateName = STATE_NAMES[stateCode] || stateCode;
 
   const isSummerBridgeTemplate = template === "summerBridge" || template === "summerBridgeShort";
