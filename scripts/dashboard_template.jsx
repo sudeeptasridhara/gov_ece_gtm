@@ -396,6 +396,37 @@ export default function BrightwheelDashboard() {
 
   const [emailPickerId, setEmailPickerId] = useState(null); // must be declared before the useEffect below
 
+  // ── LOAD PERSISTED ACTIVITY LOG ON STARTUP ──────────────────────────────────
+  // The daily scheduled task writes data/activity_log.json. Fetch it here so
+  // activities survive page refreshes and are pre-populated without a manual sync.
+  useEffect(() => {
+    fetch("https://bw-gov.github.io/gov_ece_gtm/data/activity_log.json?_=" + Date.now())
+      .then((r) => r.ok ? r.json() : null)
+      .catch(() => null)
+      .then((log) => {
+        if (!log || !Array.isArray(log.activities) || log.activities.length === 0) return;
+        // Pre-populate synced IDs so browser sync doesn't re-log these
+        setSyncedMsgIds(new Set(log.activities.map((a) => a.gmailMsgId).filter(Boolean)));
+        setLastSyncTime(log.lastSynced ? new Date(log.lastSynced).toLocaleTimeString() : null);
+        // Merge activities into district state
+        setDistricts((prev) => {
+          const updated = [...prev];
+          log.activities.forEach((activity) => {
+            const idx = updated.findIndex((d) => d.id === activity.districtId);
+            if (idx === -1) return;
+            const d = updated[idx];
+            if ((d.activities || []).some((a) => a.gmailMsgId && a.gmailMsgId === activity.gmailMsgId)) return;
+            const newStatus = activity.source === "gmail_reply"
+              ? (d.status === "reached out" || d.status === "not contacted" ? "responded" : d.status)
+              : (d.status === "not contacted" ? "reached out" : d.status);
+            updated[idx] = { ...d, activities: [...(d.activities || []), activity], status: newStatus };
+          });
+          return updated;
+        });
+        setActivityLog((prev) => [...log.activities, ...prev]);
+      });
+  }, []); // runs once on mount
+
   // Close the email template picker when clicking anywhere outside it
   useEffect(() => {
     if (!emailPickerId) return;
