@@ -370,6 +370,7 @@ export default function BrightwheelDashboard() {
   const [filterPriority, setFilterPriority] = useState("all");
   const [filterCurriculum, setFilterCurriculum] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
   const [approvalQueue, setApprovalQueue] = useState([]);
@@ -729,9 +730,9 @@ export default function BrightwheelDashboard() {
     setTimeout(() => setNotification(null), 3500);
   };
 
-  // ── FILTERED DISTRICTS ──
+  // ── FILTERED + SORTED DISTRICTS ──
   const filtered = useMemo(() => {
-    return districts.filter((d) => {
+    const results = districts.filter((d) => {
       const matchSearch =
         d.district.toLowerCase().includes(search.toLowerCase()) ||
         d.director.toLowerCase().includes(search.toLowerCase()) ||
@@ -748,7 +749,19 @@ export default function BrightwheelDashboard() {
       const matchStatus = filterStatus === "all" || d.status === filterStatus;
       return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus;
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus]);
+    return results.sort((a, b) => {
+      if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
+      if (sortBy === "tier") {
+        const tierNum = (t) => t === "Tier 1" ? 1 : t === "Tier 2" ? 2 : 3;
+        return tierNum(a.priorityTier) - tierNum(b.priorityTier);
+      }
+      if (sortBy === "adoptionYear") return (a.curriculumAdoptionYear || 9999) - (b.curriculumAdoptionYear || 9999);
+      if (sortBy === "lastUpdated") return (b.lastUpdated || "").localeCompare(a.lastUpdated || "");
+      if (sortBy === "status") return a.status.localeCompare(b.status);
+      // default: priority score descending
+      return (b.priority || 0) - (a.priority || 0);
+    });
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy]);
 
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
@@ -795,8 +808,12 @@ export default function BrightwheelDashboard() {
   };
 
   const queueEmail = (district, template, silent = false) => {
-    const body = generateEmail(district, template, currentRep);
     const contact = resolveContact(district, template);
+    if (!contact.email) {
+      showNotif(`⚠️ No email on file for ${district.director || district.district} — skipped`, "red");
+      return;
+    }
+    const body = generateEmail(district, template, currentRep);
     const item = {
       id: Date.now() + Math.random(), // unique even when called rapidly in bulk
       district: district.district,
@@ -937,6 +954,22 @@ export default function BrightwheelDashboard() {
                   {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               ))}
+              <div className="flex items-center gap-1.5 flex-shrink-0 border-l border-gray-200 pl-3 ml-1">
+                <span className="text-xs text-gray-400 whitespace-nowrap">Sort:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  style={{ maxWidth: "160px" }}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                >
+                  <option value="priority">⚡ Priority Score</option>
+                  <option value="enrollment">🏫 District Size</option>
+                  <option value="tier">🏆 Tier</option>
+                  <option value="adoptionYear">📅 Adoption Year (oldest)</option>
+                  <option value="lastUpdated">🔄 Recently Updated</option>
+                  <option value="status">📊 Status</option>
+                </select>
+              </div>
               <span className="text-xs text-gray-400 ml-1 flex-shrink-0 whitespace-nowrap">{filtered.length} results</span>
             </div>
 
