@@ -29,7 +29,7 @@ const REP_PROFILES = {
     title: "Director of Business Operations",
     email: "eric.truog@mybrightwheel.com",
     phone: "",
-    calendly: "https://mybrightwheel.chilipiper.com/me/eric-truog/meeting-with-eric-truog",
+    calendly: "", // add link when available
     color: "bg-blue-100 text-blue-700",
     initials: "ET",
   },
@@ -995,16 +995,31 @@ export default function BrightwheelDashboard() {
               </div>
             ))}
           </div>
-          {/* Logged-in rep indicator */}
-          <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentRep ? currentRep.color : "bg-gray-100 text-gray-400"}`}>
-              {currentRep ? currentRep.initials : "?"}
+          {/* Logged-in rep indicator / sign-in button */}
+          {currentRep ? (
+            <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentRep.color}`}>
+                {currentRep.initials}
+              </div>
+              <div>
+                <div className="text-xs font-semibold text-gray-700">{currentRep.name}</div>
+                <div className="text-xs text-gray-400">{currentRep.title}</div>
+              </div>
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-700">{currentRep ? currentRep.name : "Not signed in"}</div>
-              <div className="text-xs text-gray-400">{currentRep ? currentRep.title : "Connect Gmail to identify yourself"}</div>
-            </div>
-          </div>
+          ) : (
+            <button
+              onClick={() => connectGmail()}
+              className="flex items-center gap-2 pl-4 border-l border-gray-200 hover:opacity-80 transition-opacity cursor-pointer group"
+            >
+              <div className="w-8 h-8 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 group-hover:border-indigo-400 flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-indigo-500 transition-colors">
+                G
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-semibold text-indigo-600">Sign in with Gmail</div>
+                <div className="text-xs text-gray-400">to personalize emails &amp; send</div>
+              </div>
+            </button>
+          )}
         </div>
       </div>
 
@@ -1016,7 +1031,6 @@ export default function BrightwheelDashboard() {
           { id: "outreach", label: "📤 Outreach Planner" },
           { id: "templates", label: "✉️ Email Templates" },
           { id: "contacts", label: "👥 Contact Tracking" },
-          { id: "activity", label: "📞 Activity Log" },
           { id: "approval", label: `📤 Send Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
           { id: "districtinfo", label: "🏫 District Info" },
         ].map((t) => (
@@ -1839,112 +1853,6 @@ export default function BrightwheelDashboard() {
                   <div className="py-12 text-center text-gray-400 text-sm">No districts match your filters.</div>
                 )}
               </div>
-            </div>
-          );
-        })()}
-
-        {/* ── ACTIVITY LOG TAB ── */}
-        {activeTab === "activity" && (() => {
-          const activityIcon = (type) => type === "email" ? "✉️" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
-          const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
-
-          // Build per-district contact summary from all district activities
-          const districtsWithActivity = districts
-            .filter(d => (d.activities || []).length > 0)
-            .slice()
-            .sort((a, b) => {
-              const aLast = a.activities[a.activities.length - 1].date;
-              const bLast = b.activities[b.activities.length - 1].date;
-              return bLast.localeCompare(aLast);
-            });
-
-          // Also include flat activity log entries (from send queue) that may not be in district.activities yet
-          const flatOnly = activityLog.filter(a =>
-            !districts.some(d => (d.activities || []).some(da => da.id === a.id))
-          );
-
-          const [actLogSearch, setActLogSearch] = [contactSearch, setContactSearch]; // reuse search box
-
-          return (
-            <div>
-              <div className="mb-4">
-                <h2 className="text-base font-bold text-gray-900">Activity Log</h2>
-                <p className="text-xs text-gray-500 mt-1">All contact points with each district, grouped by district. Newest activity first.</p>
-              </div>
-
-              {districtsWithActivity.length === 0 && flatOnly.length === 0 ? (
-                <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
-                  <p className="font-medium">No activities yet.</p>
-                  <p className="text-xs mt-1">Log contact from the Contact Tracking tab or from a district's detail view.</p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {districtsWithActivity.map((d) => {
-                    const acts = [...(d.activities || [])].reverse();
-                    const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]] || DEFAULT_REP;
-                    return (
-                      <div key={d.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                        {/* District header */}
-                        <div className="bg-gray-50 border-b border-gray-100 px-4 py-2.5 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="font-semibold text-gray-800 text-sm">{d.county} County — {d.district}</span>
-                            {d.state && d.state !== "FL" && <span className="text-xs bg-blue-100 text-blue-700 px-1.5 rounded font-semibold">{d.state}</span>}
-                            <span className={`text-xs font-semibold px-1.5 py-0 rounded ${rep.color}`}>{rep.initials}</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className="text-xs text-gray-400">{acts.length} touch point{acts.length > 1 ? "s" : ""}</span>
-                            <span className={`text-xs font-medium ${statusColor(d.status)}`}>{d.status}</span>
-                          </div>
-                        </div>
-                        {/* Timeline */}
-                        <div className="divide-y divide-gray-50">
-                          {acts.map((a) => (
-                            <div key={a.id} className="px-4 py-3 flex gap-3 items-start">
-                              <div className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${activityBg(a.type)}`}>
-                                {activityIcon(a.type)}
-                              </div>
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <span className="text-xs font-semibold text-gray-700 capitalize">{a.type}</span>
-                                  <span className="text-xs text-gray-400">{a.date}</span>
-                                </div>
-                                {a.directorName && <div className="text-xs text-gray-400">{a.directorName}</div>}
-                                <p className="text-xs text-gray-600 mt-0.5">{a.notes}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  {/* Flat log entries not tied to a district */}
-                  {flatOnly.length > 0 && (
-                    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                      <div className="bg-gray-50 border-b border-gray-100 px-4 py-2.5">
-                        <span className="font-semibold text-gray-500 text-sm text-xs uppercase tracking-wide">Other Activities</span>
-                      </div>
-                      <div className="divide-y divide-gray-50">
-                        {flatOnly.map((a) => (
-                          <div key={a.id} className="px-4 py-3 flex gap-3 items-start">
-                            <div className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${activityBg(a.type)}`}>
-                              {activityIcon(a.type)}
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                <span className="font-medium text-gray-800 text-xs">{a.district}</span>
-                                <span className="text-xs text-gray-400">{a.date}</span>
-                              </div>
-                              <span className="text-xs text-gray-400 capitalize">{a.type} · {a.directorName}</span>
-                              <p className="text-xs text-gray-600 mt-0.5">{a.notes}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           );
         })()}
