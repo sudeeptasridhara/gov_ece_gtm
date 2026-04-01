@@ -368,7 +368,9 @@ export default function BrightwheelDashboard() {
     )
   );
 
-  const [activeTab, setActiveTab] = useState("prospects");
+  const [activeTab, setActiveTab] = useState("overview");
+  const [overviewFilterState, setOverviewFilterState] = useState("all");
+  const [overviewFilterRep, setOverviewFilterRep] = useState("all");
   const [search, setSearch] = useState("");
   const [filterState, setFilterState] = useState("all");
   const [filterPriority, setFilterPriority] = useState("all");
@@ -913,6 +915,7 @@ export default function BrightwheelDashboard() {
       {/* TABS */}
       <div className="bg-white border-b border-gray-200 px-6 flex gap-1">
         {[
+          { id: "overview", label: "🏠 Overview" },
           { id: "prospects", label: "📋 Prospects" },
           { id: "outreach", label: "📤 Outreach Planner" },
           { id: "templates", label: "✉️ Email Templates" },
@@ -931,6 +934,213 @@ export default function BrightwheelDashboard() {
       </div>
 
       <div className="px-6 py-4">
+        {/* ── OVERVIEW TAB ── */}
+        {activeTab === "overview" && (() => {
+          const STATE_NAMES_OV = { FL: "🌴 Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", GA: "Georgia", MI: "Michigan" };
+          const repEmail = overviewFilterRep === "all" ? null : overviewFilterRep;
+          const stateFilter = overviewFilterState === "all" ? null : overviewFilterState;
+
+          const ovDistricts = districts.filter((d) => {
+            const matchState = !stateFilter || (d.state || "FL") === stateFilter;
+            const matchRep = !repEmail || STATE_REP_EMAIL[d.state || "FL"] === repEmail;
+            return matchState && matchRep;
+          });
+
+          // ── Stats ──
+          const total = ovDistricts.length;
+          const tier1 = ovDistricts.filter(d => d.priorityTier === "Tier 1").length;
+          const tier2 = ovDistricts.filter(d => d.priorityTier === "Tier 2").length;
+          const contacted = ovDistricts.filter(d => d.status !== "not contacted").length;
+          const notContacted = ovDistricts.filter(d => d.status === "not contacted").length;
+          const hot = ovDistricts.filter(d => d.priority >= 75).length;
+          const warm = ovDistricts.filter(d => d.priority >= 55 && d.priority < 75).length;
+          const inProgress = ovDistricts.filter(d => ["responded","meeting scheduled","proposal sent"].includes(d.status)).length;
+          const won = ovDistricts.filter(d => d.status === "closed won").length;
+
+          // ── Pending contacts (not contacted, ordered by priority) ──
+          const pending = ovDistricts
+            .filter(d => d.status === "not contacted" && d.email)
+            .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+            .slice(0, 20);
+
+          // ── Weekly intel news (districtContext + boardNotes updated in last 7 days) ──
+          const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+          const cutoff = sevenDaysAgo.toISOString().split("T")[0];
+          const newsItems = [];
+          ovDistricts.forEach(d => {
+            const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+            const repInfo = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
+            const stateLabel = STATE_NAMES_OV[d.state || "FL"] || d.state;
+            if (Array.isArray(d.boardNotes)) {
+              d.boardNotes.filter(n => n.date >= cutoff).forEach(n => {
+                newsItems.push({ distName, stateLabel, repInfo, type: "board", summary: n.summary, source: n.source, date: n.date, districtId: d.id });
+              });
+            }
+            if (Array.isArray(d.districtContext)) {
+              d.districtContext.filter(n => n.date >= cutoff).forEach(n => {
+                newsItems.push({ distName, stateLabel, repInfo, type: "intel", summary: n.summary, source: n.source, date: n.date, districtId: d.id });
+              });
+            }
+          });
+          newsItems.sort((a, b) => b.date.localeCompare(a.date));
+
+          const statCards = [
+            { label: "Total Districts", val: total, color: "text-gray-800", bg: "bg-gray-50" },
+            { label: "Tier 1 + 2", val: tier1 + tier2, color: "text-indigo-700", bg: "bg-indigo-50" },
+            { label: "🔥 Hot Leads", val: hot, color: "text-red-600", bg: "bg-red-50" },
+            { label: "🌡 Warm Leads", val: warm, color: "text-orange-500", bg: "bg-orange-50" },
+            { label: "Not Yet Contacted", val: notContacted, color: "text-gray-600", bg: "bg-gray-50" },
+            { label: "Contacted", val: contacted, color: "text-blue-600", bg: "bg-blue-50" },
+            { label: "In Progress", val: inProgress, color: "text-purple-600", bg: "bg-purple-50" },
+            { label: "Closed Won", val: won, color: "text-green-600", bg: "bg-green-50" },
+          ];
+
+          return (
+            <div>
+              {/* ── Filters ── */}
+              <div className="flex flex-nowrap gap-3 mb-5 items-center">
+                <select value={overviewFilterState} onChange={e => setOverviewFilterState(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                  <option value="all">All States</option>
+                  <option value="FL">🌴 Florida</option>
+                  <option value="AL">Alabama</option>
+                  <option value="ID">Idaho</option>
+                  <option value="NV">Nevada</option>
+                  <option value="GA">Georgia</option>
+                  <option value="MI">Michigan</option>
+                </select>
+                <select value={overviewFilterRep} onChange={e => setOverviewFilterRep(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                  <option value="all">All Reps</option>
+                  {Object.values(REP_PROFILES).map(r => <option key={r.email} value={r.email}>{r.name}</option>)}
+                </select>
+                <span className="text-xs text-gray-400">{total} districts</span>
+              </div>
+
+              {/* ── Stat Cards ── */}
+              <div className="grid grid-cols-4 gap-3 mb-6">
+                {statCards.map(s => (
+                  <div key={s.label} className={`${s.bg} rounded-xl p-4 border border-gray-100`}>
+                    <div className={`text-2xl font-bold ${s.color}`}>{s.val}</div>
+                    <div className="text-xs text-gray-500 mt-0.5">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ── Pipeline by State ── */}
+              <div className="mb-6">
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Pipeline by State</h3>
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-gray-50 border-b border-gray-200">
+                        <th className="text-left px-4 py-2 font-medium text-gray-500">State</th>
+                        <th className="text-left px-4 py-2 font-medium text-gray-500">Rep</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Districts</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Tier 1+2</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Not Contacted</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">In Progress</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Won</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(STATE_NAMES_OV)
+                        .filter(s => !stateFilter || s === stateFilter)
+                        .filter(s => !repEmail || STATE_REP_EMAIL[s] === repEmail)
+                        .map(s => {
+                          const sd = ovDistricts.filter(d => (d.state || "FL") === s);
+                          if (sd.length === 0) return null;
+                          const repProf = REP_PROFILES[STATE_REP_EMAIL[s]];
+                          return (
+                            <tr key={s} className="border-b border-gray-100 hover:bg-gray-50">
+                              <td className="px-4 py-2.5 font-medium text-gray-800">{STATE_NAMES_OV[s]}</td>
+                              <td className="px-4 py-2.5">
+                                {repProf ? <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${repProf.color}`}>{repProf.name}</span> : "—"}
+                              </td>
+                              <td className="px-4 py-2.5 text-right text-gray-600">{sd.length}</td>
+                              <td className="px-4 py-2.5 text-right text-indigo-600">{sd.filter(d => d.priorityTier === "Tier 1" || d.priorityTier === "Tier 2").length}</td>
+                              <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => d.status === "not contacted").length}</td>
+                              <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["responded","meeting scheduled","proposal sent"].includes(d.status)).length}</td>
+                              <td className="px-4 py-2.5 text-right text-green-600 font-semibold">{sd.filter(d => d.status === "closed won").length}</td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                {/* ── Pending to Contact ── */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-sm font-semibold text-gray-700">⏳ Pending to Contact</h3>
+                    <span className="text-xs text-gray-400">Top {pending.length} by priority · has email</span>
+                  </div>
+                  <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    {pending.length === 0 ? (
+                      <div className="p-8 text-center text-gray-400 text-sm">All districts have been contacted! 🎉</div>
+                    ) : (
+                      <div className="divide-y divide-gray-100">
+                        {pending.map(d => {
+                          const name = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                          const repProf = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
+                          const tierColor = d.priorityTier === "Tier 1" ? "bg-red-50 text-red-600" : d.priorityTier === "Tier 2" ? "bg-orange-50 text-orange-600" : "bg-gray-50 text-gray-500";
+                          return (
+                            <div key={d.id} className="px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 cursor-pointer" onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-xs font-semibold text-gray-800 truncate">{name}</div>
+                                <div className="text-xs text-gray-400 truncate">{d.director} · {STATE_NAMES_OV[d.state || "FL"]}</div>
+                              </div>
+                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                                <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${tierColor}`}>{d.priorityTier}</span>
+                                {repProf && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${repProf.color}`}>{repProf.initials}</span>}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* ── Weekly Intel News ── */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-sm font-semibold text-gray-700">📰 Intel This Week</h3>
+                    <span className="text-xs text-gray-400">Last 7 days · {newsItems.length} update{newsItems.length !== 1 ? "s" : ""}</span>
+                  </div>
+                  <div className="bg-white rounded-xl border border-gray-200 overflow-hidden max-h-[520px] overflow-y-auto">
+                    {newsItems.length === 0 ? (
+                      <div className="p-8 text-center text-gray-400 text-sm">No intel updates in the past 7 days.</div>
+                    ) : (
+                      <div className="divide-y divide-gray-100">
+                        {newsItems.map((item, i) => (
+                          <div key={i} className="px-4 py-3 hover:bg-gray-50 cursor-pointer" onClick={() => { const d = districts.find(x => x.id === item.districtId); if (d) { setSelectedDistrict(d); setModalTab(item.type === "board" ? "board notes" : "district intel"); } }}>
+                            <div className="flex items-start justify-between gap-2 mb-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${item.type === "board" ? "bg-blue-50 text-blue-600" : "bg-purple-50 text-purple-600"}`}>
+                                  {item.type === "board" ? "📋 Board" : "🔍 Intel"}
+                                </span>
+                                <span className="text-xs font-semibold text-gray-800">{item.distName}</span>
+                                <span className="text-xs text-gray-400">{item.stateLabel}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                                {item.repInfo && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${item.repInfo.color}`}>{item.repInfo.initials}</span>}
+                                <span className="text-xs text-gray-400 whitespace-nowrap">{item.date}</span>
+                              </div>
+                            </div>
+                            <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">{item.summary}</p>
+                            {item.source && <a href={item.source} target="_blank" rel="noreferrer" className="text-xs text-indigo-500 hover:underline mt-0.5 inline-block" onClick={e => e.stopPropagation()}>Source ↗</a>}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         {/* ── PROSPECTS TAB ── */}
         {activeTab === "prospects" && (
           <div>
