@@ -52,6 +52,7 @@ const STATE_REP_EMAIL = {
   MI: "christie.cooley@mybrightwheel.com",
   ID: "eric.truog@mybrightwheel.com",
   NV: "kevin.elston@mybrightwheel.com",
+  CA: "christie.cooley@mybrightwheel.com", // update when CA rep is confirmed
 };
 
 // Parse "Subject: ..." off the first line of a generated email body
@@ -240,7 +241,7 @@ function generateEmail(district, template, rep) {
   const contact = resolveContact(district, template);
 
   const stateCode = district.state || "FL";
-  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada" };
+  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California" };
   const stateName = STATE_NAMES[stateCode] || stateCode;
 
   const isSummerBridgeTemplate = template === "summerBridge" || template === "summerBridgeShort";
@@ -1047,7 +1048,7 @@ export default function BrightwheelDashboard() {
       <div className="px-6 py-4">
         {/* ── OVERVIEW TAB ── */}
         {activeTab === "overview" && (() => {
-          const STATE_NAMES_OV = { FL: "🌴 Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", GA: "Georgia", MI: "Michigan" };
+          const STATE_NAMES_OV = { FL: "🌴 Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "🌊 California", GA: "Georgia", MI: "Michigan" };
           const repEmail = overviewFilterRep === "all" ? null : overviewFilterRep;
           const stateFilter = overviewFilterState === "all" ? null : overviewFilterState;
 
@@ -1116,6 +1117,7 @@ export default function BrightwheelDashboard() {
                   <option value="AL">Alabama</option>
                   <option value="ID">Idaho</option>
                   <option value="NV">Nevada</option>
+                  <option value="CA">🌊 California</option>
                   <option value="GA">Georgia</option>
                   <option value="MI">Michigan</option>
                 </select>
@@ -1264,7 +1266,7 @@ export default function BrightwheelDashboard() {
                 className="border border-gray-200 rounded-lg px-3 py-2 text-sm flex-shrink-0 w-56 focus:outline-none focus:ring-2 focus:ring-indigo-200"
               />
               {[
-                { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","🌴 Florida"],["AL","Alabama"],["ID","Idaho"],["NV","Nevada"]] },
+                { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","🌴 Florida"],["AL","Alabama"],["ID","Idaho"],["NV","Nevada"],["CA","🌊 California"]] },
                 { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
                 { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
                 { label: "Status", val: filterStatus, setter: setFilterStatus, opts: [["all","All Statuses"], ...STATUSES.map(s => [s, s])] },
@@ -1688,6 +1690,7 @@ export default function BrightwheelDashboard() {
                   <option value="AL">Alabama</option>
                   <option value="ID">Idaho</option>
                   <option value="NV">Nevada</option>
+                  <option value="CA">🌊 California</option>
                 </select>
                 <select value={contactFilterRep} onChange={(e) => setContactFilterRep(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
@@ -1997,7 +2000,7 @@ export default function BrightwheelDashboard() {
           ] : [];
 
           const repForDi = selectedDi ? REP_PROFILES[STATE_REP_EMAIL[selectedDi.state || "FL"]] : null;
-          const STATE_NAMES_DI = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada" };
+          const STATE_NAMES_DI = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California" };
 
           return (
             <div>
@@ -2018,6 +2021,7 @@ export default function BrightwheelDashboard() {
                   <option value="AL">Alabama</option>
                   <option value="ID">Idaho</option>
                   <option value="NV">Nevada</option>
+                  <option value="CA">🌊 California</option>
                 </select>
 
                 <div className="relative" style={{ width: "380px" }}>

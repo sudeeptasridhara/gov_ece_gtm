@@ -16422,5 +16422,2168 @@
     "summerBridgeContact": null,
     "programType": "Nevada Ready! Pre-K",
     "schools": []
+  },
+  {
+    "id": 440,
+    "state": "CA",
+    "district": "CA \u2014 Los Angeles Unified",
+    "county": "Los Angeles",
+    "director": "Dean Tagawa",
+    "title": "Executive Director, Early Childhood Education",
+    "email": "",
+    "phone": "(213) 241-1000",
+    "address": "333 S. Beaudry Ave., Los Angeles, CA 90017",
+    "linkedin": "",
+    "enrollment": 516685,
+    "curriculum": "Teaching Strategies Creative Curriculum",
+    "curriculumVendor": "Teaching Strategies Creative Curriculum",
+    "curriculumAdoptionYear": 2021,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Expansion: LAUSD added 600+ TK classrooms 2022-25; largest UTK rollout in US",
+      "Leadership: Dr. Tagawa retirement announced Nov 2025; new ECE director search likely",
+      "Curriculum: Creative Curriculum confirmed for TK and ECSE 0-3 programs"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://achieve.lausd.net/earlychildhood"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: LAUSD added 600+ TK classrooms 2022-25; largest UTK rollout in US",
+        "date": "2025-01-01",
+        "source": "https://achieve.lausd.net/earlychildhood"
+      },
+      {
+        "type": "strategic",
+        "summary": "Leadership: Dr. Tagawa retirement announced Nov 2025; new ECE director search likely",
+        "date": "2025-01-01",
+        "source": "https://achieve.lausd.net/earlychildhood"
+      },
+      {
+        "type": "strategic",
+        "summary": "Curriculum: Creative Curriculum confirmed for TK and ECSE 0-3 programs",
+        "date": "2021-01-01",
+        "source": "https://achieve.lausd.net/earlychildhood"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Second-largest US district. ECE Division: 333 S Beaudry, LA 90017. Also: OEECA (Office of Early Education, Care, and Advocacy) manages TK resources. Dr. Tagawa retiring Nov 2025 \u2014 leadership transition = open window. Email pattern: firstname.lastname@lausd.net (confirm with Apollo.io).",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 441,
+    "state": "CA",
+    "district": "CA \u2014 San Diego Unified",
+    "county": "San Diego",
+    "director": "Santos Verardo",
+    "title": "Director, Early Childhood Education",
+    "email": "santos.verardo@sandi.net",
+    "phone": "(619) 260-2410",
+    "address": "4100 Normal Street, San Diego, CA 92103",
+    "linkedin": "",
+    "enrollment": 113781,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Expansion: Adding 23 new TK classrooms (229\u2192252 total) for 2025-26; reducing class size 24\u219220",
+      "Expansion: Adding 180 more TK seats for 2026-27"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://staff.sandiegounified.org/departments/early_childhood_education_program"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: Adding 23 new TK classrooms (229\u2192252 total) for 2025-26; reducing class size 24\u219220",
+        "date": "2025-01-01",
+        "source": "https://staff.sandiegounified.org/departments/early_childhood_education_program"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: Adding 180 more TK seats for 2026-27",
+        "date": "2026-01-01",
+        "source": "https://staff.sandiegounified.org/departments/early_childhood_education_program"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Email inferred from district pattern firstinitial.lastname@sandi.net. Santos Verardo is Early Childhood Education Director. Marceline Marques also listed as Operations Support Officer.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 442,
+    "state": "CA",
+    "district": "CA \u2014 Fresno Unified",
+    "county": "Fresno",
+    "director": "Director TBD",
+    "title": "Early Learning Department (Director TBD)",
+    "email": "EarlyLearning@fresnounified.org",
+    "phone": "(559) 457-3416",
+    "address": "2309 Tulare St, Fresno, CA 93721",
+    "linkedin": "",
+    "enrollment": 71151,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Expansion: Free universal TK and preschool for all 3-4 yr olds 2025-26 rollout",
+      "Program: Dual Language Immersion PreK/TK in Spanish/English and Hmong/English"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.fresnounified.org/departments/early-learning/earlylearninghomepage"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: Free universal TK and preschool for all 3-4 yr olds 2025-26 rollout",
+        "date": "2025-01-01",
+        "source": "https://www.fresnounified.org/departments/early-learning/earlylearninghomepage"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Dual Language Immersion PreK/TK in Spanish/English and Hmong/English",
+        "date": "2024-01-01",
+        "source": "https://www.fresnounified.org/departments/early-learning/earlylearninghomepage"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Specific director name not confirmed; department email is high-confidence entry point. Named director: check staff directory at fresnounified.org/staff. Email pattern: firstname_lastname@fresnounified.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 443,
+    "state": "CA",
+    "district": "CA \u2014 Elk Grove Unified",
+    "county": "Sacramento",
+    "director": "Director TBD",
+    "title": "Elementary Education (PreK-6) Department",
+    "email": "PK6Ed@egusd.net",
+    "phone": "(916) 686-7704",
+    "address": "9606 Elk Grove-Florin Road, Elk Grove, CA 95624",
+    "linkedin": "",
+    "enrollment": 64358,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Staffing: Program Specialists Jennifer Lipsky and Shally Moua active for Pre-K"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.egusd.net/Departments/Elementary-Education-PreK-6/index.html"
+      },
+      {
+        "type": "strategic",
+        "summary": "Staffing: Program Specialists Jennifer Lipsky and Shally Moua active for Pre-K",
+        "date": "2024-01-01",
+        "source": "https://www.egusd.net/Departments/Elementary-Education-PreK-6/index.html"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No formal ECE Director title; Elementary Education PreK-6 dept manages programs. Named director: search egusd.net/Staff-Directory. Email pattern: firstname.lastname@egusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 444,
+    "state": "CA",
+    "district": "CA \u2014 Long Beach Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Assistant Superintendent, Early Learning & Elementary Schools",
+    "email": "",
+    "phone": "(562) 997-8247",
+    "address": "1515 Hughes Way, Long Beach, CA 90810",
+    "linkedin": "",
+    "enrollment": 62947,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Strategic: Published Early Childhood Education Strategic Plan",
+      "Program: Child Development Centers program for ages 3-5"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.lbschools.net/departments/child-development/home"
+      },
+      {
+        "type": "strategic",
+        "summary": "Strategic: Published Early Childhood Education Strategic Plan",
+        "date": "2023-01-01",
+        "source": "https://www.lbschools.net/departments/child-development/home"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Child Development Centers program for ages 3-5",
+        "date": "2026-01-01",
+        "source": "https://www.lbschools.net/departments/child-development/home"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Assistant Superintendent oversees TK/Early Learning; no individual director name confirmed. Child Development Centers enrollment line: (562) 422-6868. Email pattern: firstname_lastname@lbusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 445,
+    "state": "CA",
+    "district": "CA \u2014 San Francisco Unified",
+    "county": "San Francisco",
+    "director": "Christie Herrera",
+    "title": "Assistant Superintendent, Early Education & Elementary Schools",
+    "email": "",
+    "phone": "(415) 241-6085",
+    "address": "555 Franklin Street, San Francisco, CA 94102",
+    "linkedin": "",
+    "enrollment": 55840,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Expansion: New TK Feeder Model launching 2026-27 (TK in neighborhood schools feeding into K-8s)",
+      "Staffing: New PK-3 credential requirements creating hiring challenges 2025-26"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.sfusd.edu/departments/eed-early-education-department"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: New TK Feeder Model launching 2026-27 (TK in neighborhood schools feeding into K-8s)",
+        "date": "2025-01-01",
+        "source": "https://www.sfusd.edu/departments/eed-early-education-department"
+      },
+      {
+        "type": "strategic",
+        "summary": "Staffing: New PK-3 credential requirements creating hiring challenges 2025-26",
+        "date": "2025-01-01",
+        "source": "https://www.sfusd.edu/departments/eed-early-education-department"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Christie Herrera is Asst Superintendent overseeing PreK-5. Also: Stephanie Richmueller, PreK Supervisor \u2014 richmuellers@sfusd.edu (High confidence from SFUSD staff dir). 11 dedicated Early Education Schools. Email pattern: firstinitial_middleinitial_lastname@sfusd.edu.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 446,
+    "state": "CA",
+    "district": "CA \u2014 San Juan Unified",
+    "county": "Sacramento",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Division",
+    "email": "ECERegistrationdesk@sanjuan.edu",
+    "phone": "",
+    "address": "7730 Park Riviera Way, Sacramento, CA 95826",
+    "linkedin": "",
+    "enrollment": 51289,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: State Preschool Program and TK available district-wide"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.sanjuan.edu/academics/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: State Preschool Program and TK available district-wide",
+        "date": "2024-01-01",
+        "source": "https://www.sanjuan.edu/academics/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Department email confirmed. No specific director name found; check sanjuan.edu staff directory. Email pattern: firstname.lastname@sanjuan.edu.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 447,
+    "state": "CA",
+    "district": "CA \u2014 Corona-Norco Unified",
+    "county": "Riverside",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Department",
+    "email": "",
+    "phone": "(951) 736-5000",
+    "address": "2820 Clark Ave, Norco, CA 92860",
+    "linkedin": "",
+    "enrollment": 49487,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early childhood education programs district-wide"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.cnusd.k12.ca.us/about_us/staff_directory"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early childhood education programs district-wide",
+        "date": "2024-01-01",
+        "source": "https://www.cnusd.k12.ca.us/about_us/staff_directory"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Staff directory available at cnusd.k12.ca.us. No specific ECE director confirmed. Email pattern: firstname.lastname@cnusd.k12.ca.us.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 448,
+    "state": "CA",
+    "district": "CA \u2014 San Bernardino City Unified",
+    "county": "San Bernardino",
+    "director": "Rebecca Clark",
+    "title": "TK Program Coordinator",
+    "email": "",
+    "phone": "",
+    "address": "777 North F Street, San Bernardino, CA 92401",
+    "linkedin": "",
+    "enrollment": 48966,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK Program Coordinator position established; Heidi Weidner, Program Specialist"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.sbcusd.com/departments/educational-services-division/elementary-instruction/transitional-kindergarten"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK Program Coordinator position established; Heidi Weidner, Program Specialist",
+        "date": "2024-01-01",
+        "source": "https://www.sbcusd.com/departments/educational-services-division/elementary-instruction/transitional-kindergarten"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Rebecca Clark is TK Program Coordinator; Amy Coker is Director of Elementary Instruction (broader role). Also: Heidi Weidner, Program Specialist. Email pattern: firstname.lastname@sbcusd.com (unconfirmed).",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 449,
+    "state": "CA",
+    "district": "CA \u2014 Capistrano Unified",
+    "county": "Orange",
+    "director": "Director TBD",
+    "title": "Early Childhood Center (ECC)",
+    "email": "",
+    "phone": "(949) 234-9200",
+    "address": "33122 Valle Road, San Juan Capistrano, CA 92675",
+    "linkedin": "",
+    "enrollment": 46660,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Childhood Center (ECC) serving birth-TK; Hub TK programs; full-day and traditional TK"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.capousd.org/subsites/Early-Childhood-Education/CUSD-Transitional-Kindergarten-TK/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Childhood Center (ECC) serving birth-TK; Hub TK programs; full-day and traditional TK",
+        "date": "2024-01-01",
+        "source": "https://www.capousd.org/subsites/Early-Childhood-Education/CUSD-Transitional-Kindergarten-TK/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "ECC located at 33351 Camino Capistrano, Dana Point. No specific director name confirmed. Check capousd.org staff directory. Email pattern: firstname.lastname@capousd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 450,
+    "state": "CA",
+    "district": "CA \u2014 Oakland Unified",
+    "county": "Alameda",
+    "director": "Christie Anderson",
+    "title": "Director, Early Childhood Education",
+    "email": "christie.anderson@ousd.org",
+    "phone": "(510) 273-1616",
+    "address": "955 High Street, Oakland, CA 94601",
+    "linkedin": "",
+    "enrollment": 44647,
+    "curriculum": "Teaching Strategies Creative Curriculum",
+    "curriculumVendor": "Teaching Strategies Creative Curriculum",
+    "curriculumAdoptionYear": 2024,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Curriculum: Creative Curriculum board-adopted May 2024 for TK; pacing calendar and materials developed",
+      "Expansion: TK Hub Programs expanding; new TK classrooms added"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.ousd.org/enroll/enroll-at-ousd/ece"
+      },
+      {
+        "type": "strategic",
+        "summary": "Curriculum: Creative Curriculum board-adopted May 2024 for TK; pacing calendar and materials developed",
+        "date": "2024-01-01",
+        "source": "https://www.ousd.org/enroll/enroll-at-ousd/ece"
+      },
+      {
+        "type": "strategic",
+        "summary": "Expansion: TK Hub Programs expanding; new TK classrooms added",
+        "date": "2024-01-01",
+        "source": "https://www.ousd.org/enroll/enroll-at-ousd/ece"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Strong buying signal: Creative Curriculum JUST adopted May 2024 \u2014 rep should verify whether full implementation or transition still underway. Email pattern: firstname.lastname@ousd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 451,
+    "state": "CA",
+    "district": "CA \u2014 Clovis Unified",
+    "county": "Fresno",
+    "director": "Director TBD",
+    "title": "Child Development Department",
+    "email": "",
+    "phone": "",
+    "address": "1450 Herndon Avenue, Clovis, CA 93611",
+    "linkedin": "",
+    "enrollment": 43669,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Child Development Lab School partnership with Clovis Community College"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.cusd.com/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Child Development Lab School partnership with Clovis Community College",
+        "date": "2026-01-01",
+        "source": "https://www.cusd.com/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No specific ECE director confirmed. Check cusd.com staff directory. Email pattern: firstname.lastname@cusd.com.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 452,
+    "state": "CA",
+    "district": "CA \u2014 Twin Rivers Unified",
+    "county": "Sacramento",
+    "director": "Johana Scott",
+    "title": "Director, Early Childhood Education",
+    "email": "",
+    "phone": "",
+    "address": "5701 Antelope Road, North Highlands, CA 95660",
+    "linkedin": "",
+    "enrollment": 43274,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Infant and toddler state-funded program (6 weeks-3 years) active",
+      "Program: Early childhood education program expansion"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.trusd.net/Academics/Programs/Early-Childhood-Education-ECE/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Infant and toddler state-funded program (6 weeks-3 years) active",
+        "date": "2024-01-01",
+        "source": "https://www.trusd.net/Academics/Programs/Early-Childhood-Education-ECE/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early childhood education program expansion",
+        "date": "2024-01-01",
+        "source": "https://www.trusd.net/Academics/Programs/Early-Childhood-Education-ECE/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Johana Scott identified as ECE Director. Email pattern: j.scott@trusd.net (inferred; confirm via Apollo.io or trusd.net directory).",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 453,
+    "state": "CA",
+    "district": "CA \u2014 Sacramento City Unified",
+    "county": "Sacramento",
+    "director": "Director TBD",
+    "title": "Early Learning & Care Department",
+    "email": "",
+    "phone": "(916) 643-7400",
+    "address": "5735 47th Avenue, Sacramento, CA 95824",
+    "linkedin": "",
+    "enrollment": 42337,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 1",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Parent Education Preschool and Infant/Toddler/Preschool services active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.scusd.edu/explore/early-learning-care"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Parent Education Preschool and Infant/Toddler/Preschool services active",
+        "date": "2024-01-01",
+        "source": "https://www.scusd.edu/explore/early-learning-care"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No specific director confirmed. Check scusd.edu staff directory. Email pattern: firstname.lastname@scusd.edu.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 454,
+    "state": "CA",
+    "district": "CA \u2014 Riverside Unified",
+    "county": "Riverside",
+    "director": "K. Bristow",
+    "title": "TK Coordinator, Instructional Services",
+    "email": "kbristow@riversideunified.org",
+    "phone": "(951) 788-7371",
+    "address": "7675 Magnolia Ave, Riverside, CA 92504",
+    "linkedin": "",
+    "enrollment": 38678,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Childhood Programs dept active; TK enrollment growing"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.riversideunified.org/departments/instructional-services/early-childhood-programs"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Childhood Programs dept active; TK enrollment growing",
+        "date": "2024-01-01",
+        "source": "https://www.riversideunified.org/departments/instructional-services/early-childhood-programs"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "K. Bristow is TK Coordinator (first name not confirmed \u2014 use Apollo.io to verify). Email format firstname-initial+lastname@riversideunified.org confirmed from district page.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 455,
+    "state": "CA",
+    "district": "CA \u2014 Irvine Unified",
+    "county": "Orange",
+    "director": "Director TBD",
+    "title": "Early Childhood Learning Center (ECLC)",
+    "email": "",
+    "phone": "(949) 936-5857",
+    "address": "5050 Barranca Parkway, Irvine, CA 92604",
+    "linkedin": "",
+    "enrollment": 38483,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: ECLC serves birth-TK ages on dedicated campus (1 Smoketree); online portal active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://eclc.iusd.org/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: ECLC serves birth-TK ages on dedicated campus (1 Smoketree); online portal active",
+        "date": "2024-01-01",
+        "source": "https://eclc.iusd.org/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "ECLC is a dedicated early learning campus. No director name confirmed. Check iusd.org staff directory. Email pattern: firstname.lastname@iusd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 456,
+    "state": "CA",
+    "district": "CA \u2014 Stockton Unified",
+    "county": "San Joaquin",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Department",
+    "email": "",
+    "phone": "(209) 933-7380",
+    "address": "1144 E Channel Street, Stockton, CA 95202",
+    "linkedin": "",
+    "enrollment": 38452,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: ECE department managing TK/K enrollment and admissions"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.stocktonusd.net/early-childhood-education-staff"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: ECE department managing TK/K enrollment and admissions",
+        "date": "2024-01-01",
+        "source": "https://www.stocktonusd.net/early-childhood-education-staff"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "ECE staff page exists. No director confirmed via search. Check stocktonusd.net. Email pattern: firstname.lastname@stocktonusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 457,
+    "state": "CA",
+    "district": "CA \u2014 Santa Ana Unified",
+    "county": "Orange",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Department",
+    "email": "",
+    "phone": "(714) 569-9782",
+    "address": "1601 East Chestnut Avenue, Santa Ana, CA 92701",
+    "linkedin": "",
+    "enrollment": 38378,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Head Start partnerships; whole-child ECE approach; TK district-wide"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://ece.sausd.us/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Head Start partnerships; whole-child ECE approach; TK district-wide",
+        "date": "2024-01-01",
+        "source": "https://ece.sausd.us/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "ECE department has own subdomain (ece.sausd.us). No director name confirmed. Check sausd.us staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 458,
+    "state": "CA",
+    "district": "CA \u2014 Garden Grove Unified",
+    "county": "Orange",
+    "director": "Director TBD",
+    "title": "Early Childhood Programs",
+    "email": "",
+    "phone": "(714) 663-6333",
+    "address": "10331 Stanford Avenue, Garden Grove, CA 92840",
+    "linkedin": "",
+    "enrollment": 37009,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Clinton Corner Family Campus (CCFC) for state preschool (714-663-6298); Skylark fee-based campus (71"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.ggusd.us/programs/tk"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Clinton Corner Family Campus (CCFC) for state preschool (714-663-6298); Skylark fee-based campus (714-663-6336)",
+        "date": "2024-01-01",
+        "source": "https://www.ggusd.us/programs/tk"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Multiple dedicated early childhood contact lines. No director name confirmed. Check ggusd.us staff directory. Email pattern: firstname.lastname@ggusd.us.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 459,
+    "state": "CA",
+    "district": "CA \u2014 Poway Unified",
+    "county": "San Diego",
+    "director": "Director TBD",
+    "title": "Educational Services (TK/ECE)",
+    "email": "",
+    "phone": "",
+    "address": "15250 Avenue of Science, San Diego, CA 92128",
+    "linkedin": "",
+    "enrollment": 34405,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK programs at elementary schools district-wide"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.powayusd.com/apps/pages/divisions-and-department-contacts"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK programs at elementary schools district-wide",
+        "date": "2024-01-01",
+        "source": "https://www.powayusd.com/apps/pages/divisions-and-department-contacts"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No ECE director confirmed. Check powayusd.com staff directory. Email pattern: firstinitial.lastname@powayusd.com.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 460,
+    "state": "CA",
+    "district": "CA \u2014 Fremont Unified",
+    "county": "Alameda",
+    "director": "Gladys Chan",
+    "title": "Clinical Director, Early Start 0-3",
+    "email": "",
+    "phone": "(510) 651-1190 ext. 25013",
+    "address": "4210 Technology Dr, Fremont, CA 94538",
+    "linkedin": "",
+    "enrollment": 33134,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Start 0-3 program for infants/toddlers active",
+      "Staffing: TK teacher job postings 2023-24 signal expansion"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://fremontunified.org/about/instructional-services/elementary-education/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Start 0-3 program for infants/toddlers active",
+        "date": "2024-01-01",
+        "source": "https://fremontunified.org/about/instructional-services/elementary-education/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Staffing: TK teacher job postings 2023-24 signal expansion",
+        "date": "2023-01-01",
+        "source": "https://fremontunified.org/about/instructional-services/elementary-education/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Gladys Chan manages Early Start 0-3; broader ECE curriculum director not identified. Email pattern: firstname.lastname@fremont.k12.ca.us.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 461,
+    "state": "CA",
+    "district": "CA \u2014 Fontana Unified",
+    "county": "San Bernardino",
+    "director": "Director TBD",
+    "title": "Early Education Department",
+    "email": "enrollmentcenter@fusd.net",
+    "phone": "(909) 357-5000 ext. 29226",
+    "address": "9680 Slover Avenue, Fontana, CA 92335",
+    "linkedin": "",
+    "enrollment": 33039,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Teaching and Learning Division manages Early Education; TK enrollment line ext. 29300"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.fusd.net/departments/teaching-and-learning-division/early-education-page"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Teaching and Learning Division manages Early Education; TK enrollment line ext. 29300",
+        "date": "2024-01-01",
+        "source": "https://www.fusd.net/departments/teaching-and-learning-division/early-education-page"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Department email confirmed. No individual director name found. Check fusd.net staff directory. Email pattern: firstname.lastname@fusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 462,
+    "state": "CA",
+    "district": "CA \u2014 Moreno Valley Unified",
+    "county": "Riverside",
+    "director": "Director TBD",
+    "title": "Instructional Services (ECE/TK)",
+    "email": "",
+    "phone": "(951) 571-7500",
+    "address": "12595 Frederick St, Moreno Valley, CA 92553",
+    "linkedin": "",
+    "enrollment": 30926,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK programs across 40+ schools; 3rd largest district in Riverside County"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.mvusd.net/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK programs across 40+ schools; 3rd largest district in Riverside County",
+        "date": "2024-01-01",
+        "source": "https://www.mvusd.net/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No ECE director confirmed. Check mvusd.net staff directory. Email pattern: firstname.lastname@mvusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 463,
+    "state": "CA",
+    "district": "CA \u2014 Lodi Unified",
+    "county": "San Joaquin",
+    "director": "L. Lopez",
+    "title": "State Preschool Program Coordinator",
+    "email": "lilopez@lodiusd.net",
+    "phone": "(209) 331-7252",
+    "address": "305 West Elm Street, Lodi, CA 95240",
+    "linkedin": "",
+    "enrollment": 29990,
+    "curriculum": "California State Preschool Program (CSPP); HUGS Preschool",
+    "curriculumVendor": "California State Preschool Program",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: State Preschool Programs (CSPP) and HUGS Preschool active; Family Literacy integration"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.lodiusd.net/enrollment/preschool"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: State Preschool Programs (CSPP) and HUGS Preschool active; Family Literacy integration",
+        "date": "2024-01-01",
+        "source": "https://www.lodiusd.net/enrollment/preschool"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "L. Lopez (full first name not confirmed) manages state preschool; email confirmed on district site. HUGS = 'Help US Grow Successfully' \u2014 local preschool brand. Check lodiusd.net for named ECE director above Lopez.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 464,
+    "state": "CA",
+    "district": "CA \u2014 San Ramon Valley Unified",
+    "county": "Contra Costa",
+    "director": "Director TBD",
+    "title": "Educational Services Department",
+    "email": "",
+    "phone": "(925) 552-5500",
+    "address": "699 Old Orchard Drive, Danville, CA 94526",
+    "linkedin": "",
+    "enrollment": 28615,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK program development active through Educational Services"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.srvusd.net/Departments/Educational-Services/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK program development active through Educational Services",
+        "date": "2024-01-01",
+        "source": "https://www.srvusd.net/Departments/Educational-Services/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No ECE director confirmed. Check srvusd.net staff directory. Email pattern: firstname.lastname@srvusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 465,
+    "state": "CA",
+    "district": "CA \u2014 Temecula Valley Unified",
+    "county": "Riverside",
+    "director": "Director TBD",
+    "title": "Special Education / Preschool Services",
+    "email": "",
+    "phone": "(951) 676-2661",
+    "address": "31350 Margarita Road, Temecula, CA 92592",
+    "linkedin": "",
+    "enrollment": 27980,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK/K pre-enrollment active; preschool services under special education division"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.tvusd.k12.ca.us/Page/25621"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK/K pre-enrollment active; preschool services under special education division",
+        "date": "2024-01-01",
+        "source": "https://www.tvusd.k12.ca.us/Page/25621"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Email format: first_initial.last@tvusd.k12.ca.us. No director name confirmed. Preschool services routed through special education division.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 466,
+    "state": "CA",
+    "district": "CA \u2014 Chino Valley Unified",
+    "county": "San Bernardino",
+    "director": "Katrina Gomez",
+    "title": "Director, Early Childhood Programs",
+    "email": "",
+    "phone": "",
+    "address": "13220 Peyton Drive, Chino, CA 91710",
+    "linkedin": "",
+    "enrollment": 26529,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Childhood Programs director position established; Child Development dept active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.chino.k12.ca.us/child-development-home"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Childhood Programs director position established; Child Development dept active",
+        "date": "2024-01-01",
+        "source": "https://www.chino.k12.ca.us/child-development-home"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Dr. Katrina Gomez identified as Early Childhood Programs Director. Full contact not confirmed \u2014 verify via Apollo.io or chino.k12.ca.us directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 467,
+    "state": "CA",
+    "district": "CA \u2014 Glendale Unified",
+    "county": "Los Angeles",
+    "director": "Deidre Corwin",
+    "title": "Director, Child Development and Child Care",
+    "email": "cdcc@gusd.net",
+    "phone": "(818) 241-3111",
+    "address": "223 North Jackson Avenue, Glendale, CA 91205",
+    "linkedin": "",
+    "enrollment": 25329,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Child Development and Child Care Center (CDCC) on dedicated campus (440 W Lomita Ave)"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.gusd.net/cdcc"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Child Development and Child Care Center (CDCC) on dedicated campus (440 W Lomita Ave)",
+        "date": "2024-01-01",
+        "source": "https://www.gusd.net/cdcc"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Deidre Corwin manages CDCC. Department email is confirmed entry point. Personal email unconfirmed \u2014 check gusd.net directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 468,
+    "state": "CA",
+    "district": "CA \u2014 Bakersfield City School District",
+    "county": "Kern",
+    "director": "Christine Chapman",
+    "title": "Executive Director, Curriculum & Instruction",
+    "email": "chapmanc@bcsd.com",
+    "phone": "(661) 631-4600",
+    "address": "1111 10th Street, Bakersfield, CA 93304",
+    "linkedin": "",
+    "enrollment": 24000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: California State Preschool Programs active; Child Development focus"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.bcsd.com/departments/state-pre-k/department-home"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: California State Preschool Programs active; Child Development focus",
+        "date": "2024-01-01",
+        "source": "https://www.bcsd.com/departments/state-pre-k/department-home"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Christine Chapman oversees C&I including preschool programs. Email format confirmed (firstname-initial + lastname@bcsd.com). Elementary-only district (K-6); strong PreK program.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 469,
+    "state": "CA",
+    "district": "CA \u2014 Vista Unified",
+    "county": "San Diego",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Department",
+    "email": "",
+    "phone": "",
+    "address": "1234 Arcadia Avenue, Vista, CA 92084",
+    "linkedin": "",
+    "enrollment": 23500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: ECE department active; TK programs at elementary schools"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.vistausd.org/departments/educationalexcellence/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: ECE department active; TK programs at elementary schools",
+        "date": "2024-01-01",
+        "source": "https://www.vistausd.org/departments/educationalexcellence/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Check vistausd.org staff directory. Email pattern: firstname.lastname@vistausd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 470,
+    "state": "CA",
+    "district": "CA \u2014 Rialto Unified",
+    "county": "San Bernardino",
+    "director": "Director TBD",
+    "title": "Special Services / Early Learning Programs",
+    "email": "",
+    "phone": "",
+    "address": "182 East Walnut Ave, Rialto, CA 92376",
+    "linkedin": "",
+    "enrollment": 23073,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Learning for ages 3-5 in specialized and inclusive settings; multi-city coverage"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.rialto.k12.ca.us/service-areas/special-services/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Learning for ages 3-5 in specialized and inclusive settings; multi-city coverage",
+        "date": "2024-01-01",
+        "source": "https://www.rialto.k12.ca.us/service-areas/special-services/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Early learning routed through Special Services. No director confirmed. Check rialto.k12.ca.us staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 471,
+    "state": "CA",
+    "district": "CA \u2014 Saddleback Valley Unified",
+    "county": "Orange",
+    "director": "Director TBD",
+    "title": "Elementary Education / Early Childhood Education",
+    "email": "",
+    "phone": "(949) 768-0981",
+    "address": "25631 Peter A. Hartman Way, Mission Viejo, CA 92691",
+    "linkedin": "",
+    "enrollment": 22500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: ECE programs through Educational Services; Expanded Learning Services"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.svusd.org/departments/educational-services/elementary-education-curriculum-instruction/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: ECE programs through Educational Services; Expanded Learning Services",
+        "date": "2024-01-01",
+        "source": "https://www.svusd.org/departments/educational-services/elementary-education-curriculum-instruction/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Check svusd.org staff directory. Email pattern: firstname.lastname@svusd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 472,
+    "state": "CA",
+    "district": "CA \u2014 ABC Unified",
+    "county": "Los Angeles",
+    "director": "Dionne Garner",
+    "title": "Director, Teaching and Learning (UPK Contact)",
+    "email": "",
+    "phone": "(562) 926-5566",
+    "address": "16700 Norwalk Boulevard, Cerritos, CA 90703",
+    "linkedin": "",
+    "enrollment": 22000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: UPK Partnership Program active; Director of Teaching and Learning managing ECE/UPK"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.abcusd.us/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: UPK Partnership Program active; Director of Teaching and Learning managing ECE/UPK",
+        "date": "2024-01-01",
+        "source": "https://www.abcusd.us/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Dr. Dionne Garner listed as UPK contact managing teaching and learning including ECE. Personal email not confirmed \u2014 check abcusd.us directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 473,
+    "state": "CA",
+    "district": "CA \u2014 Torrance Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Arnold/LAUNCH Office (Early Learning Programs)",
+    "email": "",
+    "phone": "(310) 972-6500 ext. 2550",
+    "address": "2335 Plaza Del Amo, Torrance, CA 90501",
+    "linkedin": "",
+    "enrollment": 22000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Arnold/LAUNCH Office manages grant-funded and tuition-based preschool for 3-4 yr olds on campus site"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.tusd.org/schools/preschool"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Arnold/LAUNCH Office manages grant-funded and tuition-based preschool for 3-4 yr olds on campus sites",
+        "date": "2024-01-01",
+        "source": "https://www.tusd.org/schools/preschool"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Arnold/LAUNCH Office coordinates early learning. Check tusd.org staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 474,
+    "state": "CA",
+    "district": "CA \u2014 Mt. Diablo Unified",
+    "county": "Contra Costa",
+    "director": "Marji Calbeck",
+    "title": "Director of Elementary Support",
+    "email": "",
+    "phone": "",
+    "address": "1936 Carlotta Drive, Concord, CA 94519",
+    "linkedin": "",
+    "enrollment": 21500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK at 20+ elementary school sites; Elementary Support manages TK"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.mdusd.org/about"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK at 20+ elementary school sites; Elementary Support manages TK",
+        "date": "2024-01-01",
+        "source": "https://www.mdusd.org/about"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Marji Calbeck oversees elementary support including TK. No dedicated ECE director. Personal email not confirmed \u2014 check mdusd.org directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 475,
+    "state": "CA",
+    "district": "CA \u2014 Pomona Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Educational Services Department",
+    "email": "",
+    "phone": "(909) 397-4800 ext. 23603",
+    "address": "800 S. Garey Avenue, Suite 206, Pomona, CA 91766",
+    "linkedin": "",
+    "enrollment": 21500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Child Development and Early Head Start programs active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://proudtobe.pusd.org/apps/pages/EducationalServices"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Child Development and Early Head Start programs active",
+        "date": "2024-01-01",
+        "source": "https://proudtobe.pusd.org/apps/pages/EducationalServices"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Admin secretary Miriam Galvan ext. 23822. Check pusd.org directory. Email pattern: firstname.lastname@pusd.org.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 476,
+    "state": "CA",
+    "district": "CA \u2014 West Contra Costa Unified",
+    "county": "Contra Costa",
+    "director": "Director TBD",
+    "title": "Educational Services / Early Learning",
+    "email": "",
+    "phone": "(510) 231-1130",
+    "address": "1108 Bissell Ave, Richmond, CA 94801",
+    "linkedin": "",
+    "enrollment": 21000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Learning Program coordination through Teaching & Learning division"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.wccusd.net/departments-and-areas/educational-services/educational-services-home"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Learning Program coordination through Teaching & Learning division",
+        "date": "2024-01-01",
+        "source": "https://www.wccusd.net/departments-and-areas/educational-services/educational-services-home"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Check wccusd.net staff directory. Email pattern: firstname.lastname@wccusd.net.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 477,
+    "state": "CA",
+    "district": "CA \u2014 Murrieta Valley Unified",
+    "county": "Riverside",
+    "director": "Kathleen Israelsen",
+    "title": "Director, Early Learning and Enrichment Services",
+    "email": "infoELEservices@murrieta.k12.ca.us",
+    "phone": "(951) 304-4833",
+    "address": "41870 Juniper Street, Murrieta, CA 92562",
+    "linkedin": "",
+    "enrollment": 21712,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Learning & Enrichment Services (ELES) dept; preschool to TK (18 months-5 years); dedicated lea"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.murrieta.k12.ca.us/departments/educational-services/early-learning"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Learning & Enrichment Services (ELES) dept; preschool to TK (18 months-5 years); dedicated leadership",
+        "date": "2024-01-01",
+        "source": "https://www.murrieta.k12.ca.us/departments/educational-services/early-learning"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Kathleen Israelsen confirmed as ELES Director with department email and phone. Strong ECE infrastructure for a mid-size district.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 478,
+    "state": "CA",
+    "district": "CA \u2014 Visalia Unified",
+    "county": "Tulare",
+    "director": "Director TBD",
+    "title": "Student Services / Early Childhood Education",
+    "email": "",
+    "phone": "(559) 730-7300",
+    "address": "5000 West Cypress Avenue, Visalia, CA 93277",
+    "linkedin": "",
+    "enrollment": 21000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK available at ALL elementary schools 2025-26; Child Development Dept active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.vusd.org/departments/student-services/early-childhood-education-preschool"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK available at ALL elementary schools 2025-26; Child Development Dept active",
+        "date": "2025-01-01",
+        "source": "https://www.vusd.org/departments/student-services/early-childhood-education-preschool"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No director confirmed. Full TK rollout 2025-26 is major expansion signal. Check vusd.org staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 479,
+    "state": "CA",
+    "district": "CA \u2014 Chula Vista Elementary",
+    "county": "San Diego",
+    "director": "Director TBD",
+    "title": "Early Childhood Education Department",
+    "email": "",
+    "phone": "(619) 425-9600",
+    "address": "84 East J Street, Chula Vista, CA 91910",
+    "linkedin": "",
+    "enrollment": 21000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Largest elementary district in CA; ECE dept with school readiness and PIP programs"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.cvesd.org/departments/student-services/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Largest elementary district in CA; ECE dept with school readiness and PIP programs",
+        "date": "2024-01-01",
+        "source": "https://www.cvesd.org/departments/student-services/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Largest elementary-only district in California (K-6). No director confirmed. Check cvesd.org staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 480,
+    "state": "CA",
+    "district": "CA \u2014 Modesto City Schools",
+    "county": "Stanislaus",
+    "director": "Heidi Nunes",
+    "title": "Senior Director, Early Childhood Education",
+    "email": "Nunes.H@monet.k12.ca.us",
+    "phone": "(209) 574-1651",
+    "address": "1111 Topeka Avenue, Modesto, CA 95354",
+    "linkedin": "",
+    "enrollment": 20500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Senior Director position established for ECE; state preschool programs management"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.mcs4kids.com/o/mcs/page/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Senior Director position established for ECE; state preschool programs management",
+        "date": "2024-01-01",
+        "source": "https://www.mcs4kids.com/o/mcs/page/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Heidi Nunes confirmed as Senior Director with email and phone. Strong ECE leadership at Modesto. Email domain: monet.k12.ca.us (not mcs4kids.com).",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 481,
+    "state": "CA",
+    "district": "CA \u2014 Oceanside Unified",
+    "county": "San Diego",
+    "director": "Vicki Gravlin",
+    "title": "Executive Director, Curriculum and Instruction",
+    "email": "",
+    "phone": "(760) 966-4000",
+    "address": "321 Ivy Street, Oceanside, CA 92054",
+    "linkedin": "",
+    "enrollment": 20000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Preschool Assessment Team; Early Childhood Special Education services; TK program active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.oside.us/departments/curriculum-instruction/early-childhood-education"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Preschool Assessment Team; Early Childhood Special Education services; TK program active",
+        "date": "2024-01-01",
+        "source": "https://www.oside.us/departments/curriculum-instruction/early-childhood-education"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Vicki Gravlin oversees C&I including ECE. Also: Tifani Porter, Early Childhood Education Coordinator. Check oside.us staff directory for emails.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 482,
+    "state": "CA",
+    "district": "CA \u2014 Hayward Unified",
+    "county": "Alameda",
+    "director": "Angelica Perez",
+    "title": "Director, Early Childhood Programs",
+    "email": "alperez@husd.us",
+    "phone": "(510) 784-2600 ext. 72629",
+    "address": "24411 Amargosa Avenue, Hayward, CA 94545",
+    "linkedin": "",
+    "enrollment": 19500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Start 0-3 for infants/toddlers; preschool-age programs; PreKEnrollment@husd.us"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.husd.us/departments/edservices"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Start 0-3 for infants/toddlers; preschool-age programs; PreKEnrollment@husd.us",
+        "date": "2024-01-01",
+        "source": "https://www.husd.us/departments/edservices"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Angelica Alamillo Perez confirmed as Director, Early Childhood Programs with email and phone extension.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 483,
+    "state": "CA",
+    "district": "CA \u2014 San Jose Unified",
+    "county": "Santa Clara",
+    "director": "Director TBD",
+    "title": "Elementary C&I / TK Programs",
+    "email": "",
+    "phone": "",
+    "address": "855 Lenzen Avenue, San Jose, CA 95126",
+    "linkedin": "",
+    "enrollment": 19000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: TK offered at all elementary schools (except select magnets); early learning enrollment active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.sjusd.org/learning/elementary-ci/tk"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: TK offered at all elementary schools (except select magnets); early learning enrollment active",
+        "date": "2024-01-01",
+        "source": "https://www.sjusd.org/learning/elementary-ci/tk"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No ECE director confirmed. TK available at nearly all sites. Check sjusd.org staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 484,
+    "state": "CA",
+    "district": "CA \u2014 Montebello Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Student Services / Early Childhood Education",
+    "email": "",
+    "phone": "(323) 887-7900",
+    "address": "901 South Lincoln Avenue, Montebello, CA 90640",
+    "linkedin": "",
+    "enrollment": 19000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Early Head Start and Head Start programs; Eastmont Community Center ECE site"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.montebello.k12.ca.us/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Early Head Start and Head Start programs; Eastmont Community Center ECE site",
+        "date": "2024-01-01",
+        "source": "https://www.montebello.k12.ca.us/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "No ECE director confirmed. Check montebello.k12.ca.us staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 485,
+    "state": "CA",
+    "district": "CA \u2014 Compton Unified",
+    "county": "Los Angeles",
+    "director": "Telma Bayona",
+    "title": "Director, Early Childhood Education",
+    "email": "tbayona@compton.k12.ca.us",
+    "phone": "(310) 898-6008",
+    "address": "411 N. Tajauta Ave, Compton, CA 90220",
+    "linkedin": "",
+    "enrollment": 18500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Dedicated ECE office; TK and preschool programs; office hours Mon-Fri 7am-4pm"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.compton.k12.ca.us/departments/educational-services/early-childhood-education/"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Dedicated ECE office; TK and preschool programs; office hours Mon-Fri 7am-4pm",
+        "date": "2024-01-01",
+        "source": "https://www.compton.k12.ca.us/departments/educational-services/early-childhood-education/"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Telma Bayona confirmed as ECE Director with email and direct phone. One of the stronger direct contacts in the LA County mid-size districts.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 486,
+    "state": "CA",
+    "district": "CA \u2014 Hacienda La Puente Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Child Development / Early Primary Programs",
+    "email": "",
+    "phone": "(626) 933-1000",
+    "address": "15801 Sierra Vista Ct, La Puente, CA 91744",
+    "linkedin": "",
+    "enrollment": 18000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 2",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Child Development program since 1973; serves La Puente, Valinda, Hacienda Heights"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.hlpschools.org/district/preschool-child-development"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Child Development program since 1973; serves La Puente, Valinda, Hacienda Heights",
+        "date": "2024-01-01",
+        "source": "https://www.hlpschools.org/district/preschool-child-development"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Long-established child development program. No director confirmed. Check hlpusd.k12.ca.us staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 487,
+    "state": "CA",
+    "district": "CA \u2014 Norwalk-La Mirada Unified",
+    "county": "Los Angeles",
+    "director": "Director TBD",
+    "title": "Early Learning Programs",
+    "email": "",
+    "phone": "(562) 210-4205",
+    "address": "12820 Pioneer Boulevard, Norwalk, CA 90650",
+    "linkedin": "",
+    "enrollment": 17500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 3",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Head Start & Early Head Start partnerships; preschool program active"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.nlmusd.org/enrollment/early-learning-opportunities"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Head Start & Early Head Start partnerships; preschool program active",
+        "date": "2024-01-01",
+        "source": "https://www.nlmusd.org/enrollment/early-learning-opportunities"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Head Start coordination active. No director confirmed. Check nlmusd.k12.ca.us staff directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 488,
+    "state": "CA",
+    "district": "CA \u2014 Oxnard Elementary School District",
+    "county": "Ventura",
+    "director": "Aracely Fox",
+    "title": "Assistant Superintendent, Educational Services",
+    "email": "",
+    "phone": "(805) 385-7500 ext. 2301",
+    "address": "516 W Woodley Rd, Oxnard, CA 93030",
+    "linkedin": "",
+    "enrollment": 16500,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 3",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: Asst Superintendent oversees ECE/TK; active TK program development"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.oxnardsd.org/departments/educational-services/staff"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: Asst Superintendent oversees ECE/TK; active TK program development",
+        "date": "2024-01-01",
+        "source": "https://www.oxnardsd.org/departments/educational-services/staff"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Dr. Aracely Fox oversees educational services including ECE. Email not confirmed \u2014 check oxnardsd.org directory. Elementary-only district with active PreK.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
+  },
+  {
+    "id": 489,
+    "state": "CA",
+    "district": "CA \u2014 Rowland Unified",
+    "county": "Los Angeles",
+    "director": "Celia Munguia",
+    "title": "Director, Elementary Education Strong Start (PreK-Grade 3)",
+    "email": "",
+    "phone": "(626) 854-8392",
+    "address": "1830 Nogales Street, Rowland Heights, CA 91748",
+    "linkedin": "",
+    "enrollment": 17000,
+    "curriculum": "Unknown",
+    "curriculumVendor": "Unknown",
+    "curriculumAdoptionYear": 2020,
+    "priorityTier": "Tier 3",
+    "buyingSignals": [
+      "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210",
+      "Program: 'Strong Start' program for PreK-3; director position dedicated to early grades"
+    ],
+    "districtContext": [
+      {
+        "type": "funding",
+        "summary": "Grant/Mandate: Universal TK (UTK) fully mandated for ALL 4-yr-olds 2025-26; $2.1B state funding + $1.2B for 12:1\u219210:1 ratio; all districts adding TK classrooms and curriculum",
+        "date": "2026-01-01",
+        "source": "https://www.rowlandschools.org/apps/pages/index.jsp?uREC_ID=425837"
+      },
+      {
+        "type": "strategic",
+        "summary": "Program: 'Strong Start' program for PreK-3; director position dedicated to early grades",
+        "date": "2024-01-01",
+        "source": "https://www.rowlandschools.org/apps/pages/index.jsp?uREC_ID=425837"
+      }
+    ],
+    "boardNotes": [],
+    "recentNews": [],
+    "status": "not contacted",
+    "notes": "Dr. Celia Munguia has focused PreK-3 responsibility under 'Strong Start' framing. Email not confirmed \u2014 check rowlandschools.org directory.",
+    "activities": [],
+    "newLeadership": false,
+    "lastUpdated": null
   }
 ]
