@@ -470,7 +470,7 @@ export default function BrightwheelDashboard() {
 
   const [activeTab, setActiveTab] = useState("overview");
   const [overviewFilterState, setOverviewFilterState] = useState("all");
-  const [overviewFilterRep, setOverviewFilterRep] = useState("all");
+  const [globalRepFilter, setGlobalRepFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [filterState, setFilterState] = useState("all");
   const [filterPriority, setFilterPriority] = useState("all");
@@ -499,7 +499,7 @@ export default function BrightwheelDashboard() {
   // ── CONTACT TRACKING ──
   const [contactSearch, setContactSearch] = useState("");
   const [contactFilterState, setContactFilterState] = useState("all");
-  const [contactFilterRep, setContactFilterRep] = useState("all");
+  // contactFilterRep removed — use globalRepFilter instead
   const [expandedContactId, setExpandedContactId] = useState(null);
   const [inlineActivity, setInlineActivity] = useState({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
 
@@ -860,7 +860,8 @@ export default function BrightwheelDashboard() {
       const matchCurriculum =
         filterCurriculum === "all" || d.curriculumVendor === filterCurriculum;
       const matchStatus = filterStatus === "all" || d.status === filterStatus;
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus;
+      const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -874,7 +875,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter]);
 
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
@@ -1063,7 +1064,7 @@ export default function BrightwheelDashboard() {
         {/* ── OVERVIEW TAB ── */}
         {activeTab === "overview" && (() => {
           const STATE_NAMES_OV = { FL: "🌴 Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "🌊 California", OR: "🌲 Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan" };
-          const repEmail = overviewFilterRep === "all" ? null : overviewFilterRep;
+          const repEmail = globalRepFilter === "all" ? null : globalRepFilter;
           const stateFilter = overviewFilterState === "all" ? null : overviewFilterState;
 
           const ovDistricts = districts.filter((d) => {
@@ -1137,7 +1138,7 @@ export default function BrightwheelDashboard() {
                   <option value="GA">Georgia</option>
                   <option value="MI">Michigan</option>
                 </select>
-                <select value={overviewFilterRep} onChange={e => setOverviewFilterRep(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                <select value={globalRepFilter} onChange={e => setGlobalRepFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
                   {Object.values(REP_PROFILES).map(r => <option key={r.email} value={r.email}>{r.name}</option>)}
                 </select>
@@ -1286,6 +1287,7 @@ export default function BrightwheelDashboard() {
                 { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
                 { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
                 { label: "Status", val: filterStatus, setter: setFilterStatus, opts: [["all","All Statuses"], ...STATUSES.map(s => [s, s])] },
+                { label: "Rep", val: globalRepFilter, setter: setGlobalRepFilter, opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])] },
               ].map((f) => (
                 <select
                   key={f.label}
@@ -1524,7 +1526,7 @@ export default function BrightwheelDashboard() {
           const contactDistricts = districts.filter((d) => {
             const matchSearch = !contactSearch || d.district.toLowerCase().includes(contactSearch.toLowerCase()) || d.director.toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
             const matchState = contactFilterState === "all" || (d.state || "FL") === contactFilterState;
-            const matchRep = contactFilterRep === "all" || STATE_REP_EMAIL[d.state || "FL"] === contactFilterRep;
+            const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
             return matchSearch && matchState && matchRep;
           }).slice().sort((a, b) => {
             const aLast = a.activities?.length ? a.activities[a.activities.length - 1].date : "";
@@ -1582,7 +1584,7 @@ export default function BrightwheelDashboard() {
                   <option value="OR">🌲 Oregon</option>
                   <option value="NM">New Mexico</option>
                 </select>
-                <select value={contactFilterRep} onChange={(e) => setContactFilterRep(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                <select value={globalRepFilter} onChange={(e) => setGlobalRepFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
                   {Object.values(REP_PROFILES).map(rep => (
                     <option key={rep.email} value={rep.email}>{rep.name}</option>
