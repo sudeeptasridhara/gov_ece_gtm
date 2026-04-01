@@ -1045,11 +1045,9 @@ export default function BrightwheelDashboard() {
         {[
           { id: "overview", label: "🏠 Overview" },
           { id: "prospects", label: "📋 Prospects" },
-          { id: "outreach", label: "📤 Outreach Planner" },
-          { id: "templates", label: "✉️ Email Templates" },
           { id: "contacts", label: "👥 Contact Tracking" },
-          { id: "approval", label: `📤 Send Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
           { id: "districtinfo", label: "🏫 District Info" },
+          { id: "approval", label: `📤 Send Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
         ].map((t) => (
           <button
             key={t.id}
@@ -1513,134 +1511,6 @@ export default function BrightwheelDashboard() {
                     )}
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ── OUTREACH PLANNER TAB ── */}
-        {activeTab === "outreach" && (
-          <div>
-            <div className="mb-4">
-              <h2 className="text-base font-bold text-gray-900">Outreach Planner</h2>
-              <p className="text-xs text-gray-500 mt-1">Recommended 4-touch outreach sequence per district. Priority-sorted.</p>
-            </div>
-            <div className="grid gap-4">
-              {districts.filter((d) => d.priority >= 55).slice(0, 20).map((d) => {
-                const p = getPriorityLabel(d.priority);
-                const age = 2026 - d.curriculumAdoptionYear;
-                const touches = [
-                  { label: "📧 Original Email", template: "original", done: d.activities?.some((a) => a.type === "email") },
-                  { label: "☀️ Summer Long Email", template: "summerLong", done: false },
-                  { label: "☀️ Summer Short Email", template: "summerShort", done: false },
-                  { label: "LinkedIn Connect + Note", template: "linkedin", done: false },
-                ];
-                return (
-                  <div key={d.id} className="bg-white rounded-xl border border-gray-200 p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${p.color}`}>{p.label}</span>
-                          <span className="font-semibold text-gray-900">{d.district}</span>
-                        </div>
-                        <div className="text-xs text-gray-500 mt-0.5">{d.director} · {d.email} · {d.phone}</div>
-                        <div className="text-xs text-gray-400 mt-0.5">Current: <span className="text-indigo-600">{d.curriculum}</span> (adopted {d.curriculumAdoptionYear} — <span className="font-semibold text-red-500">{age} yrs old</span>)</div>
-                      </div>
-                      <span className={`text-xs ${statusColor(d.status)}`}>{d.status}</span>
-                    </div>
-                    {d.buyingSignals.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-3">
-                        {d.buyingSignals.map((s, i) => (
-                          <span key={i} className="bg-amber-50 border border-amber-200 text-amber-700 px-2 py-0.5 rounded text-xs">⚡ {s}</span>
-                        ))}
-                      </div>
-                    )}
-                    <div className="grid grid-cols-4 gap-2">
-                      {touches.map((t, i) => (
-                        <div key={i} className={`rounded-lg border p-2 ${t.done ? "bg-green-50 border-green-200" : "bg-gray-50 border-gray-200"}`}>
-                          <div className="text-xs font-medium text-gray-700 mb-1">Step {i + 1}</div>
-                          <div className="text-xs text-gray-500 mb-2">{t.label}</div>
-                          {t.template === "linkedin" ? (
-                            <button
-                              onClick={() => { setSelectedDistrict(d); setEmailPreview(generateEmail(d, "linkedin", currentRep)); setShowEmailPreview(true); }}
-                              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
-                            >
-                              Copy Message
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => queueEmail(d, t.template)}
-                              className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
-                            >
-                              Queue Email
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* ── EMAIL TEMPLATES TAB ── */}
-        {activeTab === "templates" && (
-          <div className="max-w-4xl">
-            <div className="mb-4">
-              <h2 className="text-base font-bold text-gray-900">Email Templates</h2>
-              <p className="text-xs text-gray-500 mt-1">Preview and customize outreach templates. Select a district to auto-personalize.</p>
-            </div>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div>
-                <label className="text-xs font-medium text-gray-600 block mb-1">Select District</label>
-                <select
-                  onChange={(e) => setSelectedDistrict(districts.find((d) => d.id === parseInt(e.target.value)) || null)}
-                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
-                >
-                  <option value="">— Choose a district —</option>
-                  {districts.slice(0, 30).map((d) => <option key={d.id} value={d.id}>{d.county} — {d.director}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="text-xs font-medium text-gray-600 block mb-1">Template</label>
-                <select
-                  value={selectedTemplate}
-                  onChange={(e) => setSelectedTemplate(e.target.value)}
-                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-full"
-                >
-                  <option value="original">📧 Original Email</option>
-                  <option value="summerLong">☀️ Summer Long</option>
-                  <option value="summerShort">☀️ Summer Short</option>
-                  <option value="summerBridge">🌴 FL Summer Bridge (Long)</option>
-                  <option value="summerBridgeShort">🌴 FL Summer Bridge (Short)</option>
-                </select>
-              </div>
-            </div>
-            {selectedDistrict && (
-              <div className="bg-white rounded-xl border border-gray-200 p-4">
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="font-semibold text-gray-900">Preview — {selectedDistrict.director} at {selectedDistrict.county} County</h3>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => { navigator.clipboard?.writeText(generateEmail(selectedDistrict, selectedTemplate, currentRep)); showNotif("Copied to clipboard ✓"); }}
-                      className="text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
-                    >Copy</button>
-                    <button
-                      onClick={() => queueEmail(selectedDistrict, selectedTemplate)}
-                      className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
-                    >Add to Send Queue →</button>
-                  </div>
-                </div>
-                <pre className="text-xs text-gray-700 whitespace-pre-wrap bg-gray-50 rounded-lg p-4 leading-relaxed font-sans">
-                  {generateEmail(selectedDistrict, selectedTemplate, currentRep)}
-                </pre>
-              </div>
-            )}
-            {!selectedDistrict && (
-              <div className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-12 text-center text-gray-400">
-                Select a district above to preview a personalized email template.
               </div>
             )}
           </div>
