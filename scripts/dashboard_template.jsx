@@ -1655,12 +1655,24 @@ export default function BrightwheelDashboard() {
               </div>
               {/* Bulk action buttons */}
               {approvalQueue.length > 0 && (
-                <div className="flex gap-2 mt-3 flex-wrap">
+                <div className="flex gap-2 mt-3 flex-wrap items-center">
                   <button
                     onClick={sendAllEmails}
                     className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-lg font-semibold"
                   >
                     📤 Send All ({approvalQueue.length})
+                  </button>
+                  <button
+                    onClick={async () => { for (const item of [...approvalQueue]) { await draftEmail(item, gmailToken); await new Promise(r => setTimeout(r, 300)); } }}
+                    className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs px-3 py-2 rounded-lg font-semibold"
+                  >
+                    📋 Draft All ({approvalQueue.length})
+                  </button>
+                  <button
+                    onClick={() => { if (window.confirm(`Remove all ${approvalQueue.length} emails from the queue?`)) setApprovalQueue([]); }}
+                    className="bg-red-50 hover:bg-red-100 text-red-500 border border-red-200 text-xs px-3 py-2 rounded-lg font-semibold ml-auto"
+                  >
+                    🗑 Clear Queue
                   </button>
                 </div>
               )}
