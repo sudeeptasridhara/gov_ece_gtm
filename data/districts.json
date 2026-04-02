@@ -3471,37 +3471,6 @@
     "state": "FL"
   },
   {
-    "id": 68,
-    "county": "Test",
-    "district": "brightwheel",
-    "enrollment": 500,
-    "director": "Eric Truog",
-    "title": "Director, Business Operations",
-    "callToConfirm": false,
-    "email": "eric.truog@mybrightwheel.com",
-    "phone": "(555) 000-0001",
-    "address": "548 Market St, San Francisco, CA 94104",
-    "linkedin": "linkedin.com/in/eric-truog",
-    "curriculum": "EC",
-    "curriculumVendor": "Internal",
-    "curriculumAdoptionYear": 2026,
-    "priorityTier": "Test",
-    "newLeadership": false,
-    "buyingSignals": [
-      "Summer program coming up \u2014 ideal for Experience Preschool bridge curriculum"
-    ],
-    "recentNews": [
-      "brightwheel test prospect \u2014 used to validate outreach email workflow"
-    ],
-    "status": "not contacted",
-    "priority": 0,
-    "notes": "TEST PROSPECT \u2014 for workflow validation only.",
-    "activities": [],
-    "lastUpdated": null,
-    "boardNotes": [],
-    "state": "FL"
-  },
-  {
     "id": 69,
     "state": "AL",
     "county": "St. Clair",
