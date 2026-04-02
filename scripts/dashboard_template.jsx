@@ -560,6 +560,39 @@ export default function BrightwheelDashboard() {
 
   const [emailPickerId, setEmailPickerId] = useState(null); // must be declared before the useEffect below
 
+  // ── LOCALSTORAGE PERSISTENCE ─────────────────────────────────────────────────
+  // Load saved activities immediately on mount (no network / login required)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('bw_gov_activities_v2');
+      if (!saved) return;
+      const actMap = JSON.parse(saved);
+      setDistricts(prev => prev.map(d => {
+        const entry = actMap[String(d.id)];
+        if (!entry || !entry.activities?.length) return d;
+        const existingIds = new Set((d.activities || []).map(a => String(a.id)));
+        const fresh = entry.activities.filter(a => !existingIds.has(String(a.id)));
+        if (!fresh.length) return d;
+        return { ...d, activities: [...(d.activities || []), ...fresh], status: entry.status || d.status };
+      }));
+    } catch(e) { console.warn('localStorage load:', e); }
+  }, []);
+
+  // Save activities to localStorage whenever district state changes
+  useEffect(() => {
+    try {
+      const actMap = {};
+      districts.forEach(d => {
+        if ((d.activities || []).length > 0 || d.status !== 'not contacted') {
+          actMap[String(d.id)] = { activities: d.activities || [], status: d.status };
+        }
+      });
+      if (Object.keys(actMap).length > 0) {
+        localStorage.setItem('bw_gov_activities_v2', JSON.stringify(actMap));
+      }
+    } catch(e) {}
+  }, [districts]);
+
   // ── LOAD PERSISTED ACTIVITY LOG ON STARTUP ──────────────────────────────────
   // The daily scheduled task writes data/activity_log.json. Fetch it here so
   // activities survive page refreshes and are pre-populated without a manual sync.
@@ -629,13 +662,16 @@ export default function BrightwheelDashboard() {
           }).then((r) => r.json()).then((profile) => {
             if (profile.emailAddress) setGmailUser(profile.emailAddress);
           }).catch(() => {});
-          // Auto-sync Gmail activity on connect
-          setTimeout(() => syncGmailActivity(resp.access_token), 800);
-          // Load shared activity sheet (init headers if first use, then fetch all rows)
+          // Load sheet first (populates syncedMsgIds), then run Gmail sync
           if (ACTIVITY_SHEET_ID) {
             setTimeout(() => {
-              initSheet(resp.access_token).then(() => loadSheetActivities(resp.access_token));
+              initSheet(resp.access_token)
+                .then(() => loadSheetActivities(resp.access_token))
+                .catch(() => {})
+                .finally(() => syncGmailActivity(resp.access_token));
             }, 400);
+          } else {
+            setTimeout(() => syncGmailActivity(resp.access_token), 800);
           }
           if (pendingDraftRef.current) {
             pendingDraftRef.current(resp.access_token);
@@ -1145,7 +1181,12 @@ export default function BrightwheelDashboard() {
         body: JSON.stringify({ values: rows }),
         token: useToken,
       });
-    } catch (e) { console.warn("Sheet write:", e.message); }
+    } catch (e) {
+      console.warn("Sheet write:", e.message);
+      if (e.status === 403) showNotif("Sheet write failed: Sheets API may not be enabled in Google Cloud, or the sheet isn't shared with your account", "red");
+      else if (e.status === 401) showNotif("Sheet write failed: reconnect Gmail to refresh your token", "red");
+      else showNotif(`Sheet write failed: ${e.message}`, "red");
+    }
   };
 
   // ── BULK SELECTION ──
