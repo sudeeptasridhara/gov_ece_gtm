@@ -1360,20 +1360,6 @@ export default function BrightwheelDashboard() {
           </div>
         </div>
         <div className="flex items-center gap-6">
-          <div className="flex gap-4 text-center">
-            {[
-              { label: "Total Districts", val: stats.total, color: "text-gray-700" },
-              { label: "🔥 Hot Leads", val: stats.hot, color: "text-red-600" },
-              { label: "🌡️ Warm Leads", val: stats.warm, color: "text-orange-500" },
-              { label: "Contacted", val: stats.contacted, color: "text-indigo-600" },
-              { label: "Send Queue", val: stats.queue, color: "text-purple-600" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div className={`text-xl font-bold ${s.color}`}>{s.val}</div>
-                <div className="text-xs text-gray-400">{s.label}</div>
-              </div>
-            ))}
-          </div>
           {/* Logged-in rep indicator / sign-in button */}
           {currentRep ? (
             <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
@@ -1427,7 +1413,7 @@ export default function BrightwheelDashboard() {
           {[
             { id: "overview", label: "🏠 Overview" },
             { id: "prospects", label: "📋 Prospects" },
-            { id: "contacts", label: "👥 Contact Tracking" },
+            { id: "contacts", label: "👥 Outreach Tracking" },
             { id: "districtinfo", label: "🏫 District Info" },
             { id: "approval", label: `📤 Send Queue ${stats.queue > 0 ? `(${stats.queue})` : ""}` },
           ].map((t) => (
@@ -1935,7 +1921,7 @@ export default function BrightwheelDashboard() {
             <div>
               <div className="mb-4 flex flex-wrap gap-4 items-start justify-between">
                 <div>
-                  <h2 className="text-base font-bold text-gray-900">Contact Tracking</h2>
+                  <h2 className="text-base font-bold text-gray-900">Outreach Tracking</h2>
                   <p className="text-xs text-gray-500 mt-1">Full outreach history per district. Log calls, emails, and meetings. Click a row to expand.</p>
                 </div>
                 <div className="flex items-center gap-4">
@@ -2520,7 +2506,7 @@ export default function BrightwheelDashboard() {
                             </div>
                           ))}
                           {selectedDi.activities.length > 5 && (
-                            <div className="text-xs text-gray-400 pl-3">+ {selectedDi.activities.length - 5} more — see Contact Tracking tab</div>
+                            <div className="text-xs text-gray-400 pl-3">+ {selectedDi.activities.length - 5} more — see Outreach Tracking tab</div>
                           )}
                         </div>
                       </div>
@@ -2977,7 +2963,7 @@ export default function BrightwheelDashboard() {
               <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center text-violet-700 font-bold text-sm">GR</div>
               <div>
                 <h2 className="text-base font-bold text-gray-900">Connect Granola</h2>
-                <p className="text-xs text-gray-400">Sync call notes &amp; meetings to contact tracking</p>
+                <p className="text-xs text-gray-400">Sync call notes &amp; meetings to outreach tracking</p>
               </div>
             </div>
 
@@ -2988,7 +2974,7 @@ export default function BrightwheelDashboard() {
                 <li>Go to <strong>Settings → API</strong></li>
                 <li>Generate or copy your personal API key</li>
               </ol>
-              <p className="mt-2 text-violet-500">Requires a Granola Enterprise plan. Once connected, Granola meetings will be matched to districts by name and added to contact tracking.</p>
+              <p className="mt-2 text-violet-500">Requires a Granola Enterprise plan. Once connected, Granola meetings will be matched to districts by name and added to outreach tracking.</p>
             </div>
 
             <input
