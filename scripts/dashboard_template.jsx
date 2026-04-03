@@ -1400,6 +1400,20 @@ export default function BrightwheelDashboard() {
             </button>
           )}
 
+          {/* Help link */}
+          <a
+            href="help.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 pl-4 border-l border-gray-200 hover:opacity-80 transition-opacity"
+          >
+            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-500">?</div>
+            <div className="text-left">
+              <div className="text-xs font-semibold text-gray-600">How to use</div>
+              <div className="text-xs text-gray-400">dashboard guide</div>
+            </div>
+          </a>
+
           {/* Granola connect */}
           <button
             onClick={() => granolaConnected ? syncGranolaActivity() : setGranolaModalOpen(true)}

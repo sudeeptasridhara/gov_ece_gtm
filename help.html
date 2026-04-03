@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Use — brightwheel PreK Sales Intelligence</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-logo {
+      width: 34px; height: 34px;
+      background: #4f46e5;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 13px;
+    }
+    .header h1 { font-size: 15px; font-weight: 700; color: #111827; }
+    .header p  { font-size: 12px; color: #9ca3af; }
+    .back-link {
+      margin-left: auto;
+      font-size: 13px;
+      color: #4f46e5;
+      text-decoration: none;
+      border: 1px solid #c7d2fe;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: #eef2ff;
+    }
+    .back-link:hover { background: #e0e7ff; }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      gap: 40px;
+    }
+
+    /* ── SIDEBAR NAV ── */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+    }
+    .sidebar-nav {
+      position: sticky;
+      top: 72px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 0;
+      overflow: hidden;
+    }
+    .sidebar-nav a {
+      display: block;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: #374151;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .sidebar-nav a:hover {
+      background: #f1f5f9;
+      color: #4f46e5;
+      border-left-color: #4f46e5;
+    }
+    .sidebar-nav .nav-group {
+      font-size: 11px;
+      font-weight: 700;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 14px 18px 4px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content { flex: 1; min-width: 0; }
+
+    section {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 24px;
+    }
+
+    section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    section h2 .badge {
+      font-size: 11px;
+      font-weight: 600;
+      background: #eef2ff;
+      color: #4f46e5;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .section-intro {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin: 20px 0 8px;
+    }
+    p { font-size: 14px; color: #374151; margin-bottom: 10px; }
+    ul, ol { padding-left: 20px; margin-bottom: 12px; }
+    li { font-size: 14px; color: #374151; margin-bottom: 5px; }
+    strong { color: #111827; }
+
+    .tip {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #92400e;
+      margin: 12px 0;
+      display: flex;
+      gap: 8px;
+    }
+    .tip::before { content: "💡"; flex-shrink: 0; }
+
+    .warning {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #991b1b;
+      margin: 12px 0;
+      display: flex;
+      gap: 8px;
+    }
+    .warning::before { content: "⚠️"; flex-shrink: 0; }
+
+    .step-list { counter-reset: steps; padding-left: 0; }
+    .step-list li {
+      counter-increment: steps;
+      list-style: none;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .step-list li::before {
+      content: counter(steps);
+      min-width: 26px; height: 26px;
+      background: #4f46e5;
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .chip {
+      display: inline-block;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #374151;
+      margin: 1px 2px;
+    }
+
+    .cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 12px 0;
+    }
+    .card-mini {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .card-mini h4 { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+    .card-mini p  { font-size: 13px; color: #6b7280; margin-bottom: 0; }
+
+    /* ── UPDATED BANNER ── */
+    .updated {
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: right;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">bw</div>
+  <div>
+    <h1>brightwheel · PreK Sales Intelligence</h1>
+    <p>Dashboard Guide</p>
+  </div>
+  <a class="back-link" href="index.html">← Back to Dashboard</a>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-nav">
+      <div class="nav-group">Getting started</div>
+      <a href="#overview">What this is</a>
+      <a href="#connect-gmail">Connect Gmail</a>
+      <a href="#connect-granola">Connect Granola</a>
+
+      <div class="nav-group">Tabs</div>
+      <a href="#tab-overview">Overview</a>
+      <a href="#tab-prospects">Prospects</a>
+      <a href="#tab-contacts">Contact Tracking</a>
+      <a href="#tab-district">District Info</a>
+      <a href="#tab-queue">Send Queue</a>
+
+      <div class="nav-group">Sync &amp; data</div>
+      <a href="#gmail-sync">Gmail Sync</a>
+      <a href="#granola-sync">Granola Sync</a>
+      <a href="#sheet-sync">Shared Sheet</a>
+      <a href="#persistence">Data persistence</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- WHAT THIS IS -->
+    <section id="overview">
+      <h2>What this dashboard is <span class="badge">Start here</span></h2>
+      <p class="section-intro">A shared sales intelligence tool for the brightwheel Gov/ECE team — built to track outreach to early childhood directors across FL, AL, GA, MI, ID, NV, NM, CA, OR, and WA.</p>
+
+      <p>The dashboard gives each rep a live view of 826 districts, ranked by buying signals, enrollment size, and recency of contact. Every tab is filtered to your rep's states by default, but you can switch the filter to see all reps.</p>
+
+      <div class="cols-2">
+        <div class="card-mini">
+          <h4>What it tracks</h4>
+          <p>Emails sent, replies received, Granola call notes, and manually logged activities — all shared in real time across the team.</p>
+        </div>
+        <div class="card-mini">
+          <h4>Who it's for</h4>
+          <p>Christie (FL/AL/GA/MI), Eric Truog (ID), Kevin Elston (NV/NM), Eric Bernstein (CA/OR/WA).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECT GMAIL -->
+    <section id="connect-gmail">
+      <h2>Connecting Gmail</h2>
+      <p class="section-intro">Gmail is needed to send emails, create drafts, and sync your sent activity. It also loads the shared team activity from the Google Sheet.</p>
+
+      <ol class="step-list">
+        <li>Click <strong>Sign in with Gmail</strong> in the top-right corner of the dashboard.</li>
+        <li>Choose your <strong>@mybrightwheel.com</strong> Google account.</li>
+        <li>Grant all requested permissions — the dashboard needs Gmail read/send and Google Sheets access.</li>
+        <li>Once connected, your name and rep icon will appear in the header, and the dashboard will automatically sync your Gmail sent history and load the shared activity sheet.</li>
+      </ol>
+
+      <div class="tip">You'll need to reconnect Gmail each session — the token isn't stored between browser sessions. Your activity data loads from localStorage instantly on every visit, so you won't lose history.</div>
+
+      <div class="warning">If you see a red "Sheet write failed" error after connecting, the Google Sheets API may not be enabled for your Google Cloud project. Go to console.cloud.google.com → project 642445271504 → APIs &amp; Services → Library → enable "Google Sheets API".</div>
+    </section>
+
+    <!-- CONNECT GRANOLA -->
+    <section id="connect-granola">
+      <h2>Connecting Granola</h2>
+      <p class="section-intro">Granola is a meeting notes app. Connecting it lets the dashboard pull your call notes and match them to districts automatically.</p>
+
+      <ol class="step-list">
+        <li>Click <strong>Connect Granola</strong> in the top-right corner.</li>
+        <li>In the modal that appears, paste your Granola API key. You can find this in the Granola desktop app under Settings → API.</li>
+        <li>Click Connect. The dashboard will immediately fetch your recent meeting notes and try to match them to districts.</li>
+        <li>Matched meetings appear in the relevant district's activity timeline in the District Info tab.</li>
+      </ol>
+
+      <h3>How matching works</h3>
+      <p>The dashboard matches Granola notes to districts using three passes, in order:</p>
+      <ul>
+        <li><strong>District name</strong> — the meeting title or notes contain a normalized district name (e.g. "Boise #1" matches "Independent School District of Boise City")</li>
+        <li><strong>Email domain</strong> — an email address in the notes has a domain matching a known district contact</li>
+        <li><strong>Director last name</strong> — the meeting title contains a director's last name and a call keyword (call, meeting, demo, sync, etc.)</li>
+      </ul>
+
+      <div class="tip">Once connected, clicking "Sync Granola" in the header will pull any new notes added since the last sync. The dashboard won't re-log notes it has already matched.</div>
+    </section>
+
+    <!-- TAB: OVERVIEW -->
+    <section id="tab-overview">
+      <h2>Overview tab <span class="badge">Home</span></h2>
+      <p class="section-intro">A high-level summary of pipeline health and recent activity across your districts.</p>
+
+      <h3>Stats bar</h3>
+      <p>The header shows total districts, hot leads (priority ≥ 75), warm leads (priority 55–74), number contacted, and items in the Send Queue.</p>
+
+      <h3>Rep filter</h3>
+      <p>The <span class="chip">All Reps</span> dropdown in the top bar filters the entire dashboard — Overview, Prospects, and Contact Tracking — to a single rep's states. Switching reps updates all three tabs simultaneously.</p>
+
+      <h3>Priority tiers</h3>
+      <div class="cols-2">
+        <div class="card-mini"><h4>🔥 Hot (75+)</h4><p>Strong buying signals, large enrollment, recent board activity.</p></div>
+        <div class="card-mini"><h4>🌡️ Warm (55–74)</h4><p>Some signals or medium enrollment. Worth reaching out soon.</p></div>
+        <div class="card-mini"><h4>Cool (35–54)</h4><p>Smaller districts or fewer signals. Lower immediate priority.</p></div>
+        <div class="card-mini"><h4>Cold (&lt;35)</h4><p>Minimal signals and small enrollment.</p></div>
+      </div>
+    </section>
+
+    <!-- TAB: PROSPECTS -->
+    <section id="tab-prospects">
+      <h2>Prospects tab</h2>
+      <p class="section-intro">A sortable, filterable table of all districts. The main place to find, research, and queue outreach.</p>
+
+      <h3>Filters</h3>
+      <ul>
+        <li><strong>Search</strong> — searches district name, director name, and county.</li>
+        <li><strong>Priority</strong> — filter to Hot / Warm / Cool / Cold tiers.</li>
+        <li><strong>State</strong> — filter to a single state.</li>
+        <li><strong>Curriculum</strong> — filter by current curriculum vendor.</li>
+        <li><strong>Status</strong> — filter by outreach status (not contacted, reached out, responded, etc.).</li>
+        <li><strong>Rep filter</strong> (top bar) — shows only states owned by the selected rep.</li>
+      </ul>
+
+      <h3>Queueing emails</h3>
+      <p>Each district row has an <strong>Add to Queue</strong> button. Click it to choose an email template and add the district to the Send Queue. From there you can review, edit, and send.</p>
+
+      <h3>Selecting multiple districts</h3>
+      <p>Check the box on any district row to select it. Once you have multiple selected, a bulk action bar appears at the bottom letting you add all selected districts to the queue with one template in one click.</p>
+    </section>
+
+    <!-- TAB: CONTACTS -->
+    <section id="tab-contacts">
+      <h2>Contact Tracking tab</h2>
+      <p class="section-intro">A per-director view of every touchpoint — emails, calls, replies, and notes — across the team.</p>
+
+      <p>Each district shows a timeline of all logged activity: Gmail sends, Gmail replies, Granola call notes, and manually logged activities. The count of contacts is the total number of distinct touchpoints.</p>
+
+      <h3>Logging activity manually</h3>
+      <p>You can log a call, LinkedIn message, meeting, or note directly from the Contact Tracking tab by expanding a district and clicking <strong>Log Activity</strong>. Choose the type, date, and add notes. This writes to your local state and to the shared Google Sheet so teammates see it.</p>
+
+      <h3>Syncing Gmail</h3>
+      <p>Click the <strong>Sync Gmail</strong> button at the top of the Contact Tracking tab to pull new sent emails and replies from the last 90 days. Any email sent to a known district contact email will appear as an activity.</p>
+    </section>
+
+    <!-- TAB: DISTRICT INFO -->
+    <section id="tab-district">
+      <h2>District Info tab</h2>
+      <p class="section-intro">A detailed profile for a single district — director info, buying signals, board notes, contact history, and email composer.</p>
+
+      <p>Click any district in the Prospects or Contact Tracking tab and then switch to District Info, or click a district name to jump directly to it.</p>
+
+      <h3>What's shown</h3>
+      <ul>
+        <li><strong>Director info</strong> — name, title, email, phone, LinkedIn</li>
+        <li><strong>Buying signals</strong> — reasons this district is a strong prospect</li>
+        <li><strong>Recent intel</strong> — board meeting notes and strategic context</li>
+        <li><strong>Granola notes</strong> — matched call notes from your Granola account</li>
+        <li><strong>Activity history</strong> — all logged contacts in chronological order</li>
+        <li><strong>Email composer</strong> — preview and send any template directly from this view</li>
+      </ul>
+
+      <h3>Summer Bridge contact</h3>
+      <p>Some FL districts have a separate Summer Bridge contact. When present, Summer Bridge email templates will be addressed to that contact instead of the main director. All other templates still go to the director.</p>
+    </section>
+
+    <!-- TAB: SEND QUEUE -->
+    <section id="tab-queue">
+      <h2>Send Queue tab</h2>
+      <p class="section-intro">A staging area where queued emails wait for review before sending.</p>
+
+      <ol class="step-list">
+        <li>Add districts to the queue from the Prospects tab using <strong>Add to Queue</strong>, or bulk-add multiple districts at once.</li>
+        <li>Switch to the Send Queue tab to review each email — the subject, preview text, and recipient are shown for each item.</li>
+        <li>Click <strong>Send</strong> to send via Gmail, or <strong>Draft</strong> to save it as a Gmail draft you can review in your inbox first.</li>
+        <li>Sent emails are automatically logged as activities in Contact Tracking and written to the shared sheet.</li>
+      </ol>
+
+      <div class="tip">Use "Draft" instead of "Send" if you want to add a personal touch before it goes out. The draft will appear in your Gmail Drafts folder.</div>
+    </section>
+
+    <!-- GMAIL SYNC -->
+    <section id="gmail-sync">
+      <h2>Gmail Sync</h2>
+      <p class="section-intro">Automatically detects emails you've sent to district contacts and replies you've received — even emails sent outside the dashboard.</p>
+
+      <h3>What gets synced</h3>
+      <ul>
+        <li><strong>Sent emails</strong> — any email in your Sent folder sent to a known district director email address in the last 90 days</li>
+        <li><strong>Replies</strong> — any email in your Inbox from a known district contact email address</li>
+      </ul>
+
+      <h3>What doesn't get synced</h3>
+      <ul>
+        <li>Emails to contacts not in the district database</li>
+        <li>Emails older than 90 days</li>
+        <li>Emails already synced in a previous session (deduped by Gmail message ID)</li>
+      </ul>
+
+      <div class="tip">The sync runs automatically every time you connect Gmail. You can also trigger it manually from the Contact Tracking tab.</div>
+    </section>
+
+    <!-- GRANOLA SYNC -->
+    <section id="granola-sync">
+      <h2>Granola Sync</h2>
+      <p class="section-intro">Pulls meeting notes from Granola and matches them to districts in the dashboard.</p>
+
+      <p>After connecting Granola, click <strong>Sync Granola</strong> in the header at any time to fetch new notes. The dashboard uses a fuzzy three-pass match (district name → email domain → director last name + call keyword) to find the right district for each note.</p>
+
+      <p>Matched notes appear in the District Info tab under their own Granola section, separate from email activity. They also count toward the total contact count in the Contact Tracking tab.</p>
+
+      <div class="warning">Granola integration requires an Enterprise plan API key. Free Granola accounts don't expose an API.</div>
+    </section>
+
+    <!-- SHARED SHEET -->
+    <section id="sheet-sync">
+      <h2>Shared Google Sheet</h2>
+      <p class="section-intro">A central activity log that keeps all reps' contact history in sync — so when Eric logs a call in Boise, Sudeepta sees it when she next connects Gmail.</p>
+
+      <h3>How it works</h3>
+      <p>Every time an activity is logged — via Gmail sync, Granola sync, or manual entry — it's appended to a shared Google Sheet (<code>1PasvZHeHTbAaiM1oI0Xe9pxyx-MgwDTF64Y-yuQACwM</code>). When any rep connects Gmail, the sheet is loaded first, populating everyone's activity history before the Gmail sync runs.</p>
+
+      <h3>Sheet columns</h3>
+      <p><span class="chip">activity_id</span> <span class="chip">district_id</span> <span class="chip">district_name</span> <span class="chip">type</span> <span class="chip">date</span> <span class="chip">notes</span> <span class="chip">full_notes</span> <span class="chip">source</span> <span class="chip">rep_email</span> <span class="chip">director_name</span> <span class="chip">dedup_id</span> <span class="chip">logged_at</span></p>
+
+      <div class="tip">The sheet uses an append-only model — rows are never deleted or updated, only added. Deduplication happens in the dashboard by matching <code>dedup_id</code> (Gmail message ID or Granola document ID) so the same activity is never double-counted.</div>
+
+      <div class="warning">The sheet must have the Google Sheets API enabled in Google Cloud project 642445271504, and must be shared with Editor access for all reps' Google accounts.</div>
+    </section>
+
+    <!-- PERSISTENCE -->
+    <section id="persistence">
+      <h2>Data persistence</h2>
+      <p class="section-intro">Your activity data is saved in two places: your browser's localStorage (instant, private) and the shared Google Sheet (requires Gmail).</p>
+
+      <div class="cols-2">
+        <div class="card-mini">
+          <h4>localStorage (your browser)</h4>
+          <p>All activities and contact statuses are saved to your browser automatically. This means your data survives page refreshes without needing to reconnect Gmail.</p>
+        </div>
+        <div class="card-mini">
+          <h4>Google Sheet (shared)</h4>
+          <p>When you connect Gmail, the sheet loads activities from all reps, merging them into your local view. New activities you log are written to the sheet so teammates see them.</p>
+        </div>
+      </div>
+
+      <div class="tip">If you clear your browser storage, your local history will be gone — but reconnecting Gmail and re-syncing will restore everything that was written to the shared sheet.</div>
+    </section>
+
+    <p class="updated">Last updated: April 2026 · <a href="index.html" style="color:#4f46e5;">← Back to dashboard</a></p>
+  </main>
+</div>
+
+</body>
+</html>
