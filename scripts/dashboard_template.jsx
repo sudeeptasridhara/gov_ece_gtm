@@ -2153,12 +2153,12 @@ export default function BrightwheelDashboard() {
                         </div>
                         <div>
                           <select
-                            value={d.status}
-                            onChange={(e) => { e.stopPropagation(); updateDistrict(d.id, { status: e.target.value }); }}
+                            value={d.status || "not_started"}
+                            onChange={(e) => { e.stopPropagation(); updateStage(d.id, e.target.value); }}
                             onClick={(e) => e.stopPropagation()}
-                            className={`text-xs border-0 bg-transparent focus:outline-none cursor-pointer ${statusColor(d.status)}`}
+                            className={`text-xs px-2 py-0.5 rounded-full font-medium border-0 cursor-pointer focus:outline-none ${stageColor(d.status || "not_started")}`}
                           >
-                            {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                            {Object.entries(SEQUENCE_STAGES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
                           </select>
                         </div>
                         <div className="flex gap-1 items-center">
@@ -2928,13 +2928,13 @@ export default function BrightwheelDashboard() {
                       <div><span className="text-gray-500">Vendor:</span> {selectedDistrict.curriculumVendor}</div>
                       <div><span className="text-gray-500">Adopted:</span> {selectedDistrict.curriculumAdoptionYear} <span className="text-red-500 font-medium">({2026 - selectedDistrict.curriculumAdoptionYear} years ago)</span></div>
                       <div><span className="text-gray-500">Enrollment:</span> {selectedDistrict.enrollment.toLocaleString()}</div>
-                      <div><span className="text-gray-500">Status:</span>
+                      <div><span className="text-gray-500">Stage:</span>
                         <select
-                          value={selectedDistrict.status}
-                          onChange={(e) => updateDistrict(selectedDistrict.id, { status: e.target.value })}
-                          className={`ml-2 text-xs border border-gray-200 rounded px-2 py-0.5 ${statusColor(selectedDistrict.status)}`}
+                          value={selectedDistrict.status || "not_started"}
+                          onChange={(e) => updateStage(selectedDistrict.id, e.target.value)}
+                          className={`ml-2 text-xs border-0 rounded-full px-2 py-0.5 font-medium cursor-pointer focus:outline-none ${stageColor(selectedDistrict.status || "not_started")}`}
                         >
-                          {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                          {Object.entries(SEQUENCE_STAGES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
                         </select>
                       </div>
                     </div>
