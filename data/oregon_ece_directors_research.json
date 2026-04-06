@@ -1,0 +1,122 @@
+[
+  {
+    "tier": 1,
+    "district": "Salem-Keizer School District",
+    "location": "Salem, OR",
+    "director": "TBD",
+    "title": "Early Childhood Education Director",
+    "email": "",
+    "phone": "503-399-5510",
+    "email_confidence": "Low",
+    "source_url": "https://salkeiz.k12.or.us/programs/early-childhood-ed/preschool",
+    "notes": "Director position listed as TBD. Early childhood preschool office located at Fruitland Elementary. Contact Head Start at 503-399-5510 for more information."
+  },
+  {
+    "tier": 1,
+    "district": "Bend-La Pine Schools",
+    "location": "Bend, OR",
+    "director": "Karen Rush",
+    "title": "Executive Director of Elementary Programs",
+    "email": "",
+    "phone": "541-355-1000",
+    "email_confidence": "Medium",
+    "source_url": "https://www.bend.k12.or.us/district/news-events/news/2024/10/bend-la-pine-schools-hires-elementary-programs-director",
+    "notes": "Karen Rush hired as Executive Director of Elementary Programs starting November 4, 2024. Previously worked at North Clackamas School District as director of early learning. Email format appears to be k[something]@bend.k12.or.us but not confirmed. Also serves as Director of Educational Technology. 25 years of experience in elementary education and nonprofits."
+  },
+  {
+    "tier": 1,
+    "district": "North Clackamas School District",
+    "location": "Milwaukie, OR",
+    "director": "Kendall Palmer",
+    "title": "Preschool Coordinator",
+    "email": "palmerk@nclack.k12.or.us",
+    "phone": "503-353-5365",
+    "email_confidence": "High",
+    "source_url": "https://ssc.nclack.k12.or.us/academics/community-service/early-learning-center",
+    "notes": "Kendall Palmer is Preschool Coordinator/High School Instructor. M.Ed. in Early Childhood and Curriculum Development & Educational Leadership from Concordia University. Early Learning Center located at 14211 SE Johnson Rd, Milwaukie, OR 97267."
+  },
+  {
+    "tier": 1,
+    "district": "Eugene School District 4J",
+    "location": "Eugene, OR",
+    "director": "TBD",
+    "title": "Early Childhood Programs Director",
+    "email": "",
+    "phone": "",
+    "email_confidence": "Low",
+    "source_url": "https://directory.4j.lane.edu/",
+    "notes": "Director position not yet identified. Staff directory searchable at directory.4j.lane.edu. Contact HR at hr@4j.lane.edu for current early childhood director information."
+  },
+  {
+    "tier": 1,
+    "district": "Springfield School District",
+    "location": "Springfield, OR",
+    "director": "TBD",
+    "title": "Early Childhood/Preschool Director",
+    "email": "",
+    "phone": "541-747-3331",
+    "email_confidence": "Low",
+    "source_url": "https://www.springfield.k12.or.us/academics/preschool",
+    "notes": "District office at 640 A Street, Springfield, OR 97477. Early childhood programs include Head Start, KITS (Kids in Transition to School), and Thurston High School Child Development Center. No dedicated early childhood director identified yet."
+  },
+  {
+    "tier": 2,
+    "district": "Portland Public Schools",
+    "location": "Portland, OR",
+    "director": "Dana Stiles",
+    "title": "Director of Early Learners",
+    "email": "",
+    "phone": "",
+    "email_confidence": "Low",
+    "source_url": "https://www.portlandschools.org/about/staff-directory",
+    "notes": "Dana Stiles is Director of Early Learners. Early Learners Department located at 4803 NE 7th Ave, Portland, OR 97211. Contact: prekprograms@pps.net. Recent LinkedIn activity suggests possible role change to Chief Development Officer at Council of Chief State School Officers."
+  },
+  {
+    "tier": 2,
+    "district": "Beaverton School District",
+    "location": "Beaverton, OR",
+    "director": "TBD",
+    "title": "Early Learning Director/Coordinator",
+    "email": "",
+    "phone": "503-356-4500",
+    "email_confidence": "Low",
+    "source_url": "https://www.beaverton.k12.or.us/departments/teaching-learning/early-learning",
+    "notes": "District has Early Childhood Care Provider positions and early learning programs. No dedicated early learning director identified. Contact HR at 503-356-4500 for current early learning leadership information."
+  },
+  {
+    "tier": 2,
+    "district": "Hillsboro School District",
+    "location": "Hillsboro, OR",
+    "director": "Olga Acuña",
+    "title": "Director of Federal Programs",
+    "email": "acuna@hsd.k12.or.us",
+    "phone": "",
+    "email_confidence": "High",
+    "source_url": "https://www.hsd.k12.or.us/site/default.aspx?PageType=3&ModuleInstanceID=8679&ViewID=ed695a1c-ef13-4546-b4eb-4fefcdd4f389&RenderLoc=0&FlexDataID=9918&PageID=5669",
+    "notes": "Olga Acuña is Director of Federal Programs overseeing Title I, preschool, and early learning programs. Ph.D. earned. Nearly 40 years experience. Received 2026 Lau Leadership Impact Award. Expanded district's preschool offerings and family engagement programs."
+  },
+  {
+    "tier": 2,
+    "district": "Gresham-Barlow School District",
+    "location": "Gresham, OR",
+    "director": "Dr. Erin Shepherd",
+    "title": "Director of Federal Programs",
+    "email": "shepherd@gresham.k12.or.us",
+    "phone": "",
+    "email_confidence": "Medium",
+    "source_url": "https://www.gresham.k12.or.us/departments/federal-programs/child-development-center",
+    "notes": "Dr. Erin Shepherd is Director of Federal Programs overseeing K-12 education and program administration including early learning. Ed.D. degree. Previously served as K-5 District Instructional Coach. Also listed is Judith Bracamontes as program coordinator for Child Development Center."
+  },
+  {
+    "tier": 2,
+    "district": "Tigard-Tualatin School District",
+    "location": "Tigard, OR",
+    "director": "Kristina Kurtz",
+    "title": "Early Learning Manager",
+    "email": "",
+    "phone": "",
+    "email_confidence": "Low",
+    "source_url": "https://earlylearning.ttsdschools.org/about-us/contact",
+    "notes": "Kristina Kurtz, MSEd is Early Learning Manager. Contact available at earlylearning.ttsdschools.org/about-us/contact. District offers dual-language Preschool Promise classrooms and inclusive preschool program."
+  }
+]
