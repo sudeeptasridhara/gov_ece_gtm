@@ -2285,11 +2285,10 @@ export default function BrightwheelDashboard() {
           const terminalStages = ["responded", "nurture"];
           const enrollments = campaignEnrollments[campaignFilter] || {};
 
-          // All non-test districts filtered by rep
-          const seqDistricts = districts.filter(d => {
-            if (d.isTest) return false;
-            return globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
-          });
+          // All districts filtered by rep (test districts included so they can be used for workflow validation)
+          const seqDistricts = districts.filter(d =>
+            globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter
+          );
 
           // Enrolled = contacted districts OR explicitly enrolled in this campaign
           const enrolled = seqDistricts.filter(d =>
