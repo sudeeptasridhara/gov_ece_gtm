@@ -569,6 +569,22 @@ export default function BrightwheelDashboard() {
   const [showSummerBridge, setShowSummerBridge] = useState(false);
   const [campaignFilter, setCampaignFilter] = useState("summer_outreach");
 
+  // ── CAMPAIGN ENROLLMENTS ──
+  // { [campaignKey]: { [districtId]: isoEnrollmentDate } }
+  const [campaignEnrollments, setCampaignEnrollments] = useState(() => {
+    try {
+      const saved = localStorage.getItem('bw_campaign_enrollments_v1');
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return {};
+  });
+  const [showEnrollPanel, setShowEnrollPanel] = useState(false);
+  const [enrollSearch, setEnrollSearch] = useState("");
+  const [enrollStateFilter, setEnrollStateFilter] = useState("all");
+  const [enrollRepFilter, setEnrollRepFilter] = useState("all");
+  const [enrollPriorityFilter, setEnrollPriorityFilter] = useState("all");
+  const [enrollSelected, setEnrollSelected] = useState(new Set());
+
   // ── DISTRICT INFO TAB ──
   const [diInfoState, setDiInfoState] = useState("all");
   const [diInfoSearch, setDiInfoSearch] = useState("");
@@ -645,6 +661,11 @@ export default function BrightwheelDashboard() {
       }
     } catch(e) {}
   }, [districts]);
+
+  // Persist campaign enrollments to localStorage whenever they change
+  useEffect(() => {
+    try { localStorage.setItem('bw_campaign_enrollments_v1', JSON.stringify(campaignEnrollments)); } catch(e) {}
+  }, [campaignEnrollments]);
 
   // Migrate any legacy status values to sequence stage keys
   useEffect(() => {
@@ -1352,6 +1373,26 @@ export default function BrightwheelDashboard() {
   };
 
   // Update a district's sequence stage and write to shared sheet
+  // Enroll one or more district IDs in a campaign (records today as enrollment date)
+  const enrollInCampaign = (campaignKey, districtIds) => {
+    const today = new Date().toISOString().split("T")[0];
+    setCampaignEnrollments(prev => {
+      const existing = prev[campaignKey] || {};
+      const updated = { ...existing };
+      districtIds.forEach(id => { if (!updated[id]) updated[id] = today; });
+      return { ...prev, [campaignKey]: updated };
+    });
+  };
+
+  // Remove a district from a campaign enrollment
+  const unenrollFromCampaign = (campaignKey, districtId) => {
+    setCampaignEnrollments(prev => {
+      const updated = { ...(prev[campaignKey] || {}) };
+      delete updated[districtId];
+      return { ...prev, [campaignKey]: updated };
+    });
+  };
+
   const updateStage = (districtId, newStage) => {
     const d = districts.find(x => x.id === districtId);
     if (!d) return;
@@ -2242,6 +2283,7 @@ export default function BrightwheelDashboard() {
         {activeTab === "callqueue" && (() => {
           const campaign = CAMPAIGNS[campaignFilter];
           const terminalStages = ["responded", "nurture"];
+          const enrollments = campaignEnrollments[campaignFilter] || {};
 
           // All non-test districts filtered by rep
           const seqDistricts = districts.filter(d => {
@@ -2249,18 +2291,34 @@ export default function BrightwheelDashboard() {
             return globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
           });
 
-          // Enrolled = districts that have been started in the sequence
-          const enrolled = seqDistricts.filter(d => d.status && d.status !== "not_started");
+          // Enrolled = contacted districts OR explicitly enrolled in this campaign
+          const enrolled = seqDistricts.filter(d =>
+            (d.status && d.status !== "not_started") || !!enrollments[d.id]
+          );
 
-          // Enrich each district with sequence progress
+          // Districts not yet enrolled (available to add)
+          const available = seqDistricts.filter(d =>
+            (!d.status || d.status === "not_started") && !enrollments[d.id]
+          );
+
+          // Enrich each enrolled district with sequence progress
           const enriched = enrolled.map(d => {
             const outbound = (d.activities || []).filter(a => a.type === "email" && a.source !== "gmail_reply");
-            const firstDate = outbound.length
+            const firstEmailDate = outbound.length
               ? outbound.reduce((min, a) => a.date < min ? a.date : min, outbound[0].date)
               : null;
-            const daysSinceStart = firstDate
-              ? Math.floor((Date.now() - new Date(firstDate).getTime()) / 86400000)
+            const enrollDate = enrollments[d.id] || null;
+            const startDate = firstEmailDate || enrollDate;
+            const daysSinceStart = startDate
+              ? Math.floor((Date.now() - new Date(startDate).getTime()) / 86400000)
               : 0;
+
+            // Not yet emailed but enrolled — show as "Ready to Send"
+            if (!d.status || d.status === "not_started") {
+              const firstStep = campaign.steps[0];
+              return { ...d, daysSinceStart, currentStepIdx: -1, currentStep: null, nextStep: firstStep, nextActionDue: true, daysOverdue: daysSinceStart, enrollDate };
+            }
+
             const currentStepIdx = campaign.steps.findIndex(s => s.key === d.status);
             const currentStep = campaign.steps[currentStepIdx] || null;
             const nextStep = !terminalStages.includes(d.status) && currentStepIdx >= 0 && currentStepIdx < campaign.steps.length - 1
@@ -2268,23 +2326,38 @@ export default function BrightwheelDashboard() {
               : null;
             const nextActionDue = !!(nextStep && daysSinceStart >= nextStep.day);
             const daysOverdue = nextActionDue ? daysSinceStart - nextStep.day : 0;
-            return { ...d, daysSinceStart, currentStepIdx, currentStep, nextStep, nextActionDue, daysOverdue };
+            return { ...d, daysSinceStart, currentStepIdx, currentStep, nextStep, nextActionDue, daysOverdue, enrollDate };
           });
 
           const actionDue = enriched.filter(d => d.nextActionDue).sort((a, b) => b.daysOverdue - a.daysOverdue);
-          const onTrack   = enriched.filter(d => !d.nextActionDue && !terminalStages.includes(d.status));
+          const onTrack   = enriched.filter(d => !d.nextActionDue && !terminalStages.includes(d.status) && d.status !== "not_started" && d.status);
           const responded = enriched.filter(d => d.status === "responded");
+          const notYetStarted = enriched.filter(d => !d.status || d.status === "not_started");
 
-          // Sorted full list: action-due first, then by days in sequence
           const sortedAll = [...enriched].sort((a, b) => {
             if (a.nextActionDue && !b.nextActionDue) return -1;
             if (!a.nextActionDue && b.nextActionDue) return 1;
             return b.daysSinceStart - a.daysSinceStart;
           });
 
+          // ── Enroll panel filtered list ──
+          const enrollFiltered = available.filter(d => {
+            const matchSearch = !enrollSearch || d.district.toLowerCase().includes(enrollSearch.toLowerCase()) || d.director.toLowerCase().includes(enrollSearch.toLowerCase()) || d.county.toLowerCase().includes(enrollSearch.toLowerCase());
+            const matchState = enrollStateFilter === "all" || (d.state || "FL") === enrollStateFilter;
+            const matchRep = enrollRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === enrollRepFilter;
+            const matchPriority = enrollPriorityFilter === "all"
+              || (enrollPriorityFilter === "hot"  && d.priority >= 75)
+              || (enrollPriorityFilter === "warm" && d.priority >= 55 && d.priority < 75)
+              || (enrollPriorityFilter === "cool" && d.priority >= 35 && d.priority < 55)
+              || (enrollPriorityFilter === "cold" && d.priority < 35);
+            return matchSearch && matchState && matchRep && matchPriority;
+          }).sort((a, b) => b.priority - a.priority);
+
+          const allEnrollVisible = enrollFiltered.length > 0 && enrollFiltered.every(d => enrollSelected.has(d.id));
+
           return (
-            <div>
-              {/* ── Header + Campaign filter ── */}
+            <div className="relative">
+              {/* ── Header + Campaign filter + Add button ── */}
               <div className="flex flex-wrap gap-3 items-start mb-5">
                 <div className="flex-1 min-w-0">
                   <h2 className="text-base font-bold text-gray-900">🔁 Sequence Tracker</h2>
@@ -2301,16 +2374,24 @@ export default function BrightwheelDashboard() {
                       <option key={k} value={k}>{v.label}</option>
                     ))}
                   </select>
+                  <button
+                    onClick={() => { setShowEnrollPanel(true); setEnrollSelected(new Set()); }}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg font-medium flex items-center gap-1.5"
+                  >
+                    ➕ Add Districts
+                    {available.length > 0 && <span className="bg-indigo-500 text-white text-xs px-1.5 py-0 rounded-full">{available.length}</span>}
+                  </button>
                 </div>
               </div>
 
               {/* ── Summary stat cards ── */}
-              <div className="grid grid-cols-4 gap-3 mb-5">
+              <div className="grid grid-cols-5 gap-3 mb-5">
                 {[
-                  { label: "In Sequence",  val: enrolled.length,    color: "text-indigo-700", bg: "bg-indigo-50" },
-                  { label: "Action Due",   val: actionDue.length,   color: "text-red-600",    bg: "bg-red-50"    },
-                  { label: "On Track",     val: onTrack.length,     color: "text-blue-600",   bg: "bg-blue-50"   },
-                  { label: "Responded",    val: responded.length,   color: "text-green-600",  bg: "bg-green-50"  },
+                  { label: "In Sequence",    val: enrolled.length,        color: "text-indigo-700", bg: "bg-indigo-50" },
+                  { label: "Ready to Send",  val: notYetStarted.length,   color: "text-yellow-600", bg: "bg-yellow-50" },
+                  { label: "Action Due",     val: actionDue.filter(d => d.status && d.status !== "not_started").length, color: "text-red-600", bg: "bg-red-50" },
+                  { label: "On Track",       val: onTrack.length,         color: "text-blue-600",   bg: "bg-blue-50"   },
+                  { label: "Responded",      val: responded.length,       color: "text-green-600",  bg: "bg-green-50"  },
                 ].map(s => (
                   <div key={s.label} className={`${s.bg} rounded-xl p-4 border border-gray-100`}>
                     <div className={`text-2xl font-bold ${s.color}`}>{s.val}</div>
@@ -2323,9 +2404,19 @@ export default function BrightwheelDashboard() {
               <div className="bg-white rounded-xl border border-gray-200 p-4 mb-5">
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-3">Sequence Pipeline</div>
                 <div className="flex gap-2 overflow-x-auto pb-1 items-start">
+                  {/* Not-started bucket */}
+                  <div className="flex-1 min-w-20 text-center">
+                    <div className={`rounded-lg border px-2 py-3 ${notYetStarted.length > 0 ? "border-yellow-200 bg-yellow-50" : "border-dashed border-gray-200 bg-white"}`}>
+                      <div className="text-xl mb-1">⏳</div>
+                      <div className={`text-2xl font-bold ${notYetStarted.length > 0 ? "text-yellow-600" : "text-gray-300"}`}>{notYetStarted.length}</div>
+                      <div className="text-xs text-gray-600 font-medium leading-tight mt-0.5">Ready to Send</div>
+                      <div className="text-xs text-gray-400 mt-0.5">Day 0</div>
+                    </div>
+                  </div>
+                  <div className="text-gray-300 text-sm self-center mt-2 flex-shrink-0">→</div>
                   {campaign.steps.map((step, i) => {
                     const atStep = enriched.filter(d => d.status === step.key);
-                    const dueToThis = actionDue.filter(d => d.nextStep && d.nextStep.key === step.key);
+                    const dueToThis = actionDue.filter(d => d.status && d.status !== "not_started" && d.nextStep && d.nextStep.key === step.key);
                     return (
                       <React.Fragment key={step.key}>
                         <div className="flex-1 min-w-20 text-center">
@@ -2359,7 +2450,7 @@ export default function BrightwheelDashboard() {
                   </div>
                   <div className="bg-white rounded-xl border border-red-200 overflow-hidden">
                     <div className="bg-red-50 border-b border-red-100 px-4 py-2 grid text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                      style={{gridTemplateColumns:"2fr 1.5fr 100px 180px 150px 80px"}}>
+                      style={{gridTemplateColumns:"2fr 1.5fr 100px 190px 150px 80px"}}>
                       <span>District / Director</span>
                       <span>Contact</span>
                       <span>Days in Seq</span>
@@ -2372,7 +2463,7 @@ export default function BrightwheelDashboard() {
                       const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
                       return (
                         <div key={d.id} className="border-b border-gray-100 px-4 py-3 grid items-center gap-3 hover:bg-red-50 transition-colors"
-                          style={{gridTemplateColumns:"2fr 1.5fr 100px 180px 150px 80px"}}>
+                          style={{gridTemplateColumns:"2fr 1.5fr 100px 190px 150px 80px"}}>
                           <div>
                             <div className="font-medium text-gray-900 text-xs">{distName}</div>
                             <div className="text-gray-400 text-xs">{d.director}</div>
@@ -2425,25 +2516,26 @@ export default function BrightwheelDashboard() {
                 </div>
                 {enriched.length === 0 ? (
                   <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-400 text-sm">
-                    No districts in this sequence yet. Start reaching out from the Prospects tab.
+                    No districts in this sequence yet. Click <strong>Add Districts</strong> to enroll your first batch.
                   </div>
                 ) : (
                   <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                     <div className="bg-gray-50 border-b border-gray-200 px-4 py-2 grid text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                      style={{gridTemplateColumns:"2fr 1.5fr 140px 100px 200px 80px"}}>
+                      style={{gridTemplateColumns:"2fr 1.5fr 140px 90px 200px 100px"}}>
                       <span>District / Director</span>
                       <span>Contact</span>
                       <span>Current Step</span>
-                      <span>Days in Seq</span>
+                      <span>Days</span>
                       <span>Next Action</span>
                       <span></span>
                     </div>
                     {sortedAll.map(d => {
                       const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
                       const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                      const isNotStarted = !d.status || d.status === "not_started";
                       return (
                         <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors hover:bg-indigo-50 ${d.nextActionDue ? "bg-red-50/40" : ""}`}
-                          style={{gridTemplateColumns:"2fr 1.5fr 140px 100px 200px 80px"}}>
+                          style={{gridTemplateColumns:"2fr 1.5fr 140px 90px 200px 100px"}}>
                           <div>
                             <div className="font-medium text-gray-900 text-xs">{distName}</div>
                             <div className="text-gray-400 text-xs">{d.director}</div>
@@ -2454,11 +2546,13 @@ export default function BrightwheelDashboard() {
                             <div className="text-xs text-gray-400 truncate">{d.email}</div>
                           </div>
                           <div>
-                            {d.currentStep && (
+                            {isNotStarted ? (
+                              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-yellow-100 text-yellow-700">⏳ Ready to Send</span>
+                            ) : d.currentStep ? (
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${d.currentStep.color}`}>
                                 {d.currentStep.icon} {d.currentStep.label}
                               </span>
-                            )}
+                            ) : null}
                           </div>
                           <div className="text-center">
                             <span className={`text-sm font-bold ${d.daysSinceStart >= 14 ? "text-red-600" : d.daysSinceStart >= 7 ? "text-orange-500" : "text-gray-500"}`}>
@@ -2477,6 +2571,10 @@ export default function BrightwheelDashboard() {
                           <div className="flex gap-1">
                             <button onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}
                               className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700">View</button>
+                            {isNotStarted && enrollments[d.id] && (
+                              <button onClick={() => unenrollFromCampaign(campaignFilter, d.id)}
+                                className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded hover:bg-red-50 hover:text-red-600" title="Remove from sequence">✕</button>
+                            )}
                           </div>
                         </div>
                       );
@@ -2484,6 +2582,122 @@ export default function BrightwheelDashboard() {
                   </div>
                 )}
               </div>
+
+              {/* ── Add Districts Slide-Over Panel ── */}
+              {showEnrollPanel && (
+                <div className="fixed inset-0 z-50 flex">
+                  {/* Backdrop */}
+                  <div className="flex-1 bg-black/30" onClick={() => setShowEnrollPanel(false)} />
+                  {/* Panel */}
+                  <div className="w-full max-w-xl bg-white shadow-2xl flex flex-col h-full overflow-hidden">
+                    {/* Panel header */}
+                    <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold text-gray-900 text-sm">Add Districts to {campaign.label}</div>
+                        <div className="text-xs text-gray-400 mt-0.5">{available.length} districts not yet enrolled</div>
+                      </div>
+                      <button onClick={() => setShowEnrollPanel(false)} className="text-gray-400 hover:text-gray-600 text-lg font-bold leading-none">✕</button>
+                    </div>
+
+                    {/* Filters */}
+                    <div className="px-5 py-3 border-b border-gray-100 flex flex-col gap-2">
+                      <input
+                        value={enrollSearch}
+                        onChange={e => setEnrollSearch(e.target.value)}
+                        placeholder="🔍 Search district, director, county..."
+                        className="border border-gray-200 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                      />
+                      <div className="flex gap-2">
+                        <select value={enrollStateFilter} onChange={e => setEnrollStateFilter(e.target.value)}
+                          className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                          <option value="all">All States</option>
+                          {["FL","AL","ID","NV","CA","OR","NM","GA","MI","WA"].map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                        <select value={enrollRepFilter} onChange={e => setEnrollRepFilter(e.target.value)}
+                          className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                          <option value="all">All Reps</option>
+                          {Object.values(REP_PROFILES).map(r => <option key={r.email} value={r.email}>{r.name}</option>)}
+                        </select>
+                        <select value={enrollPriorityFilter} onChange={e => setEnrollPriorityFilter(e.target.value)}
+                          className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                          <option value="all">All Priorities</option>
+                          <option value="hot">🔥 Hot (75+)</option>
+                          <option value="warm">🌡️ Warm (55-74)</option>
+                          <option value="cool">💧 Cool (35-54)</option>
+                          <option value="cold">❄️ Cold (&lt;35)</option>
+                        </select>
+                      </div>
+                      {/* Select all row */}
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={allEnrollVisible}
+                          ref={el => { if (el) el.indeterminate = enrollSelected.size > 0 && !allEnrollVisible; }}
+                          onChange={() => {
+                            if (allEnrollVisible) {
+                              setEnrollSelected(prev => { const s = new Set(prev); enrollFiltered.forEach(d => s.delete(d.id)); return s; });
+                            } else {
+                              setEnrollSelected(prev => { const s = new Set(prev); enrollFiltered.forEach(d => s.add(d.id)); return s; });
+                            }
+                          }}
+                          className="rounded border-gray-300 text-indigo-600 cursor-pointer"
+                        />
+                        <span className="text-xs text-gray-500">{enrollFiltered.length} shown · {enrollSelected.size} selected</span>
+                      </div>
+                    </div>
+
+                    {/* District list */}
+                    <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
+                      {enrollFiltered.length === 0 ? (
+                        <div className="p-8 text-center text-gray-400 text-sm">No districts match your filters.</div>
+                      ) : enrollFiltered.map(d => {
+                        const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
+                        const p = getPriorityLabel(d.priority);
+                        const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                        return (
+                          <label key={d.id} className={`flex items-center gap-3 px-5 py-3 hover:bg-indigo-50 cursor-pointer ${enrollSelected.has(d.id) ? "bg-indigo-50" : ""}`}>
+                            <input
+                              type="checkbox"
+                              checked={enrollSelected.has(d.id)}
+                              onChange={() => setEnrollSelected(prev => { const s = new Set(prev); s.has(d.id) ? s.delete(d.id) : s.add(d.id); return s; })}
+                              className="rounded border-gray-300 text-indigo-600 cursor-pointer flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="text-xs font-semibold text-gray-800 truncate">{distName}</div>
+                              <div className="text-xs text-gray-400 truncate">{d.director} · {d.county} County · {d.state || "FL"}</div>
+                            </div>
+                            <div className="flex items-center gap-1.5 flex-shrink-0">
+                              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${p.color}`}>{p.label}</span>
+                              {rep && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${rep.color}`}>{rep.initials}</span>}
+                            </div>
+                          </label>
+                        );
+                      })}
+                    </div>
+
+                    {/* Panel footer */}
+                    <div className="px-5 py-4 border-t border-gray-200 flex items-center justify-between gap-3">
+                      <span className="text-xs text-gray-400">{enrollSelected.size} district{enrollSelected.size !== 1 ? "s" : ""} selected</span>
+                      <div className="flex gap-2">
+                        <button onClick={() => setShowEnrollPanel(false)}
+                          className="text-xs border border-gray-200 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-50">Cancel</button>
+                        <button
+                          disabled={enrollSelected.size === 0}
+                          onClick={() => {
+                            enrollInCampaign(campaignFilter, [...enrollSelected]);
+                            setShowEnrollPanel(false);
+                            setEnrollSelected(new Set());
+                            showNotif(`✅ ${enrollSelected.size} district${enrollSelected.size !== 1 ? "s" : ""} added to ${campaign.label}`);
+                          }}
+                          className={`text-xs text-white px-4 py-2 rounded-lg font-medium transition-colors ${enrollSelected.size > 0 ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
+                        >
+                          Enroll {enrollSelected.size > 0 ? enrollSelected.size : ""} in {CAMPAIGNS[campaignFilter].label}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })()}
