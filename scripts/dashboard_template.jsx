@@ -555,6 +555,7 @@ export default function BrightwheelDashboard() {
   const [filterPriority, setFilterPriority] = useState("all");
   const [filterCurriculum, setFilterCurriculum] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [filterSalesforce, setFilterSalesforce] = useState("all"); // "all" | "in_sf" | "not_in_sf"
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
@@ -1321,7 +1322,10 @@ export default function BrightwheelDashboard() {
         filterCurriculum === "all" || d.curriculumVendor === filterCurriculum;
       const matchStatus = filterStatus === "all" || d.status === filterStatus;
       const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep;
+      const matchSalesforce = filterSalesforce === "all" ||
+        (filterSalesforce === "in_sf" && d.inSalesforce) ||
+        (filterSalesforce === "not_in_sf" && !d.inSalesforce);
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -1335,7 +1339,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce]);
 
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
@@ -1777,6 +1781,7 @@ export default function BrightwheelDashboard() {
                 { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
                 { label: "Stage", val: filterStatus, setter: setFilterStatus, opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])] },
                 { label: "Rep", val: globalRepFilter, setter: setGlobalRepFilter, opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])] },
+                { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","All"], ["in_sf","✓ In Salesforce"], ["not_in_sf","Not in SF"]] },
               ].map((f) => (
                 <select
                   key={f.label}
@@ -1889,7 +1894,10 @@ export default function BrightwheelDashboard() {
                             {hasPersonalizedEmail(d) && (
                               <span className="bg-yellow-50 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded text-xs font-medium">✨ Personalized</span>
                             )}
-                            {(d.buyingSignals || []).length === 0 && (!d.boardNotes || d.boardNotes.length === 0) && (!d.districtContext || d.districtContext.length === 0) && <span className="text-gray-300">—</span>}
+                            {d.inSalesforce && (
+                              <span className="bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded text-xs font-medium">✓ In SF{(d.sfContacts||[]).length > 0 ? ` (${(d.sfContacts||[]).length})` : ""}</span>
+                            )}
+                            {(d.buyingSignals || []).length === 0 && (!d.boardNotes || d.boardNotes.length === 0) && (!d.districtContext || d.districtContext.length === 0) && !d.inSalesforce && <span className="text-gray-300">—</span>}
                           </div>
                         </td>
                         <td className="px-3 py-2.5">
