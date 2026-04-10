@@ -118,6 +118,15 @@ const REP_PROFILES = {
     color: "bg-orange-100 text-orange-700",
     initials: "EB",
   },
+  "sudeepta.sridhara@mybrightwheel.com": {
+    name: "Sudeepta Sridhara",
+    title: "Head of GTM",
+    email: "sudeepta.sridhara@mybrightwheel.com",
+    phone: "",
+    calendly: "",
+    color: "bg-rose-100 text-rose-700",
+    initials: "SS",
+  },
 };
 const DEFAULT_REP = REP_PROFILES["christie.cooley@mybrightwheel.com"];
 // Map each state to its assigned rep email
@@ -1587,14 +1596,14 @@ export default function BrightwheelDashboard() {
         </div>
         <div className="flex items-center gap-6">
           {/* Logged-in rep indicator / sign-in button */}
-          {currentRep ? (
+          {(currentRep || gmailUser) ? (
             <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentRep.color}`}>
-                {currentRep.initials}
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${currentRep ? currentRep.color : "bg-indigo-100 text-indigo-700"}`}>
+                {currentRep ? currentRep.initials : (gmailUser || "").split("@")[0].slice(0, 2).toUpperCase()}
               </div>
               <div>
-                <div className="text-xs font-semibold text-gray-700">{currentRep.name}</div>
-                <div className="text-xs text-gray-400">{currentRep.title}</div>
+                <div className="text-xs font-semibold text-gray-700">{currentRep ? currentRep.name : (gmailUser || "").split("@")[0]}</div>
+                <div className="text-xs text-gray-400">{currentRep ? currentRep.title : "Logged in"}</div>
               </div>
             </div>
           ) : (
