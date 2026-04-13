@@ -846,7 +846,12 @@ export default function BrightwheelDashboard() {
               fetchedNotes[a.districtId] = { text: a.notes || "", updatedBy: a.repEmail || "", updatedAt: a.loggedAt || "" };
             }
           } else if (a.type === "unsubscribe") {
-            if (a.notes) fetchedUnsubs.add(a.notes.toLowerCase().trim());
+            // Email may be in notes (col F) or district (col C) depending on how the row was written
+            const fromNotes    = (a.notes    || "").toLowerCase().trim();
+            const fromDistrict = (a.district || "").toLowerCase().trim();
+            const unsubEmail   = (fromNotes.includes("@") ? fromNotes : null)
+                              || (fromDistrict.includes("@") ? fromDistrict : null);
+            if (unsubEmail) fetchedUnsubs.add(unsubEmail);
           } else {
             regularActivities.push(a);
           }
@@ -1384,6 +1389,18 @@ export default function BrightwheelDashboard() {
           }
           continue;
         }
+        // Unsubscribes — must be checked BEFORE the distId guard because
+        // district_id can be 0 if the param was missing when the row was written.
+        // Email address may be in district_name (col C) or notes (col F) depending
+        // on how the row was written — check both.
+        if (col(row, "type") === "unsubscribe") {
+          const fromNotes      = (col(row, "notes") || "").toLowerCase().trim();
+          const fromDistName   = (col(row, "district_name") || "").toLowerCase().trim();
+          const unsubEmail = (fromNotes.includes("@") ? fromNotes : null)
+                          || (fromDistName.includes("@") ? fromDistName : null);
+          if (unsubEmail) unsubEmails.add(unsubEmail);
+          continue;
+        }
         const distId = parseInt(col(row, "district_id"));
         if (!distId) continue;
         const src = col(row, "source");
@@ -1406,12 +1423,6 @@ export default function BrightwheelDashboard() {
           if (!existing || loggedAt > existing.updatedAt) {
             latestNotes[distId] = { text: col(row, "notes"), updatedBy: col(row, "rep_email"), updatedAt: loggedAt };
           }
-          continue;
-        }
-        // Unsubscribes — collect opted-out email addresses
-        if (type === "unsubscribe") {
-          const unsubEmail = (col(row, "notes") || "").toLowerCase().trim();
-          if (unsubEmail) unsubEmails.add(unsubEmail);
           continue;
         }
 

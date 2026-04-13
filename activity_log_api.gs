@@ -139,6 +139,26 @@ function buildPayload() {
     var src    = String(row[7] || "manual").trim();
     var distId = parseInt(row[1]);
 
+    // Unsubscribes must be returned even if district_id is 0 (can happen if
+    // the districtId param was missing when the row was written).
+    if (type === "unsubscribe") {
+      // Email address may be in district_name (col C) or notes (col F) depending
+      // on how the row was originally written — expose both so the dashboard can
+      // find the email regardless of which column it landed in.
+      activities.push({
+        id:         String(row[0] || (Date.now() + "_" + i)),
+        districtId: distId || 0,
+        district:   String(row[2] || "").trim(),   // col C — may contain the email
+        type:       "unsubscribe",
+        date:       String(row[4] || "").trim(),
+        notes:      String(row[5] || "").trim(),   // col F — may contain the email
+        source:     "unsubscribe_form",
+        repEmail:   String(row[8] || "").trim(),
+        loggedAt:   String(row[11] || "").trim(),
+      });
+      continue;
+    }
+
     // Skip meta-rows (stage changes, mailer confirmations) and blank rows
     if (!distId) continue;
     if (type === "stage_update" || type === "mailer_sent") continue;
