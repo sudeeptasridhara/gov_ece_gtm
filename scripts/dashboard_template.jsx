@@ -674,6 +674,7 @@ export default function BrightwheelDashboard() {
   const [showEmailPreview, setShowEmailPreview] = useState(false);
   const [showSummerBridge, setShowSummerBridge] = useState(false);
   const [campaignFilter, setCampaignFilter] = useState("summer_outreach");
+  const [seqStageFilter, setSeqStageFilter] = useState(null); // null = all; stage key or "not_started" = filtered
 
   // ── CAMPAIGN ENROLLMENTS ──
   // { [campaignKey]: { [districtId]: isoEnrollmentDate } }
@@ -2652,7 +2653,7 @@ export default function BrightwheelDashboard() {
                   <span className="text-xs font-medium text-gray-500">Campaign</span>
                   <select
                     value={campaignFilter}
-                    onChange={e => setCampaignFilter(e.target.value)}
+                    onChange={e => { setCampaignFilter(e.target.value); setSeqStageFilter(null); }}
                     className="border border-gray-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200"
                   >
                     {Object.entries(CAMPAIGNS).map(([k, v]) => (
@@ -2687,25 +2688,56 @@ export default function BrightwheelDashboard() {
 
               {/* ── Sequence pipeline swimlane ── */}
               <div className="bg-white rounded-xl border border-gray-200 p-4 mb-5">
-                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-3">Sequence Pipeline</div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Sequence Pipeline</div>
+                  {seqStageFilter && (
+                    <button onClick={() => setSeqStageFilter(null)} className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                      ✕ Clear filter
+                    </button>
+                  )}
+                </div>
                 <div className="flex gap-2 overflow-x-auto pb-1 items-start">
                   {/* Not-started bucket */}
-                  <div className="flex-1 min-w-20 text-center">
-                    <div className={`rounded-lg border px-2 py-3 ${notYetStarted.length > 0 ? "border-yellow-200 bg-yellow-50" : "border-dashed border-gray-200 bg-white"}`}>
-                      <div className="text-xl mb-1">⏳</div>
-                      <div className={`text-2xl font-bold ${notYetStarted.length > 0 ? "text-yellow-600" : "text-gray-300"}`}>{notYetStarted.length}</div>
-                      <div className="text-xs text-gray-600 font-medium leading-tight mt-0.5">Ready to Send</div>
-                      <div className="text-xs text-gray-400 mt-0.5">Day 0</div>
-                    </div>
-                  </div>
+                  {(() => {
+                    const isActive = seqStageFilter === "not_started";
+                    return (
+                      <div className="flex-1 min-w-20 text-center">
+                        <button
+                          onClick={() => setSeqStageFilter(isActive ? null : "not_started")}
+                          className={`w-full rounded-lg border px-2 py-3 transition-all cursor-pointer focus:outline-none ${
+                            isActive
+                              ? "border-yellow-400 bg-yellow-100 ring-2 ring-yellow-300 shadow-sm"
+                              : notYetStarted.length > 0
+                              ? "border-yellow-200 bg-yellow-50 hover:border-yellow-400 hover:shadow-sm"
+                              : "border-dashed border-gray-200 bg-white hover:border-gray-300"
+                          }`}
+                        >
+                          <div className="text-xl mb-1">⏳</div>
+                          <div className={`text-2xl font-bold ${notYetStarted.length > 0 ? "text-yellow-600" : "text-gray-300"}`}>{notYetStarted.length}</div>
+                          <div className="text-xs text-gray-600 font-medium leading-tight mt-0.5">Ready to Send</div>
+                          <div className="text-xs text-gray-400 mt-0.5">Day 0</div>
+                        </button>
+                      </div>
+                    );
+                  })()}
                   <div className="text-gray-300 text-sm self-center mt-2 flex-shrink-0">→</div>
                   {campaign.steps.map((step, i) => {
                     const atStep = enriched.filter(d => d.status === step.key);
                     const dueToThis = actionDue.filter(d => d.status && d.status !== "not_started" && d.nextStep && d.nextStep.key === step.key);
+                    const isActive = seqStageFilter === step.key;
                     return (
                       <React.Fragment key={step.key}>
                         <div className="flex-1 min-w-20 text-center">
-                          <div className={`rounded-lg border px-2 py-3 ${atStep.length > 0 ? "border-gray-200 bg-gray-50" : "border-dashed border-gray-200 bg-white"}`}>
+                          <button
+                            onClick={() => setSeqStageFilter(isActive ? null : step.key)}
+                            className={`w-full rounded-lg border px-2 py-3 transition-all cursor-pointer focus:outline-none ${
+                              isActive
+                                ? "border-indigo-400 bg-indigo-50 ring-2 ring-indigo-300 shadow-sm"
+                                : atStep.length > 0
+                                ? "border-gray-200 bg-gray-50 hover:border-indigo-300 hover:shadow-sm"
+                                : "border-dashed border-gray-200 bg-white hover:border-gray-300"
+                            }`}
+                          >
                             <div className="text-xl mb-1">{step.icon}</div>
                             <div className={`text-2xl font-bold ${atStep.length > 0 ? "text-gray-800" : "text-gray-300"}`}>{atStep.length}</div>
                             <div className="text-xs text-gray-600 font-medium leading-tight mt-0.5">{step.label}</div>
@@ -2715,7 +2747,7 @@ export default function BrightwheelDashboard() {
                                 {dueToThis.length} due
                               </div>
                             )}
-                          </div>
+                          </button>
                         </div>
                         {i < campaign.steps.length - 1 && (
                           <div className="text-gray-300 text-sm self-center mt-2 flex-shrink-0">→</div>
@@ -2726,8 +2758,85 @@ export default function BrightwheelDashboard() {
                 </div>
               </div>
 
-              {/* ── Action Needed Now ── */}
-              {actionDue.length > 0 && (
+              {/* ── Filtered stage view ── */}
+              {seqStageFilter && (() => {
+                const stageLabel = seqStageFilter === "not_started"
+                  ? "Ready to Send"
+                  : (SEQUENCE_STAGES[seqStageFilter]?.label || seqStageFilter);
+                const stageDistricts = seqStageFilter === "not_started"
+                  ? notYetStarted
+                  : enriched.filter(d => d.status === seqStageFilter);
+                return (
+                  <div className="mb-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <h3 className="text-sm font-semibold text-gray-800">{stageLabel}</h3>
+                      <span className="bg-indigo-100 text-indigo-600 text-xs px-2 py-0.5 rounded-full font-medium">{stageDistricts.length} district{stageDistricts.length !== 1 ? "s" : ""}</span>
+                      <button onClick={() => setSeqStageFilter(null)} className="text-xs text-gray-400 hover:text-gray-600 ml-auto">✕ Clear filter</button>
+                    </div>
+                    {stageDistricts.length === 0 ? (
+                      <div className="bg-white rounded-xl border border-dashed border-gray-200 p-10 text-center text-gray-400 text-sm">No districts in this stage.</div>
+                    ) : (
+                      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <div className="bg-gray-50 border-b border-gray-200 px-4 py-2 grid text-xs font-semibold text-gray-500 uppercase tracking-wide"
+                          style={{gridTemplateColumns:"2fr 1.5fr 140px 90px 200px 100px"}}>
+                          <span>District / Director</span>
+                          <span>Contact</span>
+                          <span>Current Step</span>
+                          <span>Days</span>
+                          <span>Next Action</span>
+                          <span></span>
+                        </div>
+                        {stageDistricts.map(d => {
+                          const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
+                          const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                          const isNotStarted = !d.status || d.status === "not_started";
+                          return (
+                            <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors hover:bg-indigo-50 ${d.nextActionDue ? "bg-red-50/40" : ""}`}
+                              style={{gridTemplateColumns:"2fr 1.5fr 140px 90px 200px 100px"}}>
+                              <div>
+                                <div className="font-medium text-gray-900 text-xs">{distName}</div>
+                                <div className="text-gray-400 text-xs">{d.director}</div>
+                                {rep && <span className={`text-xs px-1.5 py-0 rounded font-semibold mt-0.5 inline-block ${rep.color}`}>{rep.initials}</span>}
+                              </div>
+                              <div>
+                                <div className="text-xs font-medium text-gray-700">{d.phone || <span className="text-gray-300">No phone</span>}</div>
+                                <div className="text-xs text-gray-400 truncate">{d.email}</div>
+                              </div>
+                              <div>
+                                {isNotStarted
+                                  ? <span className="text-xs text-yellow-600 font-medium">Ready to Send</span>
+                                  : d.currentStep
+                                  ? <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${d.currentStep.color}`}>{d.currentStep.icon} {d.currentStep.label}</span>
+                                  : <span className="text-gray-300 text-xs">—</span>}
+                              </div>
+                              <div className="text-center">
+                                <span className={`text-sm font-bold ${d.daysSinceStart >= 14 ? "text-red-600" : d.daysSinceStart >= 7 ? "text-orange-500" : "text-gray-700"}`}>
+                                  {d.daysSinceStart}d
+                                </span>
+                                {d.nextActionDue && d.daysOverdue > 0 && <div className="text-xs text-red-500">{d.daysOverdue}d overdue</div>}
+                              </div>
+                              <div>
+                                {d.nextStep
+                                  ? <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${d.nextStep.color}`}>{d.nextStep.icon} {d.nextStep.action}</span>
+                                  : <span className="text-xs text-gray-300">Sequence complete</span>}
+                              </div>
+                              <div className="flex gap-1">
+                                <select value={d.status || "not_started"} onChange={e => updateStage(d.id, e.target.value)}
+                                  className="text-xs border border-gray-200 rounded-lg px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300 bg-white flex-1">
+                                  {Object.entries(SEQUENCE_STAGES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+                                </select>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* ── Action Needed Now (hidden when stage filter active) ── */}
+              {!seqStageFilter && actionDue.length > 0 && (
                 <div className="mb-5">
                   <div className="flex items-center gap-2 mb-3">
                     <h3 className="text-sm font-semibold text-red-700">🔴 Action Needed Now</h3>
@@ -2793,8 +2902,8 @@ export default function BrightwheelDashboard() {
                 </div>
               )}
 
-              {/* ── All Districts in Sequence ── */}
-              <div>
+              {/* ── All Districts in Sequence (hidden when stage filter active) ── */}
+              {!seqStageFilter && <div>
                 <div className="flex items-center gap-2 mb-3">
                   <h3 className="text-sm font-semibold text-gray-700">All Districts in Sequence</h3>
                   <span className="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">{enriched.length}</span>
@@ -2866,7 +2975,7 @@ export default function BrightwheelDashboard() {
                     })}
                   </div>
                 )}
-              </div>
+              </div>}
 
               {/* ── Add Districts Slide-Over Panel ── */}
               {showEnrollPanel && (
