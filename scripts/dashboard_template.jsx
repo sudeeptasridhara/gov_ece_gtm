@@ -1014,6 +1014,7 @@ export default function BrightwheelDashboard() {
           district: item.district,
           directorName: item.directorName,
           source: "dashboard",
+          repEmail: gmailUser || "",
         };
         setDistricts((prev) => prev.map((d) => {
           if (d.id !== item.districtId) return d;
@@ -1143,6 +1144,7 @@ export default function BrightwheelDashboard() {
           directorName: district.director,
           source: "gmail_sent",
           gmailMsgId: stub.id,
+          repEmail: gmailUser || "",
         };
         newActivities.push({ districtId: district.id, activity });
         newSyncedIds.add(stub.id);
@@ -1178,6 +1180,7 @@ export default function BrightwheelDashboard() {
             directorName: district.director,
             source: "gmail_reply",
             gmailMsgId: stub.id,
+            repEmail: gmailUser || "",
           };
           newActivities.push({ districtId: district.id, activity, isReply: true });
           newSyncedIds.add(stub.id);
