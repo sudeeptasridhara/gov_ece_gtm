@@ -695,6 +695,10 @@ export default function BrightwheelDashboard() {
   const [enrollPriorityFilter, setEnrollPriorityFilter] = useState("all");
   const [enrollSelected, setEnrollSelected] = useState(new Set());
 
+  // ── SEQUENCE TAB FILTERS ──
+  const [seqStateFilter, setSeqStateFilter] = useState("all");
+  const [seqRepFilter, setSeqRepFilter] = useState("all");
+
   // ── DISTRICT INFO TAB ──
   const [diInfoState, setDiInfoState] = useState("all");
   const [diInfoSearch, setDiInfoSearch] = useState("");
@@ -742,6 +746,19 @@ export default function BrightwheelDashboard() {
   });
   const [editingTemplate, setEditingTemplate] = useState(null);
   const [editDraft, setEditDraft] = useState({ subject: "", body: "" });
+
+  // ── CUSTOM EMAIL TEMPLATES ───────────────────────────────────────────────────
+  // User-created templates stored in localStorage.
+  // { [id]: { label, states, subject, body, createdBy, createdAt } }
+  const [customTemplates, setCustomTemplates] = useState(() => {
+    try { const s = localStorage.getItem("bw_custom_templates_v1"); return s ? JSON.parse(s) : {}; } catch { return {}; }
+  });
+  const [showNewTemplateForm, setShowNewTemplateForm] = useState(false);
+  const [newTemplateDraft, setNewTemplateDraft] = useState({ label: "", states: "All states", subject: "", body: "" });
+  const [editingCustomTemplate, setEditingCustomTemplate] = useState(null);
+  const [customEditDraft, setCustomEditDraft] = useState({ label: "", states: "", subject: "", body: "" });
+  const newTemplateBodyRef = React.useRef(null);
+  const customEditBodyRef = React.useRef(null);
 
   // ── SHARED DISTRICT NOTES ────────────────────────────────────────────────────
   // Persisted per-district sticky notes stored in the activity sheet as
@@ -823,6 +840,11 @@ export default function BrightwheelDashboard() {
   useEffect(() => {
     try { localStorage.setItem("bw_template_overrides_v1", JSON.stringify(templateOverrides)); } catch(e) {}
   }, [templateOverrides]);
+
+  // Persist custom templates to localStorage
+  useEffect(() => {
+    try { localStorage.setItem("bw_custom_templates_v1", JSON.stringify(customTemplates)); } catch(e) {}
+  }, [customTemplates]);
 
   // Persist bounces to localStorage
   useEffect(() => {
@@ -2665,10 +2687,13 @@ export default function BrightwheelDashboard() {
           const terminalStages = ["responded", "nurture"];
           const enrollments = campaignEnrollments[campaignFilter] || {};
 
-          // All districts filtered by rep (test districts included so they can be used for workflow validation)
-          const seqDistricts = districts.filter(d =>
-            globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter
-          );
+          // All districts filtered by global rep + sequence-tab state/rep filters
+          const seqDistricts = districts.filter(d => {
+            const matchGlobal = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
+            const matchState = seqStateFilter === "all" || (d.state || "FL") === seqStateFilter;
+            const matchRep = seqRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === seqRepFilter;
+            return matchGlobal && matchState && matchRep;
+          });
 
           // Enrolled = contacted districts OR explicitly enrolled in this campaign
           const enrolled = seqDistricts.filter(d =>
@@ -2742,7 +2767,7 @@ export default function BrightwheelDashboard() {
                   <h2 className="text-base font-bold text-gray-900">🔁 Sequence Tracker</h2>
                   <p className="text-xs text-gray-500 mt-0.5">{campaign.description}</p>
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
                   <span className="text-xs font-medium text-gray-500">Campaign</span>
                   <select
                     value={campaignFilter}
@@ -2753,6 +2778,42 @@ export default function BrightwheelDashboard() {
                       <option key={k} value={k}>{v.label}</option>
                     ))}
                   </select>
+                  <select
+                    value={seqStateFilter}
+                    onChange={e => setSeqStateFilter(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  >
+                    <option value="all">All States</option>
+                    <option value="FL">Florida</option>
+                    <option value="AL">Alabama</option>
+                    <option value="GA">Georgia</option>
+                    <option value="MI">Michigan</option>
+                    <option value="ID">Idaho</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="UT">Utah</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CA">California</option>
+                    <option value="OR">Oregon</option>
+                    <option value="WA">Washington</option>
+                  </select>
+                  <select
+                    value={seqRepFilter}
+                    onChange={e => setSeqRepFilter(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  >
+                    <option value="all">All Reps</option>
+                    {Object.entries(REP_PROFILES).filter(([, r]) => r.name).map(([email, r]) => (
+                      <option key={email} value={email}>{r.name}</option>
+                    ))}
+                  </select>
+                  {(seqStateFilter !== "all" || seqRepFilter !== "all") && (
+                    <button
+                      onClick={() => { setSeqStateFilter("all"); setSeqRepFilter("all"); }}
+                      className="text-xs text-gray-400 hover:text-red-500 transition-colors"
+                    >✕ Clear</button>
+                  )}
                   <button
                     onClick={() => { setShowEnrollPanel(true); setEnrollSelected(new Set()); }}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg font-medium flex items-center gap-1.5"
@@ -3303,127 +3364,363 @@ export default function BrightwheelDashboard() {
       </div>
 
         {/* ── EMAIL COPY TAB ── */}
-        {activeTab === "emailcopy" && (
-          <div className="p-6 max-w-4xl mx-auto">
-            <div className="mb-6">
-              <h2 className="text-lg font-bold text-gray-800">Email Copy</h2>
-              <p className="text-sm text-gray-500 mt-1">
-                All outreach templates in one place. Edits apply to every email sent from the Send Queue.
-                {canEditEmailCopy
-                  ? <span className="ml-2 text-green-600 font-medium">✓ You can edit</span>
-                  : <span className="ml-2 text-gray-400">Sign in as Christie, Eric, or Sudeepta to edit.</span>}
-              </p>
+        {activeTab === "emailcopy" && (() => {
+          // Helper: insert a token at cursor position in a textarea ref
+          const insertToken = (token, ref, setter, field) => {
+            const el = ref.current;
+            if (!el) { setter(p => ({ ...p, [field]: p[field] + token })); return; }
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const val = el.value;
+            const newVal = val.substring(0, start) + token + val.substring(end);
+            setter(p => ({ ...p, [field]: newVal }));
+            requestAnimationFrame(() => {
+              el.selectionStart = el.selectionEnd = start + token.length;
+              el.focus();
+            });
+          };
+
+          const TOKEN_RE = /(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\])/g;
+          const highlightTokens = text => text.split(TOKEN_RE).map((p, i) =>
+            /^\[/.test(p)
+              ? <span key={i} className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-mono font-semibold">{p}</span>
+              : p
+          );
+
+          const TOKENS = ["[First Name]", "[District Name]", "[State Name]", "[Learn More Link]", "[Calendly Link]"];
+
+          const TokenBar = ({ onInsert }) => (
+            <div className="flex flex-wrap gap-1.5 mt-2 mb-1">
+              <span className="text-xs text-gray-400 self-center mr-1">Insert:</span>
+              {TOKENS.map(t => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => onInsert(t)}
+                  className="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded font-mono transition-colors"
+                >{t}</button>
+              ))}
             </div>
+          );
 
-            <div className="space-y-6">
-              {Object.entries(DEFAULT_TEMPLATE_TEXTS).map(([key, defaults]) => {
-                const override = templateOverrides[key];
-                const current = override || defaults;
-                const isEditing = editingTemplate === key;
-                const isModified = !!override;
+          return (
+            <div className="p-6 max-w-4xl mx-auto">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h2 className="text-lg font-bold text-gray-800">Email Copy</h2>
+                  <p className="text-sm text-gray-500 mt-1">
+                    All outreach templates in one place. Edits apply to every email sent from the Send Queue.
+                    {canEditEmailCopy
+                      ? <span className="ml-2 text-green-600 font-medium">✓ You can edit</span>
+                      : <span className="ml-2 text-gray-400">Sign in as Christie, Eric, or Sudeepta to edit.</span>}
+                  </p>
+                </div>
+                {canEditEmailCopy && !showNewTemplateForm && (
+                  <button
+                    onClick={() => { setShowNewTemplateForm(true); setNewTemplateDraft({ label: "", states: "All states", subject: "", body: "" }); }}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5 flex-shrink-0"
+                  >
+                    ✨ New Template
+                  </button>
+                )}
+              </div>
 
-                return (
-                  <div key={key} className={`bg-white rounded-xl border ${isModified ? "border-indigo-200" : "border-gray-200"} overflow-hidden shadow-sm`}>
-                    {/* Header */}
-                    <div className="flex items-center justify-between px-5 py-3 bg-gray-50 border-b border-gray-100">
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-gray-800 text-sm">{defaults.label}</span>
-                        <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{defaults.states}</span>
-                        {isModified && (
-                          <span className="text-xs text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full font-medium">
-                            ✏️ Edited by {override.lastEditedBy?.split("@")[0] || "team"} · {override.lastEditedAt ? new Date(override.lastEditedAt).toLocaleDateString() : ""}
-                          </span>
+              {/* ── Create New Template Form ── */}
+              {showNewTemplateForm && (
+                <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-5 mb-6 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-bold text-indigo-900">✨ New Template</h3>
+                    <button onClick={() => setShowNewTemplateForm(false)} className="text-xs text-gray-400 hover:text-gray-600">✕ Cancel</button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Template name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Fall Outreach — Short"
+                        value={newTemplateDraft.label}
+                        onChange={e => setNewTemplateDraft(p => ({ ...p, label: e.target.value }))}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Audience / states</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. All states, Florida only"
+                        value={newTemplateDraft.states}
+                        onChange={e => setNewTemplateDraft(p => ({ ...p, states: e.target.value }))}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Subject line</label>
+                    <input
+                      type="text"
+                      placeholder="Subject line…"
+                      value={newTemplateDraft.subject}
+                      onChange={e => setNewTemplateDraft(p => ({ ...p, subject: e.target.value }))}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
+                    <TokenBar onInsert={t => insertToken(t, newTemplateBodyRef, setNewTemplateDraft, "body")} />
+                    <textarea
+                      ref={newTemplateBodyRef}
+                      rows={14}
+                      placeholder={"Hi [First Name],\n\n…"}
+                      value={newTemplateDraft.body}
+                      onChange={e => setNewTemplateDraft(p => ({ ...p, body: e.target.value }))}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-y mt-1"
+                      spellCheck={true}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                  </div>
+                  <div className="flex justify-end gap-2 pt-1">
+                    <button onClick={() => setShowNewTemplateForm(false)} className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-4 py-2 rounded-lg font-semibold">Cancel</button>
+                    <button
+                      disabled={!newTemplateDraft.label.trim() || !newTemplateDraft.subject.trim() || !newTemplateDraft.body.trim()}
+                      onClick={() => {
+                        const id = "custom_" + Date.now();
+                        setCustomTemplates(prev => ({
+                          ...prev,
+                          [id]: {
+                            label: newTemplateDraft.label.trim(),
+                            states: newTemplateDraft.states.trim() || "All states",
+                            subject: newTemplateDraft.subject.trim(),
+                            body: newTemplateDraft.body.trim(),
+                            createdBy: gmailUser || "",
+                            createdAt: new Date().toISOString(),
+                          }
+                        }));
+                        setShowNewTemplateForm(false);
+                        showNotif("✅ Template saved");
+                      }}
+                      className="text-xs bg-green-600 hover:bg-green-500 disabled:opacity-40 text-white px-4 py-2 rounded-lg font-semibold"
+                    >Save Template</button>
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-6">
+                {/* ── Built-in templates ── */}
+                {Object.entries(DEFAULT_TEMPLATE_TEXTS).map(([key, defaults]) => {
+                  const override = templateOverrides[key];
+                  const current = override || defaults;
+                  const isEditing = editingTemplate === key;
+                  const isModified = !!override;
+
+                  return (
+                    <div key={key} className={`bg-white rounded-xl border ${isModified ? "border-indigo-200" : "border-gray-200"} overflow-hidden shadow-sm`}>
+                      <div className="flex items-center justify-between px-5 py-3 bg-gray-50 border-b border-gray-100">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold text-gray-800 text-sm">{defaults.label}</span>
+                          <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{defaults.states}</span>
+                          {isModified && (
+                            <span className="text-xs text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full font-medium">
+                              {"✏️ Edited by " + (override.lastEditedBy?.split("@")[0] || "team") + " · " + (override.lastEditedAt ? new Date(override.lastEditedAt).toLocaleDateString() : "")}
+                            </span>
+                          )}
+                        </div>
+                        {canEditEmailCopy && !isEditing && (
+                          <div className="flex gap-2">
+                            {isModified && (
+                              <button
+                                onClick={() => { if (window.confirm("Reset to default copy?")) setTemplateOverrides(prev => { const n = { ...prev }; delete n[key]; return n; }); }}
+                                className="text-xs text-gray-400 hover:text-red-500 px-2 py-1 rounded transition-colors"
+                              >Reset</button>
+                            )}
+                            <button
+                              onClick={() => { setEditingTemplate(key); setEditDraft({ subject: current.subject, body: current.body }); }}
+                              className="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-semibold transition-colors"
+                            >Edit</button>
+                          </div>
+                        )}
+                        {canEditEmailCopy && isEditing && (
+                          <div className="flex gap-2">
+                            <button onClick={() => setEditingTemplate(null)} className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-semibold">Cancel</button>
+                            <button
+                              onClick={async () => {
+                                await saveTemplateOverride(key, editDraft.subject, editDraft.body);
+                                setEditingTemplate(null);
+                                showNotif("✅ " + defaults.label + " saved");
+                              }}
+                              className="text-xs bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-lg font-semibold"
+                            >Save</button>
+                          </div>
                         )}
                       </div>
-                      {canEditEmailCopy && !isEditing && (
-                        <div className="flex gap-2">
-                          {isModified && (
-                            <button
-                              onClick={() => { if (window.confirm("Reset to default copy?")) setTemplateOverrides(prev => { const n = { ...prev }; delete n[key]; return n; }); }}
-                              className="text-xs text-gray-400 hover:text-red-500 px-2 py-1 rounded transition-colors"
-                            >Reset</button>
-                          )}
-                          <button
-                            onClick={() => { setEditingTemplate(key); setEditDraft({ subject: current.subject, body: current.body }); }}
-                            className="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-semibold transition-colors"
-                          >Edit</button>
+                      {isEditing ? (
+                        <div className="p-5 space-y-4">
+                          <div>
+                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Subject line</label>
+                            <input
+                              type="text"
+                              value={editDraft.subject}
+                              onChange={e => setEditDraft(p => ({ ...p, subject: e.target.value }))}
+                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
+                            <TokenBar onInsert={t => insertToken(t, customEditBodyRef, setEditDraft, "body")} />
+                            <textarea
+                              ref={customEditBodyRef}
+                              rows={16}
+                              value={editDraft.body}
+                              onChange={e => setEditDraft(p => ({ ...p, body: e.target.value }))}
+                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-y mt-1"
+                              spellCheck={true}
+                            />
+                            <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                          </div>
                         </div>
-                      )}
-                      {canEditEmailCopy && isEditing && (
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => setEditingTemplate(null)}
-                            className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-semibold"
-                          >Cancel</button>
-                          <button
-                            onClick={async () => {
-                              await saveTemplateOverride(key, editDraft.subject, editDraft.body);
-                              setEditingTemplate(null);
-                              showNotif(`✅ ${defaults.label} saved`);
-                            }}
-                            className="text-xs bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-lg font-semibold"
-                          >Save</button>
+                      ) : (
+                        <div className="p-5 space-y-3">
+                          <div className="flex items-start gap-2">
+                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Subject</span>
+                            <span className="text-sm text-gray-800 font-medium">{highlightTokens(current.subject)}</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Body</span>
+                            <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">{highlightTokens(current.body)}</div>
+                          </div>
                         </div>
                       )}
                     </div>
+                  );
+                })}
 
-                    {/* Content — view or edit mode */}
-                    {isEditing ? (
-                      <div className="p-5 space-y-4">
-                        <div>
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Subject line</label>
-                          <input
-                            type="text"
-                            value={editDraft.subject}
-                            onChange={e => setEditDraft(p => ({ ...p, subject: e.target.value }))}
-                            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">
-                            Body
-                            <span className="ml-2 font-normal text-gray-400 normal-case">
-                              Available tokens: <code className="bg-gray-100 px-1 rounded">[First Name]</code> <code className="bg-gray-100 px-1 rounded">[State Name]</code> <code className="bg-gray-100 px-1 rounded">[District Name]</code> <code className="bg-gray-100 px-1 rounded">[Calendly Link]</code> <code className="bg-gray-100 px-1 rounded">[Learn More Link]</code>
-                            </span>
-                          </label>
-                          <textarea
-                            rows={16}
-                            value={editDraft.body}
-                            onChange={e => setEditDraft(p => ({ ...p, body: e.target.value }))}
-                            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-y"
-                            spellCheck={true}
-                          />
-                          <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="p-5 space-y-3">
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Subject</span>
-                          <span className="text-sm text-gray-800 font-medium">{(() => {
-                            const parts = current.subject.split(/(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\])/g);
-                            return parts.map((p, i) => /^\[/.test(p)
-                              ? <span key={i} className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-mono font-semibold">{p}</span>
-                              : p);
-                          })()}</span>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Body</span>
-                          <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">{(() => {
-                            const TOKEN_RE = /(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\])/g;
-                            return current.body.split(TOKEN_RE).map((p, i) => /^\[/.test(p)
-                              ? <span key={i} className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-mono font-semibold">{p}</span>
-                              : p);
-                          })()}</div>
-                        </div>
-                      </div>
-                    )}
+                {/* ── Custom (user-created) templates ── */}
+                {Object.entries(customTemplates).length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3 mt-2">
+                      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Custom Templates</h3>
+                      <span className="bg-indigo-100 text-indigo-600 text-xs px-2 py-0.5 rounded-full">{Object.keys(customTemplates).length}</span>
+                    </div>
+                    <div className="space-y-4">
+                      {Object.entries(customTemplates).map(([id, tmpl]) => {
+                        const isEditingCustom = editingCustomTemplate === id;
+                        return (
+                          <div key={id} className="bg-white rounded-xl border border-violet-200 overflow-hidden shadow-sm">
+                            <div className="flex items-center justify-between px-5 py-3 bg-violet-50 border-b border-violet-100">
+                              <div className="flex items-center gap-3">
+                                <span className="font-semibold text-gray-800 text-sm">{tmpl.label}</span>
+                                <span className="text-xs text-gray-400 bg-white border border-gray-200 px-2 py-0.5 rounded-full">{tmpl.states}</span>
+                                <span className="text-xs text-violet-500 bg-violet-100 px-2 py-0.5 rounded-full font-medium">
+                                  {"By " + (tmpl.createdBy?.split("@")[0] || "team") + " · " + (tmpl.createdAt ? new Date(tmpl.createdAt).toLocaleDateString() : "")}
+                                </span>
+                              </div>
+                              {canEditEmailCopy && (
+                                <div className="flex gap-2">
+                                  {!isEditingCustom && (
+                                    <>
+                                      <button
+                                        onClick={() => { if (window.confirm("Delete this template?")) setCustomTemplates(prev => { const n = { ...prev }; delete n[id]; return n; }); }}
+                                        className="text-xs text-gray-400 hover:text-red-500 px-2 py-1 rounded transition-colors"
+                                      >Delete</button>
+                                      <button
+                                        onClick={() => { setEditingCustomTemplate(id); setCustomEditDraft({ label: tmpl.label, states: tmpl.states, subject: tmpl.subject, body: tmpl.body }); }}
+                                        className="text-xs bg-violet-600 hover:bg-violet-500 text-white px-3 py-1.5 rounded-lg font-semibold transition-colors"
+                                      >Edit</button>
+                                    </>
+                                  )}
+                                  {isEditingCustom && (
+                                    <>
+                                      <button onClick={() => setEditingCustomTemplate(null)} className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-semibold">Cancel</button>
+                                      <button
+                                        onClick={() => {
+                                          setCustomTemplates(prev => ({
+                                            ...prev,
+                                            [id]: {
+                                              ...prev[id],
+                                              label: customEditDraft.label.trim() || prev[id].label,
+                                              states: customEditDraft.states.trim() || prev[id].states,
+                                              subject: customEditDraft.subject.trim(),
+                                              body: customEditDraft.body.trim(),
+                                              lastEditedBy: gmailUser || "",
+                                              lastEditedAt: new Date().toISOString(),
+                                            }
+                                          }));
+                                          setEditingCustomTemplate(null);
+                                          showNotif("✅ Template updated");
+                                        }}
+                                        className="text-xs bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-lg font-semibold"
+                                      >Save</button>
+                                    </>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            {isEditingCustom ? (
+                              <div className="p-5 space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Template name</label>
+                                    <input
+                                      type="text"
+                                      value={customEditDraft.label}
+                                      onChange={e => setCustomEditDraft(p => ({ ...p, label: e.target.value }))}
+                                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Audience / states</label>
+                                    <input
+                                      type="text"
+                                      value={customEditDraft.states}
+                                      onChange={e => setCustomEditDraft(p => ({ ...p, states: e.target.value }))}
+                                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Subject line</label>
+                                  <input
+                                    type="text"
+                                    value={customEditDraft.subject}
+                                    onChange={e => setCustomEditDraft(p => ({ ...p, subject: e.target.value }))}
+                                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
+                                  <TokenBar onInsert={t => insertToken(t, customEditBodyRef, setCustomEditDraft, "body")} />
+                                  <textarea
+                                    ref={customEditBodyRef}
+                                    rows={16}
+                                    value={customEditDraft.body}
+                                    onChange={e => setCustomEditDraft(p => ({ ...p, body: e.target.value }))}
+                                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-300 resize-y mt-1"
+                                    spellCheck={true}
+                                  />
+                                  <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="p-5 space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Subject</span>
+                                  <span className="text-sm text-gray-800 font-medium">{highlightTokens(tmpl.subject)}</span>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Body</span>
+                                  <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">{highlightTokens(tmpl.body)}</div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                );
-              })}
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ── DISTRICT INFO TAB ── */}
         {activeTab === "districtinfo" && (() => {
