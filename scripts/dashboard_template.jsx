@@ -180,12 +180,12 @@ const STATE_REP_EMAIL = {
   MI: "christie.cooley@mybrightwheel.com",
   // Eric Truog
   ID: "eric.truog@mybrightwheel.com",
-  UT: "eric.truog@mybrightwheel.com",
-  CO: "eric.truog@mybrightwheel.com",
   // Kevin Elston
   NV: "kevin.elston@mybrightwheel.com",
   NM: "kevin.elston@mybrightwheel.com",
   AZ: "kevin.elston@mybrightwheel.com",
+  UT: "kevin.elston@mybrightwheel.com",
+  CO: "kevin.elston@mybrightwheel.com",
   // Eric Bernstein
   CA: "eric.bernstein@mybrightwheel.com",
   OR: "eric.bernstein@mybrightwheel.com",
