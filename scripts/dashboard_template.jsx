@@ -400,8 +400,8 @@ function resolveContact(district, template) {
     };
   }
   return {
-    name:  district.director,
-    email: district.email,
+    name:  district.contactEdits?.director ?? district.director,
+    email: district.contactEdits?.email ?? district.email,
     isSummerBridge: false,
   };
 }
@@ -661,6 +661,209 @@ function generatePersonalizedEmail(district, rep) {
   );
 }
 
+// ─── CONTACTS PANEL COMPONENT ─────────────────────────────────────────────────
+function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
+  const [editTarget, setEditTarget] = React.useState(null);
+  const [draft, setDraft] = React.useState({});
+
+  const mainEmail = district.contactEdits?.email ?? district.email ?? "";
+  const mainPhone = district.contactEdits?.phone ?? district.phone ?? "";
+  const mainName  = district.contactEdits?.director ?? district.director ?? "";
+  const mainTitle = district.contactEdits?.title ?? district.title ?? "";
+
+  const additionalContacts = district.additionalContacts || [];
+
+  const saveMainEdit = () => {
+    onUpdate({ contactEdits: { ...draft } });
+    setEditTarget(null);
+  };
+
+  const saveNewContact = () => {
+    if (!draft.name?.trim()) return;
+    const newC = {
+      id: `contact_${Date.now()}`,
+      name: draft.name.trim(),
+      firstName: draft.firstName?.trim() || draft.name.trim().split(" ")[0],
+      title: draft.title?.trim() || "",
+      email: draft.email?.trim() || "",
+      phone: draft.phone?.trim() || "",
+      role: draft.role?.trim() || "",
+      isBounced: false,
+    };
+    onUpdate({ additionalContacts: [...additionalContacts, newC] });
+    setEditTarget(null);
+    setDraft({});
+  };
+
+  const saveContactEdit = (contactId) => {
+    onUpdate({
+      additionalContacts: additionalContacts.map(c =>
+        c.id === contactId ? { ...c, ...draft } : c
+      )
+    });
+    setEditTarget(null);
+  };
+
+  const deleteContact = (contactId) => {
+    if (!window.confirm("Remove this contact?")) return;
+    onUpdate({ additionalContacts: additionalContacts.filter(c => c.id !== contactId) });
+  };
+
+  const inputCls = "w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200";
+  const labelCls = "text-xs font-semibold text-gray-400 uppercase tracking-wide block mb-0.5";
+
+  const ContactField = ({ label, value, href }) => (
+    <div className="flex gap-1.5 items-baseline">
+      <span className="text-gray-400 text-xs w-12 flex-shrink-0">{label}</span>
+      {href
+        ? <a href={href} className="text-indigo-600 hover:underline text-xs font-medium truncate">{value || "—"}</a>
+        : <span className="text-xs font-medium text-gray-800 truncate">{value || <span className="text-gray-300">—</span>}</span>
+      }
+    </div>
+  );
+
+  return (
+    <div className="space-y-3">
+
+      {/* ── Main Director Contact ── */}
+      <div className={`rounded-xl border overflow-hidden ${bounces.has(mainEmail.toLowerCase()) ? "border-red-200 bg-red-50/30" : "border-gray-200 bg-white"}`}>
+        <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-gray-700">Primary Contact</span>
+            {bounces.has(mainEmail.toLowerCase()) && (
+              <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">⚠️ Bounced</span>
+            )}
+          </div>
+          {editTarget !== "main" && (
+            <button
+              onClick={() => { setEditTarget("main"); setDraft({ director: mainName, title: mainTitle, email: mainEmail, phone: mainPhone }); }}
+              className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+            >✏️ Edit</button>
+          )}
+        </div>
+
+        {editTarget === "main" ? (
+          <div className="p-4 grid grid-cols-2 gap-3">
+            <div><label className={labelCls}>Name</label><input value={draft.director || ""} onChange={e => setDraft(p => ({...p, director: e.target.value}))} className={inputCls} /></div>
+            <div><label className={labelCls}>Title</label><input value={draft.title || ""} onChange={e => setDraft(p => ({...p, title: e.target.value}))} className={inputCls} /></div>
+            <div><label className={labelCls}>Email</label><input value={draft.email || ""} onChange={e => setDraft(p => ({...p, email: e.target.value}))} className={inputCls} placeholder="email@district.edu" /></div>
+            <div><label className={labelCls}>Phone</label><input value={draft.phone || ""} onChange={e => setDraft(p => ({...p, phone: e.target.value}))} className={inputCls} placeholder="(555) 000-0000" /></div>
+            <div className="col-span-2 flex justify-between items-center pt-1">
+              {mainEmail && !bounces.has(mainEmail.toLowerCase()) && (
+                <button onClick={() => { onMarkBounced(mainEmail); setEditTarget(null); }}
+                  className="text-xs text-red-500 hover:text-red-700 border border-red-200 hover:bg-red-50 px-2 py-1 rounded-lg transition-colors">⚠️ Mark as bounced</button>
+              )}
+              {!mainEmail && <span />}
+              <div className="flex gap-2">
+                <button onClick={() => setEditTarget(null)} className="text-xs border border-gray-200 text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button onClick={saveMainEdit} className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 font-medium">Save</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="px-4 py-3 space-y-1.5">
+            <ContactField label="Name" value={mainName} />
+            <ContactField label="Title" value={mainTitle} />
+            <ContactField label="Email" value={mainEmail} href={mainEmail ? `mailto:${mainEmail}` : null} />
+            <ContactField label="Phone" value={mainPhone} />
+          </div>
+        )}
+      </div>
+
+      {/* ── Summer Bridge Contact (read-only, shown if exists) ── */}
+      {district.summerBridgeContact && (
+        <div className="rounded-xl border border-green-200 bg-green-50/20 overflow-hidden">
+          <div className="px-4 py-2.5 bg-green-50 border-b border-green-100">
+            <span className="text-xs font-semibold text-green-700">🌴 Summer Bridge Contact</span>
+          </div>
+          <div className="px-4 py-3 space-y-1.5">
+            <ContactField label="Name" value={district.summerBridgeContact.fullName} />
+            <ContactField label="Email" value={district.summerBridgeContact.email} href={district.summerBridgeContact.email ? `mailto:${district.summerBridgeContact.email}` : null} />
+          </div>
+        </div>
+      )}
+
+      {/* ── Additional Contacts ── */}
+      {additionalContacts.map(c => (
+        <div key={c.id} className={`rounded-xl border overflow-hidden ${bounces.has((c.email||"").toLowerCase()) ? "border-red-200 bg-red-50/30" : "border-gray-200 bg-white"}`}>
+          <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-gray-700">{c.role || "Additional Contact"}</span>
+              {bounces.has((c.email||"").toLowerCase()) && (
+                <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">⚠️ Bounced</span>
+              )}
+            </div>
+            {editTarget !== c.id && (
+              <div className="flex gap-2">
+                <button onClick={() => { setEditTarget(c.id); setDraft({ name: c.name, firstName: c.firstName, title: c.title, email: c.email, phone: c.phone, role: c.role }); }}
+                  className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">✏️ Edit</button>
+                <button onClick={() => deleteContact(c.id)} className="text-xs text-red-400 hover:text-red-600 font-medium">✕</button>
+              </div>
+            )}
+          </div>
+
+          {editTarget === c.id ? (
+            <div className="p-4 grid grid-cols-2 gap-3">
+              <div><label className={labelCls}>Name</label><input value={draft.name || ""} onChange={e => setDraft(p => ({...p, name: e.target.value}))} className={inputCls} /></div>
+              <div><label className={labelCls}>Role / Label</label><input value={draft.role || ""} onChange={e => setDraft(p => ({...p, role: e.target.value}))} className={inputCls} placeholder="e.g. VPK Coordinator" /></div>
+              <div><label className={labelCls}>Title</label><input value={draft.title || ""} onChange={e => setDraft(p => ({...p, title: e.target.value}))} className={inputCls} /></div>
+              <div><label className={labelCls}>First Name</label><input value={draft.firstName || ""} onChange={e => setDraft(p => ({...p, firstName: e.target.value}))} className={inputCls} /></div>
+              <div><label className={labelCls}>Email</label><input value={draft.email || ""} onChange={e => setDraft(p => ({...p, email: e.target.value}))} className={inputCls} /></div>
+              <div><label className={labelCls}>Phone</label><input value={draft.phone || ""} onChange={e => setDraft(p => ({...p, phone: e.target.value}))} className={inputCls} /></div>
+              <div className="col-span-2 flex justify-between items-center pt-1">
+                {c.email && !bounces.has(c.email.toLowerCase()) && (
+                  <button onClick={() => { onMarkBounced(c.email); onUpdate({ additionalContacts: additionalContacts.map(x => x.id === c.id ? {...x, isBounced: true} : x) }); setEditTarget(null); }}
+                    className="text-xs text-red-500 hover:text-red-700 border border-red-200 hover:bg-red-50 px-2 py-1 rounded-lg transition-colors">⚠️ Mark as bounced</button>
+                )}
+                {!c.email && <span />}
+                <div className="flex gap-2">
+                  <button onClick={() => setEditTarget(null)} className="text-xs border border-gray-200 text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Cancel</button>
+                  <button onClick={() => saveContactEdit(c.id)} className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700 font-medium">Save</button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="px-4 py-3 space-y-1.5">
+              <ContactField label="Name" value={c.name} />
+              {c.title && <ContactField label="Title" value={c.title} />}
+              <ContactField label="Email" value={c.email} href={c.email ? `mailto:${c.email}` : null} />
+              {c.phone && <ContactField label="Phone" value={c.phone} />}
+            </div>
+          )}
+        </div>
+      ))}
+
+      {/* ── Add Contact Form ── */}
+      {editTarget === "new" ? (
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/30 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2.5 bg-indigo-50 border-b border-indigo-100">
+            <span className="text-xs font-semibold text-indigo-700">Add Contact</span>
+            <button onClick={() => { setEditTarget(null); setDraft({}); }} className="text-gray-400 hover:text-gray-600 text-sm font-bold">✕</button>
+          </div>
+          <div className="p-4 grid grid-cols-2 gap-3">
+            <div><label className={labelCls}>Name *</label><input value={draft.name || ""} onChange={e => setDraft(p => ({...p, name: e.target.value}))} className={inputCls} placeholder="Full name" autoFocus /></div>
+            <div><label className={labelCls}>Role / Label</label><input value={draft.role || ""} onChange={e => setDraft(p => ({...p, role: e.target.value}))} className={inputCls} placeholder="e.g. VPK Coordinator" /></div>
+            <div><label className={labelCls}>Title</label><input value={draft.title || ""} onChange={e => setDraft(p => ({...p, title: e.target.value}))} className={inputCls} /></div>
+            <div><label className={labelCls}>First Name</label><input value={draft.firstName || ""} onChange={e => setDraft(p => ({...p, firstName: e.target.value}))} className={inputCls} /></div>
+            <div><label className={labelCls}>Email</label><input value={draft.email || ""} onChange={e => setDraft(p => ({...p, email: e.target.value}))} className={inputCls} placeholder="email@district.edu" /></div>
+            <div><label className={labelCls}>Phone</label><input value={draft.phone || ""} onChange={e => setDraft(p => ({...p, phone: e.target.value}))} className={inputCls} placeholder="(555) 000-0000" /></div>
+            <div className="col-span-2 flex justify-end gap-2 pt-1">
+              <button onClick={() => { setEditTarget(null); setDraft({}); }} className="text-xs border border-gray-200 text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50">Cancel</button>
+              <button disabled={!draft.name?.trim()} onClick={saveNewContact}
+                className="text-xs bg-green-600 hover:bg-green-700 disabled:opacity-40 text-white px-3 py-1.5 rounded-lg font-medium">Add Contact</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => { setEditTarget("new"); setDraft({}); }}
+          className="w-full text-xs border border-dashed border-indigo-300 text-indigo-600 hover:bg-indigo-50 px-4 py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 font-medium"
+        >➕ Add Contact</button>
+      )}
+    </div>
+  );
+}
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function BrightwheelDashboard() {
   const [districts, setDistricts] = useState(() =>
@@ -807,6 +1010,13 @@ export default function BrightwheelDashboard() {
   });
   const [bounceConfirm, setBounceConfirm] = useState(null); // { district, template, contactEmail, contactName }
 
+  // ── CONTACT MANAGEMENT ───────────────────────────────────────────────────────
+  const [contactEditingId, setContactEditingId] = useState(null);   // districtId being edited
+  const [contactEditTarget, setContactEditTarget] = useState(null); // "main" | contact.id
+  const [contactDraft, setContactDraft] = useState({});
+  const [contactAddingId, setContactAddingId] = useState(null);     // districtId for add form
+  const [newContactDraft, setNewContactDraft] = useState({ name: "", firstName: "", title: "", email: "", phone: "", role: "" });
+
   // Rep profile for the currently logged-in user — null if not signed in or unrecognized
   const currentRep = (gmailUser && REP_PROFILES[gmailUser]) || null;
   const canEditEmailCopy = gmailUser && AUTHORIZED_EDITORS.has(gmailUser);
@@ -841,7 +1051,14 @@ export default function BrightwheelDashboard() {
         const existingIds = new Set((d.activities || []).map(a => String(a.id)));
         const fresh = (entry.activities || []).filter(a => !existingIds.has(String(a.id)));
         const status = entry.status ? (LEGACY_STAGE_MAP[entry.status] || entry.status) : d.status;
-        return { ...d, activities: fresh.length ? [...(d.activities || []), ...fresh] : d.activities, status, mailerSent: entry.mailerSent || d.mailerSent || false };
+        return {
+          ...d,
+          activities: fresh.length ? [...(d.activities || []), ...fresh] : d.activities,
+          status,
+          mailerSent: entry.mailerSent || d.mailerSent || false,
+          additionalContacts: entry.additionalContacts || d.additionalContacts || [],
+          contactEdits: entry.contactEdits || d.contactEdits || null,
+        };
       }));
     } catch(e) { console.warn('localStorage load:', e); }
   }, []);
@@ -851,8 +1068,14 @@ export default function BrightwheelDashboard() {
     try {
       const actMap = {};
       districts.forEach(d => {
-        if ((d.activities || []).length > 0 || (d.status && d.status !== 'not_started') || d.mailerSent) {
-          actMap[String(d.id)] = { activities: d.activities || [], status: d.status, mailerSent: d.mailerSent || false };
+        if ((d.activities || []).length > 0 || (d.status && d.status !== 'not_started') || d.mailerSent || (d.additionalContacts?.length > 0) || d.contactEdits) {
+          actMap[String(d.id)] = {
+            activities: d.activities || [],
+            status: d.status,
+            mailerSent: d.mailerSent || false,
+            additionalContacts: d.additionalContacts?.length ? d.additionalContacts : undefined,
+            contactEdits: d.contactEdits || undefined,
+          };
         }
       });
       if (Object.keys(actMap).length > 0) {
@@ -1113,8 +1336,12 @@ export default function BrightwheelDashboard() {
     // Build a fast lookup: email address → district
     const emailToDistrict = {};
     districts.forEach((d) => {
-      if (d.email) emailToDistrict[d.email.toLowerCase().trim()] = d;
+      const effectiveEmail = (d.contactEdits?.email ?? d.email);
+      if (effectiveEmail) emailToDistrict[effectiveEmail.toLowerCase().trim()] = d;
       if (d.summerBridgeContact?.email) emailToDistrict[d.summerBridgeContact.email.toLowerCase().trim()] = d;
+      (d.additionalContacts || []).forEach(c => {
+        if (c.email) emailToDistrict[c.email.toLowerCase().trim()] = d;
+      });
     });
 
     // Gmail API helper
@@ -4308,23 +4535,13 @@ export default function BrightwheelDashboard() {
 
                       <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Director Contact</h4>
-                          <div className="space-y-1.5 text-sm">
-                            <div><span className="text-gray-500">Name:</span> <span className="font-medium">{selectedDi.director}</span></div>
-                            {selectedDi.title && <div><span className="text-gray-500">Title:</span> {selectedDi.title}</div>}
-                            <div><span className="text-gray-500">Email:</span> {selectedDi.email ? <a href={`mailto:${selectedDi.email}`} className="text-indigo-600 hover:underline">{selectedDi.email}</a> : <span className="text-gray-300">—</span>}</div>
-                            <div><span className="text-gray-500">Phone:</span> {selectedDi.phone || <span className="text-gray-300">—</span>}</div>
-                            {selectedDi.linkedin && <div><span className="text-gray-500">LinkedIn:</span> <a href={`https://${selectedDi.linkedin}`} target="_blank" rel="noreferrer" className="text-blue-500 hover:underline text-xs">View Profile ↗</a></div>}
-                          </div>
-                          {selectedDi.summerBridgeContact && (
-                            <div className="mt-3 pt-2 border-t border-dashed border-green-200">
-                              <h5 className="text-xs font-semibold text-green-700 mb-1">🌴 Summer Bridge Contact</h5>
-                              <div className="space-y-1 text-xs">
-                                <div><span className="text-gray-500">Name:</span> <span className="font-medium">{selectedDi.summerBridgeContact.fullName}</span></div>
-                                <div><span className="text-gray-500">Email:</span> <a href={`mailto:${selectedDi.summerBridgeContact.email}`} className="text-green-600 hover:underline">{selectedDi.summerBridgeContact.email}</a></div>
-                              </div>
-                            </div>
-                          )}
+                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Contacts</h4>
+                          <ContactsPanel
+                            district={selectedDi}
+                            bounces={bounces}
+                            onUpdate={(updates) => updateDistrict(selectedDi.id, updates)}
+                            onMarkBounced={(email) => setBounces(prev => new Set([...prev, email.toLowerCase()]))}
+                          />
                         </div>
                         <div>
                           <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Curriculum Profile</h4>
@@ -4604,34 +4821,13 @@ export default function BrightwheelDashboard() {
               {modalTab === "overview" && (
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Director Contact</h3>
-                    <div className="space-y-2 text-sm">
-                      <div><span className="text-gray-500">Name:</span> <span className="font-medium">{selectedDistrict.director}</span></div>
-                      <div><span className="text-gray-500">Title:</span> {selectedDistrict.title}</div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-gray-500">Email:</span>
-                        <a href={`mailto:${selectedDistrict.email}`} className="text-indigo-600 hover:underline">{selectedDistrict.email}</a>
-                        {selectedDistrict.email && unsubs.has(selectedDistrict.email.toLowerCase()) && (
-                          <span className="text-xs bg-red-100 text-red-600 font-semibold px-2 py-0.5 rounded-full">⛔ Unsubscribed</span>
-                        )}
-                        {selectedDistrict.email && !unsubs.has(selectedDistrict.email.toLowerCase()) && bounces.has(selectedDistrict.email.toLowerCase()) && (
-                          <span className="text-xs bg-orange-100 text-orange-600 font-semibold px-2 py-0.5 rounded-full">⚠️ Bounced</span>
-                        )}
-                      </div>
-                      <div><span className="text-gray-500">Phone:</span> {selectedDistrict.phone}</div>
-                      <div><span className="text-gray-500">LinkedIn:</span> {selectedDistrict.linkedin ? <a href={`https://${selectedDistrict.linkedin}`} target="_blank" className="text-blue-500 hover:underline">View Profile</a> : <span className="text-gray-300">Not found</span>}</div>
-                    </div>
-                    {selectedDistrict.summerBridgeContact && (
-                      <div className="mt-4 pt-3 border-t border-dashed border-green-200">
-                        <h4 className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">🌴 Summer Bridge Contact</h4>
-                        <div className="space-y-1.5 text-sm">
-                          <div><span className="text-gray-500">Name:</span> <span className="font-medium">{selectedDistrict.summerBridgeContact.fullName}</span></div>
-                          {selectedDistrict.summerBridgeContact.title && <div><span className="text-gray-500">Title:</span> {selectedDistrict.summerBridgeContact.title}</div>}
-                          <div><span className="text-gray-500">Email:</span> <a href={`mailto:${selectedDistrict.summerBridgeContact.email}`} className="text-green-600 hover:underline">{selectedDistrict.summerBridgeContact.email}</a></div>
-                        </div>
-                        <p className="text-xs text-green-600 mt-2 italic">FL Summer Bridge emails go to this contact. All other emails go to the director above.</p>
-                      </div>
-                    )}
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Contacts</h3>
+                    <ContactsPanel
+                      district={selectedDistrict}
+                      bounces={bounces}
+                      onUpdate={(updates) => updateDistrict(selectedDistrict.id, updates)}
+                      onMarkBounced={(email) => setBounces(prev => new Set([...prev, email.toLowerCase()]))}
+                    />
                   </div>
                   <div>
                     <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Curriculum Profile</h3>
