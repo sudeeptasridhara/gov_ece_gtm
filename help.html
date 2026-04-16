@@ -188,6 +188,16 @@
     .card-mini h4 { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 4px; }
     .card-mini p  { font-size: 13px; color: #6b7280; margin-bottom: 0; }
 
+    .stage-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 20px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
     /* ── UPDATED BANNER ── */
     .updated {
       font-size: 11px;
@@ -225,6 +235,12 @@
       <a href="#tab-contacts">Contact Tracking</a>
       <a href="#tab-district">District Info</a>
       <a href="#tab-queue">Send Queue</a>
+      <a href="#tab-email-copy">Email Copy</a>
+
+      <div class="nav-group">Features</div>
+      <a href="#sequence">Outreach Sequence</a>
+      <a href="#personalized">Personalized Emails</a>
+      <a href="#bounces-unsubs">Bounces &amp; Unsubscribes</a>
 
       <div class="nav-group">Sync &amp; data</div>
       <a href="#gmail-sync">Gmail Sync</a>
@@ -240,18 +256,18 @@
     <!-- WHAT THIS IS -->
     <section id="overview">
       <h2>What this dashboard is <span class="badge">Start here</span></h2>
-      <p class="section-intro">A shared sales intelligence tool for the brightwheel Gov/ECE team — built to track outreach to early childhood directors across FL, AL, GA, MI, ID, NV, NM, CA, OR, and WA.</p>
+      <p class="section-intro">A shared sales intelligence tool for the brightwheel Gov/ECE team — built to track outreach to early childhood directors across FL, AL, GA, MI, ID, NV, NM, AZ, UT, CO, CA, OR, and WA.</p>
 
-      <p>The dashboard gives each rep a live view of 826 districts, ranked by buying signals, enrollment size, and recency of contact. Every tab is filtered to your rep's states by default, but you can switch the filter to see all reps.</p>
+      <p>The dashboard gives each rep a live view of 1,371 districts, ranked by buying signals, enrollment size, and recency of contact. Every tab is filtered to your rep's states by default, but you can switch the filter to see all reps.</p>
 
       <div class="cols-2">
         <div class="card-mini">
           <h4>What it tracks</h4>
-          <p>Emails sent, replies received, Granola call notes, and manually logged activities — all shared in real time across the team.</p>
+          <p>Emails sent, replies received, Granola call notes, physical mailers, calls, and manually logged activities — all shared in real time across the team.</p>
         </div>
         <div class="card-mini">
           <h4>Who it's for</h4>
-          <p>Christie (FL/AL/GA/MI), Eric Truog (ID), Kevin Elston (NV/NM), Eric Bernstein (CA/OR/WA).</p>
+          <p>Christie (FL/AL/GA/MI), Eric Truog (ID), Kevin Elston (NV/NM/AZ/UT/CO), Eric Bernstein (CA/OR/WA).</p>
         </div>
       </div>
     </section>
@@ -324,7 +340,7 @@
         <li><strong>Priority</strong> — filter to Hot / Warm / Cool / Cold tiers.</li>
         <li><strong>State</strong> — filter to a single state.</li>
         <li><strong>Curriculum</strong> — filter by current curriculum vendor.</li>
-        <li><strong>Status</strong> — filter by outreach status (not contacted, reached out, responded, etc.).</li>
+        <li><strong>Status</strong> — filter by outreach stage (Not Started, Email Sent, VM Left, Responded, etc.).</li>
         <li><strong>Rep filter</strong> (top bar) — shows only states owned by the selected rep.</li>
       </ul>
 
@@ -333,20 +349,28 @@
 
       <h3>Selecting multiple districts</h3>
       <p>Check the box on any district row to select it. Once you have multiple selected, a bulk action bar appears at the bottom — letting you add all selected districts to the queue with one template in one click.</p>
+
+      <div class="tip">Districts with a bounced or unsubscribed email address are automatically skipped during bulk sends. You'll see a warning if you try to manually queue them individually.</div>
     </section>
 
     <!-- TAB: CONTACTS -->
     <section id="tab-contacts">
       <h2>Contact Tracking tab</h2>
-      <p class="section-intro">A per-director view of every touchpoint — emails, calls, replies, and notes — across the team.</p>
+      <p class="section-intro">A per-director view of every touchpoint — emails, calls, replies, mailers, and notes — across the team.</p>
 
       <p>Each district shows a timeline of all logged activity: Gmail sends, Gmail replies, Granola call notes, and manually logged activities. The contact count is the total number of distinct touchpoints.</p>
+
+      <h3>Outreach stage badges</h3>
+      <p>Each district displays its current stage in the outreach sequence. Stages update automatically when Gmail sync detects a send or reply, or you can set them manually from the district row.</p>
 
       <h3>Logging activity manually</h3>
       <p>Expand any district and click <strong>Log Activity</strong> to record a call, LinkedIn message, meeting, or note. Choose the type, date, and add notes. This saves to your browser and syncs to the shared team log so teammates see it when they connect.</p>
 
       <h3>Syncing Gmail</h3>
-      <p>Click <strong>Sync Gmail</strong> at the top of the Contact Tracking tab to pull new sent emails and replies from the last 90 days. Any email sent to a known district contact will appear as an activity.</p>
+      <p>Click <strong>Sync Gmail</strong> at the top of the Contact Tracking tab to pull new sent emails and replies from the last 90 days. Any email sent to a known district contact will appear as an activity. Gmail sync also detects bounces automatically.</p>
+
+      <h3>Call window indicator</h3>
+      <p>Once 5 days have passed since the initial email was sent and the district hasn't moved past the Email Sent stage, the dashboard flags it as ready for a call. This is part of the Summer Outreach sequence cadence.</p>
     </section>
 
     <!-- TAB: DISTRICT INFO -->
@@ -383,6 +407,91 @@
       </ol>
 
       <div class="tip">Use <strong>Draft</strong> instead of <strong>Send</strong> if you want to add a personal touch before it goes out. The draft will appear in your Gmail Drafts folder.</div>
+
+      <h3>Sending all drafts at once</h3>
+      <p>The <strong>All to Drafts</strong> button at the top of the Send Queue pushes every queued email to Gmail Drafts in one click. Useful when you want to personalize a batch before sending.</p>
+    </section>
+
+    <!-- TAB: EMAIL COPY -->
+    <section id="tab-email-copy">
+      <h2>Email Copy tab <span class="badge">Editors only</span></h2>
+      <p class="section-intro">A central place to view and edit all outreach templates. Changes apply immediately to every email sent from the Send Queue.</p>
+
+      <p>All five reps can view templates here. Christie, Eric Truog, Sudeepta, Kevin, and Eric B can also edit them — a green <strong>✓ You can edit</strong> badge appears in the header when you're signed in with editing rights.</p>
+
+      <h3>Editing a built-in template</h3>
+      <ol class="step-list">
+        <li>Find the template you want to update and click <strong>Edit</strong>.</li>
+        <li>Update the subject line and body. Use the token buttons (<code>[First Name]</code>, <code>[State Name]</code>, etc.) to insert dynamic placeholders at your cursor position.</li>
+        <li>Click <strong>Save</strong>. The change is shared with the team immediately via the shared activity log.</li>
+      </ol>
+
+      <p>Edited templates show an <em>Edited by [name] · [date]</em> tag so the team knows when copy was last changed and by whom. You can always click <strong>Reset</strong> to revert a template to its default copy.</p>
+
+      <h3>Creating a custom template</h3>
+      <p>Click the <strong>✨ New Template</strong> button (visible to editors) to create a brand-new template from scratch. Give it a name, specify the audience or states it's intended for, write the subject and body, then click <strong>Save Template</strong>. Custom templates appear below the built-in ones and can be edited or deleted at any time.</p>
+
+      <h3>Available tokens</h3>
+      <ul>
+        <li><code>[First Name]</code> — director's first name</li>
+        <li><code>[State Name]</code> — full state name (e.g. "Florida")</li>
+        <li><code>[District Name]</code> — district name</li>
+        <li><code>[Calendly Link]</code> — the sending rep's scheduling link</li>
+        <li><code>[Learn More Link]</code> — the brightwheel learn-more page link</li>
+      </ul>
+
+      <div class="tip">Template edits are synced to the shared team log, so everyone picks up the latest copy the next time they connect Gmail.</div>
+    </section>
+
+    <!-- OUTREACH SEQUENCE -->
+    <section id="sequence">
+      <h2>Outreach Sequence</h2>
+      <p class="section-intro">The dashboard tracks each district through a structured 14-day outreach sequence — the Summer Outreach campaign.</p>
+
+      <h3>Sequence stages</h3>
+      <p>Each district moves through these stages as outreach progresses:</p>
+      <ul>
+        <li><span class="stage-pill" style="background:#f3f4f6;color:#6b7280;">Not Started</span> — no outreach yet</li>
+        <li><span class="stage-pill" style="background:#dbeafe;color:#1d4ed8;">Email Sent</span> — initial email delivered (Day 0)</li>
+        <li><span class="stage-pill" style="background:#ffedd5;color:#c2410c;">Mailer Queued</span> — physical mailer sent (Day 3)</li>
+        <li><span class="stage-pill" style="background:#f3e8ff;color:#7e22ce;">VM Left</span> — call placed, voicemail left (Day 5)</li>
+        <li><span class="stage-pill" style="background:#e0e7ff;color:#4338ca;">Follow-up Sent</span> — post-call email sent (Day 7)</li>
+        <li><span class="stage-pill" style="background:#ccfbf1;color:#0f766e;">Closing Sent</span> — final closing email sent (Day 12)</li>
+        <li><span class="stage-pill" style="background:#dcfce7;color:#15803d;">Responded ✓</span> — district replied or scheduled a call</li>
+        <li><span class="stage-pill" style="background:#f1f5f9;color:#64748b;">Nurture</span> — not ready now, follow up later</li>
+      </ul>
+
+      <h3>How stages update</h3>
+      <p>Stages update automatically when Gmail sync detects a sent email or reply. You can also set a stage manually from the Prospects or Contact Tracking tabs by clicking the stage badge on a district row.</p>
+
+      <h3>Call window</h3>
+      <p>When 5 or more days have passed since the first outbound email and the district is still at Email Sent or Mailer Queued, the dashboard flags that district as ready for a call. Look for the call indicator in the Contact Tracking tab.</p>
+    </section>
+
+    <!-- PERSONALIZED EMAILS -->
+    <section id="personalized">
+      <h2>Personalized Emails</h2>
+      <p class="section-intro">For districts with enough research on file, the dashboard can generate a tailored email that references specific buying signals and recent intel.</p>
+
+      <p>When adding a district to the Send Queue, you'll see a <strong>Personalized</strong> option if the district has sufficient intel (buying signals, board notes, or recent news). This generates a one-off draft that's unique to that district rather than using a shared template.</p>
+
+      <p>Personalized emails are built from the district's buying signals and recent intel, and are automatically signed with your rep profile. They go through the same Send Queue review flow — you can edit before sending or save as a Gmail draft.</p>
+
+      <div class="tip">If a district doesn't have enough intel on file for a personalized email, the option won't appear. Use one of the standard templates instead.</div>
+    </section>
+
+    <!-- BOUNCES AND UNSUBSCRIBES -->
+    <section id="bounces-unsubs">
+      <h2>Bounces &amp; Unsubscribes</h2>
+      <p class="section-intro">The dashboard automatically tracks delivery failures and opt-outs so you don't accidentally send to bad addresses.</p>
+
+      <h3>Bounce detection</h3>
+      <p>During Gmail sync, the dashboard scans your inbox for mailer-daemon and postmaster messages. If a bounce is detected for a known district contact, that email address is flagged. You'll see a warning if you try to send to a bounced address, and they are silently skipped during bulk sends.</p>
+
+      <h3>Unsubscribes</h3>
+      <p>All emails sent from the dashboard include an unsubscribe link in the footer. When a contact clicks it, their email is recorded in the shared activity log and flagged in the dashboard. Like bounces, unsubscribed contacts are silently skipped in bulk sends. If you try to queue one individually, you'll see a confirmation prompt before it goes through.</p>
+
+      <p>Bounces and unsubscribes are shared across the team — if Christie's sync detects a bounce, Kevin and Eric B will see it flagged too the next time they load the shared log.</p>
     </section>
 
     <!-- GMAIL SYNC -->
@@ -394,6 +503,7 @@
       <ul>
         <li><strong>Sent emails</strong> — any email sent to a known district director email address in the last 90 days</li>
         <li><strong>Replies</strong> — any email received from a known district contact in the last 90 days</li>
+        <li><strong>Bounces</strong> — delivery failure notifications from mailer-daemon or postmaster in the last 90 days</li>
       </ul>
 
       <h3>What doesn't get synced</h3>
@@ -421,7 +531,9 @@
       <h2>Shared Activity Log</h2>
       <p class="section-intro">A shared log that keeps all reps' contact history in sync — so when Eric logs a call in Boise, Sudeepta sees it when she next connects Gmail.</p>
 
-      <p>Every time an activity is logged — via Gmail sync, Granola sync, or manual entry — it's written to a shared log in the background. When you connect Gmail, the shared log loads first, populating the full team history before your own Gmail sync runs.</p>
+      <p>Every time an activity is logged — via Gmail sync, Granola sync, manual entry, or a template edit — it's written to the shared log in the background. When you connect Gmail, the shared log loads first, populating the full team history before your own Gmail sync runs.</p>
+
+      <p>Bounces, unsubscribes, and template overrides are also stored in the shared log so they propagate across the whole team.</p>
 
       <div class="tip">The shared log is append-only, so nothing ever gets overwritten. The same activity will never be counted twice, even if multiple reps sync the same email thread.</div>
     </section>
@@ -434,7 +546,7 @@
       <div class="cols-2">
         <div class="card-mini">
           <h4>Your browser</h4>
-          <p>All activities and contact statuses are saved locally in your browser. Data survives page refreshes without needing to reconnect Gmail.</p>
+          <p>All activities, contact statuses, template edits, bounces, and unsubscribes are saved locally. Data survives page refreshes without needing to reconnect Gmail.</p>
         </div>
         <div class="card-mini">
           <h4>Shared team log</h4>
