@@ -2609,7 +2609,7 @@ export default function BrightwheelDashboard() {
                       />
                     </th>
                     {[
-                      { h: "Priority" }, { h: "District" }, { h: "Director" }, { h: "Curriculum" },
+                      { h: "Priority" }, { h: "District" }, { h: "Superintendent" }, { h: "Director" }, { h: "Curriculum" },
                       { h: "Adopted" }, { h: "Age" }, { h: "Enrollment" },
                       { h: "Signals", style: { minWidth: "220px" } },
                       { h: "Stage" }, { h: "Mailer" }, { h: "Actions" },
@@ -2621,7 +2621,7 @@ export default function BrightwheelDashboard() {
                 <tbody>
                   {filtered.map((d, i) => {
                     const p = getPriorityLabel(d.priority);
-                    const age = 2026 - d.curriculumAdoptionYear;
+                    const age = d.curriculumAdoptionYear ? 2026 - d.curriculumAdoptionYear : null;
                     return (
                       <tr key={d.id} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${selectedIds.has(d.id) ? "bg-indigo-50 border-l-2 border-l-indigo-400" : i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
                         <td className="px-3 py-2.5 w-8">
@@ -2648,6 +2648,20 @@ export default function BrightwheelDashboard() {
                           {d.lastUpdated && <div className="text-green-600 text-xs mt-0.5">🔄 {d.lastUpdated}</div>}
                           {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1.5 py-0 rounded font-semibold mt-0.5 inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
                         </td>
+                        <td className="px-3 py-2.5" style={{ minWidth: "140px" }}>
+                          {d.superintendent
+                            ? <>
+                                <div className="font-medium text-gray-800 flex items-center gap-1">
+                                  {d.newLeadership && <span title="Leadership change detected" className="text-purple-500">🆕</span>}
+                                  {d.superintendent}
+                                </div>
+                                {d.superintendentSince &&
+                                  <div className="text-gray-400 text-xs">{d.superintendentSince} · {new Date().getFullYear() - d.superintendentSince}yr tenure</div>
+                                }
+                              </>
+                            : <span className="text-gray-300 text-xs italic">—</span>
+                          }
+                        </td>
                         <td className="px-3 py-2.5">
                           <div className="font-medium">{d.director}</div>
                           <div className="text-gray-400 truncate max-w-36">{d.email}</div>
@@ -2658,11 +2672,17 @@ export default function BrightwheelDashboard() {
                         </td>
                         <td className="px-3 py-2.5 text-center">{d.curriculumAdoptionYear}</td>
                         <td className="px-3 py-2.5 text-center">
-                          <span className={`font-bold ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
+                          {age != null
+                            ? <span className={`font-bold ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
+                            : <span className="text-gray-300">—</span>
+                          }
                         </td>
                         <td className="px-3 py-2.5 text-right">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
                         <td className="px-3 py-2.5" style={{ minWidth: "220px" }}>
                           <div className="flex flex-wrap gap-1">
+                            {d.newLeadership && (
+                              <span className="bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded text-xs font-medium">🆕 Leadership change</span>
+                            )}
                             {(d.buyingSignals || []).length > 0 && (
                               <span className="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded text-xs">⚡ {(d.buyingSignals || []).length} signal{(d.buyingSignals || []).length > 1 ? "s" : ""}</span>
                             )}
@@ -2678,7 +2698,7 @@ export default function BrightwheelDashboard() {
                             {d.inSalesforce && (
                               <span className="bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded text-xs font-medium">✓ In SF{(d.sfContacts||[]).length > 0 ? ` (${(d.sfContacts||[]).length})` : ""}</span>
                             )}
-                            {(d.buyingSignals || []).length === 0 && (!d.boardNotes || d.boardNotes.length === 0) && (!d.districtContext || d.districtContext.length === 0) && !d.inSalesforce && <span className="text-gray-300">—</span>}
+                            {!d.newLeadership && (d.buyingSignals || []).length === 0 && (!d.boardNotes || d.boardNotes.length === 0) && (!d.districtContext || d.districtContext.length === 0) && !d.inSalesforce && <span className="text-gray-300">—</span>}
                           </div>
                         </td>
                         <td className="px-3 py-2.5">
@@ -4828,6 +4848,33 @@ export default function BrightwheelDashboard() {
             <div className="p-6">
               {modalTab === "overview" && (
                 <div className="grid grid-cols-2 gap-6">
+
+                  {/* ── Superintendent card ── */}
+                  <div className="col-span-2">
+                    <div className={`rounded-xl border px-4 py-3 flex items-center justify-between ${selectedDistrict.newLeadership ? "bg-purple-50 border-purple-200" : "bg-gray-50 border-gray-200"}`}>
+                      <div>
+                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Superintendent</span>
+                        <div className="mt-0.5 flex items-center gap-2 flex-wrap">
+                          {selectedDistrict.superintendent
+                            ? <>
+                                <span className="text-sm font-medium text-gray-800">{selectedDistrict.superintendent}</span>
+                                {selectedDistrict.superintendentSince &&
+                                  <span className="text-xs text-gray-500">· since {selectedDistrict.superintendentSince} ({new Date().getFullYear() - selectedDistrict.superintendentSince} yr tenure)</span>
+                                }
+                                {selectedDistrict.superintendentSrc &&
+                                  <a href={selectedDistrict.superintendentSrc} target="_blank" rel="noreferrer" className="text-xs text-indigo-500 hover:underline">source ↗</a>
+                                }
+                              </>
+                            : <span className="text-sm text-gray-400 italic">Not yet researched — run enrich_leadership.py</span>
+                          }
+                        </div>
+                      </div>
+                      {selectedDistrict.newLeadership &&
+                        <span className="bg-purple-100 text-purple-700 text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap ml-3">🆕 Leadership change detected</span>
+                      }
+                    </div>
+                  </div>
+
                   <div>
                     <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Contacts</h3>
                     <ContactsPanel

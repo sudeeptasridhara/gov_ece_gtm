@@ -340,9 +340,9 @@ def search_buying_signals(d: dict) -> bool:
 
 
 def search_leadership(d: dict) -> bool:
-    """Search for leadership changes. Returns True if new data found."""
+    """Search for ECE director / coordinator changes. Returns True if new data found."""
     district = d.get("district", "")
-    search_name = district.split("(")[0].strip()
+    search_name = re.sub(r"^[A-Z]{2}\s*[—\-–]\s*", "", district).split("(")[0].strip()
     changed = False
 
     leadership_query = f'"{search_name}" "early childhood" OR "vpk" director OR coordinator hired OR appointed 2025 OR 2026'
@@ -362,6 +362,137 @@ def search_leadership(d: dict) -> bool:
             d.setdefault("buyingSignals", []).append(signal)
             changed = True
             print(f"    [CONTACT ALERT] {signal[:80]}")
+
+    return changed
+
+
+# Keywords that signal a superintendent is leaving
+DEPARTURE_KEYWORDS = [
+    "resign", "retiring", "retirement", "stepping down", "leaving", "departure",
+    "fired", "terminated", "replaced", "transition", "interim superintendent",
+    "new superintendent", "named superintendent", "hired superintendent",
+    "appointed superintendent", "superintendent search", "superintendent vacancy",
+]
+
+# Keywords that signal a new superintendent is arriving
+ARRIVAL_KEYWORDS = [
+    "new superintendent", "named superintendent", "hired superintendent",
+    "appointed superintendent", "named as superintendent", "named new superintendent",
+    "will serve as superintendent", "to be superintendent",
+]
+
+
+def _extract_superintendent_name(text: str) -> str | None:
+    """Try to pull a full name from a news headline / description."""
+    import re as _re
+    NAME_PREFIX = r"(?:Dr\.?\s+|Mr\.?\s+|Ms\.?\s+|Mrs\.?\s+)?"
+    LAST_FIRST  = r"[A-Z][a-z]+(?:\s+[A-Z]\.?)?\s+[A-Z][a-z]+"
+    patterns = [
+        _re.compile(r"(?:named|hired|appointed|selected)\s+(?:as\s+)?(?:new\s+)?superintendent\s+(?:" + NAME_PREFIX + r")(" + LAST_FIRST + r")", _re.I),
+        _re.compile(r"(" + NAME_PREFIX + LAST_FIRST + r")\s+(?:named|hired|appointed|selected|tapped)\s+(?:as\s+)?(?:new\s+)?superintendent", _re.I),
+        _re.compile(r"(" + NAME_PREFIX + LAST_FIRST + r")\s+(?:retiring|resigning|stepping down|leaving)\s+as\s+superintendent", _re.I),
+        _re.compile(r"\bSuperintendent\s+(" + NAME_PREFIX + LAST_FIRST + r")", _re.I),
+    ]
+    for pat in patterns:
+        m = pat.search(text)
+        if m:
+            raw = m.group(1).strip()
+            raw = _re.sub(r"^(?:Dr\.?\s+|Mr\.?\s+|Ms\.?\s+|Mrs\.?\s+)", "", raw, flags=_re.I).strip()
+            parts = raw.split()
+            if len(parts) >= 2 and all(p[0].isupper() for p in parts if p):
+                return raw
+    return None
+
+
+def search_superintendent_changes(d: dict) -> bool:
+    """
+    Search for superintendent departures and new appointments.
+    - Sets d['newLeadership'] = True when a departure or replacement is detected.
+    - Updates d['superintendent'] if a new name is confidently identified.
+    - Adds a buying signal with source link.
+    Returns True if any new data was added.
+    """
+    district    = d.get("district", "")
+    search_name = re.sub(r"^[A-Z]{2}\s*[—\-–]\s*", "", district).split("(")[0].strip()
+    known_super = (d.get("superintendent") or "").strip().lower()
+    changed     = False
+
+    queries = [
+        f'"{search_name}" superintendent resign OR retire OR "stepping down" OR departure 2025 OR 2026',
+        f'"{search_name}" "new superintendent" OR "superintendent named" OR "superintendent appointed" 2025 OR 2026',
+        f'"{search_name}" superintendent search OR "interim superintendent" 2025 OR 2026',
+    ]
+
+    for query in queries:
+        items = fetch_rss(query, max_results=5)
+        time.sleep(1)
+
+        for item in items:
+            if not is_recent(item["published"], days=180):
+                continue
+
+            title    = item["title"]
+            title_lc = title.lower()
+            pub_date = parse_pub_date(item["published"])
+            summary  = re.sub(r"\s*-\s*Google News$", "", title).strip()
+
+            # Does this headline contain departure or arrival signals?
+            is_departure = contains_keywords(title_lc, DEPARTURE_KEYWORDS)
+            is_arrival   = contains_keywords(title_lc, ARRIVAL_KEYWORDS)
+
+            if not (is_departure or is_arrival):
+                continue
+
+            # Try to extract the name mentioned in the headline
+            found_name = _extract_superintendent_name(title)
+
+            # If we know the current superintendent and found a different name in
+            # an ARRIVAL headline, that strongly confirms a change occurred.
+            name_changed = (
+                found_name
+                and known_super
+                and found_name.lower() != known_super
+                and is_arrival
+            )
+
+            # Build the buying signal text
+            if is_departure and not is_arrival:
+                emoji   = "🚨"
+                label   = "Superintendent departing"
+                detail  = found_name or "name not confirmed"
+            elif name_changed:
+                emoji   = "🆕"
+                label   = "New superintendent"
+                detail  = found_name
+            elif is_arrival:
+                emoji   = "🆕"
+                label   = "Superintendent appointment"
+                detail  = found_name or summary[:60]
+            else:
+                emoji   = "⚠️"
+                label   = "Leadership transition signal"
+                detail  = summary[:60]
+
+            signal = f"{emoji} {label}: {detail} ({pub_date})"
+
+            if not already_captured(d.get("buyingSignals", []), signal):
+                d.setdefault("buyingSignals", []).append(signal)
+                changed = True
+                print(f"    [SUPERINTENDENT] {signal[:90]}")
+
+            # Mark newLeadership flag
+            if not d.get("newLeadership"):
+                d["newLeadership"] = True
+                changed = True
+                print(f"    [SUPERINTENDENT] newLeadership flag set")
+
+            # Update stored superintendent name if we found a new one with high confidence
+            if name_changed and found_name:
+                d["superintendent"]          = found_name
+                d["superintendentSince"]     = int(pub_date[:4]) if pub_date else None
+                d["superintendentSrc"]       = item["link"]
+                changed = True
+                print(f"    [SUPERINTENDENT] Updated to: {found_name}")
 
     return changed
 
@@ -522,8 +653,11 @@ def update_district(d: dict) -> bool:
     # 2. General buying signals
     changed |= search_buying_signals(d)
 
-    # 3. Leadership changes
+    # 3. ECE director / coordinator changes
     changed |= search_leadership(d)
+
+    # 3b. Superintendent departure / appointment tracking
+    changed |= search_superintendent_changes(d)
 
     # 4. Strategic plans and district initiatives
     changed |= search_strategic_plan(d)
