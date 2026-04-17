@@ -4830,7 +4830,7 @@ export default function BrightwheelDashboard() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityLabel(selectedDistrict.priority).color}`}>
-                    {getPriorityLabel(selectedDistrict.priority).label} · {selectedDistrict.priority}/100
+                    {getPriorityLabel(selectedDistrict.priority).label} · {selectedDistrict.priority ?? "—"}/100
                   </span>
                   {selectedDistrict.newLeadership && <span className="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full">🆕 New Leadership</span>}
                 </div>
@@ -5110,7 +5110,7 @@ export default function BrightwheelDashboard() {
                   {(selectedDistrict.recentNews?.length > 0) && (
                     <div className="col-span-2">
                       <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Recent News</h3>
-                      {selectedDistrict.recentNews.map((n, i) => (
+                      {(selectedDistrict.recentNews || []).map((n, i) => (
                         <div key={i} className="flex items-start gap-2 text-sm text-gray-700 mb-1">
                           <span className="text-indigo-400 mt-0.5">📰</span>{n}
                         </div>
@@ -5157,7 +5157,7 @@ export default function BrightwheelDashboard() {
                   {selectedDistrict.activities?.length > 0 && (
                     <div className="col-span-2">
                       <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Contact History</h3>
-                      {selectedDistrict.activities.map((a) => (
+                      {(selectedDistrict.activities || []).map((a) => (
                         <div key={a.id} className="flex gap-2 items-start text-xs text-gray-600 border-l-2 border-indigo-200 pl-3 mb-2">
                           <span className="font-medium capitalize text-indigo-600">{a.type}</span>
                           <span className="text-gray-400">{a.date}</span>
