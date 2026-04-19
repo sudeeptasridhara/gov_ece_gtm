@@ -2547,55 +2547,59 @@ export default function BrightwheelDashboard() {
         {/* ── PROSPECTS TAB ── */}
         {activeTab === "prospects" && (
           <div>
-            {/* Filters */}
-            <div className="flex flex-nowrap gap-3 mb-4 items-center overflow-x-auto pb-1">
-              <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="🔍 Search district, director, county..."
-                className="border border-gray-200 rounded-lg px-3 py-2 text-sm flex-shrink-0 w-56 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-              />
-              {[
-                { label: "State", val: filterState, setter: setFilterState, opts: [["all","All States"],["FL","Florida"],["AL","Alabama"],["GA","Georgia"],["MI","Michigan"],["ID","Idaho"],["UT","Utah"],["CO","Colorado"],["NV","Nevada"],["NM","New Mexico"],["AZ","Arizona"],["CA","California"],["OR","Oregon"],["WA","Washington"]] },
-                { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
-                { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
-                { label: "Stage", val: filterStatus, setter: setFilterStatus, opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])] },
-                { label: "Rep", val: globalRepFilter, setter: setGlobalRepFilter, opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])] },
-                { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","All"], ["in_sf","✓ In Salesforce"], ["not_in_sf","Not in SF"]] },
-                { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","All Sizes"],["lt500","< 500"],["500to1k","500 – 1,000"],["1kto3k","1,000 – 3,000"],["3kplus","3,000+"]] },
-              ].map((f) => (
-                <select
-                  key={f.label}
-                  value={f.val}
-                  onChange={(e) => f.setter(e.target.value)}
-                  style={{ maxWidth: "180px" }}
-                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                >
-                  {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-                </select>
-              ))}
-              <div className="flex items-center gap-1.5 flex-shrink-0 border-l border-gray-200 pl-3 ml-1">
-                <span className="text-xs text-gray-400 whitespace-nowrap">Sort:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  style={{ maxWidth: "160px" }}
-                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                >
-                  <option value="priority">⚡ Priority Score</option>
-                  <option value="enrollment">🏫 District Size</option>
-                  <option value="tier">🏆 Tier</option>
-                  <option value="adoptionYear">📅 Adoption Year (oldest)</option>
-                  <option value="lastUpdated">🔄 Recently Updated</option>
-                  <option value="status">📊 Status</option>
-                </select>
+            {/* Filters — two-row layout so everything fits at 100% zoom */}
+            <div className="mb-4 space-y-2">
+              {/* Row 1: search + primary filters */}
+              <div className="flex flex-wrap gap-2 items-center">
+                <input
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="🔍 Search district, director, county..."
+                  className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-52 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                />
+                {[
+                  { label: "State",    val: filterState,    setter: setFilterState,    opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]] },
+                  { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
+                  { label: "Stage",    val: filterStatus,   setter: setFilterStatus,   opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])] },
+                  { label: "Rep",      val: globalRepFilter, setter: setGlobalRepFilter, opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])] },
+                ].map((f) => (
+                  <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
+                ))}
+                <span className="text-xs text-gray-400 ml-auto whitespace-nowrap font-medium">{filtered.length} results</span>
               </div>
-              <span className="text-xs text-gray-400 ml-1 flex-shrink-0 whitespace-nowrap">{filtered.length} results</span>
+              {/* Row 2: secondary filters + sort */}
+              <div className="flex flex-wrap gap-2 items-center">
+                {[
+                  { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
+                  { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","In / Out SF"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]] },
+                  { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","All Sizes"],["lt500","< 500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]] },
+                ].map((f) => (
+                  <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
+                ))}
+                <div className="flex items-center gap-1.5 flex-shrink-0 border-l border-gray-200 pl-2 ml-1">
+                  <span className="text-xs text-gray-400 whitespace-nowrap">Sort:</span>
+                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    <option value="priority">⚡ Priority</option>
+                    <option value="enrollment">🏫 Size</option>
+                    <option value="tier">🏆 Tier</option>
+                    <option value="adoptionYear">📅 Adoption (oldest)</option>
+                    <option value="lastUpdated">🔄 Updated</option>
+                    <option value="status">📊 Stage</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
-            {/* Table */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <table className="w-full text-xs">
+            {/* Table — horizontally scrollable so it never pushes the page wider than the viewport */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-x-auto">
+              <table className="w-full text-xs" style={{ minWidth: "900px" }}>
                 <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wide">
                   <tr>
                     <th className="px-3 py-3 w-8">
@@ -2609,12 +2613,13 @@ export default function BrightwheelDashboard() {
                       />
                     </th>
                     {[
-                      { h: "Priority" }, { h: "District" }, { h: "Superintendent" }, { h: "Director" }, { h: "Curriculum" },
-                      { h: "Adopted" }, { h: "Age" }, { h: "Enrollment" },
-                      { h: "Signals", style: { minWidth: "220px" } },
-                      { h: "Stage" }, { h: "Mailer" }, { h: "Actions" },
+                      { h: "Priority" }, { h: "District" }, { h: "Supt." }, { h: "Director" }, { h: "Curriculum" },
+                      { h: "Adopted", style: { width: "64px" } }, { h: "Age", style: { width: "42px" } },
+                      { h: "Enroll.", style: { width: "64px" } },
+                      { h: "Signals", style: { minWidth: "180px" } },
+                      { h: "Stage" }, { h: "Mailer", style: { width: "52px" } }, { h: "Actions" },
                     ].map(({ h, style }) => (
-                      <th key={h} className="px-3 py-3 text-left font-medium" style={style}>{h}</th>
+                      <th key={h} className="px-2 py-2.5 text-left font-medium" style={style}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -2624,7 +2629,7 @@ export default function BrightwheelDashboard() {
                     const age = d.curriculumAdoptionYear ? 2026 - d.curriculumAdoptionYear : null;
                     return (
                       <tr key={d.id} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${selectedIds.has(d.id) ? "bg-indigo-50 border-l-2 border-l-indigo-400" : i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
-                        <td className="px-3 py-2.5 w-8">
+                        <td className="px-2 py-2 w-7">
                           <input
                             type="checkbox"
                             checked={selectedIds.has(d.id)}
@@ -2633,52 +2638,51 @@ export default function BrightwheelDashboard() {
                             className="rounded border-gray-300 text-indigo-600 cursor-pointer"
                           />
                         </td>
-                        <td className="px-3 py-2.5">
-                          <div className="flex flex-col gap-1">
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium w-fit ${p.color}`}>{p.label}</span>
-                            <span className="text-gray-400 text-xs">{d.priority}/100</span>
+                        <td className="px-2 py-2">
+                          <div className="flex flex-col gap-0.5">
+                            <span className={`px-1.5 py-0.5 rounded-full text-xs font-medium w-fit ${p.color}`}>{p.label}</span>
+                            <span className="text-gray-400 text-xs">{d.priority ?? "—"}/100</span>
                           </div>
                         </td>
-                        <td className="px-3 py-2.5">
-                          <div className="font-medium text-gray-900 flex items-center gap-1.5">
-                            {d.county} County
-                            {d.state && d.state !== "FL" && <span className="text-xs bg-blue-100 text-blue-700 px-1.5 py-0 rounded font-semibold">{d.state}</span>}
+                        <td className="px-2 py-2" style={{ maxWidth: "130px" }}>
+                          <div className="font-medium text-gray-900 flex items-center gap-1 truncate">
+                            {d.county}
+                            {d.state && d.state !== "FL" && <span className="text-xs bg-blue-100 text-blue-700 px-1 py-0 rounded font-semibold flex-shrink-0">{d.state}</span>}
                           </div>
-                          <div className="text-gray-400 text-xs truncate max-w-32">{d.district}</div>
-                          {d.lastUpdated && <div className="text-green-600 text-xs mt-0.5">🔄 {d.lastUpdated}</div>}
-                          {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1.5 py-0 rounded font-semibold mt-0.5 inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
+                          <div className="text-gray-400 text-xs truncate">{d.district}</div>
+                          {d.lastUpdated && <div className="text-green-600 text-xs">🔄 {d.lastUpdated}</div>}
+                          {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1 py-0 rounded font-semibold inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
                         </td>
-                        <td className="px-3 py-2.5" style={{ minWidth: "140px" }}>
+                        <td className="px-2 py-2" style={{ maxWidth: "120px" }}>
                           {d.superintendent
                             ? <>
-                                <div className="font-medium text-gray-800 flex items-center gap-1">
-                                  {d.newLeadership && <span title="Leadership change detected" className="text-purple-500">🆕</span>}
-                                  {d.superintendent}
+                                <div className="font-medium text-gray-800 flex items-center gap-0.5 truncate text-xs">
+                                  {d.newLeadership && <span title="Leadership change" className="text-purple-500 flex-shrink-0">🆕</span>}
+                                  <span className="truncate">{d.superintendent}</span>
                                 </div>
                                 {d.superintendentSince &&
-                                  <div className="text-gray-400 text-xs">{d.superintendentSince} · {new Date().getFullYear() - d.superintendentSince}yr tenure</div>
+                                  <div className="text-gray-400 text-xs">{d.superintendentSince} · {new Date().getFullYear() - d.superintendentSince}yr</div>
                                 }
                               </>
-                            : <span className="text-gray-300 text-xs italic">—</span>
+                            : <span className="text-gray-300 text-xs">—</span>
                           }
                         </td>
-                        <td className="px-3 py-2.5">
-                          <div className="font-medium">{d.director}</div>
-                          <div className="text-gray-400 truncate max-w-36">{d.email}</div>
-                          <div className="text-gray-400">{d.phone}</div>
+                        <td className="px-2 py-2" style={{ maxWidth: "120px" }}>
+                          <div className="font-medium truncate">{d.director}</div>
+                          <div className="text-gray-400 truncate text-xs">{d.email}</div>
                         </td>
-                        <td className="px-3 py-2.5">
-                          <span className="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-xs">{d.curriculum}</span>
+                        <td className="px-2 py-2" style={{ maxWidth: "110px" }}>
+                          <span className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs truncate block">{d.curriculum}</span>
                         </td>
-                        <td className="px-3 py-2.5 text-center">{d.curriculumAdoptionYear}</td>
-                        <td className="px-3 py-2.5 text-center">
+                        <td className="px-2 py-2 text-center text-xs">{d.curriculumAdoptionYear ?? "—"}</td>
+                        <td className="px-2 py-2 text-center">
                           {age != null
-                            ? <span className={`font-bold ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
-                            : <span className="text-gray-300">—</span>
+                            ? <span className={`font-bold text-xs ${age >= 6 ? "text-red-600" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>{age}y</span>
+                            : <span className="text-gray-300 text-xs">—</span>
                           }
                         </td>
-                        <td className="px-3 py-2.5 text-right">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
-                        <td className="px-3 py-2.5" style={{ minWidth: "220px" }}>
+                        <td className="px-2 py-2 text-right text-xs">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
+                        <td className="px-2 py-2" style={{ minWidth: "180px" }}>
                           <div className="flex flex-wrap gap-1">
                             {d.newLeadership && (
                               <span className="bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded text-xs font-medium">🆕 Leadership change</span>
@@ -2714,17 +2718,17 @@ export default function BrightwheelDashboard() {
                             {!d.newLeadership && (d.buyingSignals || []).length === 0 && (!d.boardNotes || d.boardNotes.length === 0) && (!d.districtContext || d.districtContext.length === 0) && !d.inSalesforce && !d.demographics && !d.nicheGrade && <span className="text-gray-300">—</span>}
                           </div>
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2 py-2">
                           {/* Stage badge + dropdown */}
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-0.5">
                             {callWindowOpen(d) && (
-                              <span className="text-xs bg-yellow-100 text-yellow-700 border border-yellow-300 px-1.5 py-0.5 rounded font-semibold w-fit">📞 Call due</span>
+                              <span className="text-xs bg-yellow-100 text-yellow-700 border border-yellow-300 px-1 py-0 rounded font-semibold w-fit">📞 Due</span>
                             )}
                             <select
                               value={d.status || "not_started"}
                               onChange={(e) => updateStage(d.id, e.target.value)}
                               onClick={(e) => e.stopPropagation()}
-                              className={`text-xs px-2 py-0.5 rounded-full font-medium border-0 cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-300 ${stageColor(d.status || "not_started")}`}
+                              className={`text-xs px-1.5 py-0.5 rounded-full font-medium border-0 cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-300 ${stageColor(d.status || "not_started")}`}
                             >
                               {Object.entries(SEQUENCE_STAGES).map(([k, v]) => (
                                 <option key={k} value={k}>{v.label}</option>
@@ -2732,7 +2736,7 @@ export default function BrightwheelDashboard() {
                             </select>
                           </div>
                         </td>
-                        <td className="px-3 py-2.5 text-center">
+                        <td className="px-2 py-2 text-center">
                           <label className="flex flex-col items-center gap-0.5 cursor-pointer" title={d.mailerSent ? "Mailer sent" : "Mark mailer as sent"}>
                             <input
                               type="checkbox"
@@ -2741,10 +2745,10 @@ export default function BrightwheelDashboard() {
                               onClick={(e) => e.stopPropagation()}
                               className="rounded border-gray-300 text-orange-500 cursor-pointer"
                             />
-                            <span className="text-xs text-gray-400">{d.mailerSent ? "✓ sent" : "—"}</span>
+                            <span className="text-xs text-gray-400">{d.mailerSent ? "✓" : "—"}</span>
                           </label>
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2 py-2">
                           <div className="flex gap-1 items-center relative">
                             <button
                               onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}
