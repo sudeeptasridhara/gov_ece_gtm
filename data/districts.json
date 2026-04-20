@@ -20738,13 +20738,13 @@
     "id": 437,
     "state": "NV",
     "county": "Mineral",
-    "district": "Stacie King \u2014 Mineral County School District",
+    "district": "Claire Hayhurst \u2014 Mineral County School District",
     "enrollment": 600,
-    "director": "Stacie King",
-    "title": "Coordinator, Special Education",
+    "director": "Claire Hayhurst",
+    "title": "Principal, Hawthorne Elementary School (Nevada Ready! Pre-K Program Contact)",
     "callToConfirm": false,
-    "email": "King.Stacie@nvmcsd.org",
-    "phone": "(775) 945-2403",
+    "email": "claire.hayhurst@nvmcsd.org",
+    "phone": "(775) 945-1000 ext. 3013",
     "address": "P.O. Box 1540, Hawthorne, NV 89415",
     "linkedin": "",
     "curriculum": "Aligned to NV Pre-K Standards 2023",
@@ -20760,12 +20760,17 @@
     "priority": 2,
     "notes": "",
     "activities": [],
-    "lastUpdated": "2026-03-31",
+    "lastUpdated": "2026-04-20",
     "boardNotes": [
       {
         "date": "2026-03-31",
         "summary": "Small district. Superintendent: Stephanie Keuhey. Paul McDonald also listed as Spec Ed Coord: mcdonald.paul@nvmcsd.org. Rural COW bus literacy program signals active ECE investment.",
         "source": "https://webapp-strapi-paas-prod-nde-001.azurewebsites.net/uploads/Administrators_List_6d1e26273e.pdf"
+      },
+      {
+        "date": "2026-04-20",
+        "summary": "Contact updated to Claire Hayhurst per Nevada DOE Nevada Ready! Pre-K sub-grantees list. Hayhurst is the Hawthorne Elementary School Principal and the officially designated Pre-K program contact for Mineral County SD. Prior contact (Stacie King, Special Ed Coordinator) was replaced. For small districts, the state DOE Pre-K contact listing takes precedence over internal staff directory titles.",
+        "source": "https://doe.nv.gov/offices/oeld/ece-professionals/nevada-ready-state-pre-k-professionals"
       }
     ],
     "districtContext": [
