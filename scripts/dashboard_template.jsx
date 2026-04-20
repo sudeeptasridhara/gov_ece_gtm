@@ -102,6 +102,7 @@ const REP_PROFILES = {
     calendly: "https://mybrightwheel.chilipiper.com/me/christie-cooley/meeting-with-christie-cooley",
     color: "bg-purple-100 text-purple-700",
     initials: "CC",
+    learnMoreUrl: "https://bw-gov.github.io/gov_ece_gtm/learn-more.html",
   },
   "eric.truog@mybrightwheel.com": {
     name: "Eric Truog",
@@ -111,6 +112,7 @@ const REP_PROFILES = {
     calendly: "", // add link when available
     color: "bg-blue-100 text-blue-700",
     initials: "ET",
+    learnMoreUrl: "https://bw-gov.github.io/gov_ece_gtm/learn-more.html",
   },
   "kevin.elston@mybrightwheel.com": {
     name: "Kevin Elston",
@@ -120,6 +122,7 @@ const REP_PROFILES = {
     calendly: "https://mybrightwheel.chilipiper.com/me/kevin-elston/meeting-with-kevin-elston",
     color: "bg-green-100 text-green-700",
     initials: "KE",
+    learnMoreUrl: "https://bw-gov.github.io/gov_ece_gtm/learn-more.html",
   },
   "eric.bernstein@mybrightwheel.com": {
     name: "Eric Bernstein",
@@ -129,6 +132,7 @@ const REP_PROFILES = {
     calendly: "https://mybrightwheel.chilipiper.com/personal-page/eric-bernstein",
     color: "bg-orange-100 text-orange-700",
     initials: "EB",
+    learnMoreUrl: "https://bw-gov.github.io/gov_ece_gtm/summer-solutions-eb.pdf",
   },
   "sudeepta.sridhara@mybrightwheel.com": {
     name: "Sudeepta Sridhara",
@@ -138,6 +142,7 @@ const REP_PROFILES = {
     calendly: "",
     color: "bg-rose-100 text-rose-700",
     initials: "SS",
+    learnMoreUrl: "https://bw-gov.github.io/gov_ece_gtm/learn-more.html",
   },
 };
 const DEFAULT_REP = REP_PROFILES["christie.cooley@mybrightwheel.com"];
@@ -445,7 +450,7 @@ function generateEmail(district, template, rep) {
       hiGreeting +
       ep(`Many districts are looking for ways to increase Kindergarten readiness scores and support students transitioning into Kindergarten.`) +
       ep(`Brightwheel's Experience Preschool is a flexible, play-based curriculum designed to support 4–8 week summer programs that help incoming Kindergarten students build the skills measured in readiness assessments. Because lessons are pre-packaged and organized by the day, many districts use it for summer programs.`) +
-      ep(`${ea(LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming.`) +
+      ep(`${ea(r?.learnMoreUrl || LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming.`) +
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
@@ -465,7 +470,7 @@ function generateEmail(district, template, rep) {
         <li style="${S.li}"><strong>Easy to Implement:</strong> Whether your staff includes seasoned veterans or teachers just finding their footing, Experience Curriculum is ready to run from day one with access to free onboarding &amp; training.</li>
         <li style="${S.li}"><strong>Built-in progress monitoring:</strong> Student observations and attendance documentation are integrated through the Brightwheel app.</li>
       </ul>` +
-      ep(`${ea(LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming for VPK students.`) +
+      ep(`${ea(r?.learnMoreUrl || LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming for VPK students.`) +
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
@@ -504,7 +509,7 @@ function generateEmail(district, template, rep) {
         <li style="${S.li}"><strong>Easy to Implement:</strong> Whether your staff includes seasoned veterans or teachers just finding their footing, Experience Curriculum is ready to run from day one with access to free onboarding &amp; training.</li>
         <li style="${S.li}"><strong>Built-in progress monitoring:</strong> Student observations and attendance documentation are integrated through the Brightwheel app.</li>
       </ul>` +
-      ep(`${ea(LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming for VPK students.`) +
+      ep(`${ea(r?.learnMoreUrl || LEARN_MORE_URL, "Click here to learn more")} if your program is planning summer readiness or transition programming for VPK students.`) +
       ep(`I'd be happy to share a quick overview or send sample materials. Use the link below to schedule a quick connect.`) +
       calendlyLink,
       unsubUrl,
@@ -549,7 +554,7 @@ function generateEmailFromOverride(override, district, rep) {
   const stateName = STATE_NAMES[district.state || "FL"] || district.state || "FL";
   const shortName = district.district.includes(" — ") ? district.district.split(" — ").slice(1).join(" — ") : district.district;
   const calendlyHtml = r && r.calendly ? ea(r.calendly, "Schedule time with me →") : "Happy to find a time — just reply and we can schedule a quick connect.";
-  const learnMoreHtml = ea(LEARN_MORE_URL, "Click here to learn more");
+  const learnMoreHtml = ea(r?.learnMoreUrl || LEARN_MORE_URL, "Click here to learn more");
   const unsubName  = (isSB && district.summerBridgeContact) ? district.summerBridgeContact.fullName : district.director;
   const unsubEmail = (isSB && district.summerBridgeContact) ? district.summerBridgeContact.email : district.email;
   const unsubUrl   = buildUnsubUrl(unsubName, unsubEmail, district.district, district.id);
