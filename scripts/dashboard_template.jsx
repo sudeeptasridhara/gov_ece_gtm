@@ -1718,7 +1718,13 @@ export default function BrightwheelDashboard() {
       ...(opts.body ? { body: opts.body } : {}),
     });
     if (res.status === 401 || res.status === 403) { const e = new Error("auth"); e.status = res.status; throw e; }
-    if (!res.ok) throw new Error(`Sheets ${res.status}`);
+    if (!res.ok) {
+      let detail = "";
+      try { const j = await res.json(); detail = j?.error?.message || JSON.stringify(j); } catch {}
+      const e = new Error(`Sheets ${res.status}${detail ? ": " + detail : ""}`);
+      e.status = res.status;
+      throw e;
+    }
     return res.json();
   };
 
@@ -1904,8 +1910,9 @@ export default function BrightwheelDashboard() {
       });
     } catch (e) {
       console.warn("Sheet write:", e.message);
-      if (e.status === 403) showNotif("Sheet write failed: Sheets API may not be enabled in Google Cloud, or the sheet isn't shared with your account", "red");
+      if (e.status === 403) showNotif("Sheet write failed: Sheets API may not be enabled, or the sheet isn't shared with your account", "red");
       else if (e.status === 401) showNotif("Sheet write failed: reconnect Gmail to refresh your token", "red");
+      else if (e.status === 400) showNotif(`Sheet write failed (400) — disconnect Gmail and reconnect to refresh your access token, then try again. Detail: ${e.message}`, "red");
       else showNotif(`Sheet write failed: ${e.message}`, "red");
     }
   };
@@ -2458,13 +2465,13 @@ export default function BrightwheelDashboard() {
                   { key: "note",     label: "📝 Notes",    color: "text-gray-600",   bg: "bg-gray-50"   },
                 ];
 
-                // Flatten all activities from every district, attributing each
-                // to the rep who owns that district's state (fallback when repEmail
-                // is blank — covers activities logged before the field existed or
-                // without Gmail sign-in). District state is the authoritative source
-                // since it's always populated from localStorage / JSON.
+                // Flatten all activities from every district that passes the current
+                // state + rep filters (ovDistricts already accounts for both). We
+                // attribute each activity to the rep who owns the district's state
+                // (fallback when repEmail is blank — covers activities logged before
+                // the field existed or without Gmail sign-in).
                 const allActivities = [];
-                districts.forEach(d => {
+                ovDistricts.forEach(d => {
                   const ownerEmail = STATE_REP_EMAIL[d.state || "FL"] || "";
                   (d.activities || []).forEach(a => {
                     allActivities.push({
