@@ -714,6 +714,29 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
     onUpdate({ additionalContacts: additionalContacts.filter(c => c.id !== contactId) });
   };
 
+  const makePrimary = (contactId) => {
+    const contact = additionalContacts.find(c => c.id === contactId);
+    if (!contact) return;
+    // Build the old primary as an additional contact entry (if it has a name)
+    const oldPrimaryEntry = mainName ? {
+      id: `contact_${Date.now()}`,
+      name: mainName,
+      firstName: mainName.split(" ")[0],
+      title: mainTitle,
+      email: mainEmail,
+      phone: mainPhone,
+      role: "Former Primary",
+      isBounced: false,
+    } : null;
+    const newAdditional = additionalContacts
+      .filter(c => c.id !== contactId)
+      .concat(oldPrimaryEntry ? [oldPrimaryEntry] : []);
+    onUpdate({
+      contactEdits: { director: contact.name, title: contact.title, email: contact.email, phone: contact.phone },
+      additionalContacts: newAdditional,
+    });
+  };
+
   const inputCls = "w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200";
   const labelCls = "text-xs font-semibold text-gray-400 uppercase tracking-wide block mb-0.5";
 
@@ -799,7 +822,14 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
               )}
             </div>
             {editTarget !== c.id && (
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
+                {c.email && (
+                  <button
+                    onClick={() => makePrimary(c.id)}
+                    title="Make this the primary contact"
+                    className="text-xs text-amber-600 hover:text-amber-800 border border-amber-200 hover:bg-amber-50 px-2 py-0.5 rounded font-medium"
+                  >⭐ Make Primary</button>
+                )}
                 <button onClick={() => { setEditTarget(c.id); setDraft({ name: c.name, firstName: c.firstName, title: c.title, email: c.email, phone: c.phone, role: c.role }); }}
                   className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">✏️ Edit</button>
                 <button onClick={() => deleteContact(c.id)} className="text-xs text-red-400 hover:text-red-600 font-medium">✕</button>
@@ -928,6 +958,7 @@ export default function BrightwheelDashboard() {
   const [diInfoSearch, setDiInfoSearch] = useState("");
   const [diInfoSelectedId, setDiInfoSelectedId] = useState(null);
   const [diInfoEmailTemplate, setDiInfoEmailTemplate] = useState("original");
+  const [diInfoContactId, setDiInfoContactId] = useState(null); // null = primary; contact.id = additional contact
   const [diInfoShowResults, setDiInfoShowResults] = useState(false);
 
   // ── CONTACT TRACKING ──
@@ -2081,52 +2112,65 @@ export default function BrightwheelDashboard() {
     writeToSheet([activityToRow(district.id, district.district, act)]);
   };
 
-  const queueEmail = (district, template, silent = false, forceUnsub = false, forceBounce = false) => {
-    const contact = resolveContact(district, template);
+  const queueEmail = (district, template, silent = false, forceUnsub = false, forceBounce = false, contactOverride = null) => {
+    // contactOverride: { name, firstName, email, title, phone } — if provided, use instead of resolveContact
+    const contact = contactOverride || resolveContact(district, template);
     if (!contact.email) {
-      showNotif(`⚠️ No email on file for ${district.director || district.district} — skipped`, "red");
+      showNotif(`⚠️ No email on file for ${contact.name || district.director || district.district} — skipped`, "red");
       return;
     }
     // Bounce guard
     const isBounce = bounces.has((contact.email || "").toLowerCase());
     if (isBounce && !forceBounce) {
       if (silent) return;
-      setBounceConfirm({ district, template, contactEmail: contact.email, contactName: contact.name });
+      setBounceConfirm({ district, template, contactEmail: contact.email, contactName: contact.name, contactOverride });
       return;
     }
     // Unsubscribe guard
     const isUnsub = unsubs.has((contact.email || "").toLowerCase());
     if (isUnsub && !forceUnsub) {
-      if (silent) return; // silently skip bulk / mass sends
-      // Manual single send — show confirmation dialog
-      setUnsubConfirm({ district, template, contactEmail: contact.email, contactName: contact.name });
+      if (silent) return;
+      setUnsubConfirm({ district, template, contactEmail: contact.email, contactName: contact.name, contactOverride });
       return;
     }
+    // Patch district so email body greets the right person
+    const districtForEmail = contactOverride ? {
+      ...district,
+      director: contactOverride.name,
+      email: contactOverride.email,
+      contactEdits: {
+        ...(district.contactEdits || {}),
+        director: contactOverride.name,
+        email: contactOverride.email,
+        title: contactOverride.title || "",
+        phone: contactOverride.phone || "",
+      },
+    } : district;
     const body = template === "personalized"
-      ? generatePersonalizedEmail(district, currentRep)
-      : getEmailBody(district, template, currentRep);
+      ? generatePersonalizedEmail(districtForEmail, currentRep)
+      : getEmailBody(districtForEmail, template, currentRep);
     if (!body) {
       showNotif(`⚠️ Not enough intel to personalize email for ${district.district}`, "red");
       return;
     }
     const item = {
-      id: Date.now() + Math.random(), // unique even when called rapidly in bulk
+      id: Date.now() + Math.random(),
       district: district.district,
       districtId: district.id,
       to: contact.email,
       directorName: contact.name,
-      isSummerBridgeContact: contact.isSummerBridge,
+      isSummerBridgeContact: contact.isSummerBridge || false,
       template,
       body,
       status: "pending",
       createdAt: new Date().toLocaleString(),
     };
     setApprovalQueue((prev) => {
-      // Skip if this district+template combo is already queued
-      if (prev.find((x) => x.districtId === district.id && x.template === template)) return prev;
+      // Allow multiple contacts from same district — dedupe by district+template+email
+      if (prev.find((x) => x.districtId === district.id && x.template === template && x.to === contact.email)) return prev;
       return [item, ...prev];
     });
-    if (!silent) showNotif(`📧 Queued — ${district.director}`);
+    if (!silent) showNotif(`📧 Queued for ${contact.name || district.director}`);
   };
 
   const approveEmail = (queueItem) => {
@@ -4515,7 +4559,7 @@ export default function BrightwheelDashboard() {
                           <div
                             key={d.id}
                             className="px-3 py-2.5 hover:bg-indigo-50 cursor-pointer border-b border-gray-50 last:border-b-0"
-                            onMouseDown={() => { setDiInfoSelectedId(d.id); setDiInfoSearch(shortN); setDiInfoShowResults(false); setDiInfoEmailTemplate("original"); }}
+                            onMouseDown={() => { setDiInfoSelectedId(d.id); setDiInfoSearch(shortN); setDiInfoShowResults(false); setDiInfoEmailTemplate("original"); setDiInfoContactId(null); }}
                           >
                             <div className="flex items-center justify-between gap-2">
                               <div className="min-w-0">
@@ -4718,48 +4762,89 @@ export default function BrightwheelDashboard() {
                     {/* Email Drafts */}
                     <div className="bg-white rounded-xl border border-gray-200 p-4">
                       <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">✉️ Email Drafts</h4>
-                      {!selectedDi.email ? (
+                      {!selectedDi.email && !(selectedDi.additionalContacts || []).some(c => c.email) ? (
                         <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3">⚠️ No email address on file for this district — cannot draft or queue.</p>
-                      ) : (
-                        <div>
-                          <div className="flex items-center gap-3 mb-3 flex-wrap">
-                            <select
-                              value={diInfoEmailTemplate}
-                              onChange={e => setDiInfoEmailTemplate(e.target.value)}
-                              className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                            >
-                              {diTemplateOptions.map(t => (
-                                <option key={t.key} value={t.key}>{t.label}</option>
-                              ))}
-                            </select>
-                            <button
-                              onClick={() => {
-                                const body = diInfoEmailTemplate === "personalized"
-                                  ? generatePersonalizedEmail(selectedDi, currentRep)
-                                  : getEmailBody(selectedDi, diInfoEmailTemplate, currentRep);
-                                if (!body) { showNotif("⚠️ No email body generated", "red"); return; }
-                                setEmailPreview(body);
-                                setShowEmailPreview(true);
-                              }}
-                              className="text-xs border border-gray-200 px-3 py-2 rounded-lg hover:bg-gray-50 font-medium"
-                            >Preview</button>
-                            <button
-                              onClick={() => queueEmail(selectedDi, diInfoEmailTemplate)}
-                              className="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 font-medium"
-                            >Add to Send Queue →</button>
+                      ) : (() => {
+                        // Build the list of sendable contacts
+                        const primaryEmail = selectedDi.contactEdits?.email ?? selectedDi.email ?? "";
+                        const primaryName  = selectedDi.contactEdits?.director ?? selectedDi.director ?? "";
+                        const contactOptions = [
+                          ...(primaryEmail ? [{ id: null, label: `${primaryName} (Primary)`, name: primaryName, firstName: primaryName.split(" ")[0], email: primaryEmail, title: selectedDi.contactEdits?.title ?? selectedDi.title ?? "", phone: selectedDi.contactEdits?.phone ?? selectedDi.phone ?? "" }] : []),
+                          ...(selectedDi.additionalContacts || []).filter(c => c.email).map(c => ({ id: c.id, label: `${c.name}${c.role ? " — " + c.role : ""}`, name: c.name, firstName: c.firstName || c.name.split(" ")[0], email: c.email, title: c.title || "", phone: c.phone || "" })),
+                        ];
+                        const selectedContactOpt = diInfoContactId ? contactOptions.find(o => o.id === diInfoContactId) : contactOptions[0];
+                        const contactOverrideForQueue = selectedContactOpt?.id !== null ? selectedContactOpt : null;
+                        return (
+                          <div>
+                            {/* Recipient selector — only shown when there are additional contacts with emails */}
+                            {contactOptions.length > 1 && (
+                              <div className="mb-3">
+                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide block mb-1">Send to</label>
+                                <div className="flex flex-wrap gap-2">
+                                  {contactOptions.map(opt => (
+                                    <button
+                                      key={opt.id ?? "primary"}
+                                      onClick={() => setDiInfoContactId(opt.id)}
+                                      className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+                                        (diInfoContactId === opt.id || (!diInfoContactId && opt.id === null))
+                                          ? "bg-indigo-600 text-white border-indigo-600"
+                                          : "bg-white text-gray-600 border-gray-300 hover:border-indigo-400 hover:text-indigo-600"
+                                      }`}
+                                    >
+                                      {opt.label}
+                                    </button>
+                                  ))}
+                                </div>
+                                {selectedContactOpt && (
+                                  <p className="text-xs text-gray-400 mt-1">📧 {selectedContactOpt.email}</p>
+                                )}
+                              </div>
+                            )}
+                            <div className="flex items-center gap-3 mb-3 flex-wrap">
+                              <select
+                                value={diInfoEmailTemplate}
+                                onChange={e => setDiInfoEmailTemplate(e.target.value)}
+                                className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                              >
+                                {diTemplateOptions.map(t => (
+                                  <option key={t.key} value={t.key}>{t.label}</option>
+                                ))}
+                              </select>
+                              <button
+                                onClick={() => {
+                                  const districtForPreview = contactOverrideForQueue ? {
+                                    ...selectedDi,
+                                    director: contactOverrideForQueue.name,
+                                    email: contactOverrideForQueue.email,
+                                    contactEdits: { ...(selectedDi.contactEdits || {}), director: contactOverrideForQueue.name, email: contactOverrideForQueue.email },
+                                  } : selectedDi;
+                                  const body = diInfoEmailTemplate === "personalized"
+                                    ? generatePersonalizedEmail(districtForPreview, currentRep)
+                                    : getEmailBody(districtForPreview, diInfoEmailTemplate, currentRep);
+                                  if (!body) { showNotif("⚠️ No email body generated", "red"); return; }
+                                  setEmailPreview(body);
+                                  setShowEmailPreview(true);
+                                }}
+                                className="text-xs border border-gray-200 px-3 py-2 rounded-lg hover:bg-gray-50 font-medium"
+                              >Preview</button>
+                              <button
+                                onClick={() => queueEmail(selectedDi, diInfoEmailTemplate, false, false, false, contactOverrideForQueue)}
+                                className="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 font-medium"
+                              >Add to Send Queue →</button>
+                            </div>
+                            {diInfoEmailTemplate === "personalized" && hasPersonalizedEmail(selectedDi) && (
+                              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs text-yellow-800 leading-relaxed">
+                                ✨ This email is customized based on the most recent intel for {selectedDi.district.includes(" — ") ? selectedDi.district.split(" — ").slice(1).join(" — ") : selectedDi.district} — referencing board notes, district context, or buying signals in the opening paragraph and subject line.
+                              </div>
+                            )}
+                            {!hasPersonalizedEmail(selectedDi) && (
+                              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs text-gray-500">
+                                No intel on file yet for personalized outreach. Once board notes, district context, or buying signals are added, a ✨ Personalized option will appear here.
+                              </div>
+                            )}
                           </div>
-                          {diInfoEmailTemplate === "personalized" && hasPersonalizedEmail(selectedDi) && (
-                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs text-yellow-800 leading-relaxed">
-                              ✨ This email is customized based on the most recent intel for {selectedDi.district.includes(" — ") ? selectedDi.district.split(" — ").slice(1).join(" — ") : selectedDi.district} — referencing board notes, district context, or buying signals in the opening paragraph and subject line.
-                            </div>
-                          )}
-                          {!hasPersonalizedEmail(selectedDi) && (
-                            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs text-gray-500">
-                              No intel on file yet for personalized outreach. Once board notes, district context, or buying signals are added, a ✨ Personalized option will appear here.
-                            </div>
-                          )}
-                        </div>
-                      )}
+                        );
+                      })()}
                     </div>
                   </div>
                 );
@@ -4786,7 +4871,7 @@ export default function BrightwheelDashboard() {
             <p className="text-sm text-gray-500 mb-6">has opted out of brightwheel outreach. Do you want to send to them anyway?</p>
             <div className="flex gap-3 justify-center">
               <button
-                onClick={() => { setUnsubConfirm(null); queueEmail(unsubConfirm.district, unsubConfirm.template, false, true); }}
+                onClick={() => { setUnsubConfirm(null); queueEmail(unsubConfirm.district, unsubConfirm.template, false, true, false, unsubConfirm.contactOverride || null); }}
                 className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700"
               >
                 Send anyway
@@ -4814,7 +4899,7 @@ export default function BrightwheelDashboard() {
             <p className="text-sm text-gray-500 mb-6">A previous email to this address failed to deliver. It may be invalid or the mailbox is full. Send anyway?</p>
             <div className="flex gap-3 justify-center">
               <button
-                onClick={() => { setBounceConfirm(null); queueEmail(bounceConfirm.district, bounceConfirm.template, false, false, true); }}
+                onClick={() => { setBounceConfirm(null); queueEmail(bounceConfirm.district, bounceConfirm.template, false, false, true, bounceConfirm.contactOverride || null); }}
                 className="px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700"
               >
                 Send anyway
