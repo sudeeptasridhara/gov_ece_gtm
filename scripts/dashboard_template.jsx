@@ -564,7 +564,9 @@ function generateEmailFromOverride(override, district, rep) {
     .replace(/\[State Name\]/g, stateName)
     .replace(/\[District Name\]/g, shortName)
     .replace(/\[Calendly Link\]/g, calendlyHtml)
-    .replace(/\[Learn More Link\]/g, learnMoreHtml);
+    .replace(/\[Learn More Link\]/g, learnMoreHtml)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[color=(#[0-9a-fA-F]{3,6})\]([^\[]*)\[\/color\]/g, '<span style="color:$1">$2</span>');
 
   const segments = override.body.split(/\n\n+/);
   let htmlBody = "";
@@ -1009,9 +1011,9 @@ export default function BrightwheelDashboard() {
     try { const s = localStorage.getItem("bw_custom_templates_v1"); return s ? JSON.parse(s) : {}; } catch { return {}; }
   });
   const [showNewTemplateForm, setShowNewTemplateForm] = useState(false);
-  const [newTemplateDraft, setNewTemplateDraft] = useState({ label: "", states: "All states", subject: "", body: "" });
+  const [newTemplateDraft, setNewTemplateDraft] = useState({ label: "", statesArr: ["all"], subject: "", body: "" });
   const [editingCustomTemplate, setEditingCustomTemplate] = useState(null);
-  const [customEditDraft, setCustomEditDraft] = useState({ label: "", states: "", subject: "", body: "" });
+  const [customEditDraft, setCustomEditDraft] = useState({ label: "", statesArr: ["all"], subject: "", body: "" });
   const newTemplateBodyRef = React.useRef(null);
   const customEditBodyRef = React.useRef(null);
 
@@ -1934,11 +1936,12 @@ export default function BrightwheelDashboard() {
   // ── BULK SELECTION ──
   const [selectedIds, setSelectedIds] = useState(new Set());
   const [bulkTemplate, setBulkTemplate] = useState("summerLong");
+  const [showBulkSeqDropdown, setShowBulkSeqDropdown] = useState(false);
 
   const toggleSelect = (id) =>
     setSelectedIds((prev) => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s; });
 
-  const clearSelection = () => setSelectedIds(new Set());
+  const clearSelection = () => { setSelectedIds(new Set()); setShowBulkSeqDropdown(false); };
 
   const showNotif = (msg, color = "green") => {
     setNotification({ msg, color });
@@ -2896,6 +2899,29 @@ export default function BrightwheelDashboard() {
                         </button>
                       </>
                     )}
+
+                    {/* Add to Sequence */}
+                    <div className="relative ml-2 border-l border-gray-700 pl-3">
+                      <button
+                        onClick={() => setShowBulkSeqDropdown(p => !p)}
+                        className="text-xs bg-violet-600 hover:bg-violet-500 text-white px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5"
+                      >🔁 Add to Sequence ▾</button>
+                      {showBulkSeqDropdown && (
+                        <div className="absolute bottom-10 left-0 z-50 bg-white border border-gray-200 rounded-xl shadow-2xl min-w-52 overflow-hidden" onClick={e => e.stopPropagation()}>
+                          <div className="px-3 py-2 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">Add {selectedIds.size} district{selectedIds.size !== 1 ? "s" : ""} to…</div>
+                          {Object.entries(allCampaigns).map(([k, v]) => (
+                            <button key={k} className="w-full text-left px-4 py-2.5 text-sm hover:bg-violet-50 hover:text-violet-700 transition-colors border-b border-gray-50 last:border-0"
+                              onClick={() => {
+                                enrollInCampaign(k, [...selectedIds]);
+                                setShowBulkSeqDropdown(false);
+                                showNotif(`✅ ${selectedIds.size} district${selectedIds.size !== 1 ? "s" : ""} added to ${v.label}`);
+                                clearSelection();
+                              }}
+                            >{v.label}</button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -3179,9 +3205,9 @@ export default function BrightwheelDashboard() {
             return matchGlobal && matchState && matchRep;
           });
 
-          // Enrolled = contacted districts OR explicitly enrolled in this campaign
+          // Enrolled = explicitly enrolled OR (for built-in campaigns only) already contacted
           const enrolled = seqDistricts.filter(d =>
-            (d.status && d.status !== "not_started") || !!enrollments[d.id]
+            !!enrollments[d.id] || (!campaign.isCustom && d.status && d.status !== "not_started")
           );
 
           // Districts not yet enrolled (available to add)
@@ -3758,7 +3784,7 @@ export default function BrightwheelDashboard() {
                           }}
                           className={`text-xs text-white px-4 py-2 rounded-lg font-medium transition-colors ${enrollSelected.size > 0 ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
                         >
-                          Enroll {enrollSelected.size > 0 ? enrollSelected.size : ""} in {CAMPAIGNS[campaignFilter].label}
+                          Enroll {enrollSelected.size > 0 ? enrollSelected.size : ""} in {campaign.label}
                         </button>
                       </div>
                     </div>
@@ -4125,7 +4151,34 @@ export default function BrightwheelDashboard() {
 
         {/* ── EMAIL COPY TAB ── */}
         {activeTab === "emailcopy" && (() => {
-          // Helper: insert a token at cursor position in a textarea ref
+          // ── Audience state options ──────────────────────────────────────────
+          const STATE_AUDIENCE_OPTIONS = [
+            { value: "all", label: "All States" },
+            { value: "FL", label: "Florida" },
+            { value: "CA", label: "California" },
+            { value: "NV", label: "Nevada" },
+            { value: "AL", label: "Alabama" },
+            { value: "GA", label: "Georgia" },
+            { value: "MI", label: "Michigan" },
+            { value: "OR", label: "Oregon" },
+            { value: "NM", label: "New Mexico" },
+            { value: "WA", label: "Washington" },
+            { value: "CO", label: "Colorado" },
+            { value: "AZ", label: "Arizona" },
+            { value: "UT", label: "Utah" },
+            { value: "ID", label: "Idaho" },
+          ];
+          const stateArrayToLabel = (arr) => {
+            if (!arr || arr.length === 0 || arr.includes("all")) return "All states";
+            return arr.map(v => STATE_AUDIENCE_OPTIONS.find(o => o.value === v)?.label || v).join(", ");
+          };
+          const stateStringToArray = (str) => {
+            if (!str || str.toLowerCase().includes("all")) return ["all"];
+            const found = STATE_AUDIENCE_OPTIONS.filter(o => o.value !== "all" && (str.includes(o.label) || str.includes(o.value))).map(o => o.value);
+            return found.length > 0 ? found : ["all"];
+          };
+
+          // ── Helper: insert token at cursor ─────────────────────────────────
           const insertToken = (token, ref, setter, field) => {
             const el = ref.current;
             if (!el) { setter(p => ({ ...p, [field]: p[field] + token })); return; }
@@ -4140,6 +4193,42 @@ export default function BrightwheelDashboard() {
             });
           };
 
+          // ── Helper: apply format at selection ──────────────────────────────
+          const applyFormat = (fmt, ref, setter, field, color = "") => {
+            const el = ref.current;
+            if (!el) return;
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const val = el.value;
+            let newVal, newStart, newEnd;
+            if (fmt === "bold") {
+              const sel = val.slice(start, end) || "bold text";
+              const wrapped = `**${sel}**`;
+              newVal = val.slice(0, start) + wrapped + val.slice(end);
+              newStart = start + 2; newEnd = newStart + sel.length;
+            } else if (fmt === "bullet") {
+              const before = val.slice(0, start);
+              const lineStart = before.lastIndexOf("\n") + 1;
+              if (end > start) {
+                const lines = val.slice(start, end).split("\n").map(l => l.startsWith("• ") ? l : "• " + l).join("\n");
+                newVal = val.slice(0, start) + lines + val.slice(end);
+                newStart = start; newEnd = start + lines.length;
+              } else {
+                newVal = val.slice(0, lineStart) + "• " + val.slice(lineStart);
+                newStart = newEnd = end + 2;
+              }
+            } else if (fmt === "color") {
+              const sel = val.slice(start, end) || "colored text";
+              const wrapped = `[color=${color}]${sel}[/color]`;
+              newVal = val.slice(0, start) + wrapped + val.slice(end);
+              newStart = start + `[color=${color}]`.length;
+              newEnd = newStart + sel.length;
+            } else { return; }
+            setter(p => ({ ...p, [field]: newVal }));
+            requestAnimationFrame(() => { el.focus(); el.setSelectionRange(newStart, newEnd); });
+          };
+
+          // ── Token / format highlighting in read-only view ──────────────────
           const TOKEN_RE = /(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\])/g;
           const highlightTokens = text => text.split(TOKEN_RE).map((p, i) =>
             /^\[/.test(p)
@@ -4147,21 +4236,103 @@ export default function BrightwheelDashboard() {
               : p
           );
 
+          // ── Live body preview with token + bold + color highlights ─────────
+          const BodyPreview = ({ body }) => {
+            if (!body.trim()) return null;
+            const parts = body.split(/(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\]|\*\*[^*]+\*\*|\[color=#[0-9a-fA-F]{3,6}\][^\[]*\[\/color\])/g);
+            return (
+              <div className="mt-2 border border-dashed border-amber-200 rounded-lg px-3 py-2 bg-amber-50/40 text-xs text-gray-700 whitespace-pre-wrap font-mono leading-relaxed max-h-40 overflow-y-auto">
+                <span className="block text-amber-500 font-semibold text-[10px] uppercase tracking-wide mb-1">Live preview — tokens & formatting highlighted</span>
+                {parts.map((p, i) => {
+                  if (/^\[/.test(p) && /\]$/.test(p)) return <span key={i} className="bg-amber-100 text-amber-700 border border-amber-300 px-0.5 rounded font-semibold">{p}</span>;
+                  const boldM = p.match(/^\*\*([^*]+)\*\*$/);
+                  if (boldM) return <strong key={i}>{boldM[1]}</strong>;
+                  const colorM = p.match(/^\[color=(#[0-9a-fA-F]{3,6})\](.*)\[\/color\]$/);
+                  if (colorM) return <span key={i} style={{ color: colorM[1] }}>{colorM[2]}</span>;
+                  return p;
+                })}
+              </div>
+            );
+          };
+
           const TOKENS = ["[First Name]", "[District Name]", "[State Name]", "[Learn More Link]", "[Calendly Link]"];
 
           const TokenBar = ({ onInsert }) => (
-            <div className="flex flex-wrap gap-1.5 mt-2 mb-1">
-              <span className="text-xs text-gray-400 self-center mr-1">Insert:</span>
+            <div className="flex flex-wrap gap-1.5 mt-2 mb-0.5">
+              <span className="text-xs text-gray-400 self-center mr-1">Insert token:</span>
               {TOKENS.map(t => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => onInsert(t)}
-                  className="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded font-mono transition-colors"
-                >{t}</button>
+                <button key={t} type="button" onClick={() => onInsert(t)}
+                  className="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 px-2 py-0.5 rounded font-mono transition-colors">{t}</button>
               ))}
             </div>
           );
+
+          // ── Format toolbar: bold, bullet, color ────────────────────────────
+          const FORMAT_COLORS = ["#d32f2f","#1565c0","#2e7d32","#e65100","#6a1b9a","#37474f"];
+          const FormatBar = ({ onFormat, onColor }) => {
+            const [showColors, setShowColors] = React.useState(false);
+            return (
+              <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                <span className="text-xs text-gray-400 self-center mr-1">Format:</span>
+                <button type="button" title="Bold — wraps selection in **…**"
+                  onClick={() => onFormat("bold")}
+                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 px-2.5 py-0.5 rounded font-bold transition-colors">B</button>
+                <button type="button" title="Bullet — adds • to start of line"
+                  onClick={() => onFormat("bullet")}
+                  className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 px-2 py-0.5 rounded transition-colors">• Bullet</button>
+                <div className="relative">
+                  <button type="button" title="Color — wraps selection in color marker"
+                    onClick={() => setShowColors(p => !p)}
+                    className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 px-2 py-0.5 rounded flex items-center gap-1 transition-colors">🎨 Color ▾</button>
+                  {showColors && (
+                    <div className="absolute top-7 left-0 z-20 bg-white border border-gray-200 rounded-lg shadow-xl p-2 flex gap-1.5 items-center">
+                      {FORMAT_COLORS.map(c => (
+                        <button type="button" key={c} onClick={() => { onColor(c); setShowColors(false); }}
+                          style={{ background: c }} className="w-5 h-5 rounded-full border-2 border-white shadow hover:scale-110 transition-transform" title={c} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          };
+
+          // ── States multi-select dropdown ───────────────────────────────────
+          const StateMultiSelect = ({ value, onChange }) => {
+            const [open, setOpen] = React.useState(false);
+            const toggleState = (v) => {
+              if (v === "all") { onChange(["all"]); return; }
+              const cur = value.filter(x => x !== "all");
+              const next = cur.includes(v) ? cur.filter(x => x !== v) : [...cur, v];
+              onChange(next.length === 0 ? ["all"] : next);
+            };
+            const label = stateArrayToLabel(value);
+            return (
+              <div className="relative">
+                <button type="button" onClick={() => setOpen(p => !p)}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-left focus:outline-none focus:ring-2 focus:ring-indigo-300 flex items-center justify-between gap-2 bg-white">
+                  <span className="truncate text-gray-700">{label}</span>
+                  <span className="text-gray-400 flex-shrink-0">▾</span>
+                </button>
+                {open && (
+                  <div className="absolute z-30 top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden max-h-64 overflow-y-auto">
+                    {STATE_AUDIENCE_OPTIONS.map(opt => {
+                      const checked = opt.value === "all" ? value.includes("all") || value.length === 0 : value.includes(opt.value);
+                      return (
+                        <label key={opt.value} className="flex items-center gap-3 px-3 py-2 hover:bg-indigo-50 cursor-pointer">
+                          <input type="checkbox" checked={checked} onChange={() => toggleState(opt.value)} className="rounded border-gray-300 text-indigo-600" />
+                          <span className="text-sm">{opt.label}</span>
+                        </label>
+                      );
+                    })}
+                    <div className="border-t border-gray-100 px-3 py-2">
+                      <button type="button" onClick={() => setOpen(false)} className="text-xs text-indigo-600 hover:text-indigo-800 font-medium">Done ✓</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          };
 
           return (
             <div className="p-6 max-w-4xl mx-auto">
@@ -4177,7 +4348,7 @@ export default function BrightwheelDashboard() {
                 </div>
                 {canEditEmailCopy && !showNewTemplateForm && (
                   <button
-                    onClick={() => { setShowNewTemplateForm(true); setNewTemplateDraft({ label: "", states: "All states", subject: "", body: "" }); }}
+                    onClick={() => { setShowNewTemplateForm(true); setNewTemplateDraft({ label: "", statesArr: ["all"], subject: "", body: "" }); }}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5 flex-shrink-0"
                   >
                     ✨ New Template
@@ -4205,13 +4376,7 @@ export default function BrightwheelDashboard() {
                     </div>
                     <div>
                       <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Audience / states</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. All states, Florida only"
-                        value={newTemplateDraft.states}
-                        onChange={e => setNewTemplateDraft(p => ({ ...p, states: e.target.value }))}
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                      />
+                      <StateMultiSelect value={newTemplateDraft.statesArr || ["all"]} onChange={v => setNewTemplateDraft(p => ({ ...p, statesArr: v }))} />
                     </div>
                   </div>
                   <div>
@@ -4227,6 +4392,10 @@ export default function BrightwheelDashboard() {
                   <div>
                     <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
                     <TokenBar onInsert={t => insertToken(t, newTemplateBodyRef, setNewTemplateDraft, "body")} />
+                    <FormatBar
+                      onFormat={f => applyFormat(f, newTemplateBodyRef, setNewTemplateDraft, "body")}
+                      onColor={c => applyFormat("color", newTemplateBodyRef, setNewTemplateDraft, "body", c)}
+                    />
                     <textarea
                       ref={newTemplateBodyRef}
                       rows={14}
@@ -4236,7 +4405,8 @@ export default function BrightwheelDashboard() {
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-y mt-1"
                       spellCheck={true}
                     />
-                    <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                    <BodyPreview body={newTemplateDraft.body} />
+                    <p className="text-xs text-gray-400 mt-1">Paragraphs separated by blank lines · bullet lines start with • · **bold** · [color=#hex]text[/color]</p>
                   </div>
                   <div className="flex justify-end gap-2 pt-1">
                     <button onClick={() => setShowNewTemplateForm(false)} className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-4 py-2 rounded-lg font-semibold">Cancel</button>
@@ -4248,7 +4418,7 @@ export default function BrightwheelDashboard() {
                           ...prev,
                           [id]: {
                             label: newTemplateDraft.label.trim(),
-                            states: newTemplateDraft.states.trim() || "All states",
+                            states: stateArrayToLabel(newTemplateDraft.statesArr),
                             subject: newTemplateDraft.subject.trim(),
                             body: newTemplateDraft.body.trim(),
                             createdBy: gmailUser || "",
@@ -4326,6 +4496,10 @@ export default function BrightwheelDashboard() {
                           <div>
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
                             <TokenBar onInsert={t => insertToken(t, customEditBodyRef, setEditDraft, "body")} />
+                            <FormatBar
+                              onFormat={f => applyFormat(f, customEditBodyRef, setEditDraft, "body")}
+                              onColor={c => applyFormat("color", customEditBodyRef, setEditDraft, "body", c)}
+                            />
                             <textarea
                               ref={customEditBodyRef}
                               rows={16}
@@ -4334,7 +4508,8 @@ export default function BrightwheelDashboard() {
                               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-300 resize-y mt-1"
                               spellCheck={true}
                             />
-                            <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                            <BodyPreview body={editDraft.body} />
+                            <p className="text-xs text-gray-400 mt-1">Paragraphs separated by blank lines · bullet lines start with • · **bold** · [color=#hex]text[/color]</p>
                           </div>
                         </div>
                       ) : (
@@ -4382,7 +4557,7 @@ export default function BrightwheelDashboard() {
                                         className="text-xs text-gray-400 hover:text-red-500 px-2 py-1 rounded transition-colors"
                                       >Delete</button>
                                       <button
-                                        onClick={() => { setEditingCustomTemplate(id); setCustomEditDraft({ label: tmpl.label, states: tmpl.states, subject: tmpl.subject, body: tmpl.body }); }}
+                                        onClick={() => { setEditingCustomTemplate(id); setCustomEditDraft({ label: tmpl.label, statesArr: stateStringToArray(tmpl.states), subject: tmpl.subject, body: tmpl.body }); }}
                                         className="text-xs bg-violet-600 hover:bg-violet-500 text-white px-3 py-1.5 rounded-lg font-semibold transition-colors"
                                       >Edit</button>
                                     </>
@@ -4397,7 +4572,7 @@ export default function BrightwheelDashboard() {
                                             [id]: {
                                               ...prev[id],
                                               label: customEditDraft.label.trim() || prev[id].label,
-                                              states: customEditDraft.states.trim() || prev[id].states,
+                                              states: stateArrayToLabel(customEditDraft.statesArr) || prev[id].states,
                                               subject: customEditDraft.subject.trim(),
                                               body: customEditDraft.body.trim(),
                                               lastEditedBy: gmailUser || "",
@@ -4428,12 +4603,7 @@ export default function BrightwheelDashboard() {
                                   </div>
                                   <div>
                                     <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Audience / states</label>
-                                    <input
-                                      type="text"
-                                      value={customEditDraft.states}
-                                      onChange={e => setCustomEditDraft(p => ({ ...p, states: e.target.value }))}
-                                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
-                                    />
+                                    <StateMultiSelect value={customEditDraft.statesArr || ["all"]} onChange={v => setCustomEditDraft(p => ({ ...p, statesArr: v }))} />
                                   </div>
                                 </div>
                                 <div>
@@ -4448,6 +4618,10 @@ export default function BrightwheelDashboard() {
                                 <div>
                                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1">Body</label>
                                   <TokenBar onInsert={t => insertToken(t, customEditBodyRef, setCustomEditDraft, "body")} />
+                                  <FormatBar
+                                    onFormat={f => applyFormat(f, customEditBodyRef, setCustomEditDraft, "body")}
+                                    onColor={c => applyFormat("color", customEditBodyRef, setCustomEditDraft, "body", c)}
+                                  />
                                   <textarea
                                     ref={customEditBodyRef}
                                     rows={16}
@@ -4456,7 +4630,8 @@ export default function BrightwheelDashboard() {
                                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-300 resize-y mt-1"
                                     spellCheck={true}
                                   />
-                                  <p className="text-xs text-gray-400 mt-1">Separate paragraphs with a blank line. Start bullet lines with •</p>
+                                  <BodyPreview body={customEditDraft.body} />
+                                  <p className="text-xs text-gray-400 mt-1">Paragraphs separated by blank lines · bullet lines start with • · **bold** · [color=#hex]text[/color]</p>
                                 </div>
                               </div>
                             ) : (
