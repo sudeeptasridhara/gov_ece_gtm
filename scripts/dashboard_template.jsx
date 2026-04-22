@@ -1835,10 +1835,13 @@ export default function BrightwheelDashboard() {
         const type = col(row, "type");
         const dedupId = col(row, "dedup_id");
 
-        // Stage update rows — track the latest stage per district
+        // Stage update rows — track the latest stage per district.
+        // full_notes holds the raw stage key (new format); fall back to label-lookup for old rows.
         if (type === "stage_update") {
+          const rawKey = col(row, "full_notes"); // set for rows written after multi-step support
           const stageLabel = col(row, "notes").replace("Stage → ", "");
-          const stageKey = Object.keys(SEQUENCE_STAGES).find(k => SEQUENCE_STAGES[k].label === stageLabel);
+          const knownKey = Object.keys(SEQUENCE_STAGES).find(k => SEQUENCE_STAGES[k].label === stageLabel);
+          const stageKey = rawKey || knownKey;
           if (stageKey) latestStage[distId] = stageKey;
           continue;
         }
@@ -2170,6 +2173,7 @@ export default function BrightwheelDashboard() {
       type: "stage_update",
       date: new Date().toISOString().split("T")[0],
       notes: `Stage → ${SEQUENCE_STAGES[newStage]?.label || newStage}`,
+      granolaNotesText: newStage, // raw stage key stored in full_notes for reliable cross-rep sync
       source: "manual",
       repEmail: gmailUser || "",
       directorName: d.director,
@@ -3567,7 +3571,9 @@ export default function BrightwheelDashboard() {
               {seqStageFilter && (() => {
                 const stageLabel = seqStageFilter === "not_started"
                   ? "Ready to Send"
-                  : (SEQUENCE_STAGES[seqStageFilter]?.label || seqStageFilter);
+                  : (campaign.steps.find(s => s.key === seqStageFilter)?.label
+                      || SEQUENCE_STAGES[seqStageFilter]?.label
+                      || seqStageFilter);
                 const stageDistricts = seqStageFilter === "not_started"
                   ? notYetStarted
                   : enriched.filter(d => d.status === seqStageFilter);
@@ -3963,7 +3969,6 @@ export default function BrightwheelDashboard() {
                         <div className="space-y-3 mb-4">
                           {seqDraft.steps.map((step, idx) => {
                             const typeInfo = STEP_TYPES[step.type] || STEP_TYPES.email;
-                            const usedStageKeys = seqDraft.steps.filter((_, i) => i !== idx).map(s => STEP_TYPES[s.type]?.stageKey);
                             const allTmpl = { ...DEFAULT_TEMPLATE_TEXTS, ...customTemplates };
                             return (
                               <div key={step.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
@@ -3998,7 +4003,8 @@ export default function BrightwheelDashboard() {
                                           ...p,
                                           steps: p.steps.map((s, i) => i !== idx ? s : {
                                             ...s, type: newType, label: ti.defaultLabel, action: ti.defaultLabel,
-                                            stageKey: ti.stageKey, key: ti.stageKey,
+                                            stageKey: ti.stageKey,
+                                            // preserve the step's unique key — do NOT reset to stageKey
                                             icon: ti.icon, color: ti.color,
                                             templateKey: ti.isEmail ? (s.templateKey || "original") : undefined,
                                           })
@@ -4006,10 +4012,9 @@ export default function BrightwheelDashboard() {
                                       }}
                                       className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
                                     >
-                                      {Object.entries(STEP_TYPES).map(([k, v]) => {
-                                        const alreadyUsed = k !== step.type && usedStageKeys.includes(v.stageKey);
-                                        return <option key={k} value={k} disabled={alreadyUsed}>{v.icon} {v.label}{alreadyUsed ? " (already added)" : ""}</option>;
-                                      })}
+                                      {Object.entries(STEP_TYPES).map(([k, v]) => (
+                                        <option key={k} value={k}>{v.icon} {v.label}</option>
+                                      ))}
                                     </select>
                                   </div>
                                   <div>
@@ -4054,38 +4059,31 @@ export default function BrightwheelDashboard() {
                         <div>
                           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Add a step:</p>
                           <div className="flex flex-wrap gap-2">
-                            {Object.entries(STEP_TYPES).map(([k, v]) => {
-                              const alreadyUsed = seqDraft.steps.some(s => STEP_TYPES[s.type]?.stageKey === v.stageKey);
-                              return (
-                                <button
-                                  key={k}
-                                  disabled={alreadyUsed}
-                                  onClick={() => {
-                                    const maxDay = seqDraft.steps.length > 0 ? Math.max(...seqDraft.steps.map(s => s.day)) + 3 : 0;
-                                    setSeqDraft(p => ({
-                                      ...p,
-                                      steps: [...p.steps, {
-                                        id: `step_${Date.now()}_${k}`,
-                                        key: v.stageKey,
-                                        type: k,
-                                        label: v.defaultLabel,
-                                        action: v.defaultLabel,
-                                        icon: v.icon,
-                                        color: v.color,
-                                        day: maxDay,
-                                        stageKey: v.stageKey,
-                                        templateKey: v.isEmail ? "original" : undefined,
-                                      }]
-                                    }));
-                                  }}
-                                  className={`text-xs px-3 py-1.5 rounded-lg font-medium border flex items-center gap-1.5 transition-colors ${
-                                    alreadyUsed
-                                      ? "bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed"
-                                      : `${v.color} border-current opacity-90 hover:opacity-100 cursor-pointer`
-                                  }`}
-                                >{v.icon} {v.label}</button>
-                              );
-                            })}
+                            {Object.entries(STEP_TYPES).map(([k, v]) => (
+                              <button
+                                key={k}
+                                onClick={() => {
+                                  const stepId = `step_${Date.now()}_${k}`;
+                                  const maxDay = seqDraft.steps.length > 0 ? Math.max(...seqDraft.steps.map(s => s.day)) + 3 : 0;
+                                  setSeqDraft(p => ({
+                                    ...p,
+                                    steps: [...p.steps, {
+                                      id: stepId,
+                                      key: stepId,   // unique per step — enables multiple emails
+                                      type: k,
+                                      label: v.defaultLabel,
+                                      action: v.defaultLabel,
+                                      icon: v.icon,
+                                      color: v.color,
+                                      day: maxDay,
+                                      stageKey: v.stageKey, // kept for reference only
+                                      templateKey: v.isEmail ? "original" : undefined,
+                                    }]
+                                  }));
+                                }}
+                                className={`text-xs px-3 py-1.5 rounded-lg font-medium border flex items-center gap-1.5 transition-colors ${v.color} border-current opacity-90 hover:opacity-100 cursor-pointer`}
+                              >{v.icon} {v.label}</button>
+                            ))}
                           </div>
                         </div>
                       </div>
