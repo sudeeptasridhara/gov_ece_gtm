@@ -1765,6 +1765,9 @@ export default function BrightwheelDashboard() {
       const bounceEmails = new Set();
       // Template overrides keyed by template key — pick most recent per key
       const sheetTemplateOverrides = {};
+      // Custom templates + sequences shared across all reps via the sheet
+      const sheetCustomTemplates = {};  // id -> { deleted, loggedAt, data }
+      const sheetCustomSequences = {};  // id -> { deleted, loggedAt, data }
 
       for (const row of rows.slice(1)) {
         // Template override rows — district_id is 0, district_name holds the key
@@ -1779,6 +1782,36 @@ export default function BrightwheelDashboard() {
               lastEditedBy: col(row, "rep_email"),
               lastEditedAt: loggedAt,
             };
+          }
+          continue;
+        }
+        // Custom template rows (created/edited/deleted by any rep)
+        if (col(row, "type") === "custom_template" || col(row, "type") === "custom_template_deleted") {
+          const id = col(row, "dedup_id") || col(row, "district_name");
+          const loggedAt = col(row, "logged_at");
+          const existing = sheetCustomTemplates[id];
+          if (id && (!existing || loggedAt > (existing.loggedAt || ""))) {
+            const isDelete = col(row, "type") === "custom_template_deleted";
+            let data = null;
+            if (!isDelete) {
+              try { data = JSON.parse(col(row, "full_notes")); } catch {}
+            }
+            sheetCustomTemplates[id] = { deleted: isDelete, loggedAt, data };
+          }
+          continue;
+        }
+        // Custom sequence rows (created/edited/deleted by any rep)
+        if (col(row, "type") === "custom_sequence" || col(row, "type") === "custom_sequence_deleted") {
+          const id = col(row, "dedup_id") || col(row, "district_name");
+          const loggedAt = col(row, "logged_at");
+          const existing = sheetCustomSequences[id];
+          if (id && (!existing || loggedAt > (existing.loggedAt || ""))) {
+            const isDelete = col(row, "type") === "custom_sequence_deleted";
+            let data = null;
+            if (!isDelete) {
+              try { data = JSON.parse(col(row, "full_notes")); } catch {}
+            }
+            sheetCustomSequences[id] = { deleted: isDelete, loggedAt, data };
           }
           continue;
         }
@@ -1868,6 +1901,28 @@ export default function BrightwheelDashboard() {
       if (Object.keys(sheetTemplateOverrides).length > 0) {
         setTemplateOverrides(prev => ({ ...prev, ...sheetTemplateOverrides }));
       }
+      // Merge custom templates from sheet — tombstone deletes remove local copies
+      if (Object.keys(sheetCustomTemplates).length > 0) {
+        setCustomTemplates(prev => {
+          const next = { ...prev };
+          for (const [id, entry] of Object.entries(sheetCustomTemplates)) {
+            if (entry.deleted) { delete next[id]; }
+            else if (entry.data) { next[id] = entry.data; }
+          }
+          return next;
+        });
+      }
+      // Merge custom sequences from sheet — tombstone deletes remove local copies
+      if (Object.keys(sheetCustomSequences).length > 0) {
+        setCustomSequences(prev => {
+          const next = { ...prev };
+          for (const [id, entry] of Object.entries(sheetCustomSequences)) {
+            if (entry.deleted) { delete next[id]; }
+            else if (entry.data) { next[id] = { ...entry.data, isCustom: true }; }
+          }
+          return next;
+        });
+      }
       if (unsubEmails.size > 0) {
         setUnsubs(prev => new Set([...prev, ...unsubEmails]));
       }
@@ -1938,6 +1993,58 @@ export default function BrightwheelDashboard() {
       now,                     // logged_at
     ];
     await writeToSheet([row]);
+  };
+
+  // Saves a custom email template to state, localStorage, and the shared sheet.
+  // Pass tmplData=null to delete the template (writes a tombstone row).
+  const saveCustomTemplate = (id, tmplData) => {
+    setCustomTemplates(prev => {
+      if (!tmplData) { const n = { ...prev }; delete n[id]; return n; }
+      return { ...prev, [id]: tmplData };
+    });
+    if (!ACTIVITY_SHEET_ID || !gmailToken) return;
+    const now = new Date().toISOString();
+    const row = [
+      String(Date.now()),
+      "0",
+      id,
+      tmplData ? "custom_template" : "custom_template_deleted",
+      now.split("T")[0],
+      tmplData ? (tmplData.label || "") : "",
+      tmplData ? JSON.stringify(tmplData) : "",
+      "custom_template",
+      gmailUser || "",
+      tmplData ? (tmplData.subject || "") : "",
+      id,
+      now,
+    ];
+    writeToSheet([row]);
+  };
+
+  // Saves a custom sequence to state, localStorage, and the shared sheet.
+  // Pass seqData=null to delete the sequence (writes a tombstone row).
+  const saveCustomSequence = (id, seqData) => {
+    setCustomSequences(prev => {
+      if (!seqData) { const n = { ...prev }; delete n[id]; return n; }
+      return { ...prev, [id]: seqData };
+    });
+    if (!ACTIVITY_SHEET_ID || !gmailToken) return;
+    const now = new Date().toISOString();
+    const row = [
+      String(Date.now()),
+      "0",
+      id,
+      seqData ? "custom_sequence" : "custom_sequence_deleted",
+      now.split("T")[0],
+      seqData ? (seqData.label || "") : "",
+      seqData ? JSON.stringify(seqData) : "",
+      "custom_sequence",
+      gmailUser || "",
+      "",
+      id,
+      now,
+    ];
+    writeToSheet([row]);
   };
 
   // ── BULK SELECTION ──
@@ -3988,8 +4095,8 @@ export default function BrightwheelDashboard() {
                         <div className="border-t border-gray-100 pt-4">
                           <button
                             onClick={() => {
-                              if (window.confirm("Delete this sequence? Districts enrolled in it will keep their current stage.")) {
-                                setCustomSequences(prev => { const n = {...prev}; delete n[editingSequenceId]; return n; });
+                              if (window.confirm("Delete this sequence for all reps? Districts enrolled in it will keep their current stage.")) {
+                                saveCustomSequence(editingSequenceId, null);
                                 if (campaignFilter === editingSequenceId) setCampaignFilter("summer_outreach");
                                 setShowSequenceBuilder(false);
                                 showNotif("Sequence deleted.");
@@ -4015,22 +4122,19 @@ export default function BrightwheelDashboard() {
                           onClick={() => {
                             const id = editingSequenceId || `custom_${Date.now()}`;
                             const sortedSteps = [...seqDraft.steps].sort((a, b) => a.day - b.day);
-                            setCustomSequences(prev => ({
-                              ...prev,
-                              [id]: {
-                                label: seqDraft.label.trim(),
-                                description: seqDraft.description.trim(),
-                                steps: sortedSteps,
-                                isCustom: true,
-                                createdBy: gmailUser || "",
-                                createdAt: editingSequenceId ? (prev[id]?.createdAt || new Date().toISOString()) : new Date().toISOString(),
-                                lastEditedAt: new Date().toISOString(),
-                              }
-                            }));
+                            saveCustomSequence(id, {
+                              label: seqDraft.label.trim(),
+                              description: seqDraft.description.trim(),
+                              steps: sortedSteps,
+                              isCustom: true,
+                              createdBy: gmailUser || "",
+                              createdAt: editingSequenceId ? (customSequences[id]?.createdAt || new Date().toISOString()) : new Date().toISOString(),
+                              lastEditedAt: new Date().toISOString(),
+                            });
                             setCampaignFilter(id);
                             setSeqStageFilter(null);
                             setShowSequenceBuilder(false);
-                            showNotif(`✅ "${seqDraft.label.trim()}" saved`);
+                            showNotif(`✅ "${seqDraft.label.trim()}" saved — visible to all reps`);
                           }}
                           className="text-xs bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg font-semibold"
                         >{editingSequenceId ? "Save Changes" : "Create Sequence"}</button>
@@ -4421,19 +4525,16 @@ export default function BrightwheelDashboard() {
                       disabled={!newTemplateDraft.label.trim() || !newTemplateDraft.subject.trim() || !newTemplateDraft.body.trim()}
                       onClick={() => {
                         const id = "custom_" + Date.now();
-                        setCustomTemplates(prev => ({
-                          ...prev,
-                          [id]: {
-                            label: newTemplateDraft.label.trim(),
-                            states: stateArrayToLabel(newTemplateDraft.statesArr),
-                            subject: newTemplateDraft.subject.trim(),
-                            body: newTemplateDraft.body.trim(),
-                            createdBy: gmailUser || "",
-                            createdAt: new Date().toISOString(),
-                          }
-                        }));
+                        saveCustomTemplate(id, {
+                          label: newTemplateDraft.label.trim(),
+                          states: stateArrayToLabel(newTemplateDraft.statesArr),
+                          subject: newTemplateDraft.subject.trim(),
+                          body: newTemplateDraft.body.trim(),
+                          createdBy: gmailUser || "",
+                          createdAt: new Date().toISOString(),
+                        });
                         setShowNewTemplateForm(false);
-                        showNotif("✅ Template saved");
+                        showNotif("✅ Template saved — visible to all reps");
                       }}
                       className="text-xs bg-green-600 hover:bg-green-500 disabled:opacity-40 text-white px-4 py-2 rounded-lg font-semibold"
                     >Save Template</button>
@@ -4560,7 +4661,7 @@ export default function BrightwheelDashboard() {
                                   {!isEditingCustom && (
                                     <>
                                       <button
-                                        onClick={() => { if (window.confirm("Delete this template?")) setCustomTemplates(prev => { const n = { ...prev }; delete n[id]; return n; }); }}
+                                        onClick={() => { if (window.confirm("Delete this template? It will be removed for all reps.")) { saveCustomTemplate(id, null); showNotif("Template deleted"); } }}
                                         className="text-xs text-gray-400 hover:text-red-500 px-2 py-1 rounded transition-colors"
                                       >Delete</button>
                                       <button
@@ -4574,20 +4675,18 @@ export default function BrightwheelDashboard() {
                                       <button onClick={() => setEditingCustomTemplate(null)} className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-semibold">Cancel</button>
                                       <button
                                         onClick={() => {
-                                          setCustomTemplates(prev => ({
-                                            ...prev,
-                                            [id]: {
-                                              ...prev[id],
-                                              label: customEditDraft.label.trim() || prev[id].label,
-                                              states: stateArrayToLabel(customEditDraft.statesArr) || prev[id].states,
-                                              subject: customEditDraft.subject.trim(),
-                                              body: customEditDraft.body.trim(),
-                                              lastEditedBy: gmailUser || "",
-                                              lastEditedAt: new Date().toISOString(),
-                                            }
-                                          }));
+                                          const updated = {
+                                            ...customTemplates[id],
+                                            label: customEditDraft.label.trim() || customTemplates[id].label,
+                                            states: stateArrayToLabel(customEditDraft.statesArr) || customTemplates[id].states,
+                                            subject: customEditDraft.subject.trim(),
+                                            body: customEditDraft.body.trim(),
+                                            lastEditedBy: gmailUser || "",
+                                            lastEditedAt: new Date().toISOString(),
+                                          };
+                                          saveCustomTemplate(id, updated);
                                           setEditingCustomTemplate(null);
-                                          showNotif("✅ Template updated");
+                                          showNotif("✅ Template updated — visible to all reps");
                                         }}
                                         className="text-xs bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-lg font-semibold"
                                       >Save</button>
