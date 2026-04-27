@@ -1972,14 +1972,20 @@ export default function BrightwheelDashboard() {
       let nameIndex = null; // "UPPER_NAME|UPPER_STATE" → ncesId (from updated GAS)
 
       // ── Path A: public web app (no auth) ─────────────────────────────────
+      // Note: org-restricted GAS URLs (a/macros/mybrightwheel.com/...) will CORS-fail
+      // from GitHub Pages — the inner try/catch silently falls through to Path B.
       if (DISTRICT_META_WEBAPP_URL) {
-        const res = await fetch(DISTRICT_META_WEBAPP_URL);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data && Object.keys(json.data).length > 0) {
-            rawData   = json.data;
-            nameIndex = json.nameIndex || null; // present after GAS redeploy
+        try {
+          const res = await fetch(DISTRICT_META_WEBAPP_URL, { credentials: "include" });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.data && Object.keys(json.data).length > 0) {
+              rawData   = json.data;
+              nameIndex = json.nameIndex || null;
+            }
           }
+        } catch (e) {
+          console.warn("[districtMeta] webapp unreachable, will use Sheets API:", e.message);
         }
       }
 
@@ -2096,12 +2102,15 @@ export default function BrightwheelDashboard() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Also refresh via Sheets API once Gmail token is available (covers the no-webapp case)
+  // Refresh via Sheets API once Gmail token is available.
+  // Runs even when DISTRICT_META_WEBAPP_URL is set — the webapp is org-restricted
+  // and CORS-fails from GitHub Pages, so the Sheets API is the reliable path.
   useEffect(() => {
-    if (!gmailToken || DISTRICT_META_WEBAPP_URL) return; // webapp already handled it
-    const fetchedAt = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
-    const today5AM  = new Date(); today5AM.setHours(5, 0, 0, 0);
-    if (fetchedAt < today5AM.getTime()) loadDistrictMeta(gmailToken);
+    if (!gmailToken) return;
+    const fetchedAt  = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
+    const today5AM   = new Date(); today5AM.setHours(5, 0, 0, 0);
+    const metaEmpty  = Object.keys(districtMeta).length === 0;
+    if (metaEmpty || fetchedAt < today5AM.getTime()) loadDistrictMeta(gmailToken);
   }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ncesId lookup cache (dashboardId → ncesId), loaded lazily from localStorage

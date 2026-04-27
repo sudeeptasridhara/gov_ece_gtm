@@ -571,8 +571,9 @@ setValidationResults(prev=>prev.filter(r=>!toMark.includes(r.email.toLowerCase()
 const loadDistrictMeta=async forceToken=>{try{let rawData=null;// ncesId-or-nameKey → metadata entry
 let nameIndex=null;// "UPPER_NAME|UPPER_STATE" → ncesId (from updated GAS)
 // ── Path A: public web app (no auth) ─────────────────────────────────
-if(DISTRICT_META_WEBAPP_URL){const res=await fetch(DISTRICT_META_WEBAPP_URL);if(res.ok){const json=await res.json();if(json.data&&Object.keys(json.data).length>0){rawData=json.data;nameIndex=json.nameIndex||null;// present after GAS redeploy
-}}}// ── Path B: Sheets API OAuth fallback ─────────────────────────────────
+// Note: org-restricted GAS URLs (a/macros/mybrightwheel.com/...) will CORS-fail
+// from GitHub Pages — the inner try/catch silently falls through to Path B.
+if(DISTRICT_META_WEBAPP_URL){try{const res=await fetch(DISTRICT_META_WEBAPP_URL,{credentials:"include"});if(res.ok){const json=await res.json();if(json.data&&Object.keys(json.data).length>0){rawData=json.data;nameIndex=json.nameIndex||null;}}}catch(e){console.warn("[districtMeta] webapp unreachable, will use Sheets API:",e.message);}}// ── Path B: Sheets API OAuth fallback ─────────────────────────────────
 if(!rawData){const useToken=forceToken||gmailToken;if(!useToken||!DISTRICT_META_SHEET_ID)return;const range=encodeURIComponent(`${DISTRICT_META_TAB}!A:O`);const url=`https://sheets.googleapis.com/v4/spreadsheets/${DISTRICT_META_SHEET_ID}/values/${range}`;const res=await fetch(url,{headers:{Authorization:"Bearer "+useToken}});if(!res.ok){console.warn("loadDistrictMeta sheets:",res.status);return;}const json=await res.json();const rows=json.values||[];if(rows.length<2)return;const hdrs=(rows[0]||[]).map(h=>(h||"").toString().trim().toLowerCase());const ci=s=>hdrs.findIndex(h=>h.includes(s));const iName=0,iState=1,iNces=ci("agency id");const iTotal=ci("total students"),iPrek=ci("prekindergarten");const iSize=ci("size"),iRep=ci("rep assigned");rawData={};nameIndex={};for(let i=1;i<rows.length;i++){const r=rows[i];const name=(r[iName]||"").trim().toUpperCase();const state=(r[iState]||"").trim().toUpperCase();const ncesId=iNces>=0?(r[iNces]||"").toString().trim():"";const size=iSize>=0?(r[iSize]||"").trim():"";if(!name||!state)continue;if(ncesId)nameIndex[name+"|"+state]=ncesId;if(!size||size==="-")continue;const key=ncesId||name+"|"+state;rawData[key]={ncesId,size,name,state,repAssigned:iRep>=0?(r[iRep]||"").trim():"",prek:iPrek>=0?parseInt((r[iPrek]||"").replace(/[^0-9]/g,""))||0:0,total:iTotal>=0?parseInt((r[iTotal]||"").replace(/[^0-9]/g,""))||0:0};}}if(!rawData||Object.keys(rawData).length===0)return;// ── Add name+state aliases so getDistrictMeta's fallback lookup works ──
 // rawData is keyed by ncesId after GAS redeployment. We also store each
 // entry under its "UPPER_NAME|UPPER_STATE" key so the legacy name-based
@@ -588,9 +589,10 @@ const strippedNameIndex={};Object.entries(effectiveNameIndex).forEach(([k,v])=>{
 // Always force a fresh fetch so name-alias and ncesId matching improvements apply.
 useEffect(()=>{if(DISTRICT_META_WEBAPP_URL){localStorage.removeItem("districtMetaFetchedAt");// force refresh to pick up alias fix
 loadDistrictMeta();}},[]);// eslint-disable-line react-hooks/exhaustive-deps
-// Also refresh via Sheets API once Gmail token is available (covers the no-webapp case)
-useEffect(()=>{if(!gmailToken||DISTRICT_META_WEBAPP_URL)return;// webapp already handled it
-const fetchedAt=parseInt(localStorage.getItem("districtMetaFetchedAt")||"0");const today5AM=new Date();today5AM.setHours(5,0,0,0);if(fetchedAt<today5AM.getTime())loadDistrictMeta(gmailToken);},[gmailToken]);// eslint-disable-line react-hooks/exhaustive-deps
+// Refresh via Sheets API once Gmail token is available.
+// Runs even when DISTRICT_META_WEBAPP_URL is set — the webapp is org-restricted
+// and CORS-fails from GitHub Pages, so the Sheets API is the reliable path.
+useEffect(()=>{if(!gmailToken)return;const fetchedAt=parseInt(localStorage.getItem("districtMetaFetchedAt")||"0");const today5AM=new Date();today5AM.setHours(5,0,0,0);const metaEmpty=Object.keys(districtMeta).length===0;if(metaEmpty||fetchedAt<today5AM.getTime())loadDistrictMeta(gmailToken);},[gmailToken]);// eslint-disable-line react-hooks/exhaustive-deps
 // ncesId lookup cache (dashboardId → ncesId), loaded lazily from localStorage
 const districtNcesMap=React.useMemo(()=>{try{return JSON.parse(localStorage.getItem("districtNcesMap")||"{}");}catch{return{};}},[districtMeta]);// re-read after each metadata load
 // Look up metadata for a district: prefer ncesId key, fall back to name+state key
