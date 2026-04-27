@@ -19,6 +19,14 @@ const SHEET_COLS = ["activity_id","district_id","district_name","type","date","n
 // See activity_log_api.gs for step-by-step deployment instructions.
 const ACTIVITY_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbzRvpSmE36rXIRdWXdcZoGyci-CrczyjJ-cZVTSpfJRCNBCOonzX1g94FAS8MKn8X6c7w/exec";
 
+// ─── DISTRICT METADATA SHEET ─────────────────────────────────────────────────
+// Source-of-truth for district Size tier and Rep Assigned, pulled from the
+// "data" tab of the district intelligence sheet. Refreshed once per day after
+// 5 AM when a rep is signed into Gmail. Results are cached in localStorage so
+// the data is available immediately on subsequent loads even before sign-in.
+const DISTRICT_META_SHEET_ID = "1POBU9JkOB6oZVAVG1jhChSs7Cj4Re-qejMtmFNqmisI";
+const DISTRICT_META_TAB      = "data"; // name of the sheet tab
+
 // ─── EMAIL OPEN TRACKING ──────────────────────────────────────────────────────
 // Deploy tracking_pixel.gs as a Google Apps Script web app (execute as: Me,
 // access: Anyone with the link) and paste the resulting /exec URL below.
@@ -216,6 +224,29 @@ const STATE_REP_EMAIL = {
   CA: "eric.bernstein@mybrightwheel.com",
   OR: "eric.bernstein@mybrightwheel.com",
   WA: "eric.bernstein@mybrightwheel.com",
+};
+
+// State 2-letter code → full name as it appears in the district intelligence sheet
+const STATE_FULL_NAMES = {
+  AL:"Alabama", AK:"Alaska", AZ:"Arizona", AR:"Arkansas", CA:"California",
+  CO:"Colorado", CT:"Connecticut", DE:"Delaware", DC:"District Of Columbia",
+  FL:"Florida", GA:"Georgia", HI:"Hawaii", ID:"Idaho", IL:"Illinois",
+  IN:"Indiana", IA:"Iowa", KS:"Kansas", KY:"Kentucky", LA:"Louisiana",
+  ME:"Maine", MD:"Maryland", MA:"Massachusetts", MI:"Michigan", MN:"Minnesota",
+  MS:"Mississippi", MO:"Missouri", MT:"Montana", NE:"Nebraska", NV:"Nevada",
+  NH:"New Hampshire", NJ:"New Jersey", NM:"New Mexico", NY:"New York",
+  NC:"North Carolina", ND:"North Dakota", OH:"Ohio", OK:"Oklahoma",
+  OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island", SC:"South Carolina",
+  SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah", VT:"Vermont",
+  VA:"Virginia", WA:"Washington", WV:"West Virginia", WI:"Wisconsin", WY:"Wyoming",
+};
+
+// Size tier color classes
+const SIZE_COLORS = {
+  XL:     "bg-orange-100 text-orange-700",
+  Large:  "bg-purple-100 text-purple-700",
+  Medium: "bg-blue-100 text-blue-700",
+  Small:  "bg-gray-100 text-gray-600",
 };
 
 // Parse "Subject: ..." off the first line of a generated email body
@@ -1086,6 +1117,12 @@ export default function BrightwheelDashboard() {
 
   const [emailPickerId, setEmailPickerId] = useState(null); // must be declared before the useEffect below
 
+  // District metadata from the intelligence sheet (Size, Rep Assigned, PreK enrollment).
+  // Seeded from localStorage cache on mount; refreshed from the sheet once per day after 5 AM.
+  const [districtMeta, setDistrictMeta] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("districtMeta") || "{}"); } catch { return {}; }
+  });
+
   // ── LOCALSTORAGE PERSISTENCE ─────────────────────────────────────────────────
   // Load saved activities immediately on mount (no network / login required)
   useEffect(() => {
@@ -1786,6 +1823,69 @@ export default function BrightwheelDashboard() {
       }
       setSheetConnected(true);
     } catch (e) { console.warn("Sheet init:", e.message); }
+  };
+
+  // ── DISTRICT METADATA ────────────────────────────────────────────────────────
+  // Fetch Size + Rep Assigned from the "data" tab of the district intelligence
+  // sheet and cache in localStorage. Called once per day (after 5 AM) when a
+  // rep is signed in. Results are immediately available from cache on next load.
+  const loadDistrictMeta = async (token) => {
+    const useToken = token || gmailToken;
+    if (!useToken || !DISTRICT_META_SHEET_ID) return;
+    try {
+      const range = encodeURIComponent(`${DISTRICT_META_TAB}!A:O`);
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${DISTRICT_META_SHEET_ID}/values/${range}`;
+      const res = await fetch(url, { headers: { Authorization: "Bearer " + useToken } });
+      if (!res.ok) { console.warn("loadDistrictMeta:", res.status); return; }
+      const json = await res.json();
+      const rows = json.values || [];
+      if (rows.length < 2) return;
+
+      // Locate columns by header name (case-insensitive)
+      const hdrs = (rows[0] || []).map(h => (h || "").toString().trim().toLowerCase());
+      const ci = (substr) => hdrs.findIndex(h => h.includes(substr));
+      const iName  = 0;              // Agency Name  — always col A
+      const iState = 1;              // State Name   — always col B
+      const iTotal = ci("total students");
+      const iPrek  = ci("prekindergarten");
+      const iSize  = ci("size");
+      const iRep   = ci("rep assigned");
+
+      const meta = {};
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        const name  = (r[iName]  || "").trim().toUpperCase();
+        const state = (r[iState] || "").trim().toUpperCase();
+        if (!name || !state) continue;
+        meta[name + "|" + state] = {
+          size:        iSize  >= 0 ? (r[iSize]  || "").trim()            : "",
+          repAssigned: iRep   >= 0 ? (r[iRep]   || "").trim()            : "",
+          prek:        iPrek  >= 0 ? parseInt((r[iPrek]  || "").replace(/[^0-9]/g, "")) || 0 : 0,
+          total:       iTotal >= 0 ? parseInt((r[iTotal] || "").replace(/[^0-9]/g, "")) || 0 : 0,
+        };
+      }
+
+      setDistrictMeta(meta);
+      localStorage.setItem("districtMeta", JSON.stringify(meta));
+      localStorage.setItem("districtMetaFetchedAt", String(Date.now()));
+      console.log(`[districtMeta] loaded ${Object.keys(meta).length} districts`);
+    } catch (e) { console.warn("loadDistrictMeta error:", e); }
+  };
+
+  // Trigger a refresh if cache is older than today's 5 AM
+  useEffect(() => {
+    if (!gmailToken) return;
+    const fetchedAt = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
+    const today5AM  = new Date(); today5AM.setHours(5, 0, 0, 0);
+    if (fetchedAt < today5AM.getTime()) loadDistrictMeta();
+  }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Helper: look up metadata for a district object using name + full state name as key
+  const getDistrictMeta = (d) => {
+    if (!districtMeta || !d) return null;
+    const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
+    const key       = (d.district || "").trim().toUpperCase() + "|" + stateFull;
+    return districtMeta[key] || null;
   };
 
   // Read all rows → merge into district state (deduped by activity id)
@@ -2867,7 +2967,10 @@ export default function BrightwheelDashboard() {
                           </div>
                           <div className="text-gray-400 text-xs truncate">{d.district}</div>
                           {d.lastUpdated && <div className="text-green-600 text-xs">🔄 {d.lastUpdated}</div>}
-                          {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1 py-0 rounded font-semibold inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
+                          <div className="flex items-center gap-1 flex-wrap mt-0.5">
+                            {(() => { const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]]; return rep ? <span className={`text-xs px-1 py-0 rounded font-semibold inline-block ${rep.color}`}>{rep.initials}</span> : null; })()}
+                            {(() => { const m = getDistrictMeta(d); const sz = m?.size; return sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz] ? <span className={`text-xs px-1 py-0 rounded font-semibold ${SIZE_COLORS[sz]}`}>{sz}</span> : null; })()}
+                          </div>
                         </td>
                         <td className="px-2 py-2" style={{ maxWidth: "120px" }}>
                           {d.superintendent
@@ -3215,11 +3318,14 @@ export default function BrightwheelDashboard() {
                         onClick={() => setExpandedContactId(isExpanded ? null : d.id)}
                       >
                         <div>
-                          <div className="font-medium text-gray-900 text-sm flex items-center gap-1.5">
+                          <div className="font-medium text-gray-900 text-sm flex items-center gap-1.5 flex-wrap">
                             {d.county} County
                             {d.state && d.state !== "FL" && <span className="text-xs bg-blue-100 text-blue-700 px-1.5 rounded font-semibold">{d.state}</span>}
+                            {(() => { const m = getDistrictMeta(d); const sz = m?.size; return sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz] ? <span className={`text-xs px-1.5 rounded font-semibold ${SIZE_COLORS[sz]}`}>{sz}</span> : null; })()}
                           </div>
-                          <div className="text-xs text-gray-400 truncate">{d.director}</div>
+                          <div className="text-xs text-gray-400 truncate">{d.director}
+                            {(() => { const m = getDistrictMeta(d); return m?.prek > 0 ? <span className="ml-1 text-gray-400">· {m.prek.toLocaleString()} PreK</span> : null; })()}
+                          </div>
                         </div>
                         <div>
                           <div className="text-xs text-gray-700 truncate flex items-center gap-1.5">
@@ -4209,6 +4315,15 @@ export default function BrightwheelDashboard() {
                     className={`text-xs px-3 py-1.5 rounded-full font-medium border flex items-center gap-1.5 ${gmailConnected ? "bg-green-50 text-green-700 border-green-200 cursor-default" : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50 cursor-pointer"}`}
                   >
                     {gmailConnected ? "✅ Gmail connected" : "🔑 Connect Gmail"}
+                  </button>
+                )}
+                {gmailConnected && DISTRICT_META_SHEET_ID && (
+                  <button
+                    onClick={() => { loadDistrictMeta(); showNotif("🔄 Refreshing district data…"); }}
+                    className="text-xs px-3 py-1.5 rounded-full font-medium border bg-white text-gray-500 border-gray-200 hover:bg-gray-50 cursor-pointer"
+                    title="Re-fetch Size and Rep Assigned from the district intelligence sheet"
+                  >
+                    🏫 Refresh district data
                   </button>
                 )}
               </div>
