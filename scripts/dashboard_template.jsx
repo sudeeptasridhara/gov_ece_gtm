@@ -2368,6 +2368,194 @@ export default function BrightwheelDashboard() {
   // Creates a brand-new spreadsheet from the current filtered view and opens it.
   const [exportingSheets, setExportingSheets] = useState(false);
 
+  // ── MAP TAB STATE ─────────────────────────────────────────────────────────
+  const [mapTopoData,  setMapTopoData]  = useState(null);
+  const [mapZoomState, setMapZoomState] = useState(null);   // null = US, "FL" = zoomed
+  const [mapColorMode, setMapColorMode] = useState("priority"); // "priority"|"enrollment"|"prek"
+  const [mapHover,     setMapHover]     = useState(null);   // { d, px, py }
+
+  // FIPS code → state abbreviation
+  const FIPS_TO_STATE = {
+    "01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT",
+    "10":"DE","11":"DC","12":"FL","13":"GA","15":"HI","16":"ID","17":"IL",
+    "18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME","24":"MD",
+    "25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE",
+    "32":"NV","33":"NH","34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND",
+    "39":"OH","40":"OK","41":"OR","42":"PA","44":"RI","45":"SC","46":"SD",
+    "47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV",
+    "55":"WI","56":"WY",
+  };
+  const STATE_FULL_NAMES = {
+    AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",
+    CO:"Colorado",CT:"Connecticut",DE:"Delaware",FL:"Florida",GA:"Georgia",
+    HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",
+    KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",
+    MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",
+    NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",
+    NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",
+    OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",
+    SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",
+    VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming",
+  };
+
+  // Load US atlas TopoJSON when map tab is first opened
+  useEffect(() => {
+    if (activeTab !== "map" || mapTopoData) return;
+    fetch("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+      .then(r => r.json())
+      .then(data => setMapTopoData(data))
+      .catch(e => console.warn("Map data load failed:", e));
+  }, [activeTab, mapTopoData]);
+
+  // Aggregate filtered districts by state for choropleth
+  const mapStateAggregates = useMemo(() => {
+    const agg = {};
+    filtered.forEach(d => {
+      const st = d.state || "";
+      if (!st) return;
+      if (!agg[st]) agg[st] = { count: 0, hotCount: 0, totalEnrollment: 0, priorities: [] };
+      agg[st].count++;
+      if ((d.priority || 0) >= 65) agg[st].hotCount++;
+      agg[st].totalEnrollment += (d.enrollment || 0);
+      agg[st].priorities.push(d.priority || 0);
+    });
+    Object.keys(agg).forEach(st => {
+      const a = agg[st];
+      a.avgPriority = a.priorities.reduce((s, v) => s + v, 0) / (a.priorities.length || 1);
+      a.hotPct      = a.count > 0 ? a.hotCount / a.count : 0;
+    });
+    return agg;
+  }, [filtered]);
+
+  // Build state GeoJSON features + country projection
+  const mapStateFeatures = useMemo(() => {
+    if (!mapTopoData || !window.topojson) return null;
+    return window.topojson.feature(mapTopoData, mapTopoData.objects.states).features;
+  }, [mapTopoData]);
+
+  const mapCountryProjection = useMemo(() => {
+    if (!window.d3) return null;
+    return window.d3.geoAlbersUsa().scale(1300).translate([480, 300]);
+  }, [mapTopoData]);
+
+  // Pre-compute state SVG paths for country view
+  const mapCountryPaths = useMemo(() => {
+    if (!mapStateFeatures || !mapCountryProjection || !window.d3) return [];
+    const pathGen = window.d3.geoPath().projection(mapCountryProjection);
+    return mapStateFeatures.map(f => {
+      const fips   = String(f.id).padStart(2, "0");
+      const abbr   = FIPS_TO_STATE[fips];
+      const pathD  = pathGen(f);
+      const ctr    = mapCountryProjection(window.d3.geoCentroid(f));
+      return { fips, abbr, pathD, centroid: ctr, feature: f };
+    }).filter(p => p.pathD);
+  }, [mapStateFeatures, mapCountryProjection]);
+
+  // Project each district onto the country map
+  const mapCountryDots = useMemo(() => {
+    if (!mapCountryProjection) return [];
+    return filtered.map(d => {
+      if (!d.lat || !d.lng) return null;
+      const pt = mapCountryProjection([d.lng, d.lat]);
+      if (!pt) return null;
+      return { d, px: pt[0], py: pt[1] };
+    }).filter(Boolean);
+  }, [filtered, mapCountryProjection]);
+
+  // State-zoom projection (fit selected state into viewport)
+  const mapZoomProjection = useMemo(() => {
+    if (!mapZoomState || !mapStateFeatures || !window.d3) return null;
+    const feature = mapStateFeatures.find(f =>
+      FIPS_TO_STATE[String(f.id).padStart(2, "0")] === mapZoomState
+    );
+    if (!feature) return null;
+    try {
+      return window.d3.geoAlbersUsa().fitExtent([[50, 50], [910, 550]], feature);
+    } catch { return null; }
+  }, [mapZoomState, mapStateFeatures]);
+
+  // State boundary path for zoom view
+  const mapZoomStatePath = useMemo(() => {
+    if (!mapZoomProjection || !mapStateFeatures || !window.d3) return "";
+    const feature = mapStateFeatures.find(f =>
+      FIPS_TO_STATE[String(f.id).padStart(2, "0")] === mapZoomState
+    );
+    if (!feature) return "";
+    return window.d3.geoPath().projection(mapZoomProjection)(feature) || "";
+  }, [mapZoomProjection, mapStateFeatures, mapZoomState]);
+
+  // District dots for zoomed state view
+  const mapZoomDots = useMemo(() => {
+    if (!mapZoomProjection) return [];
+    return filtered
+      .filter(d => d.state === mapZoomState && d.lat && d.lng)
+      .map(d => {
+        const pt = mapZoomProjection([d.lng, d.lat]);
+        if (!pt) return null;
+        return { d, px: pt[0], py: pt[1] };
+      }).filter(Boolean);
+  }, [mapZoomProjection, filtered, mapZoomState]);
+
+  // Color helpers for map
+  const mapDistrictColor = useCallback((d) => {
+    if (mapColorMode === "enrollment") {
+      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
+      const t    = Math.min((d.enrollment || 0) / maxE, 1);
+      const r    = Math.round(239 - t * 200);
+      const g    = Math.round(246 - t * 180);
+      return `rgb(${r},${g},255)`;
+    }
+    if (mapColorMode === "prek") {
+      // proxy: enrollment × estimated pre-K pct (districts with pre-K tend to be larger)
+      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
+      const t    = Math.min((d.enrollment || 0) / maxE, 1);
+      const r    = Math.round(240 - t * 200);
+      const g    = Math.round(255 - t * 60);
+      const b    = Math.round(240 - t * 200);
+      return `rgb(${r},${g},${b})`;
+    }
+    // Priority (default)
+    const p = d.priority || 0;
+    if (p >= 70) return "#DC2626";
+    if (p >= 55) return "#EA580C";
+    if (p >= 40) return "#D97706";
+    if (p >= 25) return "#2563EB";
+    return "#9CA3AF";
+  }, [mapColorMode, filtered]);
+
+  const mapStateColor = useCallback((abbr) => {
+    const agg = mapStateAggregates[abbr];
+    if (!agg || agg.count === 0) return "#F1F5F9";
+    if (mapColorMode === "enrollment") {
+      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
+      const t    = Math.min(agg.totalEnrollment / maxE, 1);
+      const r    = Math.round(219 - t * 160);
+      const g    = Math.round(234 - t * 160);
+      const b    = Math.round(254);
+      return `rgb(${r},${g},${b})`;
+    }
+    if (mapColorMode === "prek") {
+      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
+      const t    = Math.min(agg.totalEnrollment / maxE, 1);
+      return `rgb(${Math.round(240-t*200)},${Math.round(255-t*60)},${Math.round(240-t*200)})`;
+    }
+    // Priority choropleth
+    const p = agg.avgPriority;
+    if (p >= 70) return "#FCA5A5";
+    if (p >= 55) return "#FED7AA";
+    if (p >= 40) return "#FEF08A";
+    if (p >= 25) return "#BFDBFE";
+    if (p > 0)   return "#E2E8F0";
+    return "#F1F5F9";
+  }, [mapColorMode, mapStateAggregates]);
+
+  const mapEnrollRadius = useCallback((enrollment) => {
+    const maxE = Math.max(...(mapZoomState
+      ? filtered.filter(d => d.state === mapZoomState).map(d => d.enrollment || 0)
+      : filtered.map(d => d.enrollment || 0)), 1);
+    return Math.max(4, Math.min(28, 5 + Math.pow((enrollment || 0) / maxE, 0.5) * 23));
+  }, [filtered, mapZoomState]);
+
   const exportToSheets = async (mode = "prospects") => {
     const useToken = gmailToken;
     if (!useToken) {
@@ -2959,6 +3147,7 @@ export default function BrightwheelDashboard() {
           {[
             { id: "overview", label: "🏠 Overview" },
             { id: "prospects", label: "📋 Prospects" },
+            { id: "map", label: "🗺️ Map" },
             { id: "contacts", label: "👥 Outreach Tracking" },
             { id: "callqueue", label: `🔁 Sequence` },
             { id: "districtinfo", label: "🏫 District Info" },
@@ -3615,6 +3804,305 @@ export default function BrightwheelDashboard() {
                       )}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── MAP TAB ── */}
+        {activeTab === "map" && (
+          <div>
+            {/* Filter bar */}
+            <div className="mb-4">
+              <div className="flex gap-1.5 items-center overflow-x-auto pb-1 flex-wrap" style={{scrollbarWidth:"none"}}>
+                <input value={search} onChange={(e) => setSearch(e.target.value)}
+                  placeholder="🔍 Search..." className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200" />
+                {[
+                  { label:"State",      val:filterState,      setter:setFilterState,      opts:[["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
+                  { label:"Priority",   val:filterPriority,   setter:setFilterPriority,   opts:[["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                  { label:"Size",       val:filterSize,       setter:setFilterSize,       opts:[["all","All Sizes"],["XL","XL"],["Large","Large"],["Medium","Medium"],["Small","Small"]], style:{} },
+                  { label:"Curriculum", val:filterCurriculum, setter:setFilterCurriculum, opts:[["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v,v])], style:{maxWidth:"120px"} },
+                  { label:"Enrollment", val:filterEnrollment, setter:setFilterEnrollment, opts:[["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
+                ].map((f) => (
+                  <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
+                    style={f.style} className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                    {f.opts.map(([v,l]) => <option key={v} value={v}>{l}</option>)}
+                  </select>
+                ))}
+                {/* Color mode */}
+                <div className="flex items-center gap-1 flex-shrink-0 border-l border-gray-200 pl-2 ml-0.5">
+                  <span className="text-xs text-gray-400 whitespace-nowrap">Color:</span>
+                  {[["priority","🔥 Priority"],["enrollment","📊 Enrollment"],["prek","🧒 Pre-K"]].map(([m,l]) => (
+                    <button key={m} onClick={() => setMapColorMode(m)}
+                      className={`text-xs px-2 py-1 rounded-lg border transition-colors ${mapColorMode === m ? "bg-indigo-600 text-white border-indigo-600" : "border-gray-200 text-gray-600 hover:bg-gray-50"}`}>
+                      {l}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{filtered.length} districts</span>
+              </div>
+            </div>
+
+            {/* Map area */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              {/* Header bar */}
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 bg-gray-50/60">
+                {mapZoomState ? (
+                  <button onClick={() => { setMapZoomState(null); setMapHover(null); }}
+                    className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-medium">
+                    ← US View
+                  </button>
+                ) : null}
+                <h3 className="text-sm font-semibold text-gray-800">
+                  {mapZoomState ? (STATE_FULL_NAMES[mapZoomState] || mapZoomState) : "United States"}
+                  {mapZoomState && (
+                    <span className="text-gray-400 font-normal text-xs ml-2">
+                      {filtered.filter(d => d.state === mapZoomState).length} districts
+                    </span>
+                  )}
+                </h3>
+                {!mapZoomState && (
+                  <span className="text-xs text-gray-400 ml-1">Click a state to zoom in</span>
+                )}
+                {/* Legend */}
+                <div className="ml-auto flex items-center gap-3">
+                  {mapColorMode === "priority" ? (
+                    <div className="flex items-center gap-2">
+                      {[["#DC2626","🔥 Hot"],["#EA580C","Warm"],["#D97706",""],["#2563EB","💧 Cool"],["#9CA3AF","❄️ Cold"]].map(([c,l]) => (
+                        <span key={c} className="flex items-center gap-1 text-xs text-gray-600">
+                          <span className="inline-block w-3 h-3 rounded-full flex-shrink-0" style={{background:c}}></span>
+                          {l}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <span className="inline-block w-16 h-2.5 rounded-full flex-shrink-0"
+                        style={{background: mapColorMode==="enrollment"
+                          ? "linear-gradient(to right, #DBEAFE, #1D4ED8)"
+                          : "linear-gradient(to right, #DCFCE7, #15803D)"}}></span>
+                      <span>{mapColorMode === "enrollment" ? "Low → High enrollment" : "Low → High Pre-K"}</span>
+                    </div>
+                  )}
+                  {mapZoomState && (
+                    <div className="flex items-center gap-1 text-xs text-gray-400 border-l border-gray-200 pl-3">
+                      <span className="w-3 h-3 rounded-full bg-gray-300 inline-block border border-white"></span> circle size = enrollment
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* SVG map */}
+              {!mapTopoData ? (
+                <div className="flex items-center justify-center h-64 text-gray-400 text-sm">
+                  <div className="text-center">
+                    <div className="text-2xl mb-2">🗺️</div>
+                    <div>Loading map data...</div>
+                  </div>
+                </div>
+              ) : !mapZoomState ? (
+                /* ── COUNTRY VIEW ── */
+                <svg viewBox="0 0 960 600" className="w-full" style={{maxHeight:"560px", display:"block"}}
+                  onMouseLeave={() => setMapHover(null)}>
+                  {/* State choropleth fills */}
+                  {mapCountryPaths.map(({ fips, abbr, pathD, centroid }) => {
+                    const agg    = abbr ? mapStateAggregates[abbr] : null;
+                    const isClickable = agg && agg.count > 0;
+                    return (
+                      <path key={fips} d={pathD}
+                        fill={mapStateColor(abbr)}
+                        stroke="white" strokeWidth="0.7"
+                        style={{ cursor: isClickable ? "pointer" : "default", transition: "opacity 0.15s" }}
+                        onClick={() => isClickable && setMapZoomState(abbr)}
+                        onMouseEnter={(e) => {
+                          if (!agg) return;
+                          setMapHover({ type:"state", abbr, agg, px: centroid ? centroid[0] : 480, py: centroid ? centroid[1] : 300 });
+                        }}
+                        onMouseLeave={() => setMapHover(null)}
+                      />
+                    );
+                  })}
+                  {/* State labels */}
+                  {mapCountryPaths.map(({ fips, abbr, centroid }) => {
+                    if (!centroid || !abbr || !mapStateAggregates[abbr]) return null;
+                    return (
+                      <text key={`lbl-${fips}`} x={centroid[0]} y={centroid[1] + 4}
+                        textAnchor="middle" fontSize="7" fontWeight="600"
+                        fill="#374151" style={{pointerEvents:"none", userSelect:"none"}}>
+                        {abbr}
+                      </text>
+                    );
+                  })}
+                  {/* District dots */}
+                  {mapCountryDots.map(({ d, px, py }, i) => (
+                    <circle key={d.id || i} cx={px} cy={py} r="3"
+                      fill={mapDistrictColor(d)} opacity="0.75" stroke="white" strokeWidth="0.3"
+                      style={{cursor:"pointer"}}
+                      onMouseEnter={() => setMapHover({ type:"district", d, px, py })}
+                      onMouseLeave={() => setMapHover(null)}
+                      onClick={() => {
+                        const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                        setActiveTab("districtinfo");
+                        setDiInfoSelectedId(d.id);
+                        setDiInfoSearch(shortN);
+                      }}
+                    />
+                  ))}
+                  {/* Hover tooltip */}
+                  {mapHover && mapHover.type === "district" && (() => {
+                    const { d, px, py } = mapHover;
+                    const tx = px + 10 > 820 ? px - 150 : px + 10;
+                    const ty = py - 30 < 10  ? py + 10  : py - 40;
+                    return (
+                      <g transform={`translate(${tx},${ty})`} style={{pointerEvents:"none"}}>
+                        <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
+                          x="-6" y="-4" width="160" height="46" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
+                        <text fontSize="10" fontWeight="700" fill="#111827" y="8">{(d.district||"").slice(0,26)}{(d.district||"").length>26?"…":""}</text>
+                        <text fontSize="9" fill="#6B7280" y="20">{d.state} · {(d.enrollment||0).toLocaleString()} enrolled</text>
+                        <text fontSize="9" fill="#6B7280" y="32">Priority {d.priority||0} · {getPriorityLabel(d.priority)?.label||""}</text>
+                      </g>
+                    );
+                  })()}
+                  {mapHover && mapHover.type === "state" && (() => {
+                    const { abbr, agg, px, py } = mapHover;
+                    const tx = px + 10 > 820 ? px - 160 : px + 10;
+                    const ty = py - 30 < 10  ? py + 10  : py - 44;
+                    return (
+                      <g transform={`translate(${tx},${ty})`} style={{pointerEvents:"none"}}>
+                        <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
+                          x="-6" y="-4" width="170" height="56" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
+                        <text fontSize="11" fontWeight="700" fill="#111827" y="9">{STATE_FULL_NAMES[abbr]||abbr}</text>
+                        <text fontSize="9" fill="#6B7280" y="21">{agg.count} district{agg.count!==1?"s":""} · {agg.hotCount} hot</text>
+                        <text fontSize="9" fill="#6B7280" y="33">Avg priority: {Math.round(agg.avgPriority)}</text>
+                        <text fontSize="9" fill="#6B7280" y="45">Enrollment: {agg.totalEnrollment.toLocaleString()}</text>
+                      </g>
+                    );
+                  })()}
+                </svg>
+              ) : (
+                /* ── STATE ZOOM VIEW ── */
+                <svg viewBox="0 0 960 600" className="w-full" style={{maxHeight:"560px", display:"block"}}
+                  onMouseLeave={() => setMapHover(null)}>
+                  {/* State outline */}
+                  {mapZoomStatePath && (
+                    <path d={mapZoomStatePath} fill="#F8FAFC" stroke="#94A3B8" strokeWidth="1.5" />
+                  )}
+                  {/* District circles — sized by enrollment, colored by mode */}
+                  {mapZoomDots.map(({ d, px, py }, i) => {
+                    const r = mapEnrollRadius(d.enrollment);
+                    return (
+                      <circle key={d.id || i} cx={px} cy={py} r={r}
+                        fill={mapDistrictColor(d)} opacity="0.8" stroke="white" strokeWidth="0.8"
+                        style={{cursor:"pointer", transition:"opacity 0.1s"}}
+                        onMouseEnter={() => setMapHover({ type:"district", d, px, py, r })}
+                        onMouseLeave={() => setMapHover(null)}
+                        onClick={() => {
+                          const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                          setActiveTab("districtinfo");
+                          setDiInfoSelectedId(d.id);
+                          setDiInfoSearch(shortN);
+                        }}
+                      />
+                    );
+                  })}
+                  {/* Labels for larger circles */}
+                  {mapZoomDots.filter(({ d }) => (d.enrollment||0) > 10000).map(({ d, px, py }, i) => {
+                    const r = mapEnrollRadius(d.enrollment);
+                    const shortN = d.district.replace(/\s+(Public\s+Schools?|Unified\s+(School\s+)?District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").replace(/\s+—\s+.+$/,"").slice(0,22);
+                    return (
+                      <text key={`lbl-${d.id||i}`} x={px} y={py + r + 10}
+                        textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500"
+                        style={{pointerEvents:"none", userSelect:"none"}}>
+                        {shortN}
+                      </text>
+                    );
+                  })}
+                  {/* Hover tooltip */}
+                  {mapHover && mapHover.type === "district" && (() => {
+                    const { d, px, py, r = 5 } = mapHover;
+                    const tx = px + 14 > 800 ? px - 165 : px + 14;
+                    const ty = py - r - 50 < 10 ? py + r + 5 : py - r - 55;
+                    return (
+                      <g transform={`translate(${tx},${ty})`} style={{pointerEvents:"none"}}>
+                        <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
+                          x="-6" y="-4" width="175" height="60" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.15))" />
+                        <text fontSize="10" fontWeight="700" fill="#111827" y="9">{(d.district||"").slice(0,28)}{(d.district||"").length>28?"…":""}</text>
+                        <text fontSize="9" fill="#6B7280" y="22">{d.county} County · {(d.enrollment||0).toLocaleString()} enrolled</text>
+                        <text fontSize="9" fill="#6B7280" y="35">Priority {d.priority||0} · {getPriorityLabel(d.priority)?.label||""}</text>
+                        <text fontSize="9" fill="#3B82F6" y="48">{d.director||""}</text>
+                      </g>
+                    );
+                  })()}
+                </svg>
+              )}
+            </div>
+
+            {/* Stats bar below map */}
+            {!mapZoomState && mapStateAggregates && Object.keys(mapStateAggregates).length > 0 && (
+              <div className="mt-4 grid grid-cols-4 gap-3">
+                {Object.entries(mapStateAggregates)
+                  .sort((a, b) => b[1].hotCount - a[1].hotCount)
+                  .slice(0, 4)
+                  .map(([abbr, agg]) => (
+                    <button key={abbr} onClick={() => setMapZoomState(abbr)}
+                      className="bg-white border border-gray-200 rounded-xl p-3 text-left hover:border-indigo-300 hover:bg-indigo-50 transition-colors">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-gray-900 text-sm">{STATE_FULL_NAMES[abbr]||abbr}</span>
+                        <span className="text-xs text-gray-400">{agg.count} districts</span>
+                      </div>
+                      <div className="text-xs text-gray-500">{agg.hotCount} hot · avg priority {Math.round(agg.avgPriority)}</div>
+                      <div className="text-xs text-gray-400 mt-0.5">{agg.totalEnrollment.toLocaleString()} enrolled</div>
+                    </button>
+                  ))}
+              </div>
+            )}
+
+            {/* State detail stats when zoomed */}
+            {mapZoomState && (
+              <div className="mt-4">
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { label:"🔥 Hot",  val: mapZoomDots.filter(p => (p.d.priority||0)>=70).length, color:"text-red-600" },
+                    { label:"🌡️ Warm", val: mapZoomDots.filter(p => (p.d.priority||0)>=50 && (p.d.priority||0)<70).length, color:"text-orange-500" },
+                    { label:"💧 Cool", val: mapZoomDots.filter(p => (p.d.priority||0)>=25 && (p.d.priority||0)<50).length, color:"text-blue-500" },
+                  ].map(({ label, val, color }) => (
+                    <div key={label} className="bg-white border border-gray-200 rounded-xl p-3 text-center">
+                      <div className={`text-xl font-bold ${color}`}>{val}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{label} districts</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 bg-white rounded-xl border border-gray-200 overflow-hidden">
+                  <table className="w-full text-xs">
+                    <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wide">
+                      <tr>
+                        {["District","County","Enrollment","Priority","Stage"].map(h => (
+                          <th key={h} className="px-3 py-2 text-left font-medium">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mapZoomDots.sort((a,b) => (b.d.priority||0)-(a.d.priority||0)).slice(0,15).map(({ d }, i) => {
+                        const p = getPriorityLabel(d.priority);
+                        return (
+                          <tr key={d.id||i} className={`border-t border-gray-100 hover:bg-indigo-50 cursor-pointer ${i%2===0?"bg-white":"bg-gray-50/30"}`}
+                            onClick={() => {
+                              const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                              setActiveTab("districtinfo");
+                              setDiInfoSelectedId(d.id);
+                              setDiInfoSearch(shortN);
+                            }}>
+                            <td className="px-3 py-2 font-medium text-gray-900 max-w-xs truncate">{d.district}</td>
+                            <td className="px-3 py-2 text-gray-500">{d.county}</td>
+                            <td className="px-3 py-2 text-gray-700">{(d.enrollment||0).toLocaleString()}</td>
+                            <td className="px-3 py-2"><span className={`px-1.5 py-0.5 rounded-full text-xs font-medium ${p?.color}`}>{p?.label}</span></td>
+                            <td className="px-3 py-2 text-gray-500">{d.status || "—"}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}

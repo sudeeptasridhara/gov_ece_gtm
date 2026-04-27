@@ -89,6 +89,8 @@ def build():
   <title>brightwheel · PreK Sales Intelligence</title>
   <!-- Last built: {today} -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
   <style>
     body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
     select {{ appearance: auto; }}
@@ -99,7 +101,7 @@ def build():
 <body>
   <div id="root"></div>
   <script>
-    const {{ useState, useMemo, useRef, useEffect }} = React;
+    const {{ useState, useMemo, useRef, useEffect, useCallback }} = React;
   </script>
   <script>
 {compiled_js}
