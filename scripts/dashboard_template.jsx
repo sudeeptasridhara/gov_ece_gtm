@@ -2498,6 +2498,33 @@ export default function BrightwheelDashboard() {
     });
   }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, districtMeta]);
 
+  // ── PROSPECT ROWS (one row per contact) ──────────────────────────────────────
+  const prospectRows = useMemo(() => {
+    const rows = [];
+    filtered.forEach(d => {
+      // Primary contact (always include if any info)
+      const primaryName  = d.contactEdits?.director ?? d.director ?? "";
+      const primaryEmail = d.contactEdits?.email    ?? d.email    ?? "";
+      const primaryTitle = d.contactEdits?.title    ?? d.title    ?? "";
+      const primaryPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
+      if (primaryName || primaryEmail) {
+        rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
+      }
+      // SF contacts — skip if same email as primary, or name contains "Unknown"
+      (d.sfContacts || []).forEach(c => {
+        const nm = [c.firstName, c.lastName]
+          .filter(x => x && !x.toLowerCase().includes("unknown") && x.trim())
+          .join(" ").trim();
+        const em = (c.email || "").trim();
+        if (!nm || !em) return;                              // skip if no name or no email
+        if (em === primaryEmail) return;                    // skip duplicate of primary
+        if (rows.some(r => r.d.id === d.id && r.contact.email === em)) return; // dedup
+        rows.push({ d, contact: { name: nm, email: em, title: c.title || "", phone: c.phone || "", source: "sf" } });
+      });
+    });
+    return rows;
+  }, [filtered]);
+
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
   const someVisibleSelected = filtered.some((d) => selectedIds.has(d.id));
@@ -3145,7 +3172,7 @@ export default function BrightwheelDashboard() {
                     <option value="status">📊 Stage</option>
                   </select>
                 </div>
-                <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{filtered.length} results</span>
+                <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{prospectRows.length} results</span>
               </div>
             </div>
 
@@ -3165,7 +3192,7 @@ export default function BrightwheelDashboard() {
                       />
                     </th>
                     {[
-                      { h: "Priority" }, { h: "District" }, { h: "Supt." }, { h: "Director" }, { h: "Curriculum" },
+                      { h: "Priority" }, { h: "District" }, { h: "Supt." }, { h: "Contact" }, { h: "Curriculum" },
                       { h: "Adopted", style: { width: "64px" } }, { h: "Age", style: { width: "42px" } },
                       { h: "Enroll.", style: { width: "64px" } },
                       { h: "Signals", style: { minWidth: "180px" } },
@@ -3176,11 +3203,11 @@ export default function BrightwheelDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((d, i) => {
+                  {prospectRows.map(({ d, contact }, i) => {
                     const p = getPriorityLabel(d.priority);
                     const age = d.curriculumAdoptionYear ? 2026 - d.curriculumAdoptionYear : null;
                     return (
-                      <tr key={d.id} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${selectedIds.has(d.id) ? "bg-indigo-50 border-l-2 border-l-indigo-400" : i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
+                      <tr key={`${d.id}-${contact.email || contact.name}`} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${selectedIds.has(d.id) ? "bg-indigo-50 border-l-2 border-l-indigo-400" : i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
                         <td className="px-2 py-2 w-7">
                           <input
                             type="checkbox"
@@ -3222,9 +3249,11 @@ export default function BrightwheelDashboard() {
                             : <span className="text-gray-300 text-xs">—</span>
                           }
                         </td>
-                        <td className="px-2 py-2" style={{ maxWidth: "120px" }}>
-                          <div className="font-medium truncate">{d.director}</div>
-                          <div className="text-gray-400 truncate text-xs">{d.email}</div>
+                        <td className="px-2 py-2" style={{ maxWidth: "140px" }}>
+                          <div className="font-medium truncate">{contact.name || "—"}</div>
+                          <div className="text-gray-400 truncate text-xs">{contact.email || "—"}</div>
+                          {contact.title && <div className="text-gray-400 truncate text-xs italic">{contact.title}</div>}
+                          {contact.source === "sf" && <span className="text-xs bg-blue-50 text-blue-500 px-1 rounded">SF</span>}
                         </td>
                         <td className="px-2 py-2" style={{ maxWidth: "110px" }}>
                           <span className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs truncate block">{d.curriculum}</span>
@@ -5542,6 +5571,126 @@ export default function BrightwheelDashboard() {
                   <p className="text-xs mt-1">{districts.length} districts in the database · type to search</p>
                 </div>
               )}
+
+              {/* ── ALL DISTRICTS TABLE ───────────────────────────────────── */}
+              <div className="mt-8">
+                <div className="mb-3 flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-gray-900">All Districts <span className="text-gray-400 font-normal text-xs ml-1">({filtered.length})</span></h3>
+                </div>
+
+                {/* Filter bar — same as Prospects tab */}
+                <div className="flex gap-1.5 items-center overflow-x-auto pb-1 mb-3" style={{scrollbarWidth:"none"}}>
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="🔍 Search..."
+                    className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  />
+                  {[
+                    { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
+                    { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                    { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
+                    { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
+                    { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["Large","Large"],["Medium","Medium"],["Small","Small"]], style:{} },
+                    { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
+                    { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
+                    { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
+                  ].map((f) => (
+                    <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
+                      style={f.style}
+                      className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                      {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                    </select>
+                  ))}
+                  <div className="flex items-center gap-1 flex-shrink-0 border-l border-gray-200 pl-2 ml-0.5">
+                    <span className="text-xs text-gray-400 whitespace-nowrap">Sort:</span>
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
+                      className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200">
+                      <option value="priority">⚡ Priority</option>
+                      <option value="enrollment">🏫 Enroll.</option>
+                      <option value="tier">🏆 Tier</option>
+                      <option value="adoptionYear">📅 Adoption</option>
+                      <option value="lastUpdated">🔄 Updated</option>
+                      <option value="status">📊 Stage</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl border border-gray-200 overflow-x-auto">
+                  <table className="w-full text-xs" style={{ minWidth: "860px" }}>
+                    <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wide">
+                      <tr>
+                        {[
+                          { h: "District" }, { h: "Size/Rep" }, { h: "Director" },
+                          { h: "Curriculum" }, { h: "Enroll.", style: { width: "70px" } },
+                          { h: "Adoption", style: { width: "70px" } },
+                          { h: "Signals", style: { minWidth: "160px" } },
+                          { h: "Stage" }, { h: "Priority", style: { width: "70px" } },
+                        ].map(({ h, style }) => (
+                          <th key={h} className="px-3 py-2.5 text-left font-medium" style={style}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filtered.map((d, i) => {
+                        const meta = getDistrictMeta(d);
+                        const sz = meta?.size;
+                        const repAssigned = meta?.repAssigned;
+                        const repP = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
+                        const p = getPriorityLabel(d.priority);
+                        const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                        return (
+                          <tr
+                            key={d.id}
+                            className={`border-t border-gray-100 hover:bg-indigo-50 cursor-pointer transition-colors ${i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}
+                            onClick={() => { setDiInfoSelectedId(d.id); setDiInfoSearch(shortN); setActiveTab("districtinfo"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                          >
+                            <td className="px-3 py-2" style={{ maxWidth: "160px" }}>
+                              <div className="font-medium text-gray-900 truncate">{shortN}</div>
+                              <div className="text-gray-400 text-xs">{d.county}{d.state && d.state !== "FL" ? ` · ${d.state}` : ""}</div>
+                            </td>
+                            <td className="px-3 py-2">
+                              <div className="flex flex-col gap-0.5">
+                                {sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz] && (
+                                  <span className={`text-xs px-1.5 py-0 rounded font-semibold w-fit ${SIZE_COLORS[sz]}`}>{sz}</span>
+                                )}
+                                {repP && <span className={`text-xs px-1 py-0 rounded font-semibold w-fit ${repP.color}`}>{repP.initials}</span>}
+                                {repAssigned && <span className="text-xs text-gray-400 truncate">{repAssigned}</span>}
+                              </div>
+                            </td>
+                            <td className="px-3 py-2" style={{ maxWidth: "130px" }}>
+                              <div className="font-medium truncate">{d.director || "—"}</div>
+                              <div className="text-gray-400 truncate text-xs">{d.email || ""}</div>
+                            </td>
+                            <td className="px-3 py-2" style={{ maxWidth: "110px" }}>
+                              <span className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs truncate block">{d.curriculum}</span>
+                            </td>
+                            <td className="px-3 py-2 text-right text-xs">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
+                            <td className="px-3 py-2 text-center text-xs">{d.curriculumAdoptionYear ?? "—"}</td>
+                            <td className="px-3 py-2" style={{ minWidth: "160px" }}>
+                              <div className="flex flex-wrap gap-1">
+                                {d.newLeadership && <span className="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-xs">🆕 Leadership</span>}
+                                {(d.buyingSignals || []).length > 0 && <span className="bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded text-xs">⚡ {(d.buyingSignals||[]).length} signal{(d.buyingSignals||[]).length > 1 ? "s" : ""}</span>}
+                                {(d.districtContext || []).length > 0 && <span className="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-xs">🔍 {d.districtContext.length} intel</span>}
+                                {d.inSalesforce && <span className="bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded text-xs">✓ SF</span>}
+                                {!d.newLeadership && !(d.buyingSignals||[]).length && !(d.districtContext||[]).length && !d.inSalesforce && <span className="text-gray-300">—</span>}
+                              </div>
+                            </td>
+                            <td className="px-3 py-2">
+                              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${stageColor(d.status || "not_started")}`}>
+                                {SEQUENCE_STAGES[d.status || "not_started"]?.label || d.status}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2">
+                              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium w-fit ${p.color}`}>{p.label}</span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           );
         })()}
