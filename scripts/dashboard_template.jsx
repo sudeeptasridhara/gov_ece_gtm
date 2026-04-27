@@ -19,6 +19,13 @@ const SHEET_COLS = ["activity_id","district_id","district_name","type","date","n
 // See activity_log_api.gs for step-by-step deployment instructions.
 const ACTIVITY_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbzRvpSmE36rXIRdWXdcZoGyci-CrczyjJ-cZVTSpfJRCNBCOonzX1g94FAS8MKn8X6c7w/exec";
 
+// ─── EMAIL OPEN TRACKING ──────────────────────────────────────────────────────
+// Deploy tracking_pixel.gs as a Google Apps Script web app (execute as: Me,
+// access: Anyone with the link) and paste the resulting /exec URL below.
+// Leave empty to disable open tracking.
+// See scripts/tracking_pixel.gs for deployment instructions.
+const TRACKING_PIXEL_URL = ""; // e.g. "https://script.google.com/macros/s/ABC.../exec"
+
 // ─── SEQUENCE STAGES ─────────────────────────────────────────────────────────
 const SEQUENCE_STAGES = {
   not_started:    { label: "Not Started",    color: "bg-gray-100 text-gray-500",     dot: "bg-gray-400"    },
@@ -1291,7 +1298,13 @@ export default function BrightwheelDashboard() {
     const useToken = token || gmailToken;
     if (!useToken) { connectGmail((t) => sendEmail(item, t)); return; }
     const { subject, body } = parseEmailParts(item.body);
-    const raw = buildRawEmail(item.to, subject, body);
+    let trackedBody = body;
+    if (TRACKING_PIXEL_URL) {
+      const trackingId = `${item.districtId}_${Date.now()}`;
+      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(gmailUser || "")}&t=${encodeURIComponent(item.template || "")}`;
+      trackedBody = body + `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
+    }
+    const raw = buildRawEmail(item.to, subject, trackedBody);
     try {
       const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
         method: "POST",
@@ -1339,7 +1352,13 @@ export default function BrightwheelDashboard() {
     const useToken = token || gmailToken;
     if (!useToken) { connectGmail((t) => draftEmail(item, t, openInGmail)); return; }
     const { subject, body } = parseEmailParts(item.body);
-    const raw = buildRawEmail(item.to, subject, body);
+    let trackedBody = body;
+    if (TRACKING_PIXEL_URL) {
+      const trackingId = `${item.districtId}_${Date.now()}`;
+      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(gmailUser || "")}&t=${encodeURIComponent(item.template || "")}`;
+      trackedBody = body + `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
+    }
+    const raw = buildRawEmail(item.to, subject, trackedBody);
     try {
       const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/drafts", {
         method: "POST",
@@ -2595,11 +2614,12 @@ export default function BrightwheelDashboard() {
                   : null;
 
                 const ACT_TYPES = [
-                  { key: "email",    label: "✉️ Emails",   color: "text-blue-600",   bg: "bg-blue-50"   },
-                  { key: "call",     label: "📞 Calls",    color: "text-green-600",  bg: "bg-green-50"  },
-                  { key: "linkedin", label: "🔗 LinkedIn", color: "text-sky-600",    bg: "bg-sky-50"    },
-                  { key: "meeting",  label: "📅 Meetings", color: "text-purple-600", bg: "bg-purple-50" },
-                  { key: "note",     label: "📝 Notes",    color: "text-gray-600",   bg: "bg-gray-50"   },
+                  { key: "email",      label: "✉️ Emails",   color: "text-blue-600",   bg: "bg-blue-50"   },
+                  { key: "email_open", label: "👁 Opens",    color: "text-amber-600",  bg: "bg-amber-50"  },
+                  { key: "call",       label: "📞 Calls",    color: "text-green-600",  bg: "bg-green-50"  },
+                  { key: "linkedin",   label: "🔗 LinkedIn", color: "text-sky-600",    bg: "bg-sky-50"    },
+                  { key: "meeting",    label: "📅 Meetings", color: "text-purple-600", bg: "bg-purple-50" },
+                  { key: "note",       label: "📝 Notes",    color: "text-gray-600",   bg: "bg-gray-50"   },
                 ];
 
                 // Flatten all activities from every district that passes the current
@@ -3075,8 +3095,8 @@ export default function BrightwheelDashboard() {
 
         {/* ── CONTACT TRACKING TAB ── */}
         {activeTab === "contacts" && (() => {
-          const activityIcon = (type) => type === "email" ? "✉️" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
-          const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
+          const activityIcon = (type) => type === "email" ? "✉️" : type === "email_open" ? "👁" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
+          const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
 
           const contactDistricts = districts.filter((d) => {
             const matchSearch = !contactSearch || d.district.toLowerCase().includes(contactSearch.toLowerCase()) || d.director.toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
