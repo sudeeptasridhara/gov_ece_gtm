@@ -1089,6 +1089,13 @@ export default function BrightwheelDashboard() {
   });
   const [bounceConfirm, setBounceConfirm] = useState(null); // { district, template, contactEmail, contactName }
 
+  // Email validator modal
+  const [emailValidatorOpen, setEmailValidatorOpen] = useState(false);
+  const [validationResults, setValidationResults]   = useState([]); // [{email, districtName, districtId, valid, warn, reason}]
+  const [validationProgress, setValidationProgress] = useState(0);  // 0-100
+  const [validating, setValidating]                 = useState(false);
+  const [validatorSelected, setValidatorSelected]   = useState(new Set()); // emails selected for marking
+
   // ── CONTACT MANAGEMENT ───────────────────────────────────────────────────────
   const [contactEditingId, setContactEditingId] = useState(null);   // districtId being edited
   const [contactEditTarget, setContactEditTarget] = useState(null); // "main" | contact.id
@@ -1823,6 +1830,132 @@ export default function BrightwheelDashboard() {
       }
       setSheetConnected(true);
     } catch (e) { console.warn("Sheet init:", e.message); }
+  };
+
+  // ── EMAIL VALIDATION ─────────────────────────────────────────────────────────
+  // Uses Google's public DNS API to check MX records for each email domain.
+  // No email is ever sent. Flags: bad syntax, no-reply patterns, dead domains.
+
+  const checkDomainMX = async (domain) => {
+    try {
+      const url = `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=MX`;
+      const res  = await fetch(url);
+      if (!res.ok) return null; // API unreachable — don't penalise
+      const d = await res.json();
+      if (d.Status === 0 && d.Answer?.length > 0) return true;   // has MX
+      // No MX — check for A/AAAA record (some tiny domains skip MX)
+      const aRes  = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=A`);
+      if (!aRes.ok) return false;
+      const aData = await aRes.json();
+      return aData.Status === 0 && aData.Answer?.length > 0 ? "a_only" : false;
+    } catch { return null; }
+  };
+
+  const validateOneEmail = async (email) => {
+    if (!email || !email.trim()) return { valid: false, warn: false, reason: "Empty address" };
+    const e = email.trim().toLowerCase();
+
+    // 1. Syntax
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e))
+      return { valid: false, warn: false, reason: "Invalid format" };
+
+    const [local, domain] = e.split("@");
+
+    // 2. No-reply / do-not-reply pattern
+    const noReply = ["noreply","no-reply","donotreply","do-not-reply","no_reply","noemail","none","null","bounce","mailer-daemon","postmaster"];
+    if (noReply.some(p => local === p || local.startsWith(p + ".")))
+      return { valid: false, warn: false, reason: "No-reply address" };
+
+    // 3. MX / A record check
+    const mx = await checkDomainMX(domain);
+    if (mx === false)    return { valid: false, warn: false, reason: "Domain has no mail server" };
+    if (mx === "a_only") return { valid: true,  warn: true,  reason: "No MX record (may still work)" };
+    if (mx === null)     return { valid: true,  warn: true,  reason: "DNS check failed (assumed valid)" };
+
+    return { valid: true, warn: false, reason: "OK" };
+  };
+
+  const runEmailValidation = async () => {
+    setValidating(true);
+    setValidationResults([]);
+    setValidatorSelected(new Set());
+    setValidationProgress(0);
+
+    // Collect every unique email across all districts (primary + additional contacts)
+    const emailMap = {}; // email.lower → { email, districtName, districtId }
+    districts.forEach(d => {
+      const primary = (d.contactEdits?.email || d.email || "").trim();
+      if (primary) {
+        const k = primary.toLowerCase();
+        if (!emailMap[k]) emailMap[k] = { email: primary, districtName: d.district, districtId: d.id };
+      }
+      (d.additionalContacts || []).forEach(c => {
+        const ce = (c.email || "").trim();
+        if (ce) {
+          const ck = ce.toLowerCase();
+          if (!emailMap[ck]) emailMap[ck] = { email: ce, districtName: d.district, districtId: d.id };
+        }
+      });
+    });
+
+    const entries = Object.values(emailMap);
+    const results = [];
+    const BATCH = 5; // concurrent DNS requests
+    for (let i = 0; i < entries.length; i += BATCH) {
+      const batch = entries.slice(i, i + BATCH);
+      const batchResults = await Promise.all(
+        batch.map(async ({ email, districtName, districtId }) => {
+          const { valid, warn, reason } = await validateOneEmail(email);
+          return { email, districtName, districtId, valid, warn, reason };
+        })
+      );
+      results.push(...batchResults);
+      setValidationProgress(Math.round(((i + batch.length) / entries.length) * 100));
+      await new Promise(r => setTimeout(r, 100)); // small pause between batches
+    }
+
+    // Sort: invalid first, then warnings, then valid
+    results.sort((a, b) => {
+      if (!a.valid && b.valid)  return -1;
+      if (a.valid  && !b.valid) return 1;
+      if (a.warn   && !b.warn)  return -1;
+      if (!a.warn  && b.warn)   return 1;
+      return a.email.localeCompare(b.email);
+    });
+
+    setValidationResults(results);
+    // Pre-select all invalid (non-warning) emails
+    const autoSelect = new Set(results.filter(r => !r.valid).map(r => r.email.toLowerCase()));
+    setValidatorSelected(autoSelect);
+    setValidating(false);
+    setValidationProgress(100);
+  };
+
+  const markSelectedAsBounced = () => {
+    const toMark = [...validatorSelected];
+    if (!toMark.length) return;
+    setBounces(prev => new Set([...prev, ...toMark]));
+    // Write bounce rows to the shared sheet for cross-rep sync
+    if (ACTIVITY_SHEET_ID && gmailToken) {
+      const now = new Date().toISOString();
+      const rows = toMark.map(email => {
+        const entry = validationResults.find(r => r.email.toLowerCase() === email);
+        return activityToRow(entry?.districtId || 0, entry?.districtName || "", {
+          id: `bounce_validation_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+          type: "bounce",
+          date: now.split("T")[0],
+          notes: email,
+          source: "email_validator",
+          repEmail: gmailUser || "",
+          directorName: entry ? `Flagged: ${entry.reason}` : "Email validation",
+        });
+      });
+      writeToSheet(rows);
+    }
+    showNotif(`⛔ ${toMark.length} email${toMark.length !== 1 ? "s" : ""} marked as bounced`);
+    setValidatorSelected(new Set());
+    // Remove from results list
+    setValidationResults(prev => prev.filter(r => !toMark.includes(r.email.toLowerCase())));
   };
 
   // ── DISTRICT METADATA ────────────────────────────────────────────────────────
@@ -4326,6 +4459,13 @@ export default function BrightwheelDashboard() {
                     🏫 Refresh district data
                   </button>
                 )}
+                <button
+                  onClick={() => { setEmailValidatorOpen(true); if (!validating && validationResults.length === 0) runEmailValidation(); }}
+                  className="text-xs px-3 py-1.5 rounded-full font-medium border bg-white text-gray-500 border-gray-200 hover:bg-gray-50 cursor-pointer"
+                  title="Test all district emails for deliverability without sending — flags dead domains and no-reply addresses"
+                >
+                  🔍 Validate emails
+                </button>
               </div>
               {/* Bulk action buttons */}
               {approvalQueue.length > 0 && (
@@ -5325,6 +5465,139 @@ export default function BrightwheelDashboard() {
                 className="px-4 py-2 border border-gray-300 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── EMAIL VALIDATOR MODAL ── */}
+      {emailValidatorOpen && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between flex-shrink-0">
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">🔍 Email Deliverability Check</h2>
+                <p className="text-xs text-gray-400 mt-0.5">Tests every district email via DNS — no emails sent</p>
+              </div>
+              <button onClick={() => setEmailValidatorOpen(false)} className="text-gray-400 hover:text-gray-600 text-xl font-light">✕</button>
+            </div>
+
+            {/* Progress / summary bar */}
+            <div className="px-6 py-3 border-b border-gray-100 flex-shrink-0 bg-gray-50">
+              {validating ? (
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs text-gray-500 font-medium">Checking emails via DNS…</span>
+                    <span className="text-xs text-gray-400">{validationProgress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-1.5">
+                    <div className="bg-indigo-500 h-1.5 rounded-full transition-all" style={{ width: `${validationProgress}%` }} />
+                  </div>
+                </div>
+              ) : validationResults.length > 0 ? (() => {
+                const invalid = validationResults.filter(r => !r.valid).length;
+                const warn    = validationResults.filter(r => r.valid && r.warn).length;
+                const ok      = validationResults.filter(r => r.valid && !r.warn).length;
+                return (
+                  <div className="flex items-center gap-4 text-xs flex-wrap">
+                    <span className="font-semibold text-gray-700">{validationResults.length} emails checked</span>
+                    <span className="text-red-600 font-semibold">⛔ {invalid} invalid</span>
+                    {warn > 0 && <span className="text-amber-600 font-semibold">⚠️ {warn} warning</span>}
+                    <span className="text-green-600 font-semibold">✅ {ok} valid</span>
+                    <button
+                      onClick={() => { setValidationResults([]); setValidatorSelected(new Set()); runEmailValidation(); }}
+                      className="ml-auto text-xs text-indigo-500 hover:text-indigo-700 underline"
+                    >Re-run</button>
+                  </div>
+                );
+              })() : (
+                <span className="text-xs text-gray-400">Starting validation…</span>
+              )}
+            </div>
+
+            {/* Results list */}
+            <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
+              {validationResults.length === 0 && validating && (
+                <div className="py-12 text-center text-gray-400 text-sm">Checking…</div>
+              )}
+              {validationResults.filter(r => !r.valid || r.warn).map(r => (
+                <div key={r.email} className={`px-6 py-3 flex items-center gap-3 ${!r.valid ? "bg-red-50/40" : "bg-amber-50/40"}`}>
+                  <input
+                    type="checkbox"
+                    checked={validatorSelected.has(r.email.toLowerCase())}
+                    disabled={r.valid && !r.warn}
+                    onChange={e => {
+                      const k = r.email.toLowerCase();
+                      setValidatorSelected(prev => {
+                        const n = new Set(prev);
+                        e.target.checked ? n.add(k) : n.delete(k);
+                        return n;
+                      });
+                    }}
+                    className="rounded border-gray-300 text-red-500 flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className={`text-sm font-medium truncate ${!r.valid ? "text-red-700" : "text-amber-700"}`}>{r.email}</div>
+                    <div className="text-xs text-gray-400 truncate">{r.districtName}</div>
+                  </div>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${!r.valid ? "bg-red-100 text-red-600" : "bg-amber-100 text-amber-600"}`}>
+                    {!r.valid ? "⛔" : "⚠️"} {r.reason}
+                  </span>
+                  {bounces.has(r.email.toLowerCase()) && (
+                    <span className="text-xs bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full flex-shrink-0">Already bounced</span>
+                  )}
+                </div>
+              ))}
+              {!validating && validationResults.length > 0 && validationResults.filter(r => !r.valid || r.warn).length === 0 && (
+                <div className="py-12 text-center text-green-600 font-medium">✅ All emails look valid!</div>
+              )}
+              {/* Collapsible valid section */}
+              {!validating && validationResults.filter(r => r.valid && !r.warn).length > 0 && (
+                <details className="px-6 py-3">
+                  <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600">
+                    ✅ {validationResults.filter(r => r.valid && !r.warn).length} valid emails (click to expand)
+                  </summary>
+                  <div className="mt-2 space-y-1 max-h-48 overflow-y-auto">
+                    {validationResults.filter(r => r.valid && !r.warn).map(r => (
+                      <div key={r.email} className="text-xs text-gray-500 flex items-center gap-2 py-0.5">
+                        <span className="text-green-500">✓</span>
+                        <span className="font-mono">{r.email}</span>
+                        <span className="text-gray-300">·</span>
+                        <span className="text-gray-400 truncate">{r.districtName}</span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </div>
+
+            {/* Footer actions */}
+            <div className="px-6 py-4 border-t border-gray-100 flex items-center gap-3 flex-shrink-0 bg-gray-50">
+              <label className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={validatorSelected.size === validationResults.filter(r => !r.valid).length && validationResults.filter(r => !r.valid).length > 0}
+                  onChange={e => {
+                    if (e.target.checked) setValidatorSelected(new Set(validationResults.filter(r => !r.valid).map(r => r.email.toLowerCase())));
+                    else setValidatorSelected(new Set());
+                  }}
+                  className="rounded border-gray-300 text-red-500"
+                />
+                Select all invalid
+              </label>
+              <span className="text-xs text-gray-400 flex-1">{validatorSelected.size} selected</span>
+              <button
+                onClick={() => setEmailValidatorOpen(false)}
+                className="text-xs px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100"
+              >Close</button>
+              <button
+                onClick={markSelectedAsBounced}
+                disabled={validatorSelected.size === 0}
+                className="text-xs px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                ⛔ Mark {validatorSelected.size} as bounced
               </button>
             </div>
           </div>
