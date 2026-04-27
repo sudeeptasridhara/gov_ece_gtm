@@ -1968,21 +1968,23 @@ export default function BrightwheelDashboard() {
   // rep is signed in. Results are immediately available from cache on next load.
   const loadDistrictMeta = async (forceToken) => {
     try {
-      let meta = null;
+      let rawData   = null; // ncesId-or-nameKey → metadata entry
+      let nameIndex = null; // "UPPER_NAME|UPPER_STATE" → ncesId (from updated GAS)
 
-      // ── Path A: public web app (no auth — available to everyone) ──────────
+      // ── Path A: public web app (no auth) ─────────────────────────────────
       if (DISTRICT_META_WEBAPP_URL) {
         const res = await fetch(DISTRICT_META_WEBAPP_URL);
         if (res.ok) {
           const json = await res.json();
           if (json.data && Object.keys(json.data).length > 0) {
-            meta = json.data;
+            rawData   = json.data;
+            nameIndex = json.nameIndex || null; // present after GAS redeploy
           }
         }
       }
 
-      // ── Path B: Sheets API with OAuth token (fallback when webapp unset) ──
-      if (!meta) {
+      // ── Path B: Sheets API OAuth fallback ─────────────────────────────────
+      if (!rawData) {
         const useToken = forceToken || gmailToken;
         if (!useToken || !DISTRICT_META_SHEET_ID) return;
         const range = encodeURIComponent(`${DISTRICT_META_TAB}!A:O`);
@@ -1992,34 +1994,61 @@ export default function BrightwheelDashboard() {
         const json  = await res.json();
         const rows  = json.values || [];
         if (rows.length < 2) return;
-
-        const hdrs = (rows[0] || []).map(h => (h || "").toString().trim().toLowerCase());
-        const ci   = (s) => hdrs.findIndex(h => h.includes(s));
-        const iName = 0, iState = 1;
+        const hdrs  = (rows[0] || []).map(h => (h || "").toString().trim().toLowerCase());
+        const ci    = (s) => hdrs.findIndex(h => h.includes(s));
+        const iName = 0, iState = 1, iNces = ci("agency id");
         const iTotal = ci("total students"), iPrek = ci("prekindergarten");
-        const iSize  = ci("size"),           iRep  = ci("rep assigned");
-
-        meta = {};
+        const iSize = ci("size"), iRep = ci("rep assigned");
+        rawData = {}; nameIndex = {};
         for (let i = 1; i < rows.length; i++) {
-          const r     = rows[i];
+          const r = rows[i];
           const name  = (r[iName]  || "").trim().toUpperCase();
           const state = (r[iState] || "").trim().toUpperCase();
-          const size  = iSize >= 0 ? (r[iSize] || "").trim() : "";
-          if (!name || !state || !size || size === "-") continue;
-          meta[name + "|" + state] = {
-            size,
-            repAssigned: iRep   >= 0 ? (r[iRep]   || "").trim()                             : "",
-            prek:        iPrek  >= 0 ? parseInt((r[iPrek]  || "").replace(/[^0-9]/g, "")) || 0 : 0,
+          const ncesId = iNces >= 0 ? (r[iNces] || "").toString().trim() : "";
+          const size   = iSize >= 0 ? (r[iSize]  || "").trim() : "";
+          if (!name || !state) continue;
+          if (ncesId) nameIndex[name + "|" + state] = ncesId;
+          if (!size || size === "-") continue;
+          const key = ncesId || (name + "|" + state);
+          rawData[key] = { ncesId, size, name, state,
+            repAssigned: iRep  >= 0 ? (r[iRep]  || "").trim()                              : "",
+            prek:        iPrek >= 0 ? parseInt((r[iPrek]  || "").replace(/[^0-9]/g, "")) || 0 : 0,
             total:       iTotal >= 0 ? parseInt((r[iTotal] || "").replace(/[^0-9]/g, "")) || 0 : 0,
           };
         }
       }
 
-      if (!meta || Object.keys(meta).length === 0) return;
-      setDistrictMeta(meta);
-      localStorage.setItem("districtMeta", JSON.stringify(meta));
+      if (!rawData || Object.keys(rawData).length === 0) return;
+
+      // ── Build dashboardId → ncesId map via name+state matching ──────────
+      // This lets getDistrictMeta() use ncesId as the stable key going forward.
+      // Results are cached in localStorage so matching only runs once.
+      if (nameIndex && Object.keys(nameIndex).length > 0) {
+        const existing = (() => { try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; } })();
+        let newMappings = 0;
+        INITIAL_DISTRICTS.forEach(d => {
+          if (existing[d.id]) return; // already mapped
+          const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
+          // Try exact, then strip parentheticals
+          const names = [
+            (d.district || "").trim().toUpperCase(),
+            (d.district || "").replace(/\s*\([^)]*\)/g, "").trim().toUpperCase(),
+          ];
+          for (const n of names) {
+            const ncesId = nameIndex[n + "|" + stateFull];
+            if (ncesId) { existing[d.id] = ncesId; newMappings++; break; }
+          }
+        });
+        if (newMappings > 0) {
+          localStorage.setItem("districtNcesMap", JSON.stringify(existing));
+          console.log(`[districtMeta] mapped ${newMappings} new districts to NCES IDs`);
+        }
+      }
+
+      setDistrictMeta(rawData);
+      localStorage.setItem("districtMeta", JSON.stringify(rawData));
       localStorage.setItem("districtMetaFetchedAt", String(Date.now()));
-      console.log(`[districtMeta] loaded ${Object.keys(meta).length} districts`);
+      console.log(`[districtMeta] loaded ${Object.keys(rawData).length} entries`);
     } catch (e) { console.warn("loadDistrictMeta error:", e); }
   };
 
@@ -2042,12 +2071,23 @@ export default function BrightwheelDashboard() {
     if (fetchedAt < today5AM.getTime()) loadDistrictMeta(gmailToken);
   }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Helper: look up metadata for a district object using name + full state name as key
+  // ncesId lookup cache (dashboardId → ncesId), loaded lazily from localStorage
+  const districtNcesMap = React.useMemo(() => {
+    try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; }
+  }, [districtMeta]); // re-read after each metadata load
+
+  // Look up metadata for a district: prefer ncesId key, fall back to name+state key
   const getDistrictMeta = (d) => {
     if (!districtMeta || !d) return null;
+    // 1. Use statically embedded ncesId (set by enrich_nces.py)
+    if (d.ncesId && districtMeta[d.ncesId]) return districtMeta[d.ncesId];
+    // 2. Use runtime-mapped ncesId (cached by loadDistrictMeta name-matching)
+    const mappedNcesId = districtNcesMap[d.id];
+    if (mappedNcesId && districtMeta[mappedNcesId]) return districtMeta[mappedNcesId];
+    // 3. Fall back to legacy name+state key (old GAS format before redeployment)
     const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
-    const key       = (d.district || "").trim().toUpperCase() + "|" + stateFull;
-    return districtMeta[key] || null;
+    const nameKey   = (d.district || "").trim().toUpperCase() + "|" + stateFull;
+    return districtMeta[nameKey] || null;
   };
 
   // Read all rows → merge into district state (deduped by activity id)
