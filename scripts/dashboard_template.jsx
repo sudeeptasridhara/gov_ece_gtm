@@ -1332,9 +1332,12 @@ export default function BrightwheelDashboard() {
     }
   };
 
-  const draftEmail = async (item, token) => {
+  // Creates a Gmail draft. If openInGmail=true (default), opens the specific draft in a new
+  // tab so the Yesware Chrome extension can inject its tracking pixel before the rep sends.
+  // Pass openInGmail=false when batching — call openGmailDrafts() separately after the loop.
+  const draftEmail = async (item, token, openInGmail = true) => {
     const useToken = token || gmailToken;
-    if (!useToken) { connectGmail((t) => draftEmail(item, t)); return; }
+    if (!useToken) { connectGmail((t) => draftEmail(item, t, openInGmail)); return; }
     const { subject, body } = parseEmailParts(item.body);
     const raw = buildRawEmail(item.to, subject, body);
     try {
@@ -1344,12 +1347,21 @@ export default function BrightwheelDashboard() {
         body: JSON.stringify({ message: { raw } }),
       });
       if (res.ok) {
+        const data = await res.json();
         rejectEmail(item.id);
-        showNotif("📋 Draft saved — " + item.directorName);
+        if (openInGmail) {
+          // Open the specific draft in Gmail compose — Yesware injects its tracking pixel here
+          const messageId = data?.message?.id;
+          const url = messageId
+            ? `https://mail.google.com/mail/u/0/#all/${messageId}`
+            : `https://mail.google.com/mail/u/0/#drafts`;
+          window.open(url, "_blank");
+          showNotif(`📬 Opened in Gmail — send from there for Yesware tracking · ${item.directorName}`);
+        }
       } else if (res.status === 401) {
         setGmailToken(null); setGmailConnected(false);
         showNotif("Gmail session expired — reconnecting...", "red");
-        connectGmail((t) => draftEmail(item, t));
+        connectGmail((t) => draftEmail(item, t, openInGmail));
       } else {
         showNotif("Gmail draft error " + res.status, "red");
       }
@@ -1364,6 +1376,18 @@ export default function BrightwheelDashboard() {
       await sendEmail(item, gmailToken);
       await new Promise((r) => setTimeout(r, 400));
     }
+  };
+
+  // Creates all queued drafts silently then opens Gmail Drafts folder once — batch Yesware flow.
+  const draftAllAndOpenGmail = async () => {
+    if (!gmailToken && GOOGLE_CLIENT_ID) { connectGmail(() => {}); return; }
+    const count = approvalQueue.length;
+    for (const item of [...approvalQueue]) {
+      await draftEmail(item, gmailToken, false); // silent — no per-item tab
+      await new Promise(r => setTimeout(r, 300));
+    }
+    window.open("https://mail.google.com/mail/u/0/#drafts", "_blank");
+    showNotif(`📬 ${count} draft${count !== 1 ? "s" : ""} ready in Gmail — send from Drafts for Yesware tracking`);
   };
 
   // ── GMAIL ACTIVITY SYNC ───────────────────────────────────────────────────
@@ -4172,16 +4196,18 @@ export default function BrightwheelDashboard() {
               {approvalQueue.length > 0 && (
                 <div className="flex gap-2 mt-3 flex-wrap items-center">
                   <button
-                    onClick={sendAllEmails}
+                    onClick={draftAllAndOpenGmail}
                     className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-2 rounded-lg font-semibold"
+                    title="Creates drafts in Gmail and opens the Drafts folder. Send from Gmail so Yesware can inject tracking."
                   >
-                    📤 Send All ({approvalQueue.length})
+                    📬 Draft All in Gmail ({approvalQueue.length}) ✦ Yesware
                   </button>
                   <button
-                    onClick={async () => { for (const item of [...approvalQueue]) { await draftEmail(item, gmailToken); await new Promise(r => setTimeout(r, 300)); } }}
-                    className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs px-3 py-2 rounded-lg font-semibold"
+                    onClick={sendAllEmails}
+                    className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-600 text-xs px-3 py-2 rounded-lg font-semibold"
+                    title="Sends directly via Gmail API — faster but Yesware will not record these sends."
                   >
-                    📋 Draft All ({approvalQueue.length})
+                    ⚡ Send All Directly ({approvalQueue.length})
                   </button>
                   <button
                     onClick={() => { if (window.confirm(`Remove all ${approvalQueue.length} emails from the queue?`)) setApprovalQueue([]); }}
@@ -4221,15 +4247,17 @@ export default function BrightwheelDashboard() {
                         <div className="flex gap-2 flex-shrink-0 flex-wrap">
                           <button
                             onClick={() => draftEmail(item)}
-                            className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-semibold"
+                            className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold"
+                            title="Opens this draft in Gmail compose — Yesware injects tracking when you send from there."
                           >
-                            📋 Draft
+                            📬 Open in Gmail ✦
                           </button>
                           <button
                             onClick={() => sendEmail(item)}
-                            className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold"
+                            className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-600 text-xs px-3 py-1.5 rounded-lg font-semibold"
+                            title="Sends directly via API — Yesware will not record this send."
                           >
-                            📤 Send
+                            ⚡ Send Directly
                           </button>
                           <button
                             onClick={() => rejectEmail(item.id)}
