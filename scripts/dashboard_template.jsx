@@ -425,7 +425,8 @@ function generateEmail(district, template, rep) {
   if (isSummerBridgeTemplate && district.summerBridgeContact) {
     greetingName = district.summerBridgeContact.firstName;
   } else {
-    greetingName = district.director.split(" ")[0];
+    // Use contactEdits.director when available (reflects Make Primary and manual edits)
+    greetingName = (district.contactEdits?.director ?? district.director).split(" ")[0];
   }
   const helloGreeting = ep(`Hello ${greetingName},`);
   const hiGreeting    = ep(`Hi ${greetingName},`);
@@ -549,7 +550,7 @@ function generateEmailFromOverride(override, district, rep) {
   const isSB = override._templateKey === "summerBridge" || override._templateKey === "summerBridgeShort";
   const greetingName = (isSB && district.summerBridgeContact)
     ? district.summerBridgeContact.firstName
-    : district.director.split(" ")[0];
+    : (district.contactEdits?.director ?? district.director).split(" ")[0];
   const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado" };
   const stateName = STATE_NAMES[district.state || "FL"] || district.state || "FL";
   const shortName = district.district.includes(" — ") ? district.district.split(" — ").slice(1).join(" — ") : district.district;
@@ -603,12 +604,13 @@ function generatePersonalizedEmail(district, rep) {
   const r = rep !== undefined ? rep : null;
   if (!district.email) return "";
 
-  const greetingName = district.director.split(" ")[0];
+  const effectiveDirector = district.contactEdits?.director ?? district.director;
+  const greetingName = effectiveDirector.split(" ")[0];
   const hiGreeting = ep(`Hi ${greetingName},`);
   const calendlyLink = r && r.calendly
     ? ep(ea(r.calendly, "Schedule time with me →"))
     : ep(`Happy to find a time — just reply and I'll send over a few options.`);
-  const unsubUrl = buildUnsubUrl(district.director, district.email, district.district, district.id);
+  const unsubUrl = buildUnsubUrl(effectiveDirector, district.email, district.district, district.id);
 
   // Gather all intel (context + board notes) sorted newest first
   const allIntel = [
