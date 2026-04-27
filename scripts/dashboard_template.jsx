@@ -28,7 +28,7 @@ const DISTRICT_META_SHEET_ID  = "1POBU9JkOB6oZVAVG1jhChSs7Cj4Re-qejMtmFNqmisI";
 const DISTRICT_META_TAB       = "data"; // sheet tab name (used as fallback when webapp URL is unset)
 // Deploy district_meta_api.gs as a public web app and paste the /exec URL below.
 // Once set, district Size loads for everyone on page load — no Gmail required.
-const DISTRICT_META_WEBAPP_URL = ""; // e.g. "https://script.google.com/macros/s/ABC.../exec"
+const DISTRICT_META_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbzwqD9vVh7kLHmQL10BsQrQ9js79ZeQnI_9TZxavfXR1i7jqUcG_w4_lCG_IWBzM_Z2/exec";
 
 // ─── EMAIL OPEN TRACKING ──────────────────────────────────────────────────────
 // Deploy tracking_pixel.gs as a Google Apps Script web app (execute as: Me,
