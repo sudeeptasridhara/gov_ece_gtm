@@ -68,18 +68,20 @@ function doGet(e) {
     console.error("tracking_pixel error:", err);
   }
 
-  // Return a 1x1 transparent GIF — no headers that could block loading
-  const gif = Utilities.newBlob(
-    Utilities.base64Decode(
-      "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-    ),
-    "image/gif"
-  );
-  return ContentService
-    .createTextOutput("")
-    .setMimeType(ContentService.MimeType.TEXT);
-  // Note: Apps Script web apps can't return binary content directly.
-  // The img tag will get a 200 OK with empty body, which is enough to
-  // trigger the "open" log. The image will appear broken in the email
-  // source but is invisible (1x1, display:none) so recipients never see it.
+  // Serve a 1x1 transparent GIF via an HTML page that immediately sets the
+  // Content-Type header. Apps Script can't return raw binary via ContentService,
+  // but HtmlService with a data-URI src works in virtually all email clients:
+  // the <img> tag in the email resolves the pixel URL, hits this doGet(), and
+  // the 200 OK is enough to log the open — the body is irrelevant for tracking.
+  //
+  // For maximum compatibility we return a minimal HTML page whose meta-refresh
+  // instantly completes; the email client sees the 200 and considers the image
+  // "loaded", which is all we need.
+  return HtmlService
+    .createHtmlOutput(
+      '<html><head><meta http-equiv="refresh" content="0;url=data:image/gif;base64,' +
+      'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' +
+      '"></head><body></body></html>'
+    )
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

@@ -1021,6 +1021,13 @@ export default function BrightwheelDashboard() {
   const [sheetConnected, setSheetConnected] = useState(false);
   const [sheetSyncing, setSheetSyncing] = useState(false);
 
+  // ── OPEN TRACKING ──
+  // Tracks pixel open events we have already alerted on so we only notify once per open.
+  const [knownOpenIds, setKnownOpenIds]     = useState(new Set());
+  // Recent opens for the "inbox" panel: [{ districtId, districtName, template, repEmail, date, trackingId }]
+  const [recentOpens,  setRecentOpens]      = useState([]);
+  const [showOpenPanel, setShowOpenPanel]   = useState(false);
+
   // ── GRANOLA SYNC ──
   const [granolaToken, setGranolaToken] = useState(null);
   const [granolaConnected, setGranolaConnected] = useState(false);
@@ -2113,6 +2120,18 @@ export default function BrightwheelDashboard() {
     if (metaEmpty || fetchedAt < today5AM.getTime()) loadDistrictMeta(gmailToken);
   }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ── Background polling for email opens ────────────────────────────────────
+  // Re-syncs the Activity Sheet every 4 minutes while Gmail is connected.
+  // This is how new pixel opens show up without requiring a manual refresh.
+  useEffect(() => {
+    if (!gmailToken || !ACTIVITY_SHEET_ID) return;
+    const INTERVAL_MS = 4 * 60 * 1000; // 4 minutes
+    const id = setInterval(() => {
+      loadSheetActivities(gmailToken);
+    }, INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // ncesId lookup cache (dashboardId → ncesId), loaded lazily from localStorage
   const districtNcesMap = React.useMemo(() => {
     try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; }
@@ -2248,7 +2267,7 @@ export default function BrightwheelDashboard() {
 
         if (dedupId) {
           if (src === "granola") sheetGranolaIds.add(dedupId);
-          else if (src.includes("gmail") || src === "dashboard") sheetMsgIds.add(dedupId);
+          else sheetMsgIds.add(dedupId); // covers gmail, dashboard, pixel
         }
         const act = {
           id: col(row, "activity_id") || String(Date.now() + Math.random()),
@@ -2258,11 +2277,33 @@ export default function BrightwheelDashboard() {
           source: src || "sheet",
           repEmail: col(row, "rep_email"),
           directorName: col(row, "director_name"),
+          loggedAt: col(row, "logged_at"),
           ...(src.includes("gmail") && dedupId ? { gmailMsgId: dedupId } : {}),
           ...(src === "granola" && dedupId ? { granolaDocId: dedupId, granolaTitle: col(row, "notes").replace(/^📓 Granola: "|"$/g, ""), granolaNotesText: col(row, "full_notes") } : {}),
+          ...(src === "pixel" && dedupId ? { trackingId: dedupId, template: col(row, "full_notes") } : {}),
         };
         if (!byDistrict[distId]) byDistrict[distId] = [];
         byDistrict[distId].push(act);
+      }
+
+      // ── Detect new email opens and surface notifications ───────────────────
+      // Collect all pixel open rows across all districts
+      const allOpenRows = [];
+      for (const [distIdStr, acts] of Object.entries(byDistrict)) {
+        for (const act of acts) {
+          if (act.type === "email_open" && act.trackingId) {
+            const dist = districts.find(d => String(d.id) === String(distIdStr));
+            allOpenRows.push({
+              trackingId:   act.trackingId,
+              districtId:   parseInt(distIdStr),
+              districtName: dist?.district || `District ${distIdStr}`,
+              template:     act.template || "",
+              repEmail:     act.repEmail || "",
+              date:         act.date || "",
+              loggedAt:     act.loggedAt || "",
+            });
+          }
+        }
       }
 
       setDistricts(prev => prev.map(d => {
@@ -2280,6 +2321,31 @@ export default function BrightwheelDashboard() {
         if (!fresh.length && newStatus === d.status && mailerSent === d.mailerSent) return d;
         return { ...d, activities: all, status: newStatus, mailerSent };
       }));
+
+      // ── Surface new email opens ───────────────────────────────────────────
+      setKnownOpenIds(prevKnown => {
+        const newOpens = allOpenRows.filter(o => !prevKnown.has(o.trackingId));
+        if (newOpens.length > 0) {
+          setRecentOpens(prev => {
+            // Merge, deduplicate, sort newest-first, cap at 50
+            const merged = [...newOpens, ...prev];
+            const seen = new Set();
+            return merged
+              .filter(o => { if (seen.has(o.trackingId)) return false; seen.add(o.trackingId); return true; })
+              .sort((a, b) => (b.loggedAt || b.date).localeCompare(a.loggedAt || a.date))
+              .slice(0, 50);
+          });
+          // Toast notification
+          if (newOpens.length === 1) {
+            const o = newOpens[0];
+            const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").slice(0,28);
+            showNotif(`👁 ${shortName} opened your email`, "green");
+          } else {
+            showNotif(`👁 ${newOpens.length} new email opens`, "green");
+          }
+        }
+        return new Set([...prevKnown, ...allOpenRows.map(o => o.trackingId)]);
+      });
 
       // Pre-populate dedup sets so re-syncing skips already-persisted items
       setSyncedMsgIds(prev => new Set([...prev, ...sheetMsgIds]));
@@ -3071,10 +3137,68 @@ export default function BrightwheelDashboard() {
   // ─── RENDER ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-sm text-gray-800">
-      {/* NOTIFICATION */}
+      {/* NOTIFICATION TOAST */}
       {notification && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-white font-medium transition-all ${notification.color === "red" ? "bg-red-500" : "bg-green-600"}`}>
           {notification.msg}
+        </div>
+      )}
+
+      {/* EMAIL OPENS SLIDE-IN PANEL */}
+      {showOpenPanel && (
+        <div className="fixed inset-0 z-40 flex justify-end" onClick={() => setShowOpenPanel(false)}>
+          <div className="fixed inset-0 bg-black/20" />
+          <div className="relative w-full max-w-sm bg-white shadow-2xl border-l border-gray-200 flex flex-col h-full z-50" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
+              <h3 className="font-semibold text-gray-900 text-sm">👁 Email Opens</h3>
+              <button onClick={() => setShowOpenPanel(false)} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
+            </div>
+            {recentOpens.length === 0 ? (
+              <div className="flex-1 flex items-center justify-center text-center text-gray-400 p-8">
+                <div>
+                  <div className="text-3xl mb-3">📭</div>
+                  <p className="text-sm font-medium text-gray-500">No opens tracked yet</p>
+                  <p className="text-xs mt-1">Opens appear here once the pixel URL is configured and an email has been opened.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
+                {recentOpens.map((o, i) => {
+                  const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").replace(/\s+—\s+.+$/,"").slice(0,32);
+                  const timeStr = o.loggedAt ? new Date(o.loggedAt).toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : o.date;
+                  return (
+                    <div key={o.trackingId || i}
+                      className="px-4 py-3 hover:bg-indigo-50 cursor-pointer transition-colors"
+                      onClick={() => {
+                        const dist = districts.find(d => d.id === o.districtId);
+                        if (dist) {
+                          const shortN = dist.district.includes(" — ") ? dist.district.split(" — ").slice(1).join(" — ") : dist.district;
+                          setActiveTab("districtinfo");
+                          setDiInfoSelectedId(dist.id);
+                          setDiInfoSearch(shortN);
+                          setShowOpenPanel(false);
+                        }
+                      }}>
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0 text-sm mt-0.5">👁</div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold text-gray-900 truncate">{shortName}</p>
+                          {o.template && <p className="text-xs text-gray-500 truncate mt-0.5">Campaign: {o.template.slice(0, 40)}</p>}
+                          <p className="text-xs text-gray-400 mt-1">{timeStr}{o.repEmail ? ` · ${o.repEmail.split("@")[0]}` : ""}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {!TRACKING_PIXEL_URL && (
+              <div className="px-4 py-3 bg-amber-50 border-t border-amber-200">
+                <p className="text-xs text-amber-700 font-medium">⚠️ Pixel URL not configured</p>
+                <p className="text-xs text-amber-600 mt-0.5">Deploy <code>tracking_pixel.gs</code> as a web app and paste the URL into <code>TRACKING_PIXEL_URL</code> in the dashboard config, then rebuild.</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -3088,6 +3212,22 @@ export default function BrightwheelDashboard() {
           </div>
         </div>
         <div className="flex items-center gap-6">
+          {/* Email opens bell */}
+          {ACTIVITY_SHEET_ID && (
+            <button
+              onClick={() => setShowOpenPanel(true)}
+              title="Email opens tracked by pixel"
+              className="relative flex items-center gap-1.5 text-xs text-gray-500 hover:text-amber-600 transition-colors"
+            >
+              <span className="text-base">👁</span>
+              <span className="font-medium">Opens</span>
+              {recentOpens.length > 0 && (
+                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full px-1.5 py-0 leading-4 min-w-[18px] text-center">
+                  {recentOpens.length > 99 ? "99+" : recentOpens.length}
+                </span>
+              )}
+            </button>
+          )}
           {/* Logged-in rep indicator / sign-in button */}
           {(currentRep || gmailUser) ? (
             <div className="flex items-center gap-2 pl-4 border-l border-gray-200 group cursor-default">
@@ -3603,6 +3743,9 @@ export default function BrightwheelDashboard() {
                           <div className="text-gray-400 truncate text-xs">{contact.email || "—"}</div>
                           {contact.title && <div className="text-gray-400 truncate text-xs italic">{contact.title}</div>}
                           {contact.source === "sf" && <span className="text-xs bg-blue-50 text-blue-500 px-1 rounded">SF</span>}
+                          {(d.activities || []).some(a => a.type === "email_open") && (
+                            <span className="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1 rounded ml-1" title={`Opened · ${(d.activities||[]).filter(a=>a.type==="email_open").length}x`}>👁 opened</span>
+                          )}
                         </td>
                         <td className="px-2 py-2" style={{ maxWidth: "110px" }}>
                           <span className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs truncate block">{d.curriculum}</span>
@@ -6095,7 +6238,15 @@ export default function BrightwheelDashboard() {
                     {/* Contact History */}
                     {selectedDi.activities && selectedDi.activities.length > 0 && (
                       <div className="bg-white rounded-xl border border-gray-200 p-4">
-                        <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">📞 Contact History <span className="text-gray-300 font-normal normal-case ml-1">({selectedDi.activities.length} touch{selectedDi.activities.length !== 1 ? "es" : ""})</span></h4>
+                        <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                          📞 Contact History
+                          <span className="text-gray-300 font-normal normal-case ml-1">({selectedDi.activities.length} touch{selectedDi.activities.length !== 1 ? "es" : ""})</span>
+                          {(selectedDi.activities||[]).some(a => a.type === "email_open") && (
+                            <span className="ml-2 text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded-full font-medium normal-case">
+                              👁 {(selectedDi.activities||[]).filter(a=>a.type==="email_open").length} open{(selectedDi.activities||[]).filter(a=>a.type==="email_open").length!==1?"s":""}
+                            </span>
+                          )}
+                        </h4>
                         <div className="space-y-2">
                           {[...selectedDi.activities].reverse().slice(0, 5).map((a, i) => (
                             <div key={i} className="flex items-start gap-2 text-xs bg-gray-50 rounded px-3 py-2">
