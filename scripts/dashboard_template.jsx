@@ -5490,7 +5490,16 @@ export default function BrightwheelDashboard() {
                           </div>
                           <h3 className="text-lg font-bold text-gray-900">{selectedDi.district}</h3>
                           <p className="text-sm text-gray-400 mt-0.5">{selectedDi.county} County · {STATE_NAMES_DI[selectedDi.state || "FL"] || selectedDi.state || "Florida"}</p>
-                          {selectedDi.lastUpdated && <span className="inline-block mt-1 text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full">🔄 Updated {selectedDi.lastUpdated}</span>}
+                          <div className="flex items-center gap-2 flex-wrap mt-1">
+                            {selectedDi.lastUpdated && <span className="inline-block text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full">🔄 Updated {selectedDi.lastUpdated}</span>}
+                            {selectedDi.website && (
+                              <a href={selectedDi.website} target="_blank" rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full hover:bg-blue-100 transition-colors"
+                                title={selectedDi.website}>
+                                🌐 District Website
+                              </a>
+                            )}
+                          </div>
                         </div>
                         {repForDi && (
                           <div className={`flex items-center gap-2 px-3 py-2 rounded-lg ${repForDi.color}`}>
@@ -5521,6 +5530,16 @@ export default function BrightwheelDashboard() {
                             <div><span className="text-gray-500">Adopted:</span> {selectedDi.curriculumAdoptionYear} <span className={`font-medium ${age >= 6 ? "text-red-500" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>({age} yrs ago)</span></div>
                             <div><span className="text-gray-500">Enrollment:</span> {selectedDi.enrollment?.toLocaleString()}</div>
                             <div><span className="text-gray-500">Status:</span> <span className={`ml-1 font-medium ${statusColor(selectedDi.status)}`}>{selectedDi.status}</span></div>
+                            {selectedDi.website && (
+                              <div>
+                                <span className="text-gray-500">Website:</span>{" "}
+                                <a href={selectedDi.website} target="_blank" rel="noopener noreferrer"
+                                  className="text-blue-600 hover:underline break-all"
+                                  title={selectedDi.website}>
+                                  {selectedDi.website.replace(/^https?:\/\/(www\.)?/, "")}
+                                </a>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -5814,7 +5833,15 @@ export default function BrightwheelDashboard() {
                             onClick={() => { setDiInfoSelectedId(d.id); setDiInfoSearch(shortN); setActiveTab("districtinfo"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                           >
                             <td className="px-3 py-2" style={{ maxWidth: "160px" }}>
-                              <div className="font-medium text-gray-900 truncate">{shortN}</div>
+                              <div className="font-medium text-gray-900 truncate flex items-center gap-1">
+                                {shortN}
+                                {d.website && (
+                                  <a href={d.website} target="_blank" rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-blue-400 hover:text-blue-600 flex-shrink-0"
+                                    title={d.website}>🌐</a>
+                                )}
+                              </div>
                               <div className="text-gray-400 text-xs">{d.county}{d.state && d.state !== "FL" ? ` · ${d.state}` : ""}</div>
                             </td>
                             <td className="px-3 py-2">
