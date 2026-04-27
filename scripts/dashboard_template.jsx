@@ -2364,6 +2364,158 @@ export default function BrightwheelDashboard() {
     }
   };
 
+  // ── Export to Google Sheets ────────────────────────────────────────────────
+  // Creates a brand-new spreadsheet from the current filtered view and opens it.
+  const [exportingSheets, setExportingSheets] = useState(false);
+
+  const exportToSheets = async (mode = "prospects") => {
+    const useToken = gmailToken;
+    if (!useToken) {
+      if (GOOGLE_CLIENT_ID) {
+        connectGmail(() => exportToSheets(mode));
+      } else {
+        showNotif("Connect Gmail first to enable Google Sheets export", "red");
+      }
+      return;
+    }
+    setExportingSheets(true);
+    try {
+      const dateStr = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      const title = mode === "prospects"
+        ? `Gov ECE Prospects – ${dateStr}`
+        : `Gov ECE Districts – ${dateStr}`;
+
+      // Build rows based on mode
+      let headers, dataRows;
+      if (mode === "prospects") {
+        headers = [
+          "District", "State", "NCES ID", "Size", "Rep",
+          "Contact Name", "Contact Email", "Contact Title", "Contact Phone", "Source",
+          "Curriculum", "Adoption Year", "Enrollment", "Priority", "Stage", "In Salesforce",
+        ];
+        dataRows = prospectRows.map(({ d, contact }) => {
+          const repName = d.repEmail ? (Object.values(REP_PROFILES).find(r => r.email === d.repEmail)?.name || d.repEmail) : "";
+          return [
+            d.name || "",
+            d.state || "",
+            d.ncesId || "",
+            d.size || "",
+            repName,
+            contact.name || "",
+            contact.email || "",
+            contact.title || "",
+            contact.phone || "",
+            contact.source === "sf" ? "Salesforce" : "Primary",
+            d.curriculum || "",
+            d.curriculumAdoptionYear || "",
+            d.enrollment || "",
+            getPriorityLabel(d.priority)?.label || "",
+            d.status ? (SEQUENCE_STAGES[d.status]?.label || d.status) : "",
+            d.sfAccountId ? "Yes" : "No",
+          ];
+        });
+      } else {
+        // District mode — one row per district from filtered
+        headers = [
+          "District", "State", "NCES ID", "Size", "Rep",
+          "Primary Contact", "Email", "Title", "Phone",
+          "Curriculum", "Adoption Year", "Enrollment", "Priority", "Stage", "In Salesforce",
+        ];
+        dataRows = filtered.map(d => {
+          const repName = d.repEmail ? (Object.values(REP_PROFILES).find(r => r.email === d.repEmail)?.name || d.repEmail) : "";
+          const dirName  = d.contactEdits?.director ?? d.director ?? "";
+          const dirEmail = d.contactEdits?.email    ?? d.email    ?? "";
+          const dirTitle = d.contactEdits?.title    ?? d.title    ?? "";
+          const dirPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
+          return [
+            d.name || "",
+            d.state || "",
+            d.ncesId || "",
+            d.size || "",
+            repName,
+            dirName,
+            dirEmail,
+            dirTitle,
+            dirPhone,
+            d.curriculum || "",
+            d.curriculumAdoptionYear || "",
+            d.enrollment || "",
+            getPriorityLabel(d.priority)?.label || "",
+            d.status ? (SEQUENCE_STAGES[d.status]?.label || d.status) : "",
+            d.sfAccountId ? "Yes" : "No",
+          ];
+        });
+      }
+
+      // 1. Create a new spreadsheet
+      const createRes = await fetch("https://sheets.googleapis.com/v4/spreadsheets", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${useToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          properties: { title },
+          sheets: [{ properties: { title: "Prospects", gridProperties: { frozenRowCount: 1 } } }],
+        }),
+      });
+      if (!createRes.ok) {
+        const err = await createRes.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `Create failed: ${createRes.status}`);
+      }
+      const { spreadsheetId, spreadsheetUrl } = await createRes.json();
+
+      // 2. Write headers + data in one batchUpdate
+      const values = [headers, ...dataRows];
+      const rangeEnd = String.fromCharCode(65 + headers.length - 1) + values.length;
+      const updateRes = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Prospects!A1:${rangeEnd}?valueInputOption=RAW`,
+        {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${useToken}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ values }),
+        }
+      );
+      if (!updateRes.ok) {
+        const err = await updateRes.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `Write failed: ${updateRes.status}`);
+      }
+
+      // 3. Bold + background the header row via batchUpdate
+      await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${useToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requests: [{
+            repeatCell: {
+              range: { sheetId: 0, startRowIndex: 0, endRowIndex: 1 },
+              cell: {
+                userEnteredFormat: {
+                  backgroundColor: { red: 0.263, green: 0.275, blue: 0.898 },
+                  textFormat: { bold: true, foregroundColor: { red: 1, green: 1, blue: 1 } },
+                },
+              },
+              fields: "userEnteredFormat(backgroundColor,textFormat)",
+            },
+          }, {
+            autoResizeDimensions: {
+              dimensions: { sheetId: 0, dimension: "COLUMNS", startIndex: 0, endIndex: headers.length },
+            },
+          }],
+        }),
+      });
+
+      showNotif(`Exported ${dataRows.length} rows → opening sheet...`, "green");
+      window.open(spreadsheetUrl, "_blank");
+    } catch (e) {
+      console.error("exportToSheets:", e);
+      if (e.message?.includes("401") || e.message?.includes("invalid_token")) {
+        showNotif("Token expired — disconnect and reconnect Gmail, then try again", "red");
+      } else {
+        showNotif(`Export failed: ${e.message}`, "red");
+      }
+    } finally {
+      setExportingSheets(false);
+    }
+  };
+
   // Saves a template override to state, localStorage, and the shared sheet.
   const saveTemplateOverride = async (templateKey, subject, body) => {
     const now = new Date().toISOString();
@@ -3173,6 +3325,14 @@ export default function BrightwheelDashboard() {
                   </select>
                 </div>
                 <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{prospectRows.length} results</span>
+                <button
+                  onClick={() => exportToSheets("prospects")}
+                  disabled={exportingSheets || prospectRows.length === 0}
+                  title="Export current view to a new Google Sheet"
+                  className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border border-green-200 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 font-medium transition-colors"
+                >
+                  {exportingSheets ? "⏳" : "📊"} Sheets
+                </button>
               </div>
             </div>
 
@@ -5576,6 +5736,14 @@ export default function BrightwheelDashboard() {
               <div className="mt-8">
                 <div className="mb-3 flex items-center justify-between">
                   <h3 className="text-sm font-bold text-gray-900">All Districts <span className="text-gray-400 font-normal text-xs ml-1">({filtered.length})</span></h3>
+                  <button
+                    onClick={() => exportToSheets("districts")}
+                    disabled={exportingSheets || filtered.length === 0}
+                    title="Export current view to a new Google Sheet"
+                    className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border border-green-200 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                  >
+                    {exportingSheets ? "⏳" : "📊"} Export to Sheets
+                  </button>
                 </div>
 
                 {/* Filter bar — same as Prospects tab */}
