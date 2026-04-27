@@ -35,7 +35,7 @@ const DISTRICT_META_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwhe
 // access: Anyone with the link) and paste the resulting /exec URL below.
 // Leave empty to disable open tracking.
 // See scripts/tracking_pixel.gs for deployment instructions.
-const TRACKING_PIXEL_URL = ""; // e.g. "https://script.google.com/macros/s/ABC.../exec"
+const TRACKING_PIXEL_URL = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbyi7oXAHhXcGWUUMMjkULINMqZ31Ue9hKKiiP6Mfb6TE5puxE7bgqKbeH8-MQbL9WVa/exec";
 
 // ─── SEQUENCE STAGES ─────────────────────────────────────────────────────────
 const SEQUENCE_STAGES = {
