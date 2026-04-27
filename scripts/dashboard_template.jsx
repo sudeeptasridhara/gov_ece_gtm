@@ -2020,47 +2020,80 @@ export default function BrightwheelDashboard() {
 
       if (!rawData || Object.keys(rawData).length === 0) return;
 
-      // ── Build dashboardId → ncesId map via name+state matching ──────────
-      // This lets getDistrictMeta() use ncesId as the stable key going forward.
-      // Results are cached in localStorage so matching only runs once.
-      if (nameIndex && Object.keys(nameIndex).length > 0) {
-        const existing = (() => { try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; } })();
-        let newMappings = 0;
-        INITIAL_DISTRICTS.forEach(d => {
-          if (existing[d.id]) return; // already mapped
-          const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
-          // Try exact, then strip parentheticals
-          const names = [
-            (d.district || "").trim().toUpperCase(),
-            (d.district || "").replace(/\s*\([^)]*\)/g, "").trim().toUpperCase(),
-          ];
-          for (const n of names) {
-            const ncesId = nameIndex[n + "|" + stateFull];
-            if (ncesId) { existing[d.id] = ncesId; newMappings++; break; }
-          }
-        });
-        if (newMappings > 0) {
-          localStorage.setItem("districtNcesMap", JSON.stringify(existing));
-          console.log(`[districtMeta] mapped ${newMappings} new districts to NCES IDs`);
+      // ── Add name+state aliases so getDistrictMeta's fallback lookup works ──
+      // rawData is keyed by ncesId after GAS redeployment. We also store each
+      // entry under its "UPPER_NAME|UPPER_STATE" key so the legacy name-based
+      // fallback in getDistrictMeta continues to find entries for districts
+      // whose ncesId hasn't been cached yet.
+      const meta = { ...rawData };
+      Object.values(rawData).forEach(entry => {
+        if (entry.name && entry.state) {
+          meta[entry.name.toUpperCase() + "|" + entry.state.toUpperCase()] = entry;
         }
+      });
+
+      // ── Build dashboardId → ncesId map via name+state matching ──────────
+      // Generates a persistent cache (districtNcesMap) so getDistrictMeta can
+      // look up by ncesId for districts whose display names differ from NCES names.
+      // Tries progressively looser normalizations to maximise match rate.
+      const normalizeForNces = (name) => {
+        let n = name.toUpperCase().trim();
+        n = n.replace(/\s*\([^)]*\)/g, "");                              // strip (ACRONYM)
+        n = n.replace(/\bUNIFIED\s+SCHOOL\s+DISTRICT\b/g, "");
+        n = n.replace(/\bINDEPENDENT\s+SCHOOL\s+DISTRICT\b/g, "");
+        n = n.replace(/\bSCHOOL\s+DISTRICT\b/g, "");
+        n = n.replace(/\bPUBLIC\s+SCHOOLS\b/g, "");
+        n = n.replace(/\bSCHOOL\b/g, "");
+        n = n.replace(/\bDISTRICT\b/g, "");
+        n = n.replace(/\bUNIFIED\b/g, "");
+        n = n.replace(/\bINDEPENDENT\b/g, "");
+        n = n.replace(/\bCOUNTY\b/g, "");
+        n = n.replace(/\s+/g, " ").trim();
+        return n;
+      };
+
+      const effectiveNameIndex = nameIndex || {};
+      // Also build a stripped nameIndex so looser normalization can match
+      const strippedNameIndex = {};
+      Object.entries(effectiveNameIndex).forEach(([k, v]) => {
+        const [n, s] = k.split("|");
+        if (n && s) strippedNameIndex[normalizeForNces(n) + "|" + s] = v;
+      });
+
+      const existing = (() => { try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; } })();
+      let newMappings = 0;
+      INITIAL_DISTRICTS.forEach(d => {
+        if (existing[d.id]) return;
+        const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
+        const raw    = (d.district || "").trim().toUpperCase();
+        const noParens = raw.replace(/\s*\([^)]*\)/g, "").trim();
+        const stripped = normalizeForNces(raw);
+        const candidates = [...new Set([raw, noParens, stripped])];
+        for (const n of candidates) {
+          const ncesId = effectiveNameIndex[n + "|" + stateFull]
+                      || strippedNameIndex[normalizeForNces(n) + "|" + stateFull];
+          if (ncesId) { existing[d.id] = ncesId; newMappings++; break; }
+        }
+      });
+      if (newMappings > 0) {
+        localStorage.setItem("districtNcesMap", JSON.stringify(existing));
+        console.log(`[districtMeta] mapped ${newMappings} new ncesIds`);
       }
 
-      setDistrictMeta(rawData);
-      localStorage.setItem("districtMeta", JSON.stringify(rawData));
+      setDistrictMeta(meta);
+      localStorage.setItem("districtMeta", JSON.stringify(meta));
       localStorage.setItem("districtMetaFetchedAt", String(Date.now()));
       console.log(`[districtMeta] loaded ${Object.keys(rawData).length} entries`);
     } catch (e) { console.warn("loadDistrictMeta error:", e); }
   };
 
-  // Load on mount (uses public webapp if configured; otherwise waits for gmailToken)
+  // Load on mount (uses public webapp if configured; otherwise waits for gmailToken).
+  // Always force a fresh fetch so name-alias and ncesId matching improvements apply.
   useEffect(() => {
-    const fetchedAt = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
-    const today5AM  = new Date(); today5AM.setHours(5, 0, 0, 0);
     if (DISTRICT_META_WEBAPP_URL) {
-      // Public URL available — fetch immediately, regardless of auth
-      if (fetchedAt < today5AM.getTime()) loadDistrictMeta();
+      localStorage.removeItem("districtMetaFetchedAt"); // force refresh to pick up alias fix
+      loadDistrictMeta();
     }
-    // Auth-only fallback fires from the gmailToken useEffect below
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Also refresh via Sheets API once Gmail token is available (covers the no-webapp case)
