@@ -24,8 +24,11 @@ const ACTIVITY_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwheel.co
 // "data" tab of the district intelligence sheet. Refreshed once per day after
 // 5 AM when a rep is signed into Gmail. Results are cached in localStorage so
 // the data is available immediately on subsequent loads even before sign-in.
-const DISTRICT_META_SHEET_ID = "1POBU9JkOB6oZVAVG1jhChSs7Cj4Re-qejMtmFNqmisI";
-const DISTRICT_META_TAB      = "data"; // name of the sheet tab
+const DISTRICT_META_SHEET_ID  = "1POBU9JkOB6oZVAVG1jhChSs7Cj4Re-qejMtmFNqmisI";
+const DISTRICT_META_TAB       = "data"; // sheet tab name (used as fallback when webapp URL is unset)
+// Deploy district_meta_api.gs as a public web app and paste the /exec URL below.
+// Once set, district Size loads for everyone on page load — no Gmail required.
+const DISTRICT_META_WEBAPP_URL = ""; // e.g. "https://script.google.com/macros/s/ABC.../exec"
 
 // ─── EMAIL OPEN TRACKING ──────────────────────────────────────────────────────
 // Deploy tracking_pixel.gs as a Google Apps Script web app (execute as: Me,
@@ -960,6 +963,7 @@ export default function BrightwheelDashboard() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterSalesforce, setFilterSalesforce] = useState("all"); // "all" | "in_sf" | "not_in_sf"
   const [filterEnrollment, setFilterEnrollment] = useState("all"); // "all" | "lt500" | "500to1k" | "1kto3k" | "3kplus"
+  const [filterSize, setFilterSize]             = useState("all"); // "all" | "XL" | "Large" | "Medium" | "Small"
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
@@ -1962,42 +1966,56 @@ export default function BrightwheelDashboard() {
   // Fetch Size + Rep Assigned from the "data" tab of the district intelligence
   // sheet and cache in localStorage. Called once per day (after 5 AM) when a
   // rep is signed in. Results are immediately available from cache on next load.
-  const loadDistrictMeta = async (token) => {
-    const useToken = token || gmailToken;
-    if (!useToken || !DISTRICT_META_SHEET_ID) return;
+  const loadDistrictMeta = async (forceToken) => {
     try {
-      const range = encodeURIComponent(`${DISTRICT_META_TAB}!A:O`);
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${DISTRICT_META_SHEET_ID}/values/${range}`;
-      const res = await fetch(url, { headers: { Authorization: "Bearer " + useToken } });
-      if (!res.ok) { console.warn("loadDistrictMeta:", res.status); return; }
-      const json = await res.json();
-      const rows = json.values || [];
-      if (rows.length < 2) return;
+      let meta = null;
 
-      // Locate columns by header name (case-insensitive)
-      const hdrs = (rows[0] || []).map(h => (h || "").toString().trim().toLowerCase());
-      const ci = (substr) => hdrs.findIndex(h => h.includes(substr));
-      const iName  = 0;              // Agency Name  — always col A
-      const iState = 1;              // State Name   — always col B
-      const iTotal = ci("total students");
-      const iPrek  = ci("prekindergarten");
-      const iSize  = ci("size");
-      const iRep   = ci("rep assigned");
-
-      const meta = {};
-      for (let i = 1; i < rows.length; i++) {
-        const r = rows[i];
-        const name  = (r[iName]  || "").trim().toUpperCase();
-        const state = (r[iState] || "").trim().toUpperCase();
-        if (!name || !state) continue;
-        meta[name + "|" + state] = {
-          size:        iSize  >= 0 ? (r[iSize]  || "").trim()            : "",
-          repAssigned: iRep   >= 0 ? (r[iRep]   || "").trim()            : "",
-          prek:        iPrek  >= 0 ? parseInt((r[iPrek]  || "").replace(/[^0-9]/g, "")) || 0 : 0,
-          total:       iTotal >= 0 ? parseInt((r[iTotal] || "").replace(/[^0-9]/g, "")) || 0 : 0,
-        };
+      // ── Path A: public web app (no auth — available to everyone) ──────────
+      if (DISTRICT_META_WEBAPP_URL) {
+        const res = await fetch(DISTRICT_META_WEBAPP_URL);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && Object.keys(json.data).length > 0) {
+            meta = json.data;
+          }
+        }
       }
 
+      // ── Path B: Sheets API with OAuth token (fallback when webapp unset) ──
+      if (!meta) {
+        const useToken = forceToken || gmailToken;
+        if (!useToken || !DISTRICT_META_SHEET_ID) return;
+        const range = encodeURIComponent(`${DISTRICT_META_TAB}!A:O`);
+        const url   = `https://sheets.googleapis.com/v4/spreadsheets/${DISTRICT_META_SHEET_ID}/values/${range}`;
+        const res   = await fetch(url, { headers: { Authorization: "Bearer " + useToken } });
+        if (!res.ok) { console.warn("loadDistrictMeta sheets:", res.status); return; }
+        const json  = await res.json();
+        const rows  = json.values || [];
+        if (rows.length < 2) return;
+
+        const hdrs = (rows[0] || []).map(h => (h || "").toString().trim().toLowerCase());
+        const ci   = (s) => hdrs.findIndex(h => h.includes(s));
+        const iName = 0, iState = 1;
+        const iTotal = ci("total students"), iPrek = ci("prekindergarten");
+        const iSize  = ci("size"),           iRep  = ci("rep assigned");
+
+        meta = {};
+        for (let i = 1; i < rows.length; i++) {
+          const r     = rows[i];
+          const name  = (r[iName]  || "").trim().toUpperCase();
+          const state = (r[iState] || "").trim().toUpperCase();
+          const size  = iSize >= 0 ? (r[iSize] || "").trim() : "";
+          if (!name || !state || !size || size === "-") continue;
+          meta[name + "|" + state] = {
+            size,
+            repAssigned: iRep   >= 0 ? (r[iRep]   || "").trim()                             : "",
+            prek:        iPrek  >= 0 ? parseInt((r[iPrek]  || "").replace(/[^0-9]/g, "")) || 0 : 0,
+            total:       iTotal >= 0 ? parseInt((r[iTotal] || "").replace(/[^0-9]/g, "")) || 0 : 0,
+          };
+        }
+      }
+
+      if (!meta || Object.keys(meta).length === 0) return;
       setDistrictMeta(meta);
       localStorage.setItem("districtMeta", JSON.stringify(meta));
       localStorage.setItem("districtMetaFetchedAt", String(Date.now()));
@@ -2005,12 +2023,23 @@ export default function BrightwheelDashboard() {
     } catch (e) { console.warn("loadDistrictMeta error:", e); }
   };
 
-  // Trigger a refresh if cache is older than today's 5 AM
+  // Load on mount (uses public webapp if configured; otherwise waits for gmailToken)
   useEffect(() => {
-    if (!gmailToken) return;
     const fetchedAt = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
     const today5AM  = new Date(); today5AM.setHours(5, 0, 0, 0);
-    if (fetchedAt < today5AM.getTime()) loadDistrictMeta();
+    if (DISTRICT_META_WEBAPP_URL) {
+      // Public URL available — fetch immediately, regardless of auth
+      if (fetchedAt < today5AM.getTime()) loadDistrictMeta();
+    }
+    // Auth-only fallback fires from the gmailToken useEffect below
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Also refresh via Sheets API once Gmail token is available (covers the no-webapp case)
+  useEffect(() => {
+    if (!gmailToken || DISTRICT_META_WEBAPP_URL) return; // webapp already handled it
+    const fetchedAt = parseInt(localStorage.getItem("districtMetaFetchedAt") || "0");
+    const today5AM  = new Date(); today5AM.setHours(5, 0, 0, 0);
+    if (fetchedAt < today5AM.getTime()) loadDistrictMeta(gmailToken);
   }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Helper: look up metadata for a district object using name + full state name as key
@@ -2370,7 +2399,8 @@ export default function BrightwheelDashboard() {
         (filterEnrollment === "500to1k" && enr >= 500  && enr < 1000) ||
         (filterEnrollment === "1kto3k"  && enr >= 1000 && enr < 3000) ||
         (filterEnrollment === "3kplus"  && enr >= 3000);
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment;
+      const matchSize = filterSize === "all" || (getDistrictMeta(d)?.size || "") === filterSize;
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -2384,7 +2414,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, districtMeta]);
 
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
@@ -2996,53 +3026,44 @@ export default function BrightwheelDashboard() {
         {/* ── PROSPECTS TAB ── */}
         {activeTab === "prospects" && (
           <div>
-            {/* Filters — two-row layout so everything fits at 100% zoom */}
-            <div className="mb-4 space-y-2">
-              {/* Row 1: search + primary filters */}
-              <div className="flex flex-wrap gap-2 items-center">
+            {/* Filters — single scrollable row */}
+            <div className="mb-4">
+              <div className="flex gap-1.5 items-center overflow-x-auto pb-1" style={{scrollbarWidth:"none"}}>
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="🔍 Search district, director, county..."
-                  className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-52 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  placeholder="🔍 Search..."
+                  className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 />
                 {[
-                  { label: "State",    val: filterState,    setter: setFilterState,    opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]] },
-                  { label: "Priority", val: filterPriority, setter: setFilterPriority, opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]] },
-                  { label: "Stage",    val: filterStatus,   setter: setFilterStatus,   opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])] },
-                  { label: "Rep",      val: globalRepFilter, setter: setGlobalRepFilter, opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])] },
+                  { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
+                  { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                  { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
+                  { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
+                  { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["Large","Large"],["Medium","Medium"],["Small","Small"]], style:{} },
+                  { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
+                  { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
+                  { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
+                    style={f.style}
                     className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                     {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                   </select>
                 ))}
-                <span className="text-xs text-gray-400 ml-auto whitespace-nowrap font-medium">{filtered.length} results</span>
-              </div>
-              {/* Row 2: secondary filters + sort */}
-              <div className="flex flex-wrap gap-2 items-center">
-                {[
-                  { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])] },
-                  { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","In / Out SF"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]] },
-                  { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","All Sizes"],["lt500","< 500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]] },
-                ].map((f) => (
-                  <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
-                    className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-200">
-                    {f.opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-                  </select>
-                ))}
-                <div className="flex items-center gap-1.5 flex-shrink-0 border-l border-gray-200 pl-2 ml-1">
+                <div className="flex items-center gap-1 flex-shrink-0 border-l border-gray-200 pl-2 ml-0.5">
                   <span className="text-xs text-gray-400 whitespace-nowrap">Sort:</span>
                   <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
                     className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-200">
                     <option value="priority">⚡ Priority</option>
-                    <option value="enrollment">🏫 Size</option>
+                    <option value="enrollment">🏫 Enroll.</option>
                     <option value="tier">🏆 Tier</option>
-                    <option value="adoptionYear">📅 Adoption (oldest)</option>
+                    <option value="adoptionYear">📅 Adoption</option>
                     <option value="lastUpdated">🔄 Updated</option>
                     <option value="status">📊 Stage</option>
                   </select>
                 </div>
+                <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{filtered.length} results</span>
               </div>
             </div>
 
