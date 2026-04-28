@@ -5694,10 +5694,24 @@ export default function BrightwheelDashboard() {
             </div>
           );
 
-          // ── Format toolbar: bold, bullet, color ────────────────────────────
+          // ── Format toolbar: bold, bullet, color, link ─────────────────────
           const FORMAT_COLORS = ["#d32f2f","#1565c0","#2e7d32","#e65100","#6a1b9a","#37474f"];
-          const FormatBar = ({ onFormat, onColor }) => {
+          const FormatBar = ({ onFormat, onColor, onLink }) => {
             const [showColors, setShowColors] = React.useState(false);
+            const [showLink,   setShowLink]   = React.useState(false);
+            const [linkUrl,    setLinkUrl]    = React.useState("https://");
+            const [linkText,   setLinkText]   = React.useState("");
+
+            const insertLink = () => {
+              const url  = linkUrl.trim();
+              const text = linkText.trim() || url;
+              if (!url || url === "https://") return;
+              onLink(`<a href="${url}">${text}</a>`);
+              setShowLink(false);
+              setLinkUrl("https://");
+              setLinkText("");
+            };
+
             return (
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 <span className="text-xs text-gray-400 self-center mr-1">Format:</span>
@@ -5709,7 +5723,7 @@ export default function BrightwheelDashboard() {
                   className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 px-2 py-0.5 rounded transition-colors">• Bullet</button>
                 <div className="relative">
                   <button type="button" title="Color — wraps selection in color marker"
-                    onClick={() => setShowColors(p => !p)}
+                    onClick={() => { setShowColors(p => !p); setShowLink(false); }}
                     className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 px-2 py-0.5 rounded flex items-center gap-1 transition-colors">🎨 Color ▾</button>
                   {showColors && (
                     <div className="absolute top-7 left-0 z-20 bg-white border border-gray-200 rounded-lg shadow-xl p-2 flex gap-1.5 items-center">
@@ -5717,6 +5731,54 @@ export default function BrightwheelDashboard() {
                         <button type="button" key={c} onClick={() => { onColor(c); setShowColors(false); }}
                           style={{ background: c }} className="w-5 h-5 rounded-full border-2 border-white shadow hover:scale-110 transition-transform" title={c} />
                       ))}
+                    </div>
+                  )}
+                </div>
+                <div className="relative">
+                  <button type="button" title="Insert hyperlink"
+                    onClick={() => { setShowLink(p => !p); setShowColors(false); }}
+                    className={`text-xs border px-2 py-0.5 rounded flex items-center gap-1 transition-colors ${showLink ? "bg-blue-100 border-blue-300 text-blue-700" : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-200"}`}>
+                    🔗 Link
+                  </button>
+                  {showLink && (
+                    <div className="absolute top-7 left-0 z-20 bg-white border border-gray-200 rounded-xl shadow-xl p-3 w-72" onClick={e => e.stopPropagation()}>
+                      <p className="text-xs font-semibold text-gray-600 mb-2">Insert hyperlink</p>
+                      <div className="space-y-2">
+                        <div>
+                          <label className="text-xs text-gray-500 block mb-0.5">URL</label>
+                          <input
+                            type="url"
+                            value={linkUrl}
+                            onChange={e => setLinkUrl(e.target.value)}
+                            onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); insertLink(); } if (e.key === "Escape") setShowLink(false); }}
+                            placeholder="https://..."
+                            autoFocus
+                            className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-300"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs text-gray-500 block mb-0.5">Display text <span className="text-gray-400">(leave blank to show URL)</span></label>
+                          <input
+                            type="text"
+                            value={linkText}
+                            onChange={e => setLinkText(e.target.value)}
+                            onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); insertLink(); } if (e.key === "Escape") setShowLink(false); }}
+                            placeholder="Click here"
+                            className="w-full border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-300"
+                          />
+                        </div>
+                        <div className="flex gap-2 pt-1">
+                          <button type="button" onClick={insertLink}
+                            disabled={!linkUrl.trim() || linkUrl.trim() === "https://"}
+                            className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white text-xs py-1.5 rounded-lg font-semibold transition-colors">
+                            Insert link
+                          </button>
+                          <button type="button" onClick={() => setShowLink(false)}
+                            className="text-xs text-gray-500 hover:text-gray-700 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -5822,6 +5884,7 @@ export default function BrightwheelDashboard() {
                     <FormatBar
                       onFormat={f => applyFormat(f, newTemplateBodyRef, setNewTemplateDraft, "body")}
                       onColor={c => applyFormat("color", newTemplateBodyRef, setNewTemplateDraft, "body", c)}
+                      onLink={html => insertToken(html, newTemplateBodyRef, setNewTemplateDraft, "body")}
                     />
                     <textarea
                       ref={newTemplateBodyRef}
@@ -5923,6 +5986,7 @@ export default function BrightwheelDashboard() {
                             <FormatBar
                               onFormat={f => applyFormat(f, customEditBodyRef, setEditDraft, "body")}
                               onColor={c => applyFormat("color", customEditBodyRef, setEditDraft, "body", c)}
+                              onLink={html => insertToken(html, customEditBodyRef, setEditDraft, "body")}
                             />
                             <textarea
                               ref={customEditBodyRef}
@@ -6043,6 +6107,7 @@ export default function BrightwheelDashboard() {
                                   <FormatBar
                                     onFormat={f => applyFormat(f, customEditBodyRef, setCustomEditDraft, "body")}
                                     onColor={c => applyFormat("color", customEditBodyRef, setCustomEditDraft, "body", c)}
+                                    onLink={html => insertToken(html, customEditBodyRef, setCustomEditDraft, "body")}
                                   />
                                   <textarea
                                     ref={customEditBodyRef}
