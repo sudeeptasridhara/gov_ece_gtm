@@ -1113,6 +1113,9 @@ export default function BrightwheelDashboard() {
   const [districtNotes, setDistrictNotes] = useState({});
   // Local edits buffered before save (keyed by districtId)
   const [districtNoteEdits, setDistrictNoteEdits] = useState({});
+  // Pending stage change + optional note before commit (keyed by districtId)
+  const [stagePending, setStagePending] = useState({});
+  const [stageNotePending, setStageNotePending] = useState({});
 
   // ── UNSUBSCRIBE TRACKING ──────────────────────────────────────────────────────
   // Set of lowercase email addresses that have opted out via the unsubscribe link.
@@ -3081,15 +3084,16 @@ export default function BrightwheelDashboard() {
     });
   };
 
-  const updateStage = (districtId, newStage) => {
+  const updateStage = (districtId, newStage, note = "") => {
     const d = districts.find(x => x.id === districtId);
     if (!d) return;
     updateDistrict(districtId, { status: newStage });
+    const baseNote = `Stage → ${SEQUENCE_STAGES[newStage]?.label || newStage}`;
     const act = {
       id: Date.now(),
       type: "stage_update",
       date: new Date().toISOString().split("T")[0],
-      notes: `Stage → ${SEQUENCE_STAGES[newStage]?.label || newStage}`,
+      notes: note ? `${baseNote} · ${note}` : baseNote,
       granolaNotesText: newStage, // raw stage key stored in full_notes for reliable cross-rep sync
       source: "manual",
       repEmail: gmailUser || "",
@@ -3457,7 +3461,7 @@ export default function BrightwheelDashboard() {
                               <td className="px-4 py-2.5 text-right text-amber-600">{sd.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length}</td>
                               <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => resolveStatus(d.status) === "not_contacted").length}</td>
                               <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length}</td>
-                              <td className="px-4 py-2.5 text-right text-green-600 font-semibold">{sd.filter(d => ["responded_active","existing_customer"].includes(resolveStatus(d.status))).length}</td>
+                              <td className="px-4 py-2.5 text-right text-green-600 font-semibold">{sd.filter(d => resolveStatus(d.status) === "existing_customer").length}</td>
                             </tr>
                           );
                         })}
@@ -6537,12 +6541,12 @@ export default function BrightwheelDashboard() {
                     <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wide">
                       <tr>
                         {[
-                          { h: "District" }, { h: "Size/Rep" }, { h: "Director" },
+                          { h: "District" }, { h: "Rep" }, { h: "Director" },
                           { h: "Curriculum" }, { h: "Enroll.", style: { width: "70px" } },
                           { h: "PreK", style: { width: "60px" } },
                           { h: "Adoption", style: { width: "70px" } },
                           { h: "Signals", style: { minWidth: "160px" } },
-                          { h: "Stage" }, { h: "Priority", style: { width: "70px" } },
+                          { h: "Stage" }, { h: "Size", style: { width: "55px" } },
                         ].map(({ h, style }) => (
                           <th key={h} className="px-3 py-2.5 text-left font-medium" style={style}>{h}</th>
                         ))}
@@ -6576,9 +6580,6 @@ export default function BrightwheelDashboard() {
                             </td>
                             <td className="px-3 py-2">
                               <div className="flex flex-col gap-0.5">
-                                {sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz] && (
-                                  <span className={`text-xs px-1.5 py-0 rounded font-semibold w-fit ${SIZE_COLORS[sz]}`}>{sz}</span>
-                                )}
                                 {repP && <span className={`text-xs px-1 py-0 rounded font-semibold w-fit ${repP.color}`}>{repP.initials}</span>}
                                 {repAssigned && <span className="text-xs text-gray-400 truncate">{repAssigned}</span>}
                               </div>
@@ -6608,7 +6609,9 @@ export default function BrightwheelDashboard() {
                               </span>
                             </td>
                             <td className="px-3 py-2">
-                              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium w-fit ${p.color}`}>{p.label}</span>
+                              {sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz]
+                                ? <span className={`text-xs px-1.5 py-0.5 rounded font-semibold ${SIZE_COLORS[sz]}`}>{sz}</span>
+                                : <span className="text-gray-300">—</span>}
                             </td>
                           </tr>
                         );
@@ -6901,13 +6904,38 @@ export default function BrightwheelDashboard() {
                       {(() => { const selMeta = getDistrictMeta(selectedDistrict); return selMeta?.prek > 0 ? <div><span className="text-gray-500">PreK Enrollment:</span> {selMeta.prek.toLocaleString()}</div> : null; })()}
                       <div><span className="text-gray-500">Stage:</span>
                         <select
-                          value={selectedDistrict.status || "not_contacted"}
-                          onChange={(e) => updateStage(selectedDistrict.id, e.target.value)}
-                          className={`ml-2 text-xs border-0 rounded-full px-2 py-0.5 font-medium cursor-pointer focus:outline-none ${stageColor(selectedDistrict.status || "not_contacted")}`}
+                          value={stagePending[selectedDistrict.id] ?? (selectedDistrict.status || "not_contacted")}
+                          onChange={(e) => setStagePending(prev => ({ ...prev, [selectedDistrict.id]: e.target.value }))}
+                          className={`ml-2 text-xs border-0 rounded-full px-2 py-0.5 font-medium cursor-pointer focus:outline-none ${stageColor(stagePending[selectedDistrict.id] ?? (selectedDistrict.status || "not_contacted"))}`}
                         >
                           {Object.entries(SEQUENCE_STAGES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
                         </select>
                       </div>
+                      {stagePending[selectedDistrict.id] !== undefined && (
+                        <div className="mt-1.5 space-y-1.5">
+                          <input
+                            type="text"
+                            value={stageNotePending[selectedDistrict.id] || ""}
+                            onChange={(e) => setStageNotePending(prev => ({ ...prev, [selectedDistrict.id]: e.target.value }))}
+                            placeholder="Add a note (optional)..."
+                            className="w-full text-xs border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-indigo-200 text-gray-700"
+                          />
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => {
+                                updateStage(selectedDistrict.id, stagePending[selectedDistrict.id], stageNotePending[selectedDistrict.id] || "");
+                                setStagePending(prev => { const n = { ...prev }; delete n[selectedDistrict.id]; return n; });
+                                setStageNotePending(prev => { const n = { ...prev }; delete n[selectedDistrict.id]; return n; });
+                              }}
+                              className="text-xs bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700"
+                            >Save stage</button>
+                            <button
+                              onClick={() => { setStagePending(prev => { const n = { ...prev }; delete n[selectedDistrict.id]; return n; }); setStageNotePending(prev => { const n = { ...prev }; delete n[selectedDistrict.id]; return n; }); }}
+                              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1"
+                            >Cancel</button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {/* ── Demographics & Performance ── */}
