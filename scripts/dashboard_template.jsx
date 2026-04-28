@@ -3237,97 +3237,6 @@ export default function BrightwheelDashboard() {
         </div>
       )}
 
-      {/* EMAIL OPENS SLIDE-IN PANEL */}
-      {showOpenPanel && (
-        <div className="fixed inset-0 z-40 flex justify-end" onClick={() => setShowOpenPanel(false)}>
-          <div className="fixed inset-0 bg-black/20" />
-          <div className="relative w-full max-w-sm bg-white shadow-2xl border-l border-gray-200 flex flex-col h-full z-50" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
-              <div>
-                <h3 className="font-semibold text-gray-900 text-sm">👁 Opens &amp; Clicks</h3>
-                {recentOpens.length > 0 && (
-                  <p className="text-xs text-gray-400 mt-0.5">
-                    {recentOpens.filter(o => o.eventType==="email_open").length} opens · {recentOpens.filter(o => o.eventType==="email_click").length} clicks
-                  </p>
-                )}
-              </div>
-              <button onClick={() => setShowOpenPanel(false)} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
-            </div>
-            {recentOpens.length === 0 ? (
-              <div className="flex-1 flex items-center justify-center text-center text-gray-400 p-8">
-                <div>
-                  <div className="text-3xl mb-3">📭</div>
-                  <p className="text-sm font-medium text-gray-500">No opens or clicks tracked yet</p>
-                  <p className="text-xs mt-1">Events appear here once the pixel URL is configured and an email has been opened or a link clicked.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
-                {recentOpens.map((o, i) => {
-                  const isClick   = o.eventType === "email_click";
-                  const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").replace(/\s+—\s+.+$/,"").slice(0,32);
-                  const timeStr   = o.loggedAt ? new Date(o.loggedAt).toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : o.date;
-                  const clickHost = o.clickUrl ? (() => { try { return new URL(o.clickUrl).hostname.replace(/^www\./, ""); } catch { return o.clickUrl.slice(0,30); } })() : "";
-                  const clickPath = o.clickUrl ? (() => { try { const u = new URL(o.clickUrl); return (u.pathname + u.search).replace(/\/$/, "") || ""; } catch { return ""; } })() : "";
-                  return (
-                    <div key={o.trackingId || i}
-                      className={`px-4 py-3 hover:bg-indigo-50 cursor-pointer transition-colors ${isClick ? "border-l-2 border-emerald-300" : ""}`}
-                      onClick={() => {
-                        const dist = districts.find(d => d.id === o.districtId);
-                        if (dist) {
-                          const shortN = dist.district.includes(" — ") ? dist.district.split(" — ").slice(1).join(" — ") : dist.district;
-                          setActiveTab("districtinfo");
-                          setDiInfoSelectedId(dist.id);
-                          setDiInfoSearch(shortN);
-                          setShowOpenPanel(false);
-                        }
-                      }}>
-                      <div className="flex items-start gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm mt-0.5 ${isClick ? "bg-emerald-100 text-emerald-600" : "bg-amber-100 text-amber-600"}`}>
-                          {isClick ? "🖱️" : "👁"}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2">
-                            <p className="text-xs font-semibold text-gray-900 truncate">{shortName}</p>
-                            <span className={`text-xs px-1.5 py-0 rounded-full flex-shrink-0 ${isClick ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
-                              {isClick ? "clicked" : "opened"}
-                            </span>
-                          </div>
-                          {isClick && clickHost && (
-                            <div className="mt-1">
-                              <a
-                                href={o.clickUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-start gap-1 group"
-                                onClick={e => e.stopPropagation()}
-                              >
-                                <span className="text-xs text-emerald-600 group-hover:text-emerald-800 font-medium flex-shrink-0">→</span>
-                                <span className="text-xs leading-tight">
-                                  <span className="text-emerald-700 font-medium group-hover:underline">{clickHost}</span>
-                                  {clickPath && <span className="text-emerald-500 group-hover:underline break-all">{clickPath.length > 50 ? clickPath.slice(0,50) + "…" : clickPath}</span>}
-                                </span>
-                              </a>
-                            </div>
-                          )}
-                          {!isClick && o.template && <p className="text-xs text-gray-500 truncate mt-0.5">Campaign: {o.template.slice(0, 40)}</p>}
-                          <p className="text-xs text-gray-400 mt-1">{timeStr}{o.repEmail ? ` · ${o.repEmail.split("@")[0]}` : ""}</p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-            {!TRACKING_PIXEL_URL && (
-              <div className="px-4 py-3 bg-amber-50 border-t border-amber-200">
-                <p className="text-xs text-amber-700 font-medium">⚠️ Pixel URL not configured</p>
-                <p className="text-xs text-amber-600 mt-0.5">Deploy <code>tracking_pixel.gs</code> as a web app and paste the URL into <code>TRACKING_PIXEL_URL</code> in the dashboard config, then rebuild.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* HEADER */}
       <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
@@ -3339,22 +3248,6 @@ export default function BrightwheelDashboard() {
           </div>
         </div>
         <div className="flex items-center gap-6">
-          {/* Email opens bell */}
-          {ACTIVITY_SHEET_ID && (
-            <button
-              onClick={() => setShowOpenPanel(true)}
-              title="Email opens tracked by pixel"
-              className="relative flex items-center gap-1.5 text-xs text-gray-500 hover:text-amber-600 transition-colors"
-            >
-              <span className="text-base">👁</span>
-              <span className="font-medium">Opens</span>
-              {recentOpens.length > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full px-1.5 py-0 leading-4 min-w-[18px] text-center">
-                  {recentOpens.length > 99 ? "99+" : recentOpens.length}
-                </span>
-              )}
-            </button>
-          )}
           {/* Logged-in rep indicator / sign-in button */}
           {(currentRep || gmailUser) ? (
             <div className="flex items-center gap-2 pl-4 border-l border-gray-200 group cursor-default">
@@ -3538,6 +3431,7 @@ export default function BrightwheelDashboard() {
                         <th className="text-left px-4 py-2 font-medium text-gray-500">State</th>
                         <th className="text-left px-4 py-2 font-medium text-gray-500">Rep</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Districts</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Contactable</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Priority</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Not Contacted</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">In Progress</th>
@@ -3559,6 +3453,7 @@ export default function BrightwheelDashboard() {
                                 {repProf ? <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${repProf.color}`}>{repProf.name}</span> : "—"}
                               </td>
                               <td className="px-4 py-2.5 text-right text-gray-600">{sd.length}</td>
+                              <td className="px-4 py-2.5 text-right text-blue-600">{sd.filter(d => d.email && d.email.trim() !== "").length}</td>
                               <td className="px-4 py-2.5 text-right text-amber-600">{sd.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length}</td>
                               <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => resolveStatus(d.status) === "not_contacted").length}</td>
                               <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length}</td>
@@ -3807,6 +3702,7 @@ export default function BrightwheelDashboard() {
                       { h: "Priority" }, { h: "District" }, { h: "Supt." }, { h: "Contact" }, { h: "Curriculum" },
                       { h: "Adopted", style: { width: "64px" } }, { h: "Age", style: { width: "42px" } },
                       { h: "Enroll.", style: { width: "64px" } },
+                      { h: "PreK", style: { width: "56px" } },
                       { h: "Signals", style: { minWidth: "180px" } },
                       { h: "Stage" }, { h: "Mailer", style: { width: "52px" } }, { h: "Actions" },
                     ].map(({ h, style }) => (
@@ -3881,6 +3777,7 @@ export default function BrightwheelDashboard() {
                           }
                         </td>
                         <td className="px-2 py-2 text-right text-xs">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
+                        <td className="px-2 py-2 text-right text-xs">{(() => { const m = getDistrictMeta(d); return m?.prek > 0 ? m.prek.toLocaleString() : "—"; })()}</td>
                         <td className="px-2 py-2" style={{ minWidth: "180px" }}>
                           <div className="flex flex-wrap gap-1">
                             {d.newLeadership && (
@@ -4396,6 +4293,8 @@ export default function BrightwheelDashboard() {
 
           const totalContacted = districts.filter(d => d.activities?.length > 0).length;
           const totalReplied = districts.filter(d => ["responded_active","existing_customer"].includes(resolveStatus(d.status))).length;
+          const totalOpens = districts.filter(d => d.activities?.some(a => a.type === "email_open")).length;
+          const totalClicks = districts.filter(d => d.activities?.some(a => a.type === "email_click")).length;
 
           return (
             <div>
@@ -4408,6 +4307,8 @@ export default function BrightwheelDashboard() {
                   <div className="flex gap-4 text-center">
                     <div><div className="text-lg font-bold text-indigo-600">{totalContacted}</div><div className="text-xs text-gray-400">Contacted</div></div>
                     <div><div className="text-lg font-bold text-green-600">{totalReplied}</div><div className="text-xs text-gray-400">Replied/Meeting</div></div>
+                    <div><div className="text-lg font-bold text-amber-600">{totalOpens}</div><div className="text-xs text-gray-400">Opened</div></div>
+                    <div><div className="text-lg font-bold text-emerald-600">{totalClicks}</div><div className="text-xs text-gray-400">Link Clicks</div></div>
                     <div><div className="text-lg font-bold text-gray-500">{districts.length - totalContacted}</div><div className="text-xs text-gray-400">Not Yet Contacted</div></div>
                   </div>
                   <div className="flex flex-col items-end gap-1.5">
@@ -6343,6 +6244,7 @@ export default function BrightwheelDashboard() {
                             <div><span className="text-gray-500">Vendor:</span> {selectedDi.curriculumVendor}</div>
                             <div><span className="text-gray-500">Adopted:</span> {selectedDi.curriculumAdoptionYear} <span className={`font-medium ${age >= 6 ? "text-red-500" : age >= 4 ? "text-orange-500" : "text-gray-500"}`}>({age} yrs ago)</span></div>
                             <div><span className="text-gray-500">Enrollment:</span> {selectedDi.enrollment?.toLocaleString()}</div>
+                            {(() => { const diMeta = getDistrictMeta(selectedDi); return diMeta?.prek > 0 ? <div><span className="text-gray-500">PreK Enrollment:</span> {diMeta.prek.toLocaleString()}</div> : null; })()}
                             <div><span className="text-gray-500">Status:</span> <span className={`ml-1 font-medium ${statusColor(selectedDi.status)}`}>{selectedDi.status}</span></div>
                             {selectedDi.website && (
                               <div>
@@ -6637,6 +6539,7 @@ export default function BrightwheelDashboard() {
                         {[
                           { h: "District" }, { h: "Size/Rep" }, { h: "Director" },
                           { h: "Curriculum" }, { h: "Enroll.", style: { width: "70px" } },
+                          { h: "PreK", style: { width: "60px" } },
                           { h: "Adoption", style: { width: "70px" } },
                           { h: "Signals", style: { minWidth: "160px" } },
                           { h: "Stage" }, { h: "Priority", style: { width: "70px" } },
@@ -6688,6 +6591,7 @@ export default function BrightwheelDashboard() {
                               <span className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-xs truncate block">{d.curriculum}</span>
                             </td>
                             <td className="px-3 py-2 text-right text-xs">{d.enrollment != null ? d.enrollment.toLocaleString() : "—"}</td>
+                            <td className="px-3 py-2 text-right text-xs">{(() => { const m = getDistrictMeta(d); return m?.prek > 0 ? m.prek.toLocaleString() : "—"; })()}</td>
                             <td className="px-3 py-2 text-center text-xs">{d.curriculumAdoptionYear ?? "—"}</td>
                             <td className="px-3 py-2" style={{ minWidth: "160px" }}>
                               <div className="flex flex-wrap gap-1">
@@ -6994,6 +6898,7 @@ export default function BrightwheelDashboard() {
                         : <div><span className="text-gray-500">Adopted:</span> <span className="text-gray-400">Unknown</span></div>
                       }
                       <div><span className="text-gray-500">Enrollment:</span> {selectedDistrict.enrollment != null ? selectedDistrict.enrollment.toLocaleString() : "—"}</div>
+                      {(() => { const selMeta = getDistrictMeta(selectedDistrict); return selMeta?.prek > 0 ? <div><span className="text-gray-500">PreK Enrollment:</span> {selMeta.prek.toLocaleString()}</div> : null; })()}
                       <div><span className="text-gray-500">Stage:</span>
                         <select
                           value={selectedDistrict.status || "not_contacted"}
