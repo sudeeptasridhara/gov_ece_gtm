@@ -3216,6 +3216,7 @@ export default function BrightwheelDashboard() {
                   const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").replace(/\s+—\s+.+$/,"").slice(0,32);
                   const timeStr   = o.loggedAt ? new Date(o.loggedAt).toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : o.date;
                   const clickHost = o.clickUrl ? (() => { try { return new URL(o.clickUrl).hostname.replace(/^www\./, ""); } catch { return o.clickUrl.slice(0,30); } })() : "";
+                  const clickPath = o.clickUrl ? (() => { try { const u = new URL(o.clickUrl); return (u.pathname + u.search).replace(/\/$/, "") || ""; } catch { return ""; } })() : "";
                   return (
                     <div key={o.trackingId || i}
                       className={`px-4 py-3 hover:bg-indigo-50 cursor-pointer transition-colors ${isClick ? "border-l-2 border-emerald-300" : ""}`}
@@ -3241,7 +3242,21 @@ export default function BrightwheelDashboard() {
                             </span>
                           </div>
                           {isClick && clickHost && (
-                            <p className="text-xs text-emerald-600 truncate mt-0.5" title={o.clickUrl}>→ {clickHost}</p>
+                            <div className="mt-1">
+                              <a
+                                href={o.clickUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-start gap-1 group"
+                                onClick={e => e.stopPropagation()}
+                              >
+                                <span className="text-xs text-emerald-600 group-hover:text-emerald-800 font-medium flex-shrink-0">→</span>
+                                <span className="text-xs leading-tight">
+                                  <span className="text-emerald-700 font-medium group-hover:underline">{clickHost}</span>
+                                  {clickPath && <span className="text-emerald-500 group-hover:underline break-all">{clickPath.length > 50 ? clickPath.slice(0,50) + "…" : clickPath}</span>}
+                                </span>
+                              </a>
+                            </div>
                           )}
                           {!isClick && o.template && <p className="text-xs text-gray-500 truncate mt-0.5">Campaign: {o.template.slice(0, 40)}</p>}
                           <p className="text-xs text-gray-400 mt-1">{timeStr}{o.repEmail ? ` · ${o.repEmail.split("@")[0]}` : ""}</p>
