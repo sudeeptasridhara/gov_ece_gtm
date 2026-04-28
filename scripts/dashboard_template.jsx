@@ -1877,9 +1877,9 @@ export default function BrightwheelDashboard() {
   const initSheet = async (token) => {
     if (!ACTIVITY_SHEET_ID) return;
     try {
-      const data = await sheetFetch("values/Sheet1!A1:L1", { token });
+      const data = await sheetFetch("values/Activity Log!A1:L1", { token });
       if (!data.values?.[0] || data.values[0][0] !== "activity_id") {
-        await sheetFetch(`values/Sheet1!A1:L1?valueInputOption=RAW`, {
+        await sheetFetch(`values/Activity Log!A1:L1?valueInputOption=RAW`, {
           method: "PUT", token,
           body: JSON.stringify({ values: [SHEET_COLS] }),
         });
@@ -2201,7 +2201,7 @@ export default function BrightwheelDashboard() {
     if (!ACTIVITY_SHEET_ID) return;
     setSheetSyncing(true);
     try {
-      const data = await sheetFetch("values/Sheet1", { token });
+      const data = await sheetFetch("values/Activity Log", { token });
       const rows = data.values || [];
       if (rows.length < 2) { setSheetConnected(true); setSheetSyncing(false); return; }
       const hdrs = rows[0];
@@ -2474,7 +2474,7 @@ export default function BrightwheelDashboard() {
     const useToken = token || gmailToken;
     if (!ACTIVITY_SHEET_ID || !useToken || !rows.length) return;
     try {
-      await sheetFetch(`values/Sheet1!A:L:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
+      await sheetFetch(`values/Activity Log!A:L:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
         method: "POST",
         body: JSON.stringify({ values: rows }),
         token: useToken,

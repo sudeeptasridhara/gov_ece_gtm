@@ -33,7 +33,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SHEET_ID   = "1PasvZHeHTbAaiM1oI0Xe9pxyx-MgwDTF64Y-yuQACwM";
-const SHEET_NAME = "Sheet1";
+const SHEET_NAME = "Activity Log";
 
 function doGet(e) {
   const p = e.parameter || {};
