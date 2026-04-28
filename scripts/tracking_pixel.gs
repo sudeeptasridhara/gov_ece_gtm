@@ -22,61 +22,92 @@
 // The open then appears in the activity feed and team activity table.
 //
 // ── QUERY PARAMETERS ─────────────────────────────────────────────────────────
-// id  — unique tracking ID (districtId_timestamp)
-// d   — district ID
-// r   — rep email
-// t   — template/campaign name
+// id    — unique tracking ID (districtId_timestamp)
+// d     — district ID
+// r     — rep email
+// t     — template/campaign name
+//
+// For click tracking, also pass:
+// click — "1" to indicate a link click (vs. a pixel open)
+// url   — the destination URL to redirect to after logging
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SHEET_ID = "1PasvZHeHTbAaiM1oI0Xe9pxyx-MgwDTF64Y-yuQACwM";
 const SHEET_NAME = "Sheet1";
 
 function doGet(e) {
-  // Log the open row (best-effort — never block the pixel response)
-  try {
-    const p = e.parameter || {};
-    const trackingId = p.id || String(Date.now());
-    const districtId = p.d  || "0";
-    const repEmail   = p.r  || "";
-    const template   = p.t  || "";
-    const now        = new Date().toISOString();
-    const dateStr    = now.split("T")[0];
+  const p           = e.parameter || {};
+  const isClick     = p.click === "1";
+  const trackingId  = p.id  || String(Date.now());
+  const districtId  = p.d   || "0";
+  const repEmail    = p.r   || "";
+  const template    = p.t   || "";
+  const destUrl     = p.url || "";     // only present for click events
+  const now         = new Date().toISOString();
+  const dateStr     = now.split("T")[0];
 
+  // ── Log to Activity Sheet (best-effort, never block the response) ──────────
+  try {
     const ss    = SpreadsheetApp.openById(SHEET_ID);
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
 
     if (sheet) {
       // Columns: activity_id, district_id, district_name, type, date,
       //          notes, full_notes, source, rep_email, director_name, dedup_id, logged_at
-      sheet.appendRow([
-        "open_" + trackingId,  // activity_id
-        districtId,            // district_id
-        "",                    // district_name (not available at open time)
-        "email_open",          // type
-        dateStr,               // date
-        "Email opened",        // notes
-        template,              // full_notes  (template name for reference)
-        "pixel",               // source
-        repEmail,              // rep_email
-        "",                    // director_name
-        trackingId,            // dedup_id    (prevents double-counting if image loads twice)
-        now,                   // logged_at
-      ]);
+      if (isClick) {
+        // Unique dedup key: trackingId + the destination URL slug
+        // so multiple clicks on different links in the same email each get logged.
+        const urlSlug  = destUrl.replace(/https?:\/\//,"").replace(/[^a-zA-Z0-9]/g,"_").slice(0,40);
+        const dedupKey = trackingId + "_" + urlSlug;
+        sheet.appendRow([
+          "click_" + dedupKey,    // activity_id
+          districtId,             // district_id
+          "",                     // district_name
+          "email_click",          // type
+          dateStr,                // date
+          "Link clicked: " + destUrl.slice(0, 120),  // notes
+          template,               // full_notes (template name)
+          "pixel",                // source
+          repEmail,               // rep_email
+          "",                     // director_name
+          dedupKey,               // dedup_id
+          now,                    // logged_at
+        ]);
+      } else {
+        sheet.appendRow([
+          "open_" + trackingId,   // activity_id
+          districtId,             // district_id
+          "",                     // district_name
+          "email_open",           // type
+          dateStr,                // date
+          "Email opened",         // notes
+          template,               // full_notes
+          "pixel",                // source
+          repEmail,               // rep_email
+          "",                     // director_name
+          trackingId,             // dedup_id
+          now,                    // logged_at
+        ]);
+      }
     }
   } catch (err) {
-    // Silently swallow — never let a logging error break the pixel response
-    console.error("tracking_pixel error:", err);
+    console.error("tracking error:", err);
   }
 
-  // Serve a 1x1 transparent GIF via an HTML page that immediately sets the
-  // Content-Type header. Apps Script can't return raw binary via ContentService,
-  // but HtmlService with a data-URI src works in virtually all email clients:
-  // the <img> tag in the email resolves the pixel URL, hits this doGet(), and
-  // the 200 OK is enough to log the open — the body is irrelevant for tracking.
-  //
-  // For maximum compatibility we return a minimal HTML page whose meta-refresh
-  // instantly completes; the email client sees the 200 and considers the image
-  // "loaded", which is all we need.
+  // ── Respond ───────────────────────────────────────────────────────────────
+  if (isClick && destUrl) {
+    // Redirect the recipient to the real destination URL
+    return HtmlService
+      .createHtmlOutput(
+        '<html><head><meta http-equiv="refresh" content="0;url=' +
+        destUrl.replace(/"/g, "&quot;") +
+        '"></head><body>Redirecting…</body></html>'
+      )
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
+
+  // Pixel open — return a minimal 200 OK (enough for the email client to
+  // register the image as "loaded" and log the open)
   return HtmlService
     .createHtmlOutput(
       '<html><head><meta http-equiv="refresh" content="0;url=data:image/gif;base64,' +

@@ -1349,6 +1349,30 @@ export default function BrightwheelDashboard() {
     }).requestAccessToken();
   };
 
+  // ── Link click tracking helper ────────────────────────────────────────────
+  // Rewrites every href in the email body to route through the tracking pixel
+  // endpoint, which logs the click and then 302-redirects to the real URL.
+  // Skips mailto: links, anchors (#), and the pixel URL itself.
+  const wrapLinksForClickTracking = (htmlBody, trackingId, districtId, repEmail, template) => {
+    if (!TRACKING_PIXEL_URL) return htmlBody;
+    return htmlBody.replace(/href="([^"]+)"/g, (match, url) => {
+      if (
+        url.startsWith("mailto:") ||
+        url.startsWith("#") ||
+        url.includes(TRACKING_PIXEL_URL)
+      ) return match;
+      const clickUrl =
+        TRACKING_PIXEL_URL +
+        "?click=1" +
+        "&url=" + encodeURIComponent(url) +
+        "&id="  + encodeURIComponent(trackingId) +
+        "&d="   + encodeURIComponent(districtId) +
+        "&r="   + encodeURIComponent(repEmail) +
+        "&t="   + encodeURIComponent(template || "");
+      return `href="${clickUrl}"`;
+    });
+  };
+
   const sendEmail = async (item, token) => {
     const useToken = token || gmailToken;
     if (!useToken) { connectGmail((t) => sendEmail(item, t)); return; }
@@ -1356,8 +1380,12 @@ export default function BrightwheelDashboard() {
     let trackedBody = body;
     if (TRACKING_PIXEL_URL) {
       const trackingId = `${item.districtId}_${Date.now()}`;
-      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(gmailUser || "")}&t=${encodeURIComponent(item.template || "")}`;
-      trackedBody = body + `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
+      const rep        = gmailUser || "";
+      const tmpl       = item.template || "";
+      // Wrap links first, then append pixel
+      trackedBody = wrapLinksForClickTracking(body, trackingId, item.districtId, rep, tmpl);
+      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(rep)}&t=${encodeURIComponent(tmpl)}`;
+      trackedBody += `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
     }
     const raw = buildRawEmail(item.to, subject, trackedBody);
     try {
@@ -1410,8 +1438,11 @@ export default function BrightwheelDashboard() {
     let trackedBody = body;
     if (TRACKING_PIXEL_URL) {
       const trackingId = `${item.districtId}_${Date.now()}`;
-      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(gmailUser || "")}&t=${encodeURIComponent(item.template || "")}`;
-      trackedBody = body + `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
+      const rep        = gmailUser || "";
+      const tmpl       = item.template || "";
+      trackedBody = wrapLinksForClickTracking(body, trackingId, item.districtId, rep, tmpl);
+      const pixelSrc = `${TRACKING_PIXEL_URL}?id=${encodeURIComponent(trackingId)}&d=${encodeURIComponent(item.districtId)}&r=${encodeURIComponent(rep)}&t=${encodeURIComponent(tmpl)}`;
+      trackedBody += `<img src="${pixelSrc}" width="1" height="1" style="display:none;border:0;outline:none;" alt="" />`;
     }
     const raw = buildRawEmail(item.to, subject, trackedBody);
     try {
@@ -2286,21 +2317,25 @@ export default function BrightwheelDashboard() {
         byDistrict[distId].push(act);
       }
 
-      // ── Detect new email opens and surface notifications ───────────────────
-      // Collect all pixel open rows across all districts
+      // ── Detect new email opens + clicks and surface notifications ─────────
       const allOpenRows = [];
       for (const [distIdStr, acts] of Object.entries(byDistrict)) {
         for (const act of acts) {
-          if (act.type === "email_open" && act.trackingId) {
+          if ((act.type === "email_open" || act.type === "email_click") && act.trackingId) {
             const dist = districts.find(d => String(d.id) === String(distIdStr));
             allOpenRows.push({
               trackingId:   act.trackingId,
+              eventType:    act.type,                   // "email_open" | "email_click"
               districtId:   parseInt(distIdStr),
               districtName: dist?.district || `District ${distIdStr}`,
               template:     act.template || "",
               repEmail:     act.repEmail || "",
               date:         act.date || "",
               loggedAt:     act.loggedAt || "",
+              // For clicks, pull the destination URL out of the notes field
+              clickUrl:     act.type === "email_click"
+                ? (act.notes || "").replace(/^Link clicked:\s*/i, "").trim()
+                : "",
             });
           }
         }
@@ -2335,13 +2370,19 @@ export default function BrightwheelDashboard() {
               .sort((a, b) => (b.loggedAt || b.date).localeCompare(a.loggedAt || a.date))
               .slice(0, 50);
           });
-          // Toast notification
+          // Toast notification — distinguish clicks from opens
           if (newOpens.length === 1) {
             const o = newOpens[0];
             const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").slice(0,28);
-            showNotif(`👁 ${shortName} opened your email`, "green");
+            const verb = o.eventType === "email_click" ? "clicked a link" : "opened your email";
+            showNotif(`${o.eventType === "email_click" ? "🖱️" : "👁"} ${shortName} ${verb}`, "green");
           } else {
-            showNotif(`👁 ${newOpens.length} new email opens`, "green");
+            const opens  = newOpens.filter(o => o.eventType === "email_open").length;
+            const clicks = newOpens.filter(o => o.eventType === "email_click").length;
+            const parts  = [];
+            if (opens)  parts.push(`${opens} open${opens  !== 1 ? "s" : ""}`);
+            if (clicks) parts.push(`${clicks} click${clicks !== 1 ? "s" : ""}`);
+            showNotif(`👁 New tracking events: ${parts.join(", ")}`, "green");
           }
         }
         return new Set([...prevKnown, ...allOpenRows.map(o => o.trackingId)]);
@@ -3150,25 +3191,34 @@ export default function BrightwheelDashboard() {
           <div className="fixed inset-0 bg-black/20" />
           <div className="relative w-full max-w-sm bg-white shadow-2xl border-l border-gray-200 flex flex-col h-full z-50" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
-              <h3 className="font-semibold text-gray-900 text-sm">👁 Email Opens</h3>
+              <div>
+                <h3 className="font-semibold text-gray-900 text-sm">👁 Opens &amp; Clicks</h3>
+                {recentOpens.length > 0 && (
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {recentOpens.filter(o => o.eventType==="email_open").length} opens · {recentOpens.filter(o => o.eventType==="email_click").length} clicks
+                  </p>
+                )}
+              </div>
               <button onClick={() => setShowOpenPanel(false)} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
             </div>
             {recentOpens.length === 0 ? (
               <div className="flex-1 flex items-center justify-center text-center text-gray-400 p-8">
                 <div>
                   <div className="text-3xl mb-3">📭</div>
-                  <p className="text-sm font-medium text-gray-500">No opens tracked yet</p>
-                  <p className="text-xs mt-1">Opens appear here once the pixel URL is configured and an email has been opened.</p>
+                  <p className="text-sm font-medium text-gray-500">No opens or clicks tracked yet</p>
+                  <p className="text-xs mt-1">Events appear here once the pixel URL is configured and an email has been opened or a link clicked.</p>
                 </div>
               </div>
             ) : (
               <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
                 {recentOpens.map((o, i) => {
+                  const isClick   = o.eventType === "email_click";
                   const shortName = (o.districtName || "").replace(/\s+(Public\s+Schools?|Unified\s+School\s+District|School\s+District|County\s+Schools?|City\s+Schools?)\s*$/i,"").replace(/\s+—\s+.+$/,"").slice(0,32);
-                  const timeStr = o.loggedAt ? new Date(o.loggedAt).toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : o.date;
+                  const timeStr   = o.loggedAt ? new Date(o.loggedAt).toLocaleString("en-US", { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" }) : o.date;
+                  const clickHost = o.clickUrl ? (() => { try { return new URL(o.clickUrl).hostname.replace(/^www\./, ""); } catch { return o.clickUrl.slice(0,30); } })() : "";
                   return (
                     <div key={o.trackingId || i}
-                      className="px-4 py-3 hover:bg-indigo-50 cursor-pointer transition-colors"
+                      className={`px-4 py-3 hover:bg-indigo-50 cursor-pointer transition-colors ${isClick ? "border-l-2 border-emerald-300" : ""}`}
                       onClick={() => {
                         const dist = districts.find(d => d.id === o.districtId);
                         if (dist) {
@@ -3180,10 +3230,20 @@ export default function BrightwheelDashboard() {
                         }
                       }}>
                       <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0 text-sm mt-0.5">👁</div>
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-gray-900 truncate">{shortName}</p>
-                          {o.template && <p className="text-xs text-gray-500 truncate mt-0.5">Campaign: {o.template.slice(0, 40)}</p>}
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm mt-0.5 ${isClick ? "bg-emerald-100 text-emerald-600" : "bg-amber-100 text-amber-600"}`}>
+                          {isClick ? "🖱️" : "👁"}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <p className="text-xs font-semibold text-gray-900 truncate">{shortName}</p>
+                            <span className={`text-xs px-1.5 py-0 rounded-full flex-shrink-0 ${isClick ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+                              {isClick ? "clicked" : "opened"}
+                            </span>
+                          </div>
+                          {isClick && clickHost && (
+                            <p className="text-xs text-emerald-600 truncate mt-0.5" title={o.clickUrl}>→ {clickHost}</p>
+                          )}
+                          {!isClick && o.template && <p className="text-xs text-gray-500 truncate mt-0.5">Campaign: {o.template.slice(0, 40)}</p>}
                           <p className="text-xs text-gray-400 mt-1">{timeStr}{o.repEmail ? ` · ${o.repEmail.split("@")[0]}` : ""}</p>
                         </div>
                       </div>
@@ -3467,8 +3527,9 @@ export default function BrightwheelDashboard() {
                   : null;
 
                 const ACT_TYPES = [
-                  { key: "email",      label: "✉️ Emails",   color: "text-blue-600",   bg: "bg-blue-50"   },
-                  { key: "email_open", label: "👁 Opens",    color: "text-amber-600",  bg: "bg-amber-50"  },
+                  { key: "email",       label: "✉️ Emails",   color: "text-blue-600",   bg: "bg-blue-50"   },
+                  { key: "email_open",  label: "👁 Opens",    color: "text-amber-600",  bg: "bg-amber-50"  },
+                  { key: "email_click", label: "🖱️ Clicks",  color: "text-emerald-600", bg: "bg-emerald-50" },
                   { key: "call",       label: "📞 Calls",    color: "text-green-600",  bg: "bg-green-50"  },
                   { key: "linkedin",   label: "🔗 LinkedIn", color: "text-sky-600",    bg: "bg-sky-50"    },
                   { key: "meeting",    label: "📅 Meetings", color: "text-purple-600", bg: "bg-purple-50" },
@@ -3745,6 +3806,9 @@ export default function BrightwheelDashboard() {
                           {contact.source === "sf" && <span className="text-xs bg-blue-50 text-blue-500 px-1 rounded">SF</span>}
                           {(d.activities || []).some(a => a.type === "email_open") && (
                             <span className="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1 rounded ml-1" title={`Opened · ${(d.activities||[]).filter(a=>a.type==="email_open").length}x`}>👁 opened</span>
+                          )}
+                          {(d.activities || []).some(a => a.type === "email_click") && (
+                            <span className="text-xs bg-emerald-50 text-emerald-600 border border-emerald-200 px-1 rounded ml-1" title={`Clicked · ${(d.activities||[]).filter(a=>a.type==="email_click").length}x`}>🖱️ clicked</span>
                           )}
                         </td>
                         <td className="px-2 py-2" style={{ maxWidth: "110px" }}>
@@ -4254,8 +4318,8 @@ export default function BrightwheelDashboard() {
 
         {/* ── CONTACT TRACKING TAB ── */}
         {activeTab === "contacts" && (() => {
-          const activityIcon = (type) => type === "email" ? "✉️" : type === "email_open" ? "👁" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
-          const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
+          const activityIcon = (type) => type === "email" ? "✉️" : type === "email_open" ? "👁" : type === "email_click" ? "🖱️" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
+          const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "email_click" ? "bg-emerald-100 text-emerald-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
 
           const contactDistricts = districts.filter((d) => {
             const matchSearch = !contactSearch || d.district.toLowerCase().includes(contactSearch.toLowerCase()) || d.director.toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
@@ -6244,6 +6308,11 @@ export default function BrightwheelDashboard() {
                           {(selectedDi.activities||[]).some(a => a.type === "email_open") && (
                             <span className="ml-2 text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded-full font-medium normal-case">
                               👁 {(selectedDi.activities||[]).filter(a=>a.type==="email_open").length} open{(selectedDi.activities||[]).filter(a=>a.type==="email_open").length!==1?"s":""}
+                            </span>
+                          )}
+                          {(selectedDi.activities||[]).some(a => a.type === "email_click") && (
+                            <span className="ml-1 text-xs bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded-full font-medium normal-case">
+                              🖱️ {(selectedDi.activities||[]).filter(a=>a.type==="email_click").length} click{(selectedDi.activities||[]).filter(a=>a.type==="email_click").length!==1?"s":""}
                             </span>
                           )}
                         </h4>
