@@ -991,6 +991,7 @@ export default function BrightwheelDashboard() {
   const [filterCurriculum, setFilterCurriculum] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterSalesforce, setFilterSalesforce] = useState("all"); // "all" | "in_sf" | "not_in_sf"
+  const [filterBwStatus, setFilterBwStatus] = useState("all"); // "all" | "premium" | "free" | "no"
   const [filterEnrollment, setFilterEnrollment] = useState("all"); // "all" | "lt500" | "500to1k" | "1kto3k" | "3kplus"
   const [filterSize, setFilterSize]             = useState("all"); // "all" | "XL" | "Large" | "Medium" | "Small"
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
@@ -2881,7 +2882,11 @@ export default function BrightwheelDashboard() {
         (filterEnrollment === "1kto3k"  && enr >= 1000 && enr < 3000) ||
         (filterEnrollment === "3kplus"  && enr >= 3000);
       const matchSize = filterSize === "all" || (getDistrictMeta(d)?.size || "") === filterSize;
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize;
+      const matchBwStatus = filterBwStatus === "all" ||
+        (filterBwStatus === "premium" && d.bwStatus === "Yes - Premium") ||
+        (filterBwStatus === "free"    && d.bwStatus === "Yes - Free") ||
+        (filterBwStatus === "no"      && !d.bwStatus);
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -2895,7 +2900,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, districtMeta]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, filterBwStatus, districtMeta]);
 
   // ── PROSPECT ROWS (one row per contact) ──────────────────────────────────────
   const prospectRows = useMemo(() => {
@@ -3655,6 +3660,7 @@ export default function BrightwheelDashboard() {
                   { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                   { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                   { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
+                  { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["premium","🐝 Premium"],["free","🐝 Free"],["no","Not a customer"]], style:{} },
                   { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
@@ -3801,6 +3807,11 @@ export default function BrightwheelDashboard() {
                             )}
                             {d.inSalesforce && (
                               <span className="bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded text-xs font-medium">✓ In SF{(d.sfContacts||[]).length > 0 ? ` (${(d.sfContacts||[]).length})` : ""}</span>
+                            )}
+                            {d.bwStatus && (
+                              <span className={`px-2 py-0.5 rounded text-xs font-medium border ${d.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>
+                                🐝 {d.bwStatus}
+                              </span>
                             )}
                             {d.demographics?.ellPercent >= 15 && (
                               <span className="bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded text-xs">🌐 {d.demographics.ellPercent}% ELL</span>
@@ -6514,6 +6525,7 @@ export default function BrightwheelDashboard() {
                     { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                     { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                     { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
+                    { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["premium","🐝 Premium"],["free","🐝 Free"],["no","Not a customer"]], style:{} },
                     { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                   ].map((f) => (
                     <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
@@ -6600,7 +6612,8 @@ export default function BrightwheelDashboard() {
                                 {(d.buyingSignals || []).length > 0 && <span className="bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded text-xs">⚡ {(d.buyingSignals||[]).length} signal{(d.buyingSignals||[]).length > 1 ? "s" : ""}</span>}
                                 {(d.districtContext || []).length > 0 && <span className="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-xs">🔍 {d.districtContext.length} intel</span>}
                                 {d.inSalesforce && <span className="bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded text-xs">✓ SF</span>}
-                                {!d.newLeadership && !(d.buyingSignals||[]).length && !(d.districtContext||[]).length && !d.inSalesforce && <span className="text-gray-300">—</span>}
+                                {d.bwStatus && <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${d.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>🐝 {d.bwStatus}</span>}
+                                {!d.newLeadership && !(d.buyingSignals||[]).length && !(d.districtContext||[]).length && !d.inSalesforce && !d.bwStatus && <span className="text-gray-300">—</span>}
                               </div>
                             </td>
                             <td className="px-3 py-2">
@@ -6902,6 +6915,17 @@ export default function BrightwheelDashboard() {
                       }
                       <div><span className="text-gray-500">Enrollment:</span> {selectedDistrict.enrollment != null ? selectedDistrict.enrollment.toLocaleString() : "—"}</div>
                       {(() => { const selMeta = getDistrictMeta(selectedDistrict); return selMeta?.prek > 0 ? <div><span className="text-gray-500">PreK Enrollment:</span> {selMeta.prek.toLocaleString()}</div> : null; })()}
+                      <div>
+                        <span className="text-gray-500">BW SaaS:</span>{" "}
+                        {selectedDistrict.bwStatus
+                          ? <span className={`ml-1 text-xs font-medium px-1.5 py-0.5 rounded border ${selectedDistrict.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>🐝 {selectedDistrict.bwStatus}</span>
+                          : <span className="text-gray-400 text-xs">No</span>}
+                        {selectedDistrict.sfAccountLink && (
+                          <a href={selectedDistrict.sfAccountLink} target="_blank" rel="noopener noreferrer"
+                            className="ml-2 text-xs text-blue-500 hover:text-blue-700 hover:underline"
+                            title="Open in Salesforce">↗ SFDC</a>
+                        )}
+                      </div>
                       <div><span className="text-gray-500">Stage:</span>
                         <select
                           value={stagePending[selectedDistrict.id] ?? (selectedDistrict.status || "not_contacted")}

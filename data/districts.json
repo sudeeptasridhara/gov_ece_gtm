@@ -34923,12 +34923,15 @@
         "source": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOYVhtRkxEaGY2STNmXzl0UHlRQWwxOE1GeTJCY1JIbHdUWUJiQUN1bGk4bEFfSkppSFdYMlpVem9tcy1EU3ctRlZURERrQ3pqZUItYklTU0ZmYTdGeFBPZGRqbDBGRDFpaEJ3MVo0SExQSmota1B5bEVuQUZCY3pXVm9NN201MTFXYUl6Q0lZVkpHWUwtX1hLZU5iNFNjYnFJaTB2aWR2amZxcHpfWTA5cUpYTGdWSEtXcGFLNEdJS0RuVXRGYnl6ZXdCdUpWLWROQ05BcQ?oc=5"
       }
     ],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "2600005",
     "website": "http://battlecreekpublicschools.org",
     "lat": 42.21371,
-    "lng": -85.01717
+    "lng": -85.01717,
+    "bwStatus": "Yes - Free",
+    "sfAccountId": "001PB00000NhOQ2YAN",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000NhOQ2YAN/view"
   },
   {
     "id": 715,
@@ -40098,12 +40101,15 @@
     "districtContext": [],
     "summerBridgeContact": null,
     "nces_leaid": "0610290",
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "610290",
     "website": "http://www.cusdk8.org",
     "lat": 37.19782,
-    "lng": -121.71386
+    "lng": -121.71386,
+    "bwStatus": "Yes - Free",
+    "sfAccountId": "0011I00000YI8UCQA1",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0011I00000YI8UCQA1/view"
   },
   {
     "id": 839,
@@ -40286,7 +40292,10 @@
     "ncesId": "634920",
     "website": "http://www.smfcsd.net",
     "lat": 37.43102,
-    "lng": -122.28654
+    "lng": -122.28654,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "001Rd0000065BVdIAM",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001Rd0000065BVdIAM/view"
   },
   {
     "id": 842,
@@ -46166,7 +46175,10 @@
     "ncesId": "613360",
     "website": "http://www.fsusd.org",
     "lat": 38.22696,
-    "lng": -122.04758
+    "lng": -122.04758,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "001Rd000006OYmhIAG",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001Rd000006OYmhIAG/view"
   },
   {
     "id": 1001,
@@ -49023,7 +49035,10 @@
     "ncesId": "600027",
     "website": "http://www.leusd.k12.ca.us",
     "lat": 33.63284,
-    "lng": -115.98294
+    "lng": -115.98294,
+    "bwStatus": "Yes - Free",
+    "sfAccountId": "001Rd00000Ah92JIAR",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001Rd00000Ah92JIAR/view"
   },
   {
     "id": 10055,
@@ -54596,13 +54611,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "803720",
     "website": "http://www.elizabethschooldistrict.org",
     "lat": 39.28751,
-    "lng": -104.21633
+    "lng": -104.21633,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "001PB00000YpmrrYAB",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000YpmrrYAB/view"
   },
   {
     "id": 10204,
@@ -56151,13 +56169,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "4901200",
     "website": "http://www.wsd.net",
     "lat": 41.36123,
-    "lng": -112.02766
+    "lng": -112.02766,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "001PB00000MF7KkYAL",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000MF7KkYAL/view"
   },
   {
     "id": 10248,
@@ -57822,13 +57843,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "404630",
     "website": "http://www.maranausd.org/",
     "lat": 32.06548,
-    "lng": -111.85644
+    "lng": -111.85644,
+    "bwStatus": "Yes - Free",
+    "sfAccountId": "001Rd000001cUejIAE",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001Rd000001cUejIAE/view"
   },
   {
     "id": 10295,
@@ -58314,13 +58338,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "401710",
     "website": "http://www.cgesd.org/",
     "lat": 32.9966,
-    "lng": -111.34359
+    "lng": -111.34359,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "0013u00001Ub2BIAAZ",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001Ub2BIAAZ/view"
   },
   {
     "id": 10309,
@@ -59231,13 +59258,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "402320",
     "website": "http://www.coolidgeschools.org",
     "lat": 32.82046,
-    "lng": -111.29253
+    "lng": -111.29253,
+    "bwStatus": "Yes - Premium",
+    "sfAccountId": "001Rd000009T7SMIA0",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001Rd000009T7SMIA0/view"
   },
   {
     "id": 10335,
