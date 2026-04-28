@@ -246,19 +246,19 @@ const STATE_FULL_NAMES = {
 
 // Size tier color classes
 const SIZE_COLORS = {
-  CL:     "bg-orange-100 text-orange-700",
+  XL:     "bg-orange-100 text-orange-700",
   L:      "bg-purple-100 text-purple-700",
   M:      "bg-blue-100 text-blue-700",
   S:      "bg-gray-100 text-gray-600",
 };
-// Normalize size labels from the intelligence sheet to S/M/L/CL
+// Normalize size labels from the intelligence sheet to S/M/L/XL
 const normalizeSize = (raw) => {
-  const v = (raw || "").trim();
-  if (v === "XL" || v === "CL" || v.toLowerCase() === "class large") return "CL";
-  if (v === "L"  || v.toLowerCase() === "large")  return "L";
-  if (v === "M"  || v.toLowerCase() === "medium") return "M";
-  if (v === "S"  || v.toLowerCase() === "small")  return "S";
-  return v; // pass through anything unexpected
+  const v = (raw || "").trim().toLowerCase();
+  if (v === "xl" || v === "extra large" || v === "extralarge") return "XL";
+  if (v === "l"  || v === "large")  return "L";
+  if (v === "m"  || v === "medium") return "M";
+  if (v === "s"  || v === "small")  return "S";
+  return (raw || "").trim();
 };
 
 // Parse "Subject: ..." off the first line of a generated email body
@@ -3717,7 +3717,7 @@ export default function BrightwheelDashboard() {
                   { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
                   { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                   { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
-                  { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["CL","CL"],["L","L"],["M","M"],["S","S"]], style:{} },
+                  { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                   { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                   { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                   { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
@@ -4054,7 +4054,7 @@ export default function BrightwheelDashboard() {
                 {[
                   { label:"State",      val:filterState,      setter:setFilterState,      opts:[["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
                   { label:"Priority",   val:filterPriority,   setter:setFilterPriority,   opts:[["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
-                  { label:"Size",       val:filterSize,       setter:setFilterSize,       opts:[["all","All Sizes"],["CL","CL"],["L","L"],["M","M"],["S","S"]], style:{} },
+                  { label:"Size",       val:filterSize,       setter:setFilterSize,       opts:[["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                   { label:"Curriculum", val:filterCurriculum, setter:setFilterCurriculum, opts:[["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v,v])], style:{maxWidth:"120px"} },
                   { label:"Enrollment", val:filterEnrollment, setter:setFilterEnrollment, opts:[["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                 ].map((f) => (
@@ -6512,7 +6512,7 @@ export default function BrightwheelDashboard() {
                     { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
                     { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                     { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
-                    { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["CL","CL"],["L","L"],["M","M"],["S","S"]], style:{} },
+                    { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                     { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                     { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                     { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
