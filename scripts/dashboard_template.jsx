@@ -377,11 +377,14 @@ function calculatePriorityScore(d) {
   return Math.round(Math.min(score, 100));
 }
 
-function getPriorityLabel(score) {
-  if (score >= 75) return { label: "🔥 Hot", color: "bg-red-100 text-red-700 border border-red-300" };
-  if (score >= 55) return { label: "🌡️ Warm", color: "bg-orange-100 text-orange-700 border border-orange-300" };
-  if (score >= 35) return { label: "💧 Cool", color: "bg-blue-100 text-blue-700 border border-blue-300" };
-  return { label: "❄️ Cold", color: "bg-gray-100 text-gray-500 border border-gray-200" };
+function getPriorityLabel(d) {
+  // Priority is determined by district size (M, L, XL = Priority; S = not)
+  // d can be a district object; getDistrictMeta is available in scope at render time
+  const sz = (typeof getDistrictMeta === "function" ? getDistrictMeta(d)?.size : null);
+  if (sz === "XL" || sz === "L" || sz === "M") {
+    return { label: "Priority", color: "bg-amber-100 text-amber-700 border border-amber-300" };
+  }
+  return { label: null, color: null };
 }
 
 // ─── EMAIL TEMPLATES ─────────────────────────────────────────────────────────
@@ -2635,7 +2638,7 @@ export default function BrightwheelDashboard() {
             d.curriculum || "",
             d.curriculumAdoptionYear || "",
             d.enrollment || "",
-            getPriorityLabel(d.priority)?.label || "",
+            getPriorityLabel(d)?.label || "",
             d.status ? (SEQUENCE_STAGES[d.status]?.label || d.status) : "",
             d.sfAccountId ? "Yes" : "No",
           ];
@@ -2666,7 +2669,7 @@ export default function BrightwheelDashboard() {
             d.curriculum || "",
             d.curriculumAdoptionYear || "",
             d.enrollment || "",
-            getPriorityLabel(d.priority)?.label || "",
+            getPriorityLabel(d)?.label || "",
             d.status ? (SEQUENCE_STAGES[d.status]?.label || d.status) : "",
             d.sfAccountId ? "Yes" : "No",
           ];
@@ -2841,10 +2844,8 @@ export default function BrightwheelDashboard() {
         (d.county || "").toLowerCase().includes(search.toLowerCase());
       const matchPriority =
         filterPriority === "all" ||
-        (filterPriority === "hot" && d.priority >= 75) ||
-        (filterPriority === "warm" && d.priority >= 55 && d.priority < 75) ||
-        (filterPriority === "cool" && d.priority >= 35 && d.priority < 55) ||
-        (filterPriority === "cold" && d.priority < 35);
+        (filterPriority === "priority" && ["XL","L","M"].includes(getDistrictMeta(d)?.size)) ||
+        (filterPriority === "not_priority" && !["XL","L","M"].includes(getDistrictMeta(d)?.size));
       const matchState = filterState === "all" || (d.state || "FL") === filterState;
       const matchCurriculum =
         filterCurriculum === "all" || d.curriculumVendor === filterCurriculum;
@@ -2865,8 +2866,8 @@ export default function BrightwheelDashboard() {
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
       if (sortBy === "tier") {
-        const tierNum = (t) => t === "Tier 1" ? 1 : t === "Tier 2" ? 2 : 3;
-        return tierNum(a.priorityTier) - tierNum(b.priorityTier);
+        const sizeNum = (d) => { const sz = getDistrictMeta(d)?.size; return sz==="XL"?1:sz==="L"?2:sz==="M"?3:4; };
+        return sizeNum(a) - sizeNum(b);
       }
       if (sortBy === "adoptionYear") return (a.curriculumAdoptionYear || 9999) - (b.curriculumAdoptionYear || 9999);
       if (sortBy === "lastUpdated") return (b.lastUpdated || "").localeCompare(a.lastUpdated || "");
@@ -3438,12 +3439,9 @@ export default function BrightwheelDashboard() {
 
           // ── Stats ──
           const total = ovDistricts.length;
-          const tier1 = ovDistricts.filter(d => d.priorityTier === "Tier 1").length;
-          const tier2 = ovDistricts.filter(d => d.priorityTier === "Tier 2").length;
+          const priority = ovDistricts.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length;
           const notContacted = ovDistricts.filter(d => !d.status || d.status === "not_started").length;
           const contacted = ovDistricts.filter(d => d.status && d.status !== "not_started").length;
-          const hot = ovDistricts.filter(d => d.priority >= 75).length;
-          const warm = ovDistricts.filter(d => d.priority >= 55 && d.priority < 75).length;
           const inProgress = ovDistricts.filter(d => ["email_sent","mailer_queued","vm_left","follow_up_sent","closing_sent","responded"].includes(d.status)).length;
           const won = ovDistricts.filter(d => d.status === "responded").length;
 
@@ -3470,9 +3468,7 @@ export default function BrightwheelDashboard() {
 
           const statCards = [
             { label: "Total Districts", val: total, color: "text-gray-800", bg: "bg-gray-50" },
-            { label: "Tier 1 + 2", val: tier1 + tier2, color: "text-indigo-700", bg: "bg-indigo-50" },
-            { label: "🔥 Hot Leads", val: hot, color: "text-red-600", bg: "bg-red-50" },
-            { label: "🌡 Warm Leads", val: warm, color: "text-orange-500", bg: "bg-orange-50" },
+            { label: "Priority (M/L/XL)", val: priority, color: "text-amber-700", bg: "bg-amber-50" },
             { label: "Not Yet Contacted", val: notContacted, color: "text-gray-600", bg: "bg-gray-50" },
             { label: "Contacted", val: contacted, color: "text-blue-600", bg: "bg-blue-50" },
             { label: "In Progress", val: inProgress, color: "text-purple-600", bg: "bg-purple-50" },
@@ -3526,7 +3522,7 @@ export default function BrightwheelDashboard() {
                         <th className="text-left px-4 py-2 font-medium text-gray-500">State</th>
                         <th className="text-left px-4 py-2 font-medium text-gray-500">Rep</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Districts</th>
-                        <th className="text-right px-4 py-2 font-medium text-gray-500">Tier 1+2</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Priority</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Not Contacted</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">In Progress</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Won</th>
@@ -3547,7 +3543,7 @@ export default function BrightwheelDashboard() {
                                 {repProf ? <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${repProf.color}`}>{repProf.name}</span> : "—"}
                               </td>
                               <td className="px-4 py-2.5 text-right text-gray-600">{sd.length}</td>
-                              <td className="px-4 py-2.5 text-right text-indigo-600">{sd.filter(d => d.priorityTier === "Tier 1" || d.priorityTier === "Tier 2").length}</td>
+                              <td className="px-4 py-2.5 text-right text-amber-600">{sd.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length}</td>
                               <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => !d.status || d.status === "not_started").length}</td>
                               <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["email_sent","mailer_queued","vm_left","follow_up_sent","closing_sent","responded"].includes(d.status)).length}</td>
                               <td className="px-4 py-2.5 text-right text-green-600 font-semibold">{sd.filter(d => d.status === "responded").length}</td>
@@ -3738,7 +3734,7 @@ export default function BrightwheelDashboard() {
                 />
                 {[
                   { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
-                  { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                  { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                   { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
                   { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
@@ -3804,7 +3800,7 @@ export default function BrightwheelDashboard() {
                 </thead>
                 <tbody>
                   {prospectRows.map(({ d, contact }, i) => {
-                    const p = getPriorityLabel(d.priority);
+                    const p = getPriorityLabel(d);
                     const age = d.curriculumAdoptionYear ? 2026 - d.curriculumAdoptionYear : null;
                     return (
                       <tr key={`${d.id}-${contact.email || contact.name}`} className={`border-t border-gray-100 hover:bg-indigo-50 transition-colors ${selectedIds.has(d.id) ? "bg-indigo-50 border-l-2 border-l-indigo-400" : i % 2 === 0 ? "bg-white" : "bg-gray-50/30"}`}>
@@ -3818,10 +3814,7 @@ export default function BrightwheelDashboard() {
                           />
                         </td>
                         <td className="px-2 py-2">
-                          <div className="flex flex-col gap-0.5">
-                            <span className={`px-1.5 py-0.5 rounded-full text-xs font-medium w-fit ${p.color}`}>{p.label}</span>
-                            <span className="text-gray-400 text-xs">{d.priority ?? "—"}/100</span>
-                          </div>
+                          {p.label && <span className={`px-1.5 py-0.5 rounded-full text-xs font-medium w-fit ${p.color}`}>{p.label}</span>}
                         </td>
                         <td className="px-2 py-2" style={{ maxWidth: "130px" }}>
                           <div className="font-medium text-gray-900 flex items-center gap-1 truncate">
@@ -4077,7 +4070,7 @@ export default function BrightwheelDashboard() {
                   placeholder="🔍 Search..." className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200" />
                 {[
                   { label:"State",      val:filterState,      setter:setFilterState,      opts:[["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
-                  { label:"Priority",   val:filterPriority,   setter:setFilterPriority,   opts:[["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                  { label:"Priority",   val:filterPriority,   setter:setFilterPriority,   opts:[["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label:"Size",       val:filterSize,       setter:setFilterSize,       opts:[["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                   { label:"Curriculum", val:filterCurriculum, setter:setFilterCurriculum, opts:[["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v,v])], style:{maxWidth:"120px"} },
                   { label:"Enrollment", val:filterEnrollment, setter:setFilterEnrollment, opts:[["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
@@ -4126,7 +4119,7 @@ export default function BrightwheelDashboard() {
                 <div className="ml-auto flex items-center gap-3">
                   {mapColorMode === "priority" ? (
                     <div className="flex items-center gap-2">
-                      {[["#DC2626","🔥 Hot"],["#EA580C","Warm"],["#D97706",""],["#2563EB","💧 Cool"],["#9CA3AF","❄️ Cold"]].map(([c,l]) => (
+                      {[["#D97706","⭐ Priority (M/L/XL)"],["#9CA3AF","Not Priority"]].map(([c,l]) => (
                         <span key={c} className="flex items-center gap-1 text-xs text-gray-600">
                           <span className="inline-block w-3 h-3 rounded-full flex-shrink-0" style={{background:c}}></span>
                           {l}
@@ -4217,7 +4210,7 @@ export default function BrightwheelDashboard() {
                           x="-6" y="-4" width="160" height="46" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="8">{(d.district||"").slice(0,26)}{(d.district||"").length>26?"…":""}</text>
                         <text fontSize="9" fill="#6B7280" y="20">{d.state} · {(d.enrollment||0).toLocaleString()} enrolled</text>
-                        <text fontSize="9" fill="#6B7280" y="32">Priority {d.priority||0} · {getPriorityLabel(d.priority)?.label||""}</text>
+                        <text fontSize="9" fill="#6B7280" y="32">{getPriorityLabel(d)?.label ? "⭐ Priority district" : ""}</text>
                       </g>
                     );
                   })()}
@@ -4230,9 +4223,9 @@ export default function BrightwheelDashboard() {
                         <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
                           x="-6" y="-4" width="170" height="56" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
                         <text fontSize="11" fontWeight="700" fill="#111827" y="9">{STATE_FULL_NAMES[abbr]||abbr}</text>
-                        <text fontSize="9" fill="#6B7280" y="21">{agg.count} district{agg.count!==1?"s":""} · {agg.hotCount} hot</text>
-                        <text fontSize="9" fill="#6B7280" y="33">Avg priority: {Math.round(agg.avgPriority)}</text>
-                        <text fontSize="9" fill="#6B7280" y="45">Enrollment: {agg.totalEnrollment.toLocaleString()}</text>
+                        <text fontSize="9" fill="#6B7280" y="21">{agg.count} district{agg.count!==1?"s":""}</text>
+                        <text fontSize="9" fill="#6B7280" y="33">Enrollment: {agg.totalEnrollment.toLocaleString()}</text>
+                        <text fontSize="9" fill="#6B7280" y="45">{agg.totalEnrollment.toLocaleString()} enrolled</text>
                       </g>
                     );
                   })()}
@@ -4286,7 +4279,7 @@ export default function BrightwheelDashboard() {
                           x="-6" y="-4" width="175" height="60" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.15))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="9">{(d.district||"").slice(0,28)}{(d.district||"").length>28?"…":""}</text>
                         <text fontSize="9" fill="#6B7280" y="22">{d.county} County · {(d.enrollment||0).toLocaleString()} enrolled</text>
-                        <text fontSize="9" fill="#6B7280" y="35">Priority {d.priority||0} · {getPriorityLabel(d.priority)?.label||""}</text>
+                        <text fontSize="9" fill="#D97706" y="35">{getPriorityLabel(d)?.label ? "⭐ Priority district" : ""}</text>
                         <text fontSize="9" fill="#3B82F6" y="48">{d.director||""}</text>
                       </g>
                     );
@@ -4299,7 +4292,7 @@ export default function BrightwheelDashboard() {
             {!mapZoomState && mapStateAggregates && Object.keys(mapStateAggregates).length > 0 && (
               <div className="mt-4 grid grid-cols-4 gap-3">
                 {Object.entries(mapStateAggregates)
-                  .sort((a, b) => b[1].hotCount - a[1].hotCount)
+                  .sort((a, b) => b[1].count - a[1].count)
                   .slice(0, 4)
                   .map(([abbr, agg]) => (
                     <button key={abbr} onClick={() => setMapZoomState(abbr)}
@@ -4308,7 +4301,7 @@ export default function BrightwheelDashboard() {
                         <span className="font-bold text-gray-900 text-sm">{STATE_FULL_NAMES[abbr]||abbr}</span>
                         <span className="text-xs text-gray-400">{agg.count} districts</span>
                       </div>
-                      <div className="text-xs text-gray-500">{agg.hotCount} hot · avg priority {Math.round(agg.avgPriority)}</div>
+                      <div className="text-xs text-gray-500">{agg.totalEnrollment.toLocaleString()} enrolled</div>
                       <div className="text-xs text-gray-400 mt-0.5">{agg.totalEnrollment.toLocaleString()} enrolled</div>
                     </button>
                   ))}
@@ -4320,9 +4313,9 @@ export default function BrightwheelDashboard() {
               <div className="mt-4">
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label:"🔥 Hot",  val: mapZoomDots.filter(p => (p.d.priority||0)>=70).length, color:"text-red-600" },
-                    { label:"🌡️ Warm", val: mapZoomDots.filter(p => (p.d.priority||0)>=50 && (p.d.priority||0)<70).length, color:"text-orange-500" },
-                    { label:"💧 Cool", val: mapZoomDots.filter(p => (p.d.priority||0)>=25 && (p.d.priority||0)<50).length, color:"text-blue-500" },
+                    { label:"⭐ Priority", val: mapZoomDots.filter(p => ["XL","L","M"].includes(getDistrictMeta(p.d)?.size)).length, color:"text-amber-600" },
+                    { label:"Not Priority", val: mapZoomDots.filter(p => !["XL","L","M"].includes(getDistrictMeta(p.d)?.size)).length, color:"text-gray-500" },
+                    { label:"Contacted", val: mapZoomDots.filter(p => p.d.status && p.d.status !== "not_started").length, color:"text-blue-600" },
                   ].map(({ label, val, color }) => (
                     <div key={label} className="bg-white border border-gray-200 rounded-xl p-3 text-center">
                       <div className={`text-xl font-bold ${color}`}>{val}</div>
@@ -4341,7 +4334,7 @@ export default function BrightwheelDashboard() {
                     </thead>
                     <tbody>
                       {mapZoomDots.sort((a,b) => (b.d.priority||0)-(a.d.priority||0)).slice(0,15).map(({ d }, i) => {
-                        const p = getPriorityLabel(d.priority);
+                        const p = getPriorityLabel(d);
                         return (
                           <tr key={d.id||i} className={`border-t border-gray-100 hover:bg-indigo-50 cursor-pointer ${i%2===0?"bg-white":"bg-gray-50/30"}`}
                             onClick={() => {
@@ -4353,7 +4346,7 @@ export default function BrightwheelDashboard() {
                             <td className="px-3 py-2 font-medium text-gray-900 max-w-xs truncate">{d.district}</td>
                             <td className="px-3 py-2 text-gray-500">{d.county}</td>
                             <td className="px-3 py-2 text-gray-700">{(d.enrollment||0).toLocaleString()}</td>
-                            <td className="px-3 py-2"><span className={`px-1.5 py-0.5 rounded-full text-xs font-medium ${p?.color}`}>{p?.label}</span></td>
+                            <td className="px-3 py-2">{p?.label && <span className={`px-1.5 py-0.5 rounded-full text-xs font-medium ${p.color}`}>{p.label}</span>}</td>
                             <td className="px-3 py-2 text-gray-500">{d.status || "—"}</td>
                           </tr>
                         );
@@ -4700,10 +4693,8 @@ export default function BrightwheelDashboard() {
             const matchState = enrollStateFilter === "all" || (d.state || "FL") === enrollStateFilter;
             const matchRep = enrollRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === enrollRepFilter;
             const matchPriority = enrollPriorityFilter === "all"
-              || (enrollPriorityFilter === "hot"  && d.priority >= 75)
-              || (enrollPriorityFilter === "warm" && d.priority >= 55 && d.priority < 75)
-              || (enrollPriorityFilter === "cool" && d.priority >= 35 && d.priority < 55)
-              || (enrollPriorityFilter === "cold" && d.priority < 35);
+              || (enrollPriorityFilter === "priority"     && ["XL","L","M"].includes(getDistrictMeta(d)?.size))
+              || (enrollPriorityFilter === "not_priority" && !["XL","L","M"].includes(getDistrictMeta(d)?.size));
             return matchSearch && matchState && matchRep && matchPriority;
           }).sort((a, b) => b.priority - a.priority);
 
@@ -5156,10 +5147,8 @@ export default function BrightwheelDashboard() {
                         <select value={enrollPriorityFilter} onChange={e => setEnrollPriorityFilter(e.target.value)}
                           className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs flex-1 focus:outline-none focus:ring-2 focus:ring-indigo-200">
                           <option value="all">All Priorities</option>
-                          <option value="hot">🔥 Hot (75+)</option>
-                          <option value="warm">🌡️ Warm (55-74)</option>
-                          <option value="cool">💧 Cool (35-54)</option>
-                          <option value="cold">❄️ Cold (&lt;35)</option>
+                          <option value="priority">⭐ Priority</option>
+                          <option value="not_priority">Not Priority</option>
                         </select>
                       </div>
                       {/* Select all row */}
@@ -5187,7 +5176,7 @@ export default function BrightwheelDashboard() {
                         <div className="p-8 text-center text-gray-400 text-sm">No districts match your filters.</div>
                       ) : enrollFiltered.map(d => {
                         const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
-                        const p = getPriorityLabel(d.priority);
+                        const p = getPriorityLabel(d);
                         const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
                         return (
                           <label key={d.id} className={`flex items-center gap-3 px-5 py-3 hover:bg-indigo-50 cursor-pointer ${enrollSelected.has(d.id) ? "bg-indigo-50" : ""}`}>
@@ -5202,7 +5191,7 @@ export default function BrightwheelDashboard() {
                               <div className="text-xs text-gray-400 truncate">{d.director} · {d.county} County · {d.state || "FL"}</div>
                             </div>
                             <div className="flex items-center gap-1.5 flex-shrink-0">
-                              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${p.color}`}>{p.label}</span>
+                              {p.label && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${p.color}`}>{p.label}</span>}
                               {rep && <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${rep.color}`}>{rep.initials}</span>}
                             </div>
                           </label>
@@ -6282,7 +6271,7 @@ export default function BrightwheelDashboard() {
               {/* District profile */}
               {selectedDi ? (() => {
                 const age = 2026 - selectedDi.curriculumAdoptionYear;
-                const pLabel = getPriorityLabel(selectedDi.priority);
+                const pLabel = getPriorityLabel(selectedDi);
 
                 return (
                   <div className="space-y-4">
@@ -6291,8 +6280,7 @@ export default function BrightwheelDashboard() {
                       <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
                         <div>
                           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pLabel.color}`}>{pLabel.label} · {selectedDi.priority}/100</span>
-                            {selectedDi.priorityTier && <span className="bg-indigo-50 text-indigo-700 text-xs px-2 py-0.5 rounded-full font-medium">{selectedDi.priorityTier}</span>}
+                            {pLabel.label && <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pLabel.color}`}>{pLabel.label}</span>}
                             {selectedDi.newLeadership && <span className="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full">🆕 New Leadership</span>}
                             {hasPersonalizedEmail(selectedDi) && (
                               <span className="bg-yellow-50 text-yellow-700 border border-yellow-200 text-xs px-2 py-0.5 rounded-full font-medium">✨ Personalized email available</span>
@@ -6598,7 +6586,7 @@ export default function BrightwheelDashboard() {
                   />
                   {[
                     { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
-                    { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All Priorities"],["hot","🔥 Hot"],["warm","🌡️ Warm"],["cool","💧 Cool"],["cold","❄️ Cold"]], style:{} },
+                    { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                     { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                     { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
                     { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
@@ -6647,7 +6635,7 @@ export default function BrightwheelDashboard() {
                         const sz = meta?.size;
                         const repAssigned = meta?.repAssigned;
                         const repP = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
-                        const p = getPriorityLabel(d.priority);
+                        const p = getPriorityLabel(d);
                         const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
                         return (
                           <tr
@@ -6910,9 +6898,11 @@ export default function BrightwheelDashboard() {
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-start rounded-t-2xl">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityLabel(selectedDistrict.priority).color}`}>
-                    {getPriorityLabel(selectedDistrict.priority).label} · {selectedDistrict.priority ?? "—"}/100
-                  </span>
+                  {getPriorityLabel(selectedDistrict).label && (
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getPriorityLabel(selectedDistrict).color}`}>
+                      {getPriorityLabel(selectedDistrict).label}
+                    </span>
+                  )}
                   {selectedDistrict.newLeadership && <span className="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full">🆕 New Leadership</span>}
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 mt-1">{selectedDistrict.district}</h2>
