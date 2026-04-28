@@ -1858,6 +1858,11 @@ export default function BrightwheelDashboard() {
       ...(opts.body ? { body: opts.body } : {}),
     });
     if (res.status === 401 || res.status === 403) { const e = new Error("auth"); e.status = res.status; throw e; }
+    if (res.status === 404) {
+      const e = new Error("sheet_not_shared");
+      e.status = 404;
+      throw e;
+    }
     if (!res.ok) {
       let detail = "";
       try { const j = await res.json(); detail = j?.error?.message || JSON.stringify(j); } catch {}
@@ -2442,6 +2447,9 @@ export default function BrightwheelDashboard() {
     } catch (e) {
       setSheetSyncing(false);
       console.warn("Sheet load:", e.status, e.message);
+      if (e.status === 404 || e.message === "sheet_not_shared") {
+        showNotif("⚠️ Activity sheet not accessible — ask Sudeepta to share the sheet with your Google account as an Editor.", "red");
+      }
     }
   };
 
@@ -2473,9 +2481,25 @@ export default function BrightwheelDashboard() {
       });
     } catch (e) {
       console.warn("Sheet write:", e.message);
-      if (e.status === 403) showNotif("Sheet write failed: Sheets API may not be enabled, or the sheet isn't shared with your account", "red");
+      if (e.status === 404 || e.message === "sheet_not_shared") {
+        // Sheet not accessible — fall back to logging through the GAS pixel endpoint
+        // so activity is recorded even when the rep's Google account isn't an editor.
+        if (TRACKING_PIXEL_URL) {
+          rows.forEach(row => {
+            const params = new URLSearchParams({
+              write: "1",
+              row: JSON.stringify(row),
+            });
+            fetch(TRACKING_PIXEL_URL + "?" + params.toString()).catch(() => {});
+          });
+          // Silent — don't distract with a toast since the GAS fallback handles it
+        } else {
+          showNotif("⚠️ Sheet not shared with your account. Ask Sudeepta to add you as an Editor to the activity sheet.", "red");
+        }
+      }
+      else if (e.status === 403) showNotif("Sheet write failed: the activity sheet isn't shared with your Google account. Ask Sudeepta to add you as an Editor.", "red");
       else if (e.status === 401) showNotif("Sheet write failed: reconnect Gmail to refresh your token", "red");
-      else if (e.status === 400) showNotif(`Sheet write failed (400) — disconnect Gmail and reconnect to refresh your access token, then try again. Detail: ${e.message}`, "red");
+      else if (e.status === 400) showNotif(`Sheet write failed — try disconnecting and reconnecting Gmail. Detail: ${e.message}`, "red");
       else showNotif(`Sheet write failed: ${e.message}`, "red");
     }
   };
