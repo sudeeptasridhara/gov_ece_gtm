@@ -2514,27 +2514,8 @@ export default function BrightwheelDashboard() {
       .catch(e => console.warn("Map data load failed:", e));
   }, [activeTab, mapTopoData]);
 
-  // Aggregate filtered districts by state for choropleth
-  const mapStateAggregates = useMemo(() => {
-    const agg = {};
-    filtered.forEach(d => {
-      const st = d.state || "";
-      if (!st) return;
-      if (!agg[st]) agg[st] = { count: 0, hotCount: 0, totalEnrollment: 0, priorities: [] };
-      agg[st].count++;
-      if ((d.priority || 0) >= 65) agg[st].hotCount++;
-      agg[st].totalEnrollment += (d.enrollment || 0);
-      agg[st].priorities.push(d.priority || 0);
-    });
-    Object.keys(agg).forEach(st => {
-      const a = agg[st];
-      a.avgPriority = a.priorities.reduce((s, v) => s + v, 0) / (a.priorities.length || 1);
-      a.hotPct      = a.count > 0 ? a.hotCount / a.count : 0;
-    });
-    return agg;
-  }, [filtered]);
-
   // Build state GeoJSON features + country projection
+  // (these don't depend on `filtered`, safe to declare early)
   const mapStateFeatures = useMemo(() => {
     if (!mapTopoData || !window.topojson) return null;
     return window.topojson.feature(mapTopoData, mapTopoData.objects.states).features;
@@ -2558,17 +2539,6 @@ export default function BrightwheelDashboard() {
     }).filter(p => p.pathD);
   }, [mapStateFeatures, mapCountryProjection]);
 
-  // Project each district onto the country map
-  const mapCountryDots = useMemo(() => {
-    if (!mapCountryProjection) return [];
-    return filtered.map(d => {
-      if (!d.lat || !d.lng) return null;
-      const pt = mapCountryProjection([d.lng, d.lat]);
-      if (!pt) return null;
-      return { d, px: pt[0], py: pt[1] };
-    }).filter(Boolean);
-  }, [filtered, mapCountryProjection]);
-
   // State-zoom projection (fit selected state into viewport)
   const mapZoomProjection = useMemo(() => {
     if (!mapZoomState || !mapStateFeatures || !window.d3) return null;
@@ -2590,78 +2560,6 @@ export default function BrightwheelDashboard() {
     if (!feature) return "";
     return window.d3.geoPath().projection(mapZoomProjection)(feature) || "";
   }, [mapZoomProjection, mapStateFeatures, mapZoomState]);
-
-  // District dots for zoomed state view
-  const mapZoomDots = useMemo(() => {
-    if (!mapZoomProjection) return [];
-    return filtered
-      .filter(d => d.state === mapZoomState && d.lat && d.lng)
-      .map(d => {
-        const pt = mapZoomProjection([d.lng, d.lat]);
-        if (!pt) return null;
-        return { d, px: pt[0], py: pt[1] };
-      }).filter(Boolean);
-  }, [mapZoomProjection, filtered, mapZoomState]);
-
-  // Color helpers for map
-  const mapDistrictColor = useCallback((d) => {
-    if (mapColorMode === "enrollment") {
-      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
-      const t    = Math.min((d.enrollment || 0) / maxE, 1);
-      const r    = Math.round(239 - t * 200);
-      const g    = Math.round(246 - t * 180);
-      return `rgb(${r},${g},255)`;
-    }
-    if (mapColorMode === "prek") {
-      // proxy: enrollment × estimated pre-K pct (districts with pre-K tend to be larger)
-      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
-      const t    = Math.min((d.enrollment || 0) / maxE, 1);
-      const r    = Math.round(240 - t * 200);
-      const g    = Math.round(255 - t * 60);
-      const b    = Math.round(240 - t * 200);
-      return `rgb(${r},${g},${b})`;
-    }
-    // Priority (default)
-    const p = d.priority || 0;
-    if (p >= 70) return "#DC2626";
-    if (p >= 55) return "#EA580C";
-    if (p >= 40) return "#D97706";
-    if (p >= 25) return "#2563EB";
-    return "#9CA3AF";
-  }, [mapColorMode, filtered]);
-
-  const mapStateColor = useCallback((abbr) => {
-    const agg = mapStateAggregates[abbr];
-    if (!agg || agg.count === 0) return "#F1F5F9";
-    if (mapColorMode === "enrollment") {
-      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
-      const t    = Math.min(agg.totalEnrollment / maxE, 1);
-      const r    = Math.round(219 - t * 160);
-      const g    = Math.round(234 - t * 160);
-      const b    = Math.round(254);
-      return `rgb(${r},${g},${b})`;
-    }
-    if (mapColorMode === "prek") {
-      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
-      const t    = Math.min(agg.totalEnrollment / maxE, 1);
-      return `rgb(${Math.round(240-t*200)},${Math.round(255-t*60)},${Math.round(240-t*200)})`;
-    }
-    // Priority choropleth
-    const p = agg.avgPriority;
-    if (p >= 70) return "#FCA5A5";
-    if (p >= 55) return "#FED7AA";
-    if (p >= 40) return "#FEF08A";
-    if (p >= 25) return "#BFDBFE";
-    if (p > 0)   return "#E2E8F0";
-    return "#F1F5F9";
-  }, [mapColorMode, mapStateAggregates]);
-
-  const mapEnrollRadius = useCallback((enrollment) => {
-    const maxE = Math.max(...(mapZoomState
-      ? filtered.filter(d => d.state === mapZoomState).map(d => d.enrollment || 0)
-      : filtered.map(d => d.enrollment || 0)), 1);
-    return Math.max(4, Math.min(28, 5 + Math.pow((enrollment || 0) / maxE, 0.5) * 23));
-  }, [filtered, mapZoomState]);
 
   const exportToSheets = async (mode = "prospects") => {
     const useToken = gmailToken;
@@ -2971,6 +2869,110 @@ export default function BrightwheelDashboard() {
     });
     return rows;
   }, [filtered]);
+
+  // ── MAP HOOKS THAT DEPEND ON filtered ── (must come after filtered)
+
+  // Aggregate filtered districts by state for choropleth
+  const mapStateAggregates = useMemo(() => {
+    const agg = {};
+    filtered.forEach(d => {
+      const st = d.state || "";
+      if (!st) return;
+      if (!agg[st]) agg[st] = { count: 0, hotCount: 0, totalEnrollment: 0, priorities: [] };
+      agg[st].count++;
+      if ((d.priority || 0) >= 65) agg[st].hotCount++;
+      agg[st].totalEnrollment += (d.enrollment || 0);
+      agg[st].priorities.push(d.priority || 0);
+    });
+    Object.keys(agg).forEach(st => {
+      const a = agg[st];
+      a.avgPriority = a.priorities.reduce((s, v) => s + v, 0) / (a.priorities.length || 1);
+      a.hotPct      = a.count > 0 ? a.hotCount / a.count : 0;
+    });
+    return agg;
+  }, [filtered]);
+
+  // Project each district onto the country map
+  const mapCountryDots = useMemo(() => {
+    if (!mapCountryProjection) return [];
+    return filtered.map(d => {
+      if (!d.lat || !d.lng) return null;
+      const pt = mapCountryProjection([d.lng, d.lat]);
+      if (!pt) return null;
+      return { d, px: pt[0], py: pt[1] };
+    }).filter(Boolean);
+  }, [filtered, mapCountryProjection]);
+
+  // District dots for zoomed state view
+  const mapZoomDots = useMemo(() => {
+    if (!mapZoomProjection) return [];
+    return filtered
+      .filter(d => d.state === mapZoomState && d.lat && d.lng)
+      .map(d => {
+        const pt = mapZoomProjection([d.lng, d.lat]);
+        if (!pt) return null;
+        return { d, px: pt[0], py: pt[1] };
+      }).filter(Boolean);
+  }, [mapZoomProjection, filtered, mapZoomState]);
+
+  // Color helpers for map
+  const mapDistrictColor = useCallback((d) => {
+    if (mapColorMode === "enrollment") {
+      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
+      const t    = Math.min((d.enrollment || 0) / maxE, 1);
+      const r    = Math.round(239 - t * 200);
+      const g    = Math.round(246 - t * 180);
+      return `rgb(${r},${g},255)`;
+    }
+    if (mapColorMode === "prek") {
+      const maxE = Math.max(...filtered.map(x => x.enrollment || 0), 1);
+      const t    = Math.min((d.enrollment || 0) / maxE, 1);
+      const r    = Math.round(240 - t * 200);
+      const g    = Math.round(255 - t * 60);
+      const b    = Math.round(240 - t * 200);
+      return `rgb(${r},${g},${b})`;
+    }
+    // Priority (default)
+    const p = d.priority || 0;
+    if (p >= 70) return "#DC2626";
+    if (p >= 55) return "#EA580C";
+    if (p >= 40) return "#D97706";
+    if (p >= 25) return "#2563EB";
+    return "#9CA3AF";
+  }, [mapColorMode, filtered]);
+
+  const mapStateColor = useCallback((abbr) => {
+    const agg = mapStateAggregates[abbr];
+    if (!agg || agg.count === 0) return "#F1F5F9";
+    if (mapColorMode === "enrollment") {
+      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
+      const t    = Math.min(agg.totalEnrollment / maxE, 1);
+      const r    = Math.round(219 - t * 160);
+      const g    = Math.round(234 - t * 160);
+      const b    = Math.round(254);
+      return `rgb(${r},${g},${b})`;
+    }
+    if (mapColorMode === "prek") {
+      const maxE = Math.max(...Object.values(mapStateAggregates).map(a => a.totalEnrollment), 1);
+      const t    = Math.min(agg.totalEnrollment / maxE, 1);
+      return `rgb(${Math.round(240-t*200)},${Math.round(255-t*60)},${Math.round(240-t*200)})`;
+    }
+    // Priority choropleth
+    const p = agg.avgPriority;
+    if (p >= 70) return "#FCA5A5";
+    if (p >= 55) return "#FED7AA";
+    if (p >= 40) return "#FEF08A";
+    if (p >= 25) return "#BFDBFE";
+    if (p > 0)   return "#E2E8F0";
+    return "#F1F5F9";
+  }, [mapColorMode, mapStateAggregates]);
+
+  const mapEnrollRadius = useCallback((enrollment) => {
+    const maxE = Math.max(...(mapZoomState
+      ? filtered.filter(d => d.state === mapZoomState).map(d => d.enrollment || 0)
+      : filtered.map(d => d.enrollment || 0)), 1);
+    return Math.max(4, Math.min(28, 5 + Math.pow((enrollment || 0) / maxE, 0.5) * 23));
+  }, [filtered, mapZoomState]);
 
   // ── BULK SELECTION DERIVED ── (must come after filtered)
   const allVisibleSelected = filtered.length > 0 && filtered.every((d) => selectedIds.has(d.id));
