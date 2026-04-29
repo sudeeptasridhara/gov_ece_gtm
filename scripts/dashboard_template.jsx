@@ -3995,6 +3995,15 @@ export default function BrightwheelDashboard() {
                       >{t.label}</button>
                     ))}
 
+                    {/* Custom team templates */}
+                    {Object.entries(customTemplates).map(([k, v]) => (
+                      <button
+                        key={k}
+                        onClick={() => bulkQueue(k)}
+                        className="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium transition-colors"
+                      >✉️ {v.label || k}</button>
+                    ))}
+
                     {/* FL Summer Bridge CTAs — only shown when FL districts are selected */}
                     {districts.some((d) => selectedIds.has(d.id) && (d.state || "FL") === "FL") && (
                       <>
@@ -5556,7 +5565,8 @@ export default function BrightwheelDashboard() {
                     item.template === "summerLong" ? "☀️ Summer Long" :
                     item.template === "summerShort" ? "☀️ Summer Short" :
                     item.template === "personalized" ? "✨ Personalized Outreach" :
-                    item.template.replace(/(\d)/, " #$1");
+                    customTemplates[item.template] ? `✉️ ${customTemplates[item.template].label || item.template}` :
+                    item.template;
                   return (
                     <div key={item.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                       <div className="bg-purple-50 border-b border-purple-100 px-4 py-3 flex justify-between items-start gap-2 flex-wrap">
