@@ -2210,18 +2210,29 @@ export default function BrightwheelDashboard() {
     try { return JSON.parse(localStorage.getItem("districtNcesMap") || "{}"); } catch { return {}; }
   }, [districtMeta]); // re-read after each metadata load
 
-  // Look up metadata for a district: prefer ncesId key, fall back to name+state key
+  // Look up metadata for a district: prefer ncesId key, fall back to name+state key.
+  // Always normalizes the size field so "Large"/"Medium"/"Small" etc. map to L/M/S.
   const getDistrictMeta = (d) => {
     if (!districtMeta || !d) return null;
+    let entry = null;
     // 1. Use statically embedded ncesId (set by enrich_nces.py)
-    if (d.ncesId && districtMeta[d.ncesId]) return districtMeta[d.ncesId];
+    if (d.ncesId && districtMeta[d.ncesId]) entry = districtMeta[d.ncesId];
     // 2. Use runtime-mapped ncesId (cached by loadDistrictMeta name-matching)
-    const mappedNcesId = districtNcesMap[d.id];
-    if (mappedNcesId && districtMeta[mappedNcesId]) return districtMeta[mappedNcesId];
+    if (!entry) {
+      const mappedNcesId = districtNcesMap[d.id];
+      if (mappedNcesId && districtMeta[mappedNcesId]) entry = districtMeta[mappedNcesId];
+    }
     // 3. Fall back to legacy name+state key (old GAS format before redeployment)
-    const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
-    const nameKey   = (d.district || "").trim().toUpperCase() + "|" + stateFull;
-    return districtMeta[nameKey] || null;
+    if (!entry) {
+      const stateFull = (STATE_FULL_NAMES[d.state || "FL"] || d.state || "FL").toUpperCase();
+      const nameKey   = (d.district || "").trim().toUpperCase() + "|" + stateFull;
+      entry = districtMeta[nameKey] || null;
+    }
+    if (!entry) return null;
+    // Normalize size regardless of how it was stored (handles cached old data too)
+    const normalizedSize = normalizeSize(entry.size || "");
+    if (normalizedSize !== (entry.size || "")) return { ...entry, size: normalizedSize };
+    return entry;
   };
 
   // Read all rows → merge into district state (deduped by activity id)
