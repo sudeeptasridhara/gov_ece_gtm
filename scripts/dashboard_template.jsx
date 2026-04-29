@@ -2535,7 +2535,8 @@ export default function BrightwheelDashboard() {
   // ── MAP TAB STATE ─────────────────────────────────────────────────────────
   const [mapTopoData,  setMapTopoData]  = useState(null);
   const [mapZoomState, setMapZoomState] = useState(null);   // null = US, "FL" = zoomed
-  const [mapColorMode, setMapColorMode] = useState("priority"); // "priority"|"enrollment"|"prek"
+  const [mapColorMode, setMapColorMode] = useState("priority"); // "priority"|"enrollment"|"prek"|"bw"
+  const [mapShowBwLayer, setMapShowBwLayer] = useState(true); // overlay SF/BW dots on top
   const [mapHover,     setMapHover]     = useState(null);   // { d, px, py }
 
   // FIPS code → state abbreviation
@@ -2978,6 +2979,36 @@ export default function BrightwheelDashboard() {
       }).filter(Boolean);
   }, [mapZoomProjection, filtered, mapZoomState]);
 
+  // BW/SF overlay dots — always all districts with bwStatus or inSalesforce, regardless of filters
+  const mapBwCountryDots = useMemo(() => {
+    if (!mapCountryProjection) return [];
+    return districts.filter(d => d.bwStatus || d.inSalesforce).map(d => {
+      if (!d.lat || !d.lng) return null;
+      const pt = mapCountryProjection([d.lng, d.lat]);
+      if (!pt) return null;
+      return { d, px: pt[0], py: pt[1] };
+    }).filter(Boolean);
+  }, [districts, mapCountryProjection]);
+
+  const mapBwZoomDots = useMemo(() => {
+    if (!mapZoomProjection || !mapZoomState) return [];
+    return districts.filter(d => (d.bwStatus || d.inSalesforce) && d.state === mapZoomState && d.lat && d.lng).map(d => {
+      const pt = mapZoomProjection([d.lng, d.lat]);
+      if (!pt) return null;
+      return { d, px: pt[0], py: pt[1] };
+    }).filter(Boolean);
+  }, [districts, mapZoomProjection, mapZoomState]);
+
+  const bwDotColor = (d) => {
+    const s = d.bwStatus || "";
+    if (s === "Yes - Premium")      return "#7C3AED"; // violet
+    if (s === "Yes - Premium (HS)") return "#0F766E"; // teal
+    if (s === "Yes - Free")         return "#0284C7"; // sky
+    if (s === "Yes - Free (HS)")    return "#0891B2"; // cyan
+    if (d.inSalesforce)             return "#059669"; // emerald (SF only, no BW plan)
+    return "#6B7280";
+  };
+
   // Color helpers for map
   const mapDistrictColor = useCallback((d) => {
     if (mapColorMode === "enrollment") {
@@ -2995,14 +3026,14 @@ export default function BrightwheelDashboard() {
       const b    = Math.round(240 - t * 200);
       return `rgb(${r},${g},${b})`;
     }
+    // BW/SF mode
+    if (mapColorMode === "bw") return bwDotColor(d);
     // Priority (default)
-    const p = d.priority || 0;
-    if (p >= 70) return "#DC2626";
-    if (p >= 55) return "#EA580C";
-    if (p >= 40) return "#D97706";
-    if (p >= 25) return "#2563EB";
+    const sz = getDistrictMeta(d)?.size;
+    if (sz === "XL" || sz === "L") return "#D97706";
+    if (sz === "M") return "#F59E0B";
     return "#9CA3AF";
-  }, [mapColorMode, filtered]);
+  }, [mapColorMode, filtered, districtMeta]);
 
   const mapStateColor = useCallback((abbr) => {
     const agg = mapStateAggregates[abbr];
@@ -4007,7 +4038,7 @@ export default function BrightwheelDashboard() {
                   { label:"State",      val:filterState,      setter:setFilterState,      opts:[["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
                   { label:"Priority",   val:filterPriority,   setter:setFilterPriority,   opts:[["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label:"Size",       val:filterSize,       setter:setFilterSize,       opts:[["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
-                  { label:"Curriculum", val:filterCurriculum, setter:setFilterCurriculum, opts:[["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v,v])], style:{maxWidth:"120px"} },
+                  { label:"BW SaaS",   val:filterBwStatus,  setter:setFilterBwStatus,  opts:[["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                   { label:"Enrollment", val:filterEnrollment, setter:setFilterEnrollment, opts:[["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
@@ -4018,12 +4049,17 @@ export default function BrightwheelDashboard() {
                 {/* Color mode */}
                 <div className="flex items-center gap-1 flex-shrink-0 border-l border-gray-200 pl-2 ml-0.5">
                   <span className="text-xs text-gray-400 whitespace-nowrap">Color:</span>
-                  {[["priority","🔥 Priority"],["enrollment","📊 Enrollment"],["prek","🧒 Pre-K"]].map(([m,l]) => (
+                  {[["priority","🔥 Priority"],["enrollment","📊 Enrollment"],["prek","🧒 Pre-K"],["bw","🐝 BW/SF"]].map(([m,l]) => (
                     <button key={m} onClick={() => setMapColorMode(m)}
                       className={`text-xs px-2 py-1 rounded-lg border transition-colors ${mapColorMode === m ? "bg-indigo-600 text-white border-indigo-600" : "border-gray-200 text-gray-600 hover:bg-gray-50"}`}>
                       {l}
                     </button>
                   ))}
+                  <button onClick={() => setMapShowBwLayer(v => !v)}
+                    className={`text-xs px-2 py-1 rounded-lg border transition-colors ml-1 ${mapShowBwLayer ? "bg-violet-600 text-white border-violet-600" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
+                    title="Toggle BW/SF customer overlay">
+                    🐝 overlay
+                  </button>
                 </div>
                 <span className="text-xs text-gray-400 ml-auto pl-2 whitespace-nowrap font-medium flex-shrink-0">{filtered.length} districts</span>
               </div>
@@ -4054,7 +4090,16 @@ export default function BrightwheelDashboard() {
                 <div className="ml-auto flex items-center gap-3">
                   {mapColorMode === "priority" ? (
                     <div className="flex items-center gap-2">
-                      {[["#D97706","⭐ Priority (M/L/XL)"],["#9CA3AF","Not Priority"]].map(([c,l]) => (
+                      {[["#D97706","XL/L"],["#F59E0B","M"],["#9CA3AF","S"]].map(([c,l]) => (
+                        <span key={c} className="flex items-center gap-1 text-xs text-gray-600">
+                          <span className="inline-block w-3 h-3 rounded-full flex-shrink-0" style={{background:c}}></span>
+                          {l}
+                        </span>
+                      ))}
+                    </div>
+                  ) : mapColorMode === "bw" ? (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {[["#7C3AED","K12 Premium"],["#0284C7","K12 Free"],["#0F766E","HS Premium"],["#0891B2","HS Free"],["#059669","SF only"],["#9CA3AF","No BW"]].map(([c,l]) => (
                         <span key={c} className="flex items-center gap-1 text-xs text-gray-600">
                           <span className="inline-block w-3 h-3 rounded-full flex-shrink-0" style={{background:c}}></span>
                           {l}
@@ -4134,6 +4179,19 @@ export default function BrightwheelDashboard() {
                       }}
                     />
                   ))}
+                  {/* BW/SF overlay dots — always rendered on top when layer is on */}
+                  {mapShowBwLayer && mapColorMode !== "bw" && mapBwCountryDots.map(({ d, px, py }, i) => (
+                    <circle key={`bw-${d.id || i}`} cx={px} cy={py} r="4.5"
+                      fill={bwDotColor(d)} opacity="0.9" stroke="white" strokeWidth="1"
+                      style={{cursor:"pointer"}}
+                      onMouseEnter={() => setMapHover({ type:"district", d, px, py })}
+                      onMouseLeave={() => setMapHover(null)}
+                      onClick={() => {
+                        const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                        setActiveTab("districtinfo"); setDiInfoSelectedId(d.id); setDiInfoSearch(shortN);
+                      }}
+                    />
+                  ))}
                   {/* Hover tooltip */}
                   {mapHover && mapHover.type === "district" && (() => {
                     const { d, px, py } = mapHover;
@@ -4145,7 +4203,7 @@ export default function BrightwheelDashboard() {
                           x="-6" y="-4" width="160" height="46" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="8">{(d.district||"").slice(0,26)}{(d.district||"").length>26?"…":""}</text>
                         <text fontSize="9" fill="#6B7280" y="20">{d.state} · {(d.enrollment||0).toLocaleString()} enrolled</text>
-                        <text fontSize="9" fill="#6B7280" y="32">{getPriorityLabel(d)?.label ? "⭐ Priority district" : ""}</text>
+                        <text fontSize="9" fill={d.bwStatus ? "#7C3AED" : "#6B7280"} y="32">{d.bwStatus ? `🐝 ${d.bwStatus}` : (getPriorityLabel(d)?.label ? "⭐ Priority district" : "")}</text>
                       </g>
                     );
                   })()}
@@ -4191,6 +4249,15 @@ export default function BrightwheelDashboard() {
                       />
                     );
                   })}
+                  {/* BW/SF overlay in zoom view */}
+                  {mapShowBwLayer && mapColorMode !== "bw" && mapBwZoomDots.map(({ d, px, py }, i) => {
+                    const r = Math.max(mapEnrollRadius(d.enrollment), 5);
+                    return (
+                      <circle key={`bw-${d.id || i}`} cx={px} cy={py} r={r + 2}
+                        fill="none" stroke={bwDotColor(d)} strokeWidth="2.5" opacity="0.9"
+                        style={{cursor:"pointer", pointerEvents:"none"}} />
+                    );
+                  })}
                   {/* Labels for larger circles */}
                   {mapZoomDots.filter(({ d }) => (d.enrollment||0) > 10000).map(({ d, px, py }, i) => {
                     const r = mapEnrollRadius(d.enrollment);
@@ -4214,7 +4281,7 @@ export default function BrightwheelDashboard() {
                           x="-6" y="-4" width="175" height="60" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.15))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="9">{(d.district||"").slice(0,28)}{(d.district||"").length>28?"…":""}</text>
                         <text fontSize="9" fill="#6B7280" y="22">{d.county} County · {(d.enrollment||0).toLocaleString()} enrolled</text>
-                        <text fontSize="9" fill="#D97706" y="35">{getPriorityLabel(d)?.label ? "⭐ Priority district" : ""}</text>
+                        <text fontSize="9" fill={d.bwStatus ? "#7C3AED" : "#D97706"} y="35">{d.bwStatus ? `🐝 ${d.bwStatus}` : (getPriorityLabel(d)?.label ? "⭐ Priority district" : "")}</text>
                         <text fontSize="9" fill="#3B82F6" y="48">{d.director||""}</text>
                       </g>
                     );
