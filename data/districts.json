@@ -386,12 +386,15 @@
         "source": "https://www.sdhc.k12.fl.us/vpk"
       }
     ],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "1200870",
     "website": "http://www.sdhc.k12.fl.us/",
     "lat": 27.99412,
-    "lng": -82.44913
+    "lng": -82.44913,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "0013u00001inAFuAAM",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001inAFuAAM/view"
   },
   {
     "id": 5,
@@ -17583,11 +17586,14 @@
     "summerBridgeContact": null,
     "programType": "Public School",
     "schools": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "1600002",
     "lat": 48.28819,
-    "lng": -116.58417
+    "lng": -116.58417,
+    "bwStatus": "Yes - Free (HS)",
+    "sfAccountId": "0013u00001ID4mBAAT",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001ID4mBAAT/view"
   },
   {
     "id": 322,
@@ -17763,11 +17769,14 @@
     "summerBridgeContact": null,
     "programType": "Public School",
     "schools": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "1601800",
     "lat": 47.65266,
-    "lng": -116.76429
+    "lng": -116.76429,
+    "bwStatus": "Yes - Free (HS)",
+    "sfAccountId": "0013u00001ID78OAAT",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001ID78OAAT/view"
   },
   {
     "id": 327,
@@ -19103,11 +19112,14 @@
     "summerBridgeContact": null,
     "programType": "Public School",
     "schools": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "1600420",
     "lat": 48.66192,
-    "lng": -116.32914
+    "lng": -116.32914,
+    "bwStatus": "Yes - Free (HS)",
+    "sfAccountId": "0013u00001ID4mCAAT",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001ID4mCAAT/view"
   },
   {
     "id": 363,
@@ -34983,7 +34995,10 @@
     "ncesId": "2604260",
     "website": "http://www.bcschools.net",
     "lat": 43.71256,
-    "lng": -83.84455
+    "lng": -83.84455,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "0013u00001jDPG5AAO",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001jDPG5AAO/view"
   },
   {
     "id": 716,
@@ -36071,11 +36086,14 @@
     "summerBridgeContact": null,
     "state": "MI",
     "districtContext": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": null,
     "lat": 43.27459,
-    "lng": -86.02264
+    "lng": -86.02264,
+    "bwStatus": "Yes - Free (HS)",
+    "sfAccountId": "0013u000019pUWaAAM",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u000019pUWaAAM/view"
   },
   {
     "id": 742,
@@ -36146,12 +36164,15 @@
     "summerBridgeContact": null,
     "state": "MI",
     "districtContext": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "2620910",
     "website": "http://www.LakeviewSchools.net",
     "lat": 42.56922,
-    "lng": -82.87138
+    "lng": -82.87138,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "0013u00001MYMGEAA5",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001MYMGEAA5/view"
   },
   {
     "id": 744,
@@ -38565,12 +38586,15 @@
     "summerBridgeContact": null,
     "state": "WA",
     "districtContext": [],
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "5305940",
     "website": "http://www.ohsd.net",
     "lat": 48.15268,
-    "lng": -122.58197
+    "lng": -122.58197,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "001PB00000OsX61YAF",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000OsX61YAF/view"
   },
   {
     "id": 801,
@@ -41357,12 +41381,15 @@
     "boardNotes": [],
     "districtContext": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "2617550",
     "website": "http://hancockpublicschools.org",
     "lat": 47.01454,
-    "lng": -88.64471
+    "lng": -88.64471,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "001PB00000M5j1SYAR",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000M5j1SYAR/view"
   },
   {
     "id": 871,
@@ -46404,7 +46431,7 @@
     "districtContext": [],
     "summerBridgeContact": null,
     "nces_leaid": "0608490",
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "ncesId": "608370",
     "website": "http://www.chicousd.org",
@@ -49116,7 +49143,7 @@
     "notes": "5-star QRIS rating. ECE director not publicly identified. Apollo.io needed.",
     "lastUpdated": "2026-04-08",
     "nces_leaid": "0634560",
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "recentNews": [],
     "activities": [],
@@ -53302,12 +53329,15 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "800004",
     "lat": 39.66786,
-    "lng": -104.77424
+    "lng": -104.77424,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "001PB00000VN4U5YAL",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/001PB00000VN4U5YAL/view"
   },
   {
     "id": 10167,
@@ -55108,13 +55138,16 @@
     "lastUpdated": "2026-04-14",
     "boardNotes": [],
     "summerBridgeContact": null,
-    "inSalesforce": false,
+    "inSalesforce": true,
     "sfContacts": [],
     "districtContext": [],
     "ncesId": "802610",
     "website": "http://www.brushschools.org",
     "lat": 40.16741,
-    "lng": -103.74397
+    "lng": -103.74397,
+    "bwStatus": "Yes - Premium (HS)",
+    "sfAccountId": "0013u00001NODzLAAX",
+    "sfAccountLink": "https://brightwheel.lightning.force.com/lightning/r/Account/0013u00001NODzLAAX/view"
   },
   {
     "id": 10218,

@@ -2883,9 +2883,13 @@ export default function BrightwheelDashboard() {
         (filterEnrollment === "3kplus"  && enr >= 3000);
       const matchSize = filterSize === "all" || (getDistrictMeta(d)?.size || "") === filterSize;
       const matchBwStatus = filterBwStatus === "all" ||
-        (filterBwStatus === "premium" && d.bwStatus === "Yes - Premium") ||
-        (filterBwStatus === "free"    && d.bwStatus === "Yes - Free") ||
-        (filterBwStatus === "no"      && !d.bwStatus);
+        (filterBwStatus === "premium"    && d.bwStatus === "Yes - Premium") ||
+        (filterBwStatus === "premium_hs" && d.bwStatus === "Yes - Premium (HS)") ||
+        (filterBwStatus === "free"       && d.bwStatus === "Yes - Free") ||
+        (filterBwStatus === "free_hs"    && d.bwStatus === "Yes - Free (HS)") ||
+        (filterBwStatus === "any_hs"     && (d.bwStatus || "").includes("(HS)")) ||
+        (filterBwStatus === "any_bw"     && !!d.bwStatus) ||
+        (filterBwStatus === "no"         && !d.bwStatus);
       return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus;
     });
     return results.sort((a, b) => {
@@ -3660,7 +3664,7 @@ export default function BrightwheelDashboard() {
                   { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                   { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                   { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
-                  { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["premium","🐝 Premium"],["free","🐝 Free"],["no","Not a customer"]], style:{} },
+                  { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                   { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
@@ -3808,11 +3812,14 @@ export default function BrightwheelDashboard() {
                             {d.inSalesforce && (
                               <span className="bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded text-xs font-medium">✓ In SF{(d.sfContacts||[]).length > 0 ? ` (${(d.sfContacts||[]).length})` : ""}</span>
                             )}
-                            {d.bwStatus && (
-                              <span className={`px-2 py-0.5 rounded text-xs font-medium border ${d.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>
-                                🐝 {d.bwStatus}
-                              </span>
-                            )}
+                            {d.bwStatus && (() => {
+                              const isHS = d.bwStatus.includes("(HS)");
+                              const isPrem = d.bwStatus.includes("Premium");
+                              const cls = isHS
+                                ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200")
+                                : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200");
+                              return <span className={`px-2 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>;
+                            })()}
                             {d.demographics?.ellPercent >= 15 && (
                               <span className="bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded text-xs">🌐 {d.demographics.ellPercent}% ELL</span>
                             )}
@@ -6525,7 +6532,7 @@ export default function BrightwheelDashboard() {
                     { label: "Size",       val: filterSize,       setter: setFilterSize,       opts: [["all","All Sizes"],["XL","XL"],["L","L"],["M","M"],["S","S"]], style:{} },
                     { label: "Curriculum", val: filterCurriculum, setter: setFilterCurriculum, opts: [["all","All Curricula"], ...CURRICULUM_VENDORS.map(v => [v, v])], style:{maxWidth:"120px"} },
                     { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
-                    { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["premium","🐝 Premium"],["free","🐝 Free"],["no","Not a customer"]], style:{} },
+                    { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                     { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
                   ].map((f) => (
                     <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
@@ -6612,7 +6619,7 @@ export default function BrightwheelDashboard() {
                                 {(d.buyingSignals || []).length > 0 && <span className="bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded text-xs">⚡ {(d.buyingSignals||[]).length} signal{(d.buyingSignals||[]).length > 1 ? "s" : ""}</span>}
                                 {(d.districtContext || []).length > 0 && <span className="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-xs">🔍 {d.districtContext.length} intel</span>}
                                 {d.inSalesforce && <span className="bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded text-xs">✓ SF</span>}
-                                {d.bwStatus && <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${d.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>🐝 {d.bwStatus}</span>}
+                                {d.bwStatus && (() => { const isHS = d.bwStatus.includes("(HS)"); const isPrem = d.bwStatus.includes("Premium"); const cls = isHS ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200") : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"); return <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>; })()}
                                 {!d.newLeadership && !(d.buyingSignals||[]).length && !(d.districtContext||[]).length && !d.inSalesforce && !d.bwStatus && <span className="text-gray-300">—</span>}
                               </div>
                             </td>
@@ -6918,7 +6925,7 @@ export default function BrightwheelDashboard() {
                       <div>
                         <span className="text-gray-500">BW SaaS:</span>{" "}
                         {selectedDistrict.bwStatus
-                          ? <span className={`ml-1 text-xs font-medium px-1.5 py-0.5 rounded border ${selectedDistrict.bwStatus === "Yes - Premium" ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>🐝 {selectedDistrict.bwStatus}</span>
+                          ? (() => { const isHS = selectedDistrict.bwStatus.includes("(HS)"); const isPrem = selectedDistrict.bwStatus.includes("Premium"); const cls = isHS ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200") : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"); return <span className={`ml-1 text-xs font-medium px-1.5 py-0.5 rounded border ${cls}`}>🐝 {selectedDistrict.bwStatus}</span>; })()
                           : <span className="text-gray-400 text-xs">No</span>}
                         {selectedDistrict.sfAccountLink && (
                           <a href={selectedDistrict.sfAccountLink} target="_blank" rel="noopener noreferrer"
