@@ -2058,6 +2058,10 @@ export default function BrightwheelDashboard() {
             if (json.data && Object.keys(json.data).length > 0) {
               rawData   = json.data;
               nameIndex = json.nameIndex || null;
+              // Normalize size values from the webapp (may return "Medium"/"Large" etc.)
+              Object.values(rawData).forEach(entry => {
+                if (entry && entry.size) entry.size = normalizeSize(entry.size);
+              });
             }
           }
         } catch (e) {
@@ -3913,7 +3917,7 @@ export default function BrightwheelDashboard() {
                                 ✉️ <span className="text-white/70">▾</span>
                               </button>
                               {emailPickerId === d.id && (
-                                <div className="absolute right-0 top-full mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-xl w-44 py-1 text-xs"
+                                <div className="absolute right-0 top-full mt-1 z-50 bg-white border border-gray-200 rounded-xl shadow-xl w-48 py-1 text-xs"
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   {[
@@ -3924,6 +3928,7 @@ export default function BrightwheelDashboard() {
                                       { label: "🌴 FL Summer Bridge (Long)", key: "summerBridge" },
                                       { label: "🌴 FL Summer Bridge (Short)", key: "summerBridgeShort" },
                                     ] : []),
+                                    ...Object.entries(customTemplates).map(([k, v]) => ({ label: `✉️ ${v.label || k}`, key: k })),
                                     ...(hasPersonalizedEmail(d) ? [
                                       { label: "✨ Personalized Outreach", key: "personalized" },
                                     ] : []),
@@ -4317,7 +4322,7 @@ export default function BrightwheelDashboard() {
                   {[
                     { label:"⭐ Priority", val: mapZoomDots.filter(p => ["XL","L","M"].includes(getDistrictMeta(p.d)?.size)).length, color:"text-amber-600" },
                     { label:"Not Priority", val: mapZoomDots.filter(p => !["XL","L","M"].includes(getDistrictMeta(p.d)?.size)).length, color:"text-gray-500" },
-                    { label:"Contacted", val: mapZoomDots.filter(p => p.d.status && p.resolveStatus(d.status) !== "not_contacted").length, color:"text-blue-600" },
+                    { label:"Contacted", val: mapZoomDots.filter(p => resolveStatus(p.d.status) !== "not_contacted").length, color:"text-blue-600" },
                   ].map(({ label, val, color }) => (
                     <div key={label} className="bg-white border border-gray-200 rounded-xl p-3 text-center">
                       <div className={`text-xl font-bold ${color}`}>{val}</div>
@@ -6184,6 +6189,7 @@ export default function BrightwheelDashboard() {
               { label: "🌴 FL Summer Bridge (Long)", key: "summerBridge" },
               { label: "🌴 FL Summer Bridge (Short)", key: "summerBridgeShort" },
             ] : []),
+            ...Object.entries(customTemplates).map(([k, v]) => ({ label: `✉️ ${v.label || k}`, key: k })),
             ...(hasPersonalizedEmail(selectedDi) ? [
               { label: "✨ Personalized Outreach", key: "personalized" },
             ] : []),
@@ -7399,6 +7405,7 @@ export default function BrightwheelDashboard() {
                       { label: "📧 Original Email", key: "original", desc: "General outreach — Kindergarten readiness, summer programs, learn more link." },
                       { label: "☀️ Summer Long", key: "summerLong", desc: "Full pitch — state-tailored, kit details, pricing, 3 bullets, learn more link." },
                       { label: "☀️ Summer Short", key: "summerShort", desc: "Quick intro — 4 bullets, pricing, casual CTA." },
+                      ...Object.entries(customTemplates).map(([k, v]) => ({ label: `✉️ ${v.label || k}`, key: k, desc: v.subject || "Custom team template" })),
                     ].map((t) => (
                       <div key={t.key} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
                         <p className="text-xs font-medium text-gray-700 mb-1">{t.label}</p>
