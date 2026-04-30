@@ -1,4 +1,55 @@
 {
-  "lastSynced": "2026-04-29T16:15:02.850273+00:00",
-  "activities": []
+  "lastSynced": "2026-04-30T16:14:05.113130+00:00",
+  "activities": [
+    {
+      "gmailMsgId": "19dd9bccadae2a04",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-04-29",
+      "notes": "\u21a9\ufe0f Reply received: \"Updated invitation: Sudeepta / Eric - Gov Spend Sync @ Wed Apr 29, 2026 10am - 10:15am (PDT)\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19dd56c66a5c6985",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-04-28",
+      "notes": "\u21a9\ufe0f Reply received: \"Fwd: Improve Kindergarten Readiness Scores\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19dd56cf24d6ceb3",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-04-28",
+      "notes": "\u21a9\ufe0f Reply received: \"Re: Improve Kindergarten Readiness Scores\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19dd566d7208d15c",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-04-28",
+      "notes": "\u21a9\ufe0f Reply received: \"Invitation: Sudeepta / Eric - Gov Spend Sync @ Wed Apr 29, 2026 12pm - 12:15pm (PDT)\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19dd45875442dbc6",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-04-28",
+      "notes": "\u21a9\ufe0f Reply received: \"Updated invitation with note: Daily Stand-up: Gov GTM Hub @ Tue Apr 28, 2026\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    }
+  ]
 }
