@@ -2877,6 +2877,7 @@ export default function BrightwheelDashboard() {
   // ── FILTERED + SORTED DISTRICTS ──
   const filtered = useMemo(() => {
     const results = districts.filter((d) => {
+      if (TERRITORY_CODES.has(d.state || "")) return false;
       const matchSearch =
         (d.district || "").toLowerCase().includes(search.toLowerCase()) ||
         (d.director || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -3283,22 +3284,24 @@ export default function BrightwheelDashboard() {
   const CURRICULUM_VENDORS = [...new Set(INITIAL_DISTRICTS.map((d) => d.curriculumVendor))];
 
   // All state codes present in the data, sorted alphabetically by name
+  // Territories excluded from dropdowns and map (AS, GU, PR, VI, MP, BI)
+  const TERRITORY_CODES = new Set(["AS","GU","PR","VI","MP","BI"]);
   const STATE_OPTIONS = [
-    ["AK","Alaska"],["AL","Alabama"],["AR","Arkansas"],["AS","American Samoa"],
-    ["AZ","Arizona"],["BI","Bureau of Indian Affairs"],["CA","California"],
+    ["AK","Alaska"],["AL","Alabama"],["AR","Arkansas"],
+    ["AZ","Arizona"],["CA","California"],
     ["CO","Colorado"],["CT","Connecticut"],["DC","District of Columbia"],
-    ["DE","Delaware"],["FL","Florida"],["GA","Georgia"],["GU","Guam"],
+    ["DE","Delaware"],["FL","Florida"],["GA","Georgia"],
     ["HI","Hawaii"],["IA","Iowa"],["ID","Idaho"],["IL","Illinois"],
     ["IN","Indiana"],["KS","Kansas"],["KY","Kentucky"],["LA","Louisiana"],
     ["MA","Massachusetts"],["MD","Maryland"],["ME","Maine"],["MI","Michigan"],
-    ["MN","Minnesota"],["MO","Missouri"],["MP","N. Mariana Islands"],
+    ["MN","Minnesota"],["MO","Missouri"],
     ["MS","Mississippi"],["MT","Montana"],["NC","North Carolina"],
     ["ND","North Dakota"],["NE","Nebraska"],["NH","New Hampshire"],
     ["NJ","New Jersey"],["NM","New Mexico"],["NV","Nevada"],["NY","New York"],
     ["OH","Ohio"],["OK","Oklahoma"],["OR","Oregon"],["PA","Pennsylvania"],
-    ["PR","Puerto Rico"],["RI","Rhode Island"],["SC","South Carolina"],
+    ["RI","Rhode Island"],["SC","South Carolina"],
     ["SD","South Dakota"],["TN","Tennessee"],["TX","Texas"],["UT","Utah"],
-    ["VA","Virginia"],["VI","Virgin Islands"],["VT","Vermont"],
+    ["VA","Virginia"],["VT","Vermont"],
     ["WA","Washington"],["WI","Wisconsin"],["WV","West Virginia"],["WY","Wyoming"],
   ];
   const STATE_NAMES = Object.fromEntries(STATE_OPTIONS);
@@ -4254,7 +4257,7 @@ export default function BrightwheelDashboard() {
                         <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
                           x="-6" y="-4" width="160" height="46" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="8">{(d.district||"").slice(0,26)}{(d.district||"").length>26?"…":""}</text>
-                        <text fontSize="9" fill="#6B7280" y="20">{d.state} · {(d.enrollment||0).toLocaleString()} enrolled</text>
+                        <text fontSize="9" fill="#6B7280" y="20">{d.state} · {d.enrollment != null ? d.enrollment.toLocaleString() + " enrolled" : "enrollment N/A"}</text>
                         <text fontSize="9" fill={d.bwStatus ? "#7C3AED" : "#6B7280"} y="32">{d.bwStatus ? `🐝 ${d.bwStatus}` : (getPriorityLabel(d)?.label ? "⭐ Priority district" : "")}</text>
                       </g>
                     );
@@ -4269,8 +4272,8 @@ export default function BrightwheelDashboard() {
                           x="-6" y="-4" width="170" height="56" filter="drop-shadow(0 1px 3px rgba(0,0,0,0.12))" />
                         <text fontSize="11" fontWeight="700" fill="#111827" y="9">{STATE_FULL_NAMES[abbr]||abbr}</text>
                         <text fontSize="9" fill="#6B7280" y="21">{agg.count} district{agg.count!==1?"s":""}</text>
-                        <text fontSize="9" fill="#6B7280" y="33">Enrollment: {agg.totalEnrollment.toLocaleString()}</text>
-                        <text fontSize="9" fill="#6B7280" y="45">{agg.totalEnrollment.toLocaleString()} enrolled</text>
+                        <text fontSize="9" fill="#6B7280" y="33">{agg.hotCount} high-priority</text>
+                        <text fontSize="9" fill="#6B7280" y="45">{agg.totalEnrollment > 0 ? agg.totalEnrollment.toLocaleString() + " enrolled" : ""}</text>
                       </g>
                     );
                   })()}
@@ -4332,7 +4335,7 @@ export default function BrightwheelDashboard() {
                         <rect rx="5" fill="white" stroke="#E5E7EB" strokeWidth="1"
                           x="-6" y="-4" width="175" height="60" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.15))" />
                         <text fontSize="10" fontWeight="700" fill="#111827" y="9">{(d.district||"").slice(0,28)}{(d.district||"").length>28?"…":""}</text>
-                        <text fontSize="9" fill="#6B7280" y="22">{d.county} County · {(d.enrollment||0).toLocaleString()} enrolled</text>
+                        <text fontSize="9" fill="#6B7280" y="22">{d.county ? d.county + " County" : d.state} · {d.enrollment != null ? d.enrollment.toLocaleString() + " enrolled" : "enrollment N/A"}</text>
                         <text fontSize="9" fill={d.bwStatus ? "#7C3AED" : "#D97706"} y="35">{d.bwStatus ? `🐝 ${d.bwStatus}` : (getPriorityLabel(d)?.label ? "⭐ Priority district" : "")}</text>
                         <text fontSize="9" fill="#3B82F6" y="48">{d.director||""}</text>
                       </g>
