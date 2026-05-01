@@ -2933,9 +2933,7 @@ export default function BrightwheelDashboard() {
       const primaryEmail = d.contactEdits?.email    ?? d.email    ?? "";
       const primaryTitle = d.contactEdits?.title    ?? d.title    ?? "";
       const primaryPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
-      if (primaryName || primaryEmail) {
-        rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
-      }
+      rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
       // SF contacts — skip if same email as primary, or name contains "Unknown"
       (d.sfContacts || []).forEach(c => {
         const nm = [c.firstName, c.lastName]
@@ -3284,6 +3282,27 @@ export default function BrightwheelDashboard() {
 
   const CURRICULUM_VENDORS = [...new Set(INITIAL_DISTRICTS.map((d) => d.curriculumVendor))];
 
+  // All state codes present in the data, sorted alphabetically by name
+  const STATE_OPTIONS = [
+    ["AK","Alaska"],["AL","Alabama"],["AR","Arkansas"],["AS","American Samoa"],
+    ["AZ","Arizona"],["BI","Bureau of Indian Affairs"],["CA","California"],
+    ["CO","Colorado"],["CT","Connecticut"],["DC","District of Columbia"],
+    ["DE","Delaware"],["FL","Florida"],["GA","Georgia"],["GU","Guam"],
+    ["HI","Hawaii"],["IA","Iowa"],["ID","Idaho"],["IL","Illinois"],
+    ["IN","Indiana"],["KS","Kansas"],["KY","Kentucky"],["LA","Louisiana"],
+    ["MA","Massachusetts"],["MD","Maryland"],["ME","Maine"],["MI","Michigan"],
+    ["MN","Minnesota"],["MO","Missouri"],["MP","N. Mariana Islands"],
+    ["MS","Mississippi"],["MT","Montana"],["NC","North Carolina"],
+    ["ND","North Dakota"],["NE","Nebraska"],["NH","New Hampshire"],
+    ["NJ","New Jersey"],["NM","New Mexico"],["NV","Nevada"],["NY","New York"],
+    ["OH","Ohio"],["OK","Oklahoma"],["OR","Oregon"],["PA","Pennsylvania"],
+    ["PR","Puerto Rico"],["RI","Rhode Island"],["SC","South Carolina"],
+    ["SD","South Dakota"],["TN","Tennessee"],["TX","Texas"],["UT","Utah"],
+    ["VA","Virginia"],["VI","Virgin Islands"],["VT","Vermont"],
+    ["WA","Washington"],["WI","Wisconsin"],["WV","West Virginia"],["WY","Wyoming"],
+  ];
+  const STATE_NAMES = Object.fromEntries(STATE_OPTIONS);
+
   const stageColor = (s) => (SEQUENCE_STAGES[resolveStatus(s)] || SEQUENCE_STAGES.not_contacted).color;
   const statusColor = (s) => stageColor(s);
 
@@ -3451,20 +3470,7 @@ export default function BrightwheelDashboard() {
               <div className="flex flex-nowrap gap-3 mb-5 items-center">
                 <select value={overviewFilterState} onChange={e => setOverviewFilterState(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All States</option>
-                  <option value="FL">Florida</option>
-                  <option value="AL">Alabama</option>
-                  <option value="GA">Georgia</option>
-                  <option value="MI">Michigan</option>
-                  <option value="ID">Idaho</option>
-                  <option value="UT">Utah</option>
-                  <option value="CO">Colorado</option>
-                  <option value="NV">Nevada</option>
-                  <option value="NM">New Mexico</option>
-                  <option value="AZ">Arizona</option>
-                  <option value="CA">California</option>
-                  <option value="OR">Oregon</option>
-                  <option value="WA">Washington</option>
-                  <option value="CT">Connecticut</option>
+                  {STATE_OPTIONS.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
                 </select>
                 <select value={globalRepFilter} onChange={e => setGlobalRepFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
@@ -3706,7 +3712,7 @@ export default function BrightwheelDashboard() {
                   className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 />
                 {[
-                  { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
+                  { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"], ...STATE_OPTIONS], style:{} },
                   { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                   { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
@@ -6240,7 +6246,7 @@ export default function BrightwheelDashboard() {
           ] : [];
 
           const repForDi = selectedDi ? REP_PROFILES[STATE_REP_EMAIL[selectedDi.state || "FL"]] : null;
-          const STATE_NAMES_DI = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado" };
+          const STATE_NAMES_DI = STATE_NAMES;
 
           return (
             <div className="pl-2">
@@ -6257,20 +6263,7 @@ export default function BrightwheelDashboard() {
                   className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 >
                   <option value="all">All States</option>
-                  <option value="FL">Florida</option>
-                  <option value="AL">Alabama</option>
-                  <option value="GA">Georgia</option>
-                  <option value="MI">Michigan</option>
-                  <option value="ID">Idaho</option>
-                  <option value="UT">Utah</option>
-                  <option value="CO">Colorado</option>
-                  <option value="NV">Nevada</option>
-                  <option value="NM">New Mexico</option>
-                  <option value="AZ">Arizona</option>
-                  <option value="CA">California</option>
-                  <option value="OR">Oregon</option>
-                  <option value="WA">Washington</option>
-                  <option value="CT">Connecticut</option>
+                  {STATE_OPTIONS.map(([code, name]) => <option key={code} value={code}>{name}</option>)}
                 </select>
 
                 <div className="relative" style={{ width: "380px" }}>
@@ -6643,7 +6636,7 @@ export default function BrightwheelDashboard() {
                     className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                   />
                   {[
-                    { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"],["FL","FL"],["AL","AL"],["GA","GA"],["MI","MI"],["ID","ID"],["UT","UT"],["CO","CO"],["NV","NV"],["NM","NM"],["AZ","AZ"],["CA","CA"],["OR","OR"],["WA","WA"]], style:{} },
+                    { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"], ...STATE_OPTIONS], style:{} },
                     { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                     { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                     { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
