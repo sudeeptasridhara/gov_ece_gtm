@@ -3416,7 +3416,7 @@ export default function BrightwheelDashboard() {
       <div className="px-6 py-4">
         {/* ── OVERVIEW TAB ── */}
         {activeTab === "overview" && (() => {
-          const STATE_NAMES_OV = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado", CT: "Connecticut" };
+          const STATE_NAMES_OV = STATE_NAMES;
           const repEmail = globalRepFilter === "all" ? null : globalRepFilter;
           const stateFilter = overviewFilterState === "all" ? null : overviewFilterState;
 
@@ -3521,7 +3521,7 @@ export default function BrightwheelDashboard() {
                                 {repProf ? <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${repProf.color}`}>{repProf.name}</span> : "—"}
                               </td>
                               <td className="px-4 py-2.5 text-right text-gray-600">{sd.length}</td>
-                              <td className="px-4 py-2.5 text-right text-blue-600">{sd.filter(d => d.email && d.email.trim() !== "").length}</td>
+                              <td className="px-4 py-2.5 text-right text-blue-600">{sd.filter(d => (d.email && d.email.trim() !== "") || (d.sfContacts || []).some(c => c.email && c.email.trim() !== "")).length}</td>
                               <td className="px-4 py-2.5 text-right text-amber-600">{sd.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length}</td>
                               <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => resolveStatus(d.status) === "not_contacted").length}</td>
                               <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length}</td>
