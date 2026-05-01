@@ -3862,12 +3862,30 @@ export default function BrightwheelDashboard() {
                               <span className="bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded text-xs font-medium">✓ In SF{(d.sfContacts||[]).length > 0 ? ` (${(d.sfContacts||[]).length})` : ""}</span>
                             )}
                             {d.bwStatus && (() => {
-                              const isHS = d.bwStatus.includes("(HS)");
+                              const isHS   = d.bwStatus.includes("(HS)");
                               const isPrem = d.bwStatus.includes("Premium");
-                              const cls = isHS
-                                ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200")
-                                : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200");
-                              return <span className={`px-2 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>;
+                              const isCxl  = d.bwStatus.includes("Cancelled");
+                              const cls = isCxl ? "bg-gray-100 text-gray-500 border-gray-300"
+                                        : isHS  ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200")
+                                                : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200");
+                              return (
+                                <span className="inline-flex items-center gap-1 flex-wrap">
+                                  <span className={`px-2 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>
+                                  {d.bwActivationStatus && (() => {
+                                    const act = d.bwActivationStatus;
+                                    const acls = act === "SaaS and Billing Activated" ? "bg-green-50 text-green-700 border-green-200"
+                                               : act === "SaaS Only Activated"        ? "bg-blue-50 text-blue-700 border-blue-200"
+                                               : act === "Billing Only Activated"     ? "bg-orange-50 text-orange-700 border-orange-200"
+                                               : act === "Onboarding"                 ? "bg-yellow-50 text-yellow-700 border-yellow-200"
+                                               :                                        "bg-gray-50 text-gray-500 border-gray-200";
+                                    const icon = act === "SaaS and Billing Activated" ? "✅"
+                                               : act === "SaaS Only Activated"        ? "📱"
+                                               : act === "Billing Only Activated"     ? "💳"
+                                               : act === "Onboarding"                 ? "🚀" : "•";
+                                    return <span className={`px-1.5 py-0.5 rounded text-xs border ${acls}`}>{icon} {act}</span>;
+                                  })()}
+                                </span>
+                              );
                             })()}
                             {d.demographics?.ellPercent >= 15 && (
                               <span className="bg-orange-50 text-orange-700 border border-orange-200 px-2 py-0.5 rounded text-xs">🌐 {d.demographics.ellPercent}% ELL</span>
@@ -6719,7 +6737,21 @@ export default function BrightwheelDashboard() {
                                 {(d.buyingSignals || []).length > 0 && <span className="bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded text-xs">⚡ {(d.buyingSignals||[]).length} signal{(d.buyingSignals||[]).length > 1 ? "s" : ""}</span>}
                                 {(d.districtContext || []).length > 0 && <span className="bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-xs">🔍 {d.districtContext.length} intel</span>}
                                 {d.inSalesforce && <span className="bg-green-50 text-green-700 border border-green-200 px-1.5 py-0.5 rounded text-xs">✓ SF</span>}
-                                {d.bwStatus && (() => { const isHS = d.bwStatus.includes("(HS)"); const isPrem = d.bwStatus.includes("Premium"); const cls = isHS ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200") : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"); return <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>; })()}
+                                {d.bwStatus && (() => {
+                                  const isHS = d.bwStatus.includes("(HS)"); const isPrem = d.bwStatus.includes("Premium"); const isCxl = d.bwStatus.includes("Cancelled");
+                                  const cls = isCxl ? "bg-gray-100 text-gray-500 border-gray-300" : isHS ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200") : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200");
+                                  return (
+                                    <>
+                                      <span className={`px-1.5 py-0.5 rounded text-xs font-medium border ${cls}`}>🐝 {d.bwStatus}</span>
+                                      {d.bwActivationStatus && (() => {
+                                        const act = d.bwActivationStatus;
+                                        const acls = act === "SaaS and Billing Activated" ? "bg-green-50 text-green-700 border-green-200" : act === "SaaS Only Activated" ? "bg-blue-50 text-blue-700 border-blue-200" : act === "Billing Only Activated" ? "bg-orange-50 text-orange-700 border-orange-200" : act === "Onboarding" ? "bg-yellow-50 text-yellow-700 border-yellow-200" : "bg-gray-50 text-gray-500 border-gray-200";
+                                        const icon = act === "SaaS and Billing Activated" ? "✅" : act === "SaaS Only Activated" ? "📱" : act === "Billing Only Activated" ? "💳" : act === "Onboarding" ? "🚀" : "•";
+                                        return <span className={`px-1.5 py-0.5 rounded text-xs border ${acls}`}>{icon} {act}</span>;
+                                      })()}
+                                    </>
+                                  );
+                                })()}
                                 {!d.newLeadership && !(d.buyingSignals||[]).length && !(d.districtContext||[]).length && !d.inSalesforce && !d.bwStatus && <span className="text-gray-300">—</span>}
                               </div>
                             </td>
@@ -7025,7 +7057,15 @@ export default function BrightwheelDashboard() {
                       <div>
                         <span className="text-gray-500">BW SaaS:</span>{" "}
                         {selectedDistrict.bwStatus
-                          ? (() => { const isHS = selectedDistrict.bwStatus.includes("(HS)"); const isPrem = selectedDistrict.bwStatus.includes("Premium"); const cls = isHS ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200") : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200"); return <span className={`ml-1 text-xs font-medium px-1.5 py-0.5 rounded border ${cls}`}>🐝 {selectedDistrict.bwStatus}</span>; })()
+                          ? (() => {
+                              const isHS   = selectedDistrict.bwStatus.includes("(HS)");
+                              const isPrem = selectedDistrict.bwStatus.includes("Premium");
+                              const isCxl  = selectedDistrict.bwStatus.includes("Cancelled");
+                              const cls = isCxl ? "bg-gray-100 text-gray-500 border-gray-300"
+                                        : isHS  ? (isPrem ? "bg-teal-50 text-teal-700 border-teal-200" : "bg-cyan-50 text-cyan-700 border-cyan-200")
+                                                : (isPrem ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-sky-50 text-sky-700 border-sky-200");
+                              return <span className={`ml-1 text-xs font-medium px-1.5 py-0.5 rounded border ${cls}`}>🐝 {selectedDistrict.bwStatus}</span>;
+                            })()
                           : <span className="text-gray-400 text-xs">No</span>}
                         {selectedDistrict.sfAccountLink && (
                           <a href={selectedDistrict.sfAccountLink} target="_blank" rel="noopener noreferrer"
@@ -7033,6 +7073,28 @@ export default function BrightwheelDashboard() {
                             title="Open in Salesforce">↗ SFDC</a>
                         )}
                       </div>
+                      {selectedDistrict.bwActivationStatus && (
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-gray-500">Activation:</span>
+                          {(() => {
+                            const act = selectedDistrict.bwActivationStatus;
+                            const cls = act === "SaaS and Billing Activated" ? "bg-green-50 text-green-700 border-green-200"
+                                      : act === "SaaS Only Activated"        ? "bg-blue-50 text-blue-700 border-blue-200"
+                                      : act === "Billing Only Activated"     ? "bg-orange-50 text-orange-700 border-orange-200"
+                                      : act === "Onboarding"                 ? "bg-yellow-50 text-yellow-700 border-yellow-200"
+                                      :                                        "bg-gray-50 text-gray-500 border-gray-200";
+                            const icon = act === "SaaS and Billing Activated" ? "✅"
+                                       : act === "SaaS Only Activated"        ? "📱"
+                                       : act === "Billing Only Activated"     ? "💳"
+                                       : act === "Onboarding"                 ? "🚀"
+                                       : "•";
+                            return <span className={`text-xs font-medium px-1.5 py-0.5 rounded border ${cls}`}>{icon} {act}</span>;
+                          })()}
+                          {selectedDistrict.monthlySpend && (
+                            <span className="text-xs text-gray-500">· {selectedDistrict.monthlySpend}/mo</span>
+                          )}
+                        </div>
+                      )}
                       <div><span className="text-gray-500">Stage:</span>
                         <select
                           value={stagePending[selectedDistrict.id] ?? (selectedDistrict.status || "not_contacted")}
