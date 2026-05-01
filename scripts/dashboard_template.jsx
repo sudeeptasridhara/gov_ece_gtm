@@ -2874,6 +2874,9 @@ export default function BrightwheelDashboard() {
     setTimeout(() => setNotification(null), 3500);
   };
 
+  // Territories excluded from all views
+  const TERRITORY_CODES = new Set(["AS","GU","PR","VI","MP","BI"]);
+
   // ── FILTERED + SORTED DISTRICTS ──
   const filtered = useMemo(() => {
     const results = districts.filter((d) => {
@@ -3283,9 +3286,6 @@ export default function BrightwheelDashboard() {
 
   const CURRICULUM_VENDORS = [...new Set(INITIAL_DISTRICTS.map((d) => d.curriculumVendor))];
 
-  // All state codes present in the data, sorted alphabetically by name
-  // Territories excluded from dropdowns and map (AS, GU, PR, VI, MP, BI)
-  const TERRITORY_CODES = new Set(["AS","GU","PR","VI","MP","BI"]);
   const STATE_OPTIONS = [
     ["AK","Alaska"],["AL","Alabama"],["AR","Arkansas"],
     ["AZ","Arizona"],["CA","California"],
