@@ -874,6 +874,22 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
         )}
       </div>
 
+      {/* ── ISD Contact (shown when district has no direct contact but is ISD-covered) ── */}
+      {district.isdContactEmail && (
+        <div className="rounded-xl border border-teal-200 bg-teal-50/20 overflow-hidden">
+          <div className="px-4 py-2.5 bg-teal-50 border-b border-teal-100 flex items-center justify-between">
+            <span className="text-xs font-semibold text-teal-700">🏫 ISD Contact — {district.isdCoveredBy}</span>
+            <span className="text-xs text-teal-500 italic">Covers this district</span>
+          </div>
+          <div className="px-4 py-3 space-y-1.5">
+            <ContactField label="Name" value={district.isdContactName} />
+            <ContactField label="Title" value={district.isdContactTitle} />
+            <ContactField label="Email" value={district.isdContactEmail} href={district.isdContactEmail ? `mailto:${district.isdContactEmail}` : null} />
+            <ContactField label="Phone" value={district.isdContactPhone} />
+          </div>
+        </div>
+      )}
+
       {/* ── Summer Bridge Contact (read-only, shown if exists) ── */}
       {district.summerBridgeContact && (
         <div className="rounded-xl border border-green-200 bg-green-50/20 overflow-hidden">
@@ -2938,6 +2954,10 @@ export default function BrightwheelDashboard() {
       const primaryTitle = d.contactEdits?.title    ?? d.title    ?? "";
       const primaryPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
       rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
+      // ISD contact — shown as secondary row when district has no direct email but is ISD-covered
+      if (!primaryEmail.trim() && d.isdContactEmail && d.isdContactEmail.trim()) {
+        rows.push({ d, contact: { name: d.isdContactName || "", email: d.isdContactEmail, title: d.isdContactTitle || "", phone: d.isdContactPhone || "", source: "isd", isdName: d.isdCoveredBy } });
+      }
       // SF contacts — skip if same email as primary, or name contains "Unknown"
       (d.sfContacts || []).forEach(c => {
         const nm = [c.firstName, c.lastName]
@@ -3436,6 +3456,10 @@ export default function BrightwheelDashboard() {
           const contacted = ovDistricts.filter(d => resolveStatus(d.status) !== "not_contacted").length;
           const inProgress = ovDistricts.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length;
           const won = ovDistricts.filter(d => ["responded_active","existing_customer"].includes(resolveStatus(d.status))).length;
+          // Districts with direct contact email
+          const withDirectContact = ovDistricts.filter(d => (d.email && d.email.trim() !== "") || (d.sfContacts || []).some(c => c.email && c.email.trim() !== "")).length;
+          // Districts covered via ISD (no direct contact, but ISD has one)
+          const withIsdContact = ovDistricts.filter(d => !(d.email && d.email.trim() !== "") && !(d.sfContacts || []).some(c => c.email && c.email.trim() !== "") && d.isdContactEmail && d.isdContactEmail.trim() !== "").length;
 
           // ── Weekly intel news (districtContext + boardNotes updated in last 7 days) ──
           const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -3460,10 +3484,10 @@ export default function BrightwheelDashboard() {
 
           const statCards = [
             { label: "Total Districts", val: total, color: "text-gray-800", bg: "bg-gray-50" },
+            { label: "Direct Contacts", val: withDirectContact, color: "text-blue-600", bg: "bg-blue-50" },
+            { label: "ISD Covered", val: withIsdContact, color: "text-teal-600", bg: "bg-teal-50", tooltip: "Districts without a direct contact but covered by an ISD contact" },
             { label: "Priority (M/L/XL)", val: priority, color: "text-amber-700", bg: "bg-amber-50" },
-            { label: "Not Yet Contacted", val: notContacted, color: "text-gray-600", bg: "bg-gray-50" },
-            { label: "Contacted", val: contacted, color: "text-blue-600", bg: "bg-blue-50" },
-            { label: "In Progress", val: inProgress, color: "text-purple-600", bg: "bg-purple-50" },
+            { label: "Contacted", val: contacted, color: "text-indigo-600", bg: "bg-indigo-50" },
             { label: "Closed Won", val: won, color: "text-green-600", bg: "bg-green-50" },
           ];
 
@@ -3502,7 +3526,8 @@ export default function BrightwheelDashboard() {
                         <th className="text-left px-4 py-2 font-medium text-gray-500">State</th>
                         <th className="text-left px-4 py-2 font-medium text-gray-500">Rep</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Districts</th>
-                        <th className="text-right px-4 py-2 font-medium text-gray-500">Contactable</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">Direct Contact</th>
+                        <th className="text-right px-4 py-2 font-medium text-gray-500">ISD Covered</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Priority</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">Not Contacted</th>
                         <th className="text-right px-4 py-2 font-medium text-gray-500">In Progress</th>
@@ -3525,6 +3550,7 @@ export default function BrightwheelDashboard() {
                               </td>
                               <td className="px-4 py-2.5 text-right text-gray-600">{sd.length}</td>
                               <td className="px-4 py-2.5 text-right text-blue-600">{sd.filter(d => (d.email && d.email.trim() !== "") || (d.sfContacts || []).some(c => c.email && c.email.trim() !== "")).length}</td>
+                              <td className="px-4 py-2.5 text-right text-teal-600">{sd.filter(d => !(d.email && d.email.trim() !== "") && !(d.sfContacts || []).some(c => c.email && c.email.trim() !== "") && d.isdContactEmail && d.isdContactEmail.trim() !== "").length}</td>
                               <td className="px-4 py-2.5 text-right text-amber-600">{sd.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length}</td>
                               <td className="px-4 py-2.5 text-right text-gray-500">{sd.filter(d => resolveStatus(d.status) === "not_contacted").length}</td>
                               <td className="px-4 py-2.5 text-right text-purple-600">{sd.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length}</td>
@@ -3831,6 +3857,7 @@ export default function BrightwheelDashboard() {
                           <div className="text-gray-400 truncate text-xs">{contact.email || "—"}</div>
                           {contact.title && <div className="text-gray-400 truncate text-xs italic">{contact.title}</div>}
                           {contact.source === "sf" && <span className="text-xs bg-blue-50 text-blue-500 px-1 rounded">SF</span>}
+                          {contact.source === "isd" && <span className="text-xs bg-teal-50 text-teal-600 border border-teal-200 px-1 rounded" title={contact.isdName}>🏫 via ISD</span>}
                           {(d.activities || []).some(a => a.type === "email_open") && (
                             <span className="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1 rounded ml-1" title={`Opened · ${(d.activities||[]).filter(a=>a.type==="email_open").length}x`}>👁 opened</span>
                           )}
