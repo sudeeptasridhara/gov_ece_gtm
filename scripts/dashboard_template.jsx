@@ -3397,7 +3397,7 @@ export default function BrightwheelDashboard() {
       <div className="px-6 py-4">
         {/* ── OVERVIEW TAB ── */}
         {activeTab === "overview" && (() => {
-          const STATE_NAMES_OV = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado" };
+          const STATE_NAMES_OV = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado", CT: "Connecticut" };
           const repEmail = globalRepFilter === "all" ? null : globalRepFilter;
           const stateFilter = overviewFilterState === "all" ? null : overviewFilterState;
 
@@ -3464,6 +3464,7 @@ export default function BrightwheelDashboard() {
                   <option value="CA">California</option>
                   <option value="OR">Oregon</option>
                   <option value="WA">Washington</option>
+                  <option value="CT">Connecticut</option>
                 </select>
                 <select value={globalRepFilter} onChange={e => setGlobalRepFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
@@ -4476,6 +4477,7 @@ export default function BrightwheelDashboard() {
                   <option value="CA">California</option>
                   <option value="OR">Oregon</option>
                   <option value="WA">Washington</option>
+                  <option value="CT">Connecticut</option>
                 </select>
                 <select value={globalRepFilter} onChange={(e) => setGlobalRepFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200">
                   <option value="all">All Reps</option>
@@ -4798,6 +4800,7 @@ export default function BrightwheelDashboard() {
                     <option value="CA">California</option>
                     <option value="OR">Oregon</option>
                     <option value="WA">Washington</option>
+                    <option value="CT">Connecticut</option>
                   </select>
                   <select
                     value={seqRepFilter}
@@ -6249,6 +6252,7 @@ export default function BrightwheelDashboard() {
                   <option value="CA">California</option>
                   <option value="OR">Oregon</option>
                   <option value="WA">Washington</option>
+                  <option value="CT">Connecticut</option>
                 </select>
 
                 <div className="relative" style={{ width: "380px" }}>
