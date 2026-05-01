@@ -2947,6 +2947,7 @@ export default function BrightwheelDashboard() {
   // ── PROSPECT ROWS (one row per contact) ──────────────────────────────────────
   const prospectRows = useMemo(() => {
     const rows = [];
+    const seenIsdEmails = new Set(); // deduplicate ISD contacts — one row per ISD across all filtered districts
     filtered.forEach(d => {
       // Primary contact (always include if any info)
       const primaryName  = d.contactEdits?.director ?? d.director ?? "";
@@ -2954,9 +2955,13 @@ export default function BrightwheelDashboard() {
       const primaryTitle = d.contactEdits?.title    ?? d.title    ?? "";
       const primaryPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
       rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
-      // ISD contact — shown as secondary row when district has no direct email but is ISD-covered
+      // ISD contact — one row per unique ISD email; only when district has no direct email
       if (!primaryEmail.trim() && d.isdContactEmail && d.isdContactEmail.trim()) {
-        rows.push({ d, contact: { name: d.isdContactName || "", email: d.isdContactEmail, title: d.isdContactTitle || "", phone: d.isdContactPhone || "", source: "isd", isdName: d.isdCoveredBy } });
+        const isdEmailKey = d.isdContactEmail.trim().toLowerCase();
+        if (!seenIsdEmails.has(isdEmailKey)) {
+          seenIsdEmails.add(isdEmailKey);
+          rows.push({ d, contact: { name: d.isdContactName || "", email: d.isdContactEmail, title: d.isdContactTitle || "", phone: d.isdContactPhone || "", source: "isd", isdName: d.isdCoveredBy } });
+        }
       }
       // SF contacts — skip if same email as primary, or name contains "Unknown"
       (d.sfContacts || []).forEach(c => {
@@ -3122,8 +3127,35 @@ export default function BrightwheelDashboard() {
   const bulkQueue = (template) => {
     const isFLOnly = template === "summerBridge" || template === "summerBridgeShort";
     const toQueue = districts.filter((d) => selectedIds.has(d.id) && (!isFLOnly || (d.state || "FL") === "FL"));
-    toQueue.forEach((d) => queueEmail(d, template, true)); // silent=true — suppress per-item toasts
-    showNotif(`📧 ${toQueue.length} email${toQueue.length !== 1 ? "s" : ""} added to Send Queue ✓`);
+    // Deduplicate ISD contacts — one email per ISD when multiple selected districts share the same ISD contact
+    const seenIsdEmails = new Set();
+    let queued = 0;
+    toQueue.forEach((d) => {
+      const primaryEmail = (d.contactEdits?.email ?? d.email ?? "").trim();
+      if (primaryEmail) {
+        queueEmail(d, template, true);
+        queued++;
+      } else if (d.isdContactEmail && d.isdContactEmail.trim()) {
+        const isdEmailKey = d.isdContactEmail.trim().toLowerCase();
+        if (!seenIsdEmails.has(isdEmailKey)) {
+          seenIsdEmails.add(isdEmailKey);
+          const isdOverride = {
+            name: d.isdContactName || "",
+            firstName: (d.isdContactName || "").split(" ")[0],
+            email: d.isdContactEmail,
+            title: d.isdContactTitle || "",
+            phone: d.isdContactPhone || "",
+            source: "isd",
+            isdName: d.isdCoveredBy,
+          };
+          queueEmail(d, template, true, false, false, isdOverride);
+          queued++;
+        }
+      } else {
+        queueEmail(d, template, true); // no contact — will show warning
+      }
+    });
+    showNotif(`📧 ${queued} email${queued !== 1 ? "s" : ""} added to Send Queue ✓`);
     clearSelection();
   };
 
@@ -3254,11 +3286,16 @@ export default function BrightwheelDashboard() {
       setUnsubConfirm({ district, template, contactEmail: contact.email, contactName: contact.name, contactOverride });
       return;
     }
-    // Patch district so email body greets the right person
+    // Patch district so email body greets the right person.
+    // For ISD contacts, replace the district name with the ISD name so email body
+    // references "early childhood curriculum at [ISD Name]" not a specific district.
+    const isIsdContact = contactOverride?.source === "isd";
+    const isdDisplayName = isIsdContact ? (contactOverride.isdName || district.district) : null;
     const districtForEmail = contactOverride ? {
       ...district,
       director: contactOverride.name,
       email: contactOverride.email,
+      ...(isIsdContact ? { district: isdDisplayName } : {}),
       contactEdits: {
         ...(district.contactEdits || {}),
         director: contactOverride.name,
@@ -3276,19 +3313,25 @@ export default function BrightwheelDashboard() {
     }
     const item = {
       id: Date.now() + Math.random(),
-      district: district.district,
+      district: isIsdContact ? isdDisplayName : district.district,
       districtId: district.id,
       to: contact.email,
       directorName: contact.name,
       isSummerBridgeContact: contact.isSummerBridge || false,
+      isIsdEmail: isIsdContact || false,
       template,
       body,
       status: "pending",
       createdAt: new Date().toLocaleString(),
     };
     setApprovalQueue((prev) => {
-      // Allow multiple contacts from same district — dedupe by district+template+email
-      if (prev.find((x) => x.districtId === district.id && x.template === template && x.to === contact.email)) return prev;
+      // For ISD contacts: dedupe by template+email only (one email per ISD regardless of which district triggered it)
+      // For direct contacts: dedupe by districtId+template+email
+      if (isIsdContact) {
+        if (prev.find((x) => x.template === template && x.to === contact.email)) return prev;
+      } else {
+        if (prev.find((x) => x.districtId === district.id && x.template === template && x.to === contact.email)) return prev;
+      }
       return [item, ...prev];
     });
     if (!silent) showNotif(`📧 Queued for ${contact.name || district.director}`);
@@ -4003,7 +4046,11 @@ export default function BrightwheelDashboard() {
                                   ].map((t) => (
                                     <button
                                       key={t.key}
-                                      onClick={() => { queueEmail(d, t.key); setEmailPickerId(null); }}
+                                      onClick={() => {
+                                        const isdOverride = contact.source === "isd" ? { name: contact.name, firstName: (contact.name || "").split(" ")[0], email: contact.email, title: contact.title || "", phone: contact.phone || "", source: "isd", isdName: contact.isdName } : null;
+                                        queueEmail(d, t.key, false, false, false, isdOverride);
+                                        setEmailPickerId(null);
+                                      }}
                                       className="w-full text-left px-3 py-2 hover:bg-indigo-50 hover:text-indigo-700 transition-colors font-medium"
                                     >
                                       {t.label}
