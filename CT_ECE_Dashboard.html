@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connecticut ECE Contacts — Brightwheel Gov/Edu</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/theme/mermaid.min.css" integrity="sha384-GjJl1MH2lm6RiR8WXIXCPcKjRCZcNmcnkJBrVP4HEnEHZYAGjKXz29z2KVlHN4m" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/gridjs.umd.js" integrity="sha384-/XXDzxe4FsGiAe50i/u9pY/Vy/uX654MHB1xoc1BJNnH1WXHhqHga9g3q5tF4gj7" crossorigin="anonymous"></script>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #1a2332;
+    font-size: 13px;
+  }
+  .header {
+    background: linear-gradient(135deg, #1F497D 0%, #2a6099 100%);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .header-left h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+  .header-left p { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.15); border-radius: 20px;
+    padding: 4px 12px; font-size: 11px; font-weight: 600;
+  }
+  .stats-bar {
+    display: flex; gap: 12px; padding: 12px 24px;
+    background: white; border-bottom: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 8px 16px; border-radius: 8px; min-width: 90px;
+    border: 1px solid #e2e8f0;
+  }
+  .stat-value { font-size: 22px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 10px; color: #6b7280; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat.blue  { background: #EFF6FF; border-color: #BFDBFE; }
+  .stat.blue  .stat-value { color: #1D4ED8; }
+  .stat.green { background: #F0FDF4; border-color: #BBF7D0; }
+  .stat.green .stat-value { color: #15803D; }
+  .stat.yellow{ background: #FFFBEB; border-color: #FDE68A; }
+  .stat.yellow .stat-value { color: #D97706; }
+  .stat.gray  { background: #F9FAFB; border-color: #E5E7EB; }
+  .stat.gray  .stat-value { color: #374151; }
+
+  .filters {
+    padding: 12px 24px;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    background: white; border-bottom: 1px solid #e2e8f0;
+  }
+  .filters label { font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; }
+  select, input[type="text"] {
+    border: 1px solid #d1d5db; border-radius: 6px;
+    padding: 6px 10px; font-size: 12px; background: white;
+    color: #1a2332; outline: none;
+  }
+  select:focus, input:focus { border-color: #1F497D; box-shadow: 0 0 0 2px rgba(31,73,125,0.15); }
+  .filter-btn {
+    padding: 6px 14px; border-radius: 6px; border: none;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+  }
+  .filter-btn.active { background: #1F497D; color: white; }
+  .filter-btn:not(.active) { background: #F3F4F6; color: #374151; }
+  .filter-btn:hover:not(.active) { background: #E5E7EB; }
+
+  .section { margin: 16px 24px; }
+  .section-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot-oec    { background: #16A34A; }
+  .dot-lgp    { background: #D97706; }
+  .dot-dist   { background: #1D4ED8; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+  .card {
+    background: white; border-radius: 10px; padding: 14px 16px;
+    border: 1px solid #e2e8f0; position: relative;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .card-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 12px; margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tag-oec  { background: #DCFCE7; color: #15803D; }
+  .tag-lgp  { background: #FEF3C7; color: #D97706; }
+  .tag-dist { background: #DBEAFE; color: #1D4ED8; }
+
+  .card-org   { font-size: 10px; color: #6b7280; margin-bottom: 2px; }
+  .card-name  { font-size: 14px; font-weight: 700; color: #1a2332; }
+  .card-title { font-size: 11px; color: #6b7280; margin-top: 2px; margin-bottom: 10px; line-height: 1.4; }
+  .card-row   {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: #374151; margin-top: 5px;
+  }
+  .card-icon  { width: 14px; text-align: center; opacity: 0.6; flex-shrink: 0; }
+  a.email-link {
+    color: #1D4ED8; text-decoration: none; font-family: monospace; font-size: 11px;
+  }
+  a.email-link:hover { text-decoration: underline; }
+  .conf-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    padding: 1px 6px; border-radius: 10px; margin-left: 4px;
+  }
+  .conf-high   { background: #DCFCE7; color: #166534; }
+  .conf-low    { background: #FEF9C3; color: #854D0E; }
+  .no-email    { color: #9CA3AF; font-style: italic; font-size: 11px; }
+
+  .county-chip {
+    display: inline-block; background: #F3F4F6; border-radius: 4px;
+    padding: 1px 6px; font-size: 10px; color: #6b7280; margin-top: 4px;
+  }
+
+  .note-box {
+    background: #FFFBEB; border-left: 3px solid #F59E0B;
+    padding: 6px 10px; margin-top: 8px; border-radius: 0 4px 4px 0;
+    font-size: 10.5px; color: #78350F; line-height: 1.5;
+  }
+  .hidden { display: none !important; }
+  .empty-state {
+    text-align: center; padding: 40px; color: #9CA3AF;
+    font-size: 13px;
+  }
+  footer {
+    padding: 16px 24px; font-size: 10px; color: #9CA3AF;
+    border-top: 1px solid #e2e8f0; margin-top: 24px;
+  }
+  .search-wrap { position: relative; }
+  .search-wrap input { padding-left: 28px; width: 220px; }
+  .search-icon {
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    color: #9CA3AF; font-size: 12px; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Connecticut ECE Contacts — Gov/Edu GTM</h1>
+    <p>CT Office of Early Childhood · CCR&amp;R / Local Governance Partners · District ECE Directors</p>
+  </div>
+  <div class="badge">🗓 May 2026 · Brightwheel Experience Curriculum</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat blue">
+    <div class="stat-value" id="total-count">19</div>
+    <div class="stat-label">Total Contacts</div>
+  </div>
+  <div class="stat green">
+    <div class="stat-value" id="email-count">12</div>
+    <div class="stat-label">Emails Found</div>
+  </div>
+  <div class="stat yellow">
+    <div class="stat-value" id="lgp-count">6</div>
+    <div class="stat-label">CCR&amp;R / LGPs</div>
+  </div>
+  <div class="stat gray">
+    <div class="stat-value" id="dist-count">8</div>
+    <div class="stat-label">Districts</div>
+  </div>
+</div>
+
+<div class="filters">
+  <label>Filter:</label>
+  <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">All</button>
+  <button class="filter-btn" data-filter="oec" onclick="setFilter('oec', this)">🏛 OEC State</button>
+  <button class="filter-btn" data-filter="lgp" onclick="setFilter('lgp', this)">🌐 CCR&amp;R / LGP</button>
+  <button class="filter-btn" data-filter="district" onclick="setFilter('district', this)">🏫 Districts</button>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Search name, district, email…" oninput="applySearch()">
+  </div>
+  <button class="filter-btn" onclick="clearFilters()" style="margin-left:auto">Clear</button>
+</div>
+
+<div id="cards-container"></div>
+
+<footer>
+  Sources: CT Office of Early Childhood (ctoec.org) · New Haven Public Schools (nhps.net) · Bridgeport Public Schools (bridgeportedu.net) · Waterbury Public Schools (waterbury.k12.ct.us) · Norwalk Public Schools (norwalkps.org) · City of Meriden (meridenct.gov) · Danbury Public Schools (danbury.k12.ct.us)<br>
+  Scraped May 2026. Email Confidence: High = found on official district/agency site · Low = domain confirmed, address needs enrichment (check Apollo.io).
+</footer>
+
+<script>
+const contacts = [
+  {
+    type: "oec",
+    org: "CT Office of Early Childhood (OEC)",
+    county: "Hartford",
+    first: "Elena", last: "Trueworthy",
+    title: "Commissioner",
+    email: "elena.trueworthy@ct.gov",
+    emailConf: "High",
+    phone: "860-500-4412",
+    address: "450 Columbus Blvd, Hartford, CT 06103",
+    notes: "OEC Commissioner. State agency leadership.",
+    source: "https://www.ctoec.org/contact-us/contact-oec-staff/"
+  },
+  {
+    type: "oec",
+    org: "CT Office of Early Childhood (OEC)",
+    county: "Hartford",
+    first: "Deb", last: "Flis",
+    title: "Deputy Commissioner",
+    email: "Deb.Flis@ct.gov",
+    emailConf: "High",
+    phone: "",
+    address: "450 Columbus Blvd, Hartford, CT 06103",
+    notes: "OEC Deputy Commissioner.",
+    source: "https://www.ctoec.org/contact-us/contact-oec-staff/"
+  },
+  {
+    type: "oec",
+    org: "CT Office of Early Childhood (OEC)",
+    county: "Hartford",
+    first: "David", last: "Morgan",
+    title: "Deputy Commissioner",
+    email: "David.Morgan@ct.gov",
+    emailConf: "High",
+    phone: "",
+    address: "450 Columbus Blvd, Hartford, CT 06103",
+    notes: "OEC Deputy Commissioner.",
+    source: "https://www.ctoec.org/contact-us/contact-oec-staff/"
+  },
+  {
+    type: "oec",
+    org: "CT Office of Early Childhood (OEC)",
+    county: "Hartford",
+    first: "Samantha", last: "Reinstein",
+    title: "Chief Operating Officer",
+    email: "samantha.reinstein@ct.gov",
+    emailConf: "High",
+    phone: "",
+    address: "450 Columbus Blvd, Hartford, CT 06103",
+    notes: "OEC COO.",
+    source: "https://www.ctoec.org/contact-us/contact-oec-staff/"
+  },
+  {
+    type: "oec",
+    org: "CT Office of Early Childhood (OEC)",
+    county: "Hartford",
+    first: "Michelle", last: "Cook",
+    title: "OEC Ombudsman",
+    email: "Michelle.Cook@ct.gov",
+    emailConf: "High",
+    phone: "860-996-0229",
+    address: "450 Columbus Blvd, Hartford, CT 06103",
+    notes: "OEC Ombudsman — good entry point for ECE provider questions.",
+    source: "https://www.ctoec.org/contact-us/contact-oec-staff/"
+  },
+  // LGPs
+  {
+    type: "lgp",
+    org: "Alliance for Bloomfield's Children (LGP)",
+    county: "Hartford",
+    first: "Gail", last: "Nolan",
+    title: "LGP Contact / Director",
+    email: "gnolan@blmfld.org",
+    emailConf: "High",
+    phone: "860-769-5518",
+    address: "Bloomfield, CT",
+    notes: "CT OEC Local Governance Partner (CCR&R regional equivalent). Serves Bloomfield.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  {
+    type: "lgp",
+    org: "Andover / Hebron / Lebanon LGP",
+    county: "Tolland",
+    first: "Teresa", last: "Surprenant",
+    title: "LGP Contact",
+    email: "TSurprenant@eastconn.org",
+    emailConf: "High",
+    phone: "",
+    address: "Eastern CT (EASTCONN)",
+    notes: "CT OEC LGP. Serves Andover, Hebron, Lebanon. Via EASTCONN regional education service center.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  {
+    type: "lgp",
+    org: "Ashford LGP",
+    county: "Windham",
+    first: "Irene", last: "Rowley",
+    title: "LGP Contact",
+    email: "irowley@ashfordct.org",
+    emailConf: "High",
+    phone: "860-487-4417",
+    address: "Ashford, CT",
+    notes: "CT OEC LGP. Serves Ashford.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  {
+    type: "lgp",
+    org: "Branford LGP",
+    county: "New Haven",
+    first: "Kerry", last: "Oberg",
+    title: "LGP Contact",
+    email: "koberg@uwgnh.org",
+    emailConf: "High",
+    phone: "203-691-4208",
+    address: "Branford, CT",
+    notes: "CT OEC LGP. Serves Branford. Contact via United Way of Greater New Haven.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  {
+    type: "lgp",
+    org: "Bridgeport LGP / Early Childhood",
+    county: "Fairfield",
+    first: "Camille", last: "Harris",
+    title: "LGP Contact / Early Childhood",
+    email: "charris@bridgeportedu.net",
+    emailConf: "High",
+    phone: "203-275-1082",
+    address: "Bridgeport, CT",
+    notes: "CT OEC LGP. Also linked to Bridgeport Public Schools ECE office. Good intro pathway to district.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  {
+    type: "lgp",
+    org: "Bristol LGP",
+    county: "Hartford",
+    first: "Donna", last: "Osuch",
+    title: "LGP Contact",
+    email: "donnaosuch@bristolct.gov",
+    emailConf: "High",
+    phone: "860-584-6254",
+    address: "Bristol, CT",
+    notes: "CT OEC LGP. Serves Bristol.",
+    source: "https://www.ctoec.org/local-governance-partners/contact-lgps/"
+  },
+  // Districts
+  {
+    type: "district",
+    org: "Hartford Public Schools",
+    county: "Hartford",
+    leaid: "0901230",
+    first: "Stacey", last: "Youmatz",
+    title: "District Lead for Early Childhood",
+    email: "",
+    emailConf: "Low",
+    phone: "",
+    address: "960 Main Street, Hartford, CT 06103",
+    notes: "Email domain @hartfordschools.org confirmed (partial mask via ZoomInfo). Email needed — check Apollo.io. Largest urban district in CT; dedicated ECE dept.",
+    source: "https://www.hartfordschools.org/page/early-childhood-education/"
+  },
+  {
+    type: "district",
+    org: "New Haven Public Schools",
+    county: "New Haven",
+    leaid: "0900210",
+    first: "Vanessa", last: "Diaz-Valencia",
+    title: "Director of Early Learning Programs",
+    email: "Vanessa.Diaz-Valencia@new-haven.k12.ct.us",
+    emailConf: "High",
+    phone: "475-220-1794",
+    address: "54 Meadow Street, New Haven, CT 06519",
+    notes: "Dedicated Office of Early Childhood. 2nd contact: Pamela Ng, Early Childhood Enrollment Coordinator, 475-220-1440.",
+    source: "https://www.nhps.net/page/office-of-early-childhood"
+  },
+  {
+    type: "district",
+    org: "New Haven Public Schools",
+    county: "New Haven",
+    leaid: "0900210",
+    first: "Pamela", last: "Ng",
+    title: "Early Childhood Enrollment Coordinator",
+    email: "",
+    emailConf: "Low",
+    phone: "475-220-1440",
+    address: "54 Meadow Street, New Haven, CT 06519",
+    notes: "Email partially masked via ZoomInfo. Check Apollo.io. Secondary contact; primary is Vanessa Diaz-Valencia.",
+    source: "https://www.nhps.net/page/office-of-early-childhood"
+  },
+  {
+    type: "district",
+    org: "Bridgeport Public Schools",
+    county: "Fairfield",
+    leaid: "0900030",
+    first: "Lindsay", last: "Davis",
+    title: "Director of Early Childhood",
+    email: "",
+    emailConf: "Low",
+    phone: "",
+    address: "45 Lyon Terrace, Bridgeport, CT 06604",
+    notes: "2024-2025 Director per district leadership page. Email not public — check Apollo.io (domain: bridgeportedu.net). LGP contact Camille Harris (charris@bridgeportedu.net, 203-275-1082) can facilitate.",
+    source: "https://www.bridgeportedu.net/academics/early-childhood/early-childhood"
+  },
+  {
+    type: "district",
+    org: "Waterbury Public Schools",
+    county: "New Haven",
+    leaid: "0901980",
+    first: "Maureen", last: "Bergin",
+    title: "Supervisor, Office of Early Childhood",
+    email: "",
+    emailConf: "Low",
+    phone: "203-574-8024",
+    address: "236 Grand Street, Waterbury, CT 06702",
+    notes: "ECE office at 30B Church Street, Waterbury, CT 06702. Email not listed on district site — check Apollo.io. Multiple PreK sites across district.",
+    source: "https://www.waterbury.k12.ct.us/schools/early-education"
+  },
+  {
+    type: "district",
+    org: "Meriden Public Schools",
+    county: "New Haven",
+    leaid: "0901290",
+    first: "Rhonda", last: "Knight",
+    title: "Early Start / Early Childhood Coordinator",
+    email: "rknight@meridenct.gov",
+    emailConf: "High",
+    phone: "",
+    address: "22 Liberty Street, Meriden, CT 06450",
+    notes: "Meriden School Readiness / Early Start program. Email confirmed via city of Meriden website.",
+    source: "https://www.meridenct.gov/city-services/social-services/meriden-school-readiness/"
+  },
+  {
+    type: "district",
+    org: "Norwalk Public Schools",
+    county: "Fairfield",
+    leaid: "0901470",
+    first: "Carol", last: "Carrozelli",
+    title: "School Readiness Coordinator",
+    email: "carrozellic@norwalkps.org",
+    emailConf: "High",
+    phone: "203-854-4114",
+    address: "23 Dickens Street, Norwalk, CT 06851",
+    notes: "Norwalk Early Childhood Center (NECC) — state-of-the-art facility opened 2016. 2nd contact: Johanna Valencia, Office Assistant, 203-854-4113.",
+    source: "https://www.norwalkps.org/academics/curriculum/early-childhood"
+  },
+  {
+    type: "district",
+    org: "Danbury Public Schools",
+    county: "Fairfield",
+    leaid: "0901020",
+    first: "", last: "",
+    title: "School Readiness Program (contact TBD)",
+    email: "",
+    emailConf: "",
+    phone: "203-797-4995",
+    address: "63 Beaver Brook Road, Danbury, CT 06810",
+    notes: "Program at 17 Cottage Street, Danbury, CT 06810. No named director found publicly. Call 203-797-4995 or check Apollo.io. NAEYC accredited program.",
+    source: "https://sites.google.com/danbury.k12.ct.us/schoolreadiness/home"
+  }
+];
+
+let currentFilter = "all";
+let currentSearch = "";
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+function applySearch() {
+  currentSearch = document.getElementById("search-input").value.toLowerCase();
+  render();
+}
+
+function clearFilters() {
+  currentFilter = "all";
+  currentSearch = "";
+  document.getElementById("search-input").value = "";
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('[data-filter="all"]').classList.add("active");
+  render();
+}
+
+function makeCard(c) {
+  const tagClass = { oec: "tag-oec", lgp: "tag-lgp", district: "tag-dist" }[c.type];
+  const tagLabel = { oec: "🏛 OEC State", lgp: "🌐 CCR&R / LGP", district: "🏫 District" }[c.type];
+  const name = (c.first || c.last) ? `${c.first} ${c.last}`.trim() : "(Name TBD)";
+  const emailHtml = c.email
+    ? `<a class="email-link" href="mailto:${c.email}">${c.email}</a><span class="conf-badge conf-${c.emailConf.toLowerCase()}">${c.emailConf}</span>`
+    : `<span class="no-email">Email needed — check Apollo.io</span>`;
+
+  const leaid = c.leaid ? `<div class="card-row"><span class="card-icon">🆔</span> LEAID: ${c.leaid}</div>` : "";
+  const phone = c.phone ? `<div class="card-row"><span class="card-icon">📞</span> ${c.phone}</div>` : "";
+  const addr  = c.address ? `<div class="card-row"><span class="card-icon">📍</span> ${c.address}</div>` : "";
+
+  return `
+    <div class="card" data-type="${c.type}">
+      <span class="card-tag ${tagClass}">${tagLabel}</span>
+      <span class="county-chip">${c.county} County</span>
+      <div style="margin-top:8px">
+        <div class="card-org">${c.org}</div>
+        <div class="card-name">${name}</div>
+        <div class="card-title">${c.title}</div>
+      </div>
+      <div class="card-row"><span class="card-icon">✉️</span>${emailHtml}</div>
+      ${phone}
+      ${addr}
+      ${leaid}
+      ${c.notes ? `<div class="note-box">${c.notes}</div>` : ""}
+    </div>`;
+}
+
+function render() {
+  const container = document.getElementById("cards-container");
+  let filtered = contacts.filter(c => {
+    const matchFilter = currentFilter === "all" || c.type === currentFilter;
+    const hay = [c.org, c.first, c.last, c.title, c.email, c.county, c.phone, c.notes].join(" ").toLowerCase();
+    const matchSearch = !currentSearch || hay.includes(currentSearch);
+    return matchFilter && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state">No contacts match your filters.</div>';
+    return;
+  }
+
+  // Group by type
+  const groups = [
+    { key: "oec",      label: "CT Office of Early Childhood — State Leadership",  dot: "dot-oec" },
+    { key: "lgp",      label: "Local Governance Partners (CCR&R Regional Contacts)", dot: "dot-lgp" },
+    { key: "district", label: "District-Level ECE Directors & Coordinators",         dot: "dot-dist" }
+  ];
+
+  let html = "";
+  groups.forEach(g => {
+    const items = filtered.filter(c => c.type === g.key);
+    if (!items.length) return;
+    html += `<div class="section">
+      <div class="section-title"><span class="dot ${g.dot}"></span>${g.label} <span style="font-weight:400;color:#9ca3af;margin-left:4px">(${items.length})</span></div>
+      <div class="cards">${items.map(makeCard).join("")}</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+
+  // Update stats
+  document.getElementById("total-count").textContent = filtered.length;
+  document.getElementById("email-count").textContent = filtered.filter(c => c.email).length;
+  document.getElementById("lgp-count").textContent = filtered.filter(c => c.type === "lgp").length;
+  document.getElementById("dist-count").textContent = filtered.filter(c => c.type === "district").length;
+}
+
+render();
+</script>
+</body>
+</html>

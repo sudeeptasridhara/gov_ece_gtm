@@ -244,6 +244,8 @@ const STATE_REP_EMAIL = {
   CA: "eric.bernstein@mybrightwheel.com",
   OR: "eric.bernstein@mybrightwheel.com",
   WA: "eric.bernstein@mybrightwheel.com",
+  // Christie Cooley (Northeast expansion)
+  CT: "christie.cooley@mybrightwheel.com",
 };
 
 // State 2-letter code → full name as it appears in the district intelligence sheet
@@ -487,7 +489,7 @@ function generateEmail(district, template, rep) {
   const contact = resolveContact(district, template);
 
   const stateCode = district.state || "FL";
-  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado" };
+  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado", CT: "Connecticut" };
   const stateName = STATE_NAMES[stateCode] || stateCode;
 
   const isSummerBridgeTemplate = template === "summerBridge" || template === "summerBridgeShort";
@@ -621,7 +623,7 @@ function generateEmailFromOverride(override, district, rep) {
   const greetingName = (isSB && district.summerBridgeContact)
     ? district.summerBridgeContact.firstName
     : (district.contactEdits?.director ?? district.director).split(" ")[0];
-  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado" };
+  const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado", CT: "Connecticut" };
   const stateName = STATE_NAMES[district.state || "FL"] || district.state || "FL";
   const shortName = district.district.includes(" — ") ? district.district.split(" — ").slice(1).join(" — ") : district.district;
   const calendlyHtml = r && r.calendly ? ea(r.calendly, "Schedule time with me →") : "Happy to find a time — just reply and we can schedule a quick connect.";
