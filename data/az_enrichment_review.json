@@ -1,0 +1,29 @@
+{
+  "discrepancies": [
+    {
+      "id": 10297,
+      "district": "Maricopa Unified School District",
+      "field": "email",
+      "existing": "ebrasher@musd20.org",
+      "scraped": "wwatson@musd20.org"
+    },
+    {
+      "id": 10363,
+      "district": "Superior Unified School District",
+      "field": "director",
+      "existing": "Stephen Estatico",
+      "scraped": "William Duarte",
+      "replacement_recommended": true,
+      "notes": "Stephen Estatico (existing director) RESIGNED effective Jan 1, 2026 and moved to Pima USD. William Duarte (former Superior Jr/Sr High Principal/AD) assumed interim superintendent role on Jan 1, 2026. Email at @superiorusd.org confirmed for Duarte but format masked in public sources (likely bduarte@superiorusd.org). Very small district (335 students)."
+    }
+  ],
+  "replacement_recommended": [
+    {
+      "id": 10363,
+      "district": "Superior Unified School District",
+      "existing_director": "Stephen Estatico",
+      "scraped_director": "William Duarte",
+      "notes": "Stephen Estatico (existing director) RESIGNED effective Jan 1, 2026 and moved to Pima USD. William Duarte (former Superior Jr/Sr High Principal/AD) assumed interim superintendent role on Jan 1, 2026. Email at @superiorusd.org confirmed for Duarte but format masked in public sources (likely bduarte@superiorusd.org). Very small district (335 students)."
+    }
+  ]
+}
