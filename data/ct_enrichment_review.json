@@ -1,0 +1,63 @@
+{
+  "discrepancies": [
+    {
+      "id": 12156,
+      "district": "South Windsor School District",
+      "field": "director",
+      "existing": "Tracie Peterson",
+      "scraped": "Tracie D. Peterson",
+      "replacement_recommended": false,
+      "notes": "Existing director confirmed. Oversees curriculum K-12 including the Preschool Outreach Program (POP) and Learning Center Preschool. South Windsor email format is firstname.lastname@southwindsorschools.org per district staff resources page."
+    },
+    {
+      "id": 12169,
+      "district": "Tolland School District",
+      "field": "director",
+      "existing": "Susan Fergusson",
+      "scraped": "Carolyn Tyl",
+      "replacement_recommended": true,
+      "notes": "REPLACEMENT: Existing director_existing 'Susan Fergusson, Assistant Superintendent' appears INCORRECT - Susan Fergusson is at Torrington Public Schools (per LinkedIn/RocketReach), not Tolland. Tolland's actual Director of Curriculum and Instruction is Carolyn Tyl (per RocketReach/LinkedIn). Tolland Superintendent is Walter Willett, Ph.D. Email inferred from confirmed Tolland pattern [first initial][last]@tolland.k12.ct.us (e.g., tpoland, tmccluskey, jpalumbo)."
+    },
+    {
+      "id": 12173,
+      "district": "Vernon School District",
+      "field": "director",
+      "existing": "Robert Testa",
+      "scraped": "Carole Kerkin",
+      "replacement_recommended": true,
+      "notes": "Replacement recommended over input record. Input listed Robert Testa (Asst Superintendent, rtesta@vernon-ct.gov), but Carole Kerkin is the actual dedicated Pre-School Program Coordinator at Vernon's Central Office and is a better-fit ECE persona match."
+    },
+    {
+      "id": 12185,
+      "district": "Willington School District",
+      "field": "director",
+      "existing": "Elizabeth Bumgardner",
+      "scraped": "Marcia McGinley",
+      "replacement_recommended": true,
+      "notes": "Replacement recommended: Input lists 'Elizabeth Bumgardner' as Willington Director of Early Childhood Center, but Bumgardner actually works at Windham Public Schools (Director of Windham Early Childhood Center, e***@windhamps.org), NOT Willington. Willington has no dedicated ECE director; the AM Pre-K program at Center Elementary is overseen by Marcia McGinley as Director of Pupil Services. Email pattern @willingtonct.org per ZoomInfo (m***@willingtonct.org)."
+    }
+  ],
+  "replacement_recommended": [
+    {
+      "id": 12169,
+      "district": "Tolland School District",
+      "existing_director": "Susan Fergusson",
+      "scraped_director": "Carolyn Tyl",
+      "notes": "REPLACEMENT: Existing director_existing 'Susan Fergusson, Assistant Superintendent' appears INCORRECT - Susan Fergusson is at Torrington Public Schools (per LinkedIn/RocketReach), not Tolland. Tolland's actual Director of Curriculum and Instruction is Carolyn Tyl (per RocketReach/LinkedIn). Tolland Superintendent is Walter Willett, Ph.D. Email inferred from confirmed Tolland pattern [first initial][last]@tolland.k12.ct.us (e.g., tpoland, tmccluskey, jpalumbo)."
+    },
+    {
+      "id": 12173,
+      "district": "Vernon School District",
+      "existing_director": "Robert Testa",
+      "scraped_director": "Carole Kerkin",
+      "notes": "Replacement recommended over input record. Input listed Robert Testa (Asst Superintendent, rtesta@vernon-ct.gov), but Carole Kerkin is the actual dedicated Pre-School Program Coordinator at Vernon's Central Office and is a better-fit ECE persona match."
+    },
+    {
+      "id": 12185,
+      "district": "Willington School District",
+      "existing_director": "Elizabeth Bumgardner",
+      "scraped_director": "Marcia McGinley",
+      "notes": "Replacement recommended: Input lists 'Elizabeth Bumgardner' as Willington Director of Early Childhood Center, but Bumgardner actually works at Windham Public Schools (Director of Windham Early Childhood Center, e***@windhamps.org), NOT Willington. Willington has no dedicated ECE director; the AM Pre-K program at Center Elementary is overseen by Marcia McGinley as Director of Pupil Services. Email pattern @willingtonct.org per ZoomInfo (m***@willingtonct.org)."
+    }
+  ]
+}
