@@ -891,18 +891,56 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
         )}
       </div>
 
-      {/* ── ISD Contact (shown when district has no direct contact but is ISD-covered) ── */}
-      {district.isdContactEmail && (
+      {/* ── ISD Contact (shown when district is ISD-covered) ── */}
+      {(district.isdCoveredBy || district.isdContactEmail) && !district.isLeaParent && (
         <div className="rounded-xl border border-teal-200 bg-teal-50/20 overflow-hidden">
-          <div className="px-4 py-2.5 bg-teal-50 border-b border-teal-100 flex items-center justify-between">
-            <span className="text-xs font-semibold text-teal-700">🏫 ISD Contact — {district.isdCoveredBy}</span>
-            <span className="text-xs text-teal-500 italic">Covers this district</span>
+          <div className="px-4 py-2.5 bg-teal-50 border-b border-teal-100 flex items-center justify-between gap-2 flex-wrap">
+            <span className="text-xs font-semibold text-teal-700">🏫 Parent ISD — {district.isdCoveredBy}</span>
+            {district.isdParentId && (
+              <button
+                onClick={() => {
+                  const parent = districts.find(x => x.id === district.isdParentId);
+                  if (parent) { setSelectedDistrict(parent); setModalTab("overview"); }
+                }}
+                className="text-xs bg-teal-600 hover:bg-teal-700 text-white px-2 py-1 rounded-full font-medium"
+                title={`Open the ${district.isdCoveredBy} parent record`}
+              >View ISD profile →</button>
+            )}
           </div>
           <div className="px-4 py-3 space-y-1.5">
             <ContactField label="Name" value={district.isdContactName} />
             <ContactField label="Title" value={district.isdContactTitle} />
             <ContactField label="Email" value={district.isdContactEmail} href={district.isdContactEmail ? `mailto:${district.isdContactEmail}` : null} />
             <ContactField label="Phone" value={district.isdContactPhone} />
+          </div>
+        </div>
+      )}
+
+      {/* ── Member Districts (shown when this record IS an ISD parent) ── */}
+      {district.isLeaParent && (district.memberDistrictIds || []).length > 0 && (
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/20 overflow-hidden">
+          <div className="px-4 py-2.5 bg-indigo-50 border-b border-indigo-100 flex items-center justify-between gap-2 flex-wrap">
+            <span className="text-xs font-semibold text-indigo-700">🏫 Member Districts ({(district.memberDistrictIds || []).length})</span>
+            <span className="text-xs text-indigo-500 italic">{(district.countiesServed || []).join(", ") || "Multiple counties"}</span>
+          </div>
+          <div className="max-h-64 overflow-y-auto divide-y divide-indigo-100">
+            {(district.memberDistrictIds || []).map(memberId => {
+              const m = districts.find(x => x.id === memberId);
+              if (!m) return null;
+              const distName = m.district.includes(" — ") ? m.district.split(" — ").slice(1).join(" — ") : m.district;
+              return (
+                <div key={memberId} className="flex items-center justify-between px-4 py-2 hover:bg-indigo-50 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-medium text-gray-800 truncate">{distName}</div>
+                    <div className="text-xs text-gray-400 truncate">{m.director || "no director"} · {m.email || "no email"}</div>
+                  </div>
+                  <button
+                    onClick={() => { setSelectedDistrict(m); setModalTab("overview"); }}
+                    className="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-2 py-1 rounded ml-2 flex-shrink-0"
+                  >View →</button>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
