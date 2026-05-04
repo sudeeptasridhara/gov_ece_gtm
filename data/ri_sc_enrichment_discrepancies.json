@@ -1,0 +1,20 @@
+[
+  {
+    "id": 20412,
+    "state": "RI",
+    "district": "Lincoln",
+    "field": "director",
+    "existing": "Lynn Fagan",
+    "scraped": "Kathy McDonald",
+    "notes": "Listed in RIDE 2022-23 ECSE Contacts directory at 1624 Lonsdale Ave. Existing director_existing in input (Lynn Fagan) appears to be Massachusetts data \u2014 replaced with confirmed RI contact. Director of Student Services is Jessica Hassell if higher-level contact needed."
+  },
+  {
+    "id": 20415,
+    "state": "RI",
+    "district": "Narragansett",
+    "field": "director",
+    "existing": "Terry LaBonte",
+    "scraped": "Jill Hague",
+    "notes": "Listed in RIDE ECSE contacts and on Narragansett School System staff directory at 25 Fifth Ave. Replaces existing director (Terry LaBonte / 978 area code Massachusetts data) in input file."
+  }
+]
