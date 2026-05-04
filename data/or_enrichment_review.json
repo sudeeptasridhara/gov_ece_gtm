@@ -1,0 +1,96 @@
+{
+  "discrepancies": [],
+  "replacement_recommended": [
+    {
+      "id": 511,
+      "district": "OR \u2014 Eugene School District 4J",
+      "existing_director": "Director TBD",
+      "scraped_director": "Gretta Sagolla",
+      "notes": "Existing record listed 'Director TBD' - Gretta Sagolla is the District Family Involvement and Early Learning Coordinator (TOSA) at Eugene 4J. Email pattern lastname_firstinitial@4j.lane.edu inferred from district pattern; needs Apollo confirmation. Dr. Miriam Mickelson is the new superintendent (started July 1, 2025) if higher-level contact needed."
+    },
+    {
+      "id": 514,
+      "district": "OR \u2014 Greater Albany Public Schools",
+      "existing_director": "Director TBD",
+      "scraped_director": "Krista McGuyer",
+      "notes": "GAPS Child Development Program (preschool at South Shore, Sunrise, Tangent, Waverly) is administered through Special Programs. Dr. Krista McGuyer is Director of Special Programs. Existing record had 'Director TBD' for 'Child Development Program Director' \u2014 recommending McGuyer as the de facto decision-maker. ZoomInfo confirms email starts with 'k' at @albany.k12.or.us; pattern firstname.lastname is common in Oregon districts but not 100% verified for GAPS."
+    },
+    {
+      "id": 515,
+      "district": "OR \u2014 West Linn-Wilsonville School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Lori Prater",
+      "notes": "Existing record had Director TBD; Lori Prater identified via LinkedIn as Early Childhood Coordinator at WLWV. Email inferred from confirmed district pattern lastname+firstinitial@wlwv.k12.or.us (e.g., walderns@wlwv.k12.or.us for Director of HR). Replacement of TBD placeholder."
+    },
+    {
+      "id": 516,
+      "district": "OR \u2014 Centennial School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Kendra Hughes",
+      "notes": "Existing record listed 'Director TBD' - Kendra Hughes confirmed as Early Learning Administrator on official district staff directory. District is a Preschool for All Pilot Site (2023+) with new preschool classrooms at Parklane and Pleasant Valley Elementaries."
+    },
+    {
+      "id": 524,
+      "district": "OR \u2014 Silver Falls School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Jennifer Hannan",
+      "notes": "Silver Falls does not have a dedicated 'Early Learning Coordinator' as listed in existing data. Jennifer Hannan serves as Director of Teaching and Learning (formerly Curriculum Director) and is the primary curriculum/instruction decision-maker. Email pattern lastname_firstname@silverfalls.k12.or.us is confirmed via Kimberly Kellison (superintendent) and Anthony Rosilez (rosilez_anthony) entries on ZoomInfo."
+    },
+    {
+      "id": 525,
+      "district": "OR \u2014 Eagle Point School District 9",
+      "existing_director": "Director TBD",
+      "scraped_director": "Valerie Cordle-Shehorn",
+      "notes": "Existing record had Director TBD; Valerie Cordle-Shehorn confirmed in current role. Email follows lastname+firstinitial pattern at eaglepnt.k12.or.us."
+    },
+    {
+      "id": 529,
+      "district": "OR \u2014 Lincoln County School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Sandy Mummey",
+      "notes": "Existing record had 'Director TBD' as Preschool Program Coordinator. Sandy Mummey, Director of Elementary Education, is the senior administrator overseeing elementary curriculum (which includes preschool/early learning programs). Email confirmed via multiple sources with @lincoln.k12.or.us domain."
+    },
+    {
+      "id": 534,
+      "district": "OR \u2014 Molalla River School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Tony Mann",
+      "notes": "District (~2,572 students) does not appear to have a dedicated ECE/preschool director. Superintendent Tony Mann, D.Ed. serves as primary decision-maker. Email pattern is firstname.lastname@molallariv.k12.or.us based on standard Oregon K-12 conventions; not directly verified."
+    },
+    {
+      "id": 536,
+      "district": "OR \u2014 Sweet Home School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Barbi Riggs",
+      "notes": "Existing record listed 'Director TBD' for Early Childhood Education Director - district has no dedicated ECE director; Barbi Riggs is Director of Teaching & Learning (curriculum lead) and is the closest persona match. Email pattern firstname.lastname@sweethome.k12.or.us inferred (ZoomInfo confirms sweethome.k12.or.us domain)."
+    },
+    {
+      "id": 539,
+      "district": "OR \u2014 North Santiam School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Lee Loving",
+      "notes": "District expanded preschool program via Preschool Promise grant; no dedicated preschool coordinator found publicly. Superintendent Lee Loving is primary decision-maker. Communications email is communications@nsantiam.k12.or.us. Email confirmed via ZoomInfo masked pattern matches nsantiam.k12.or.us domain."
+    },
+    {
+      "id": 541,
+      "district": "OR \u2014 Astoria School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Stephanie Sparks",
+      "notes": "Existing record listed 'Director TBD' for Preschool Coordinator (via NWRESD). Astoria District itself uses Stephanie Sparks as Curriculum/Instructional Support Director - she oversees curriculum, Title I, TAG. NWRESD Early Learning Hub coordinates regional preschool. ZoomInfo lists ssparks@astoria.k12.or.us; one news source listed astoriak12.org variant - verify before sending."
+    },
+    {
+      "id": 544,
+      "district": "OR \u2014 Brookings-Harbor School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Helena Chirinian",
+      "notes": "District (~1,328 students) does not have a dedicated Early Childhood Education Director as listed in existing data. Helena Johansson-Chirinian became superintendent July 1, 2023. Email confirmed to start with 'h' at @brookings.k12.or.us. Pattern firstinitiallastname is common; alternative could be helena.chirinian@brookings.k12.or.us."
+    },
+    {
+      "id": 545,
+      "district": "OR \u2014 Winston-Dillard School District",
+      "existing_director": "Director TBD",
+      "scraped_director": "Kevin Wilson",
+      "notes": "Existing record had Director TBD for Preschool Coordinator. Winston-Dillard is a small district (~1,318 students) with no dedicated preschool coordinator surfaced; Superintendent Kevin Wilson is the appropriate ECE decision-maker. Email pattern lastname+firstinitial@wdsd.org confirmed."
+    }
+  ]
+}
