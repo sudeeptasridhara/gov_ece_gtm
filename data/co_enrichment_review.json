@@ -1,0 +1,70 @@
+{
+  "discrepancies": [
+    {
+      "id": 10195,
+      "district": "Adams County School District 14",
+      "field": "director",
+      "existing": "Karla Lor\u00eda",
+      "scraped": "Luciana Stokley",
+      "replacement_recommended": true,
+      "notes": "Replacing existing Superintendent contact (Karla Loria) with the dedicated ECE lead per persona priority. Stokley serves as preschool principal and Early Childhood Education Coordinator overseeing both Sanville Preschool and STARS Early Learning Center. Email inferred from Adams 14 standard format ([first_initial][last]@adams14.org, used by ~81% of staff per directory data); confirmed Karla Loria's email follows this pattern as kloria@adams14.org. Superintendent contact: kloria@adams14.org if backup needed."
+    },
+    {
+      "id": 10207,
+      "district": "Montezuma-Cortez School District RE-1",
+      "field": "director",
+      "existing": "Eddie Ramirez",
+      "scraped": "Andrea Martinez",
+      "replacement_recommended": true,
+      "notes": "Replacing Superintendent Eddie Ramirez with the dedicated preschool director per persona priority. Andrea Martinez is the Beech Street Pre-School Director. Email not visible in public listings. Backup: Superintendent Eddie Ramirez at eramirez@cortez.k12.co.us, 970-565-7282 ext 1115."
+    },
+    {
+      "id": 10213,
+      "district": "Moffat County School District RE-1",
+      "field": "director",
+      "existing": "Mathew Neal",
+      "scraped": "Stephanie Davis",
+      "replacement_recommended": true,
+      "notes": "Replacing existing Superintendent Mathew Neal with dedicated ECE lead per persona priority. Stephanie Davis is the building administrator for the Moffat County Early Childhood Center. Email inferred from Moffat email pattern firstname.lastname@moffatsd.org confirmed across superintendent (jill.hafey@moffatsd.org historically), board members, and other staff. Superintendent backup: mathew.neal@moffatsd.org."
+    },
+    {
+      "id": 10218,
+      "district": "Salida School District R-32J",
+      "field": "director",
+      "existing": "David Blackburn",
+      "scraped": "Theresa Gilson",
+      "replacement_recommended": true,
+      "notes": "Replacing existing Superintendent David Blackburn with the dedicated ECE Principal per persona priority. Gilson named SECC Principal for 2023-24 and continuing. Email confirmed via search results showing tgilson@salidaschools.org. Superintendent backup: dblackburn@salidaschools.org."
+    }
+  ],
+  "replacement_recommended": [
+    {
+      "id": 10195,
+      "district": "Adams County School District 14",
+      "existing_director": "Karla Lor\u00eda",
+      "scraped_director": "Luciana Stokley",
+      "notes": "Replacing existing Superintendent contact (Karla Loria) with the dedicated ECE lead per persona priority. Stokley serves as preschool principal and Early Childhood Education Coordinator overseeing both Sanville Preschool and STARS Early Learning Center. Email inferred from Adams 14 standard format ([first_initial][last]@adams14.org, used by ~81% of staff per directory data); confirmed Karla Loria's email follows this pattern as kloria@adams14.org. Superintendent contact: kloria@adams14.org if backup needed."
+    },
+    {
+      "id": 10207,
+      "district": "Montezuma-Cortez School District RE-1",
+      "existing_director": "Eddie Ramirez",
+      "scraped_director": "Andrea Martinez",
+      "notes": "Replacing Superintendent Eddie Ramirez with the dedicated preschool director per persona priority. Andrea Martinez is the Beech Street Pre-School Director. Email not visible in public listings. Backup: Superintendent Eddie Ramirez at eramirez@cortez.k12.co.us, 970-565-7282 ext 1115."
+    },
+    {
+      "id": 10213,
+      "district": "Moffat County School District RE-1",
+      "existing_director": "Mathew Neal",
+      "scraped_director": "Stephanie Davis",
+      "notes": "Replacing existing Superintendent Mathew Neal with dedicated ECE lead per persona priority. Stephanie Davis is the building administrator for the Moffat County Early Childhood Center. Email inferred from Moffat email pattern firstname.lastname@moffatsd.org confirmed across superintendent (jill.hafey@moffatsd.org historically), board members, and other staff. Superintendent backup: mathew.neal@moffatsd.org."
+    },
+    {
+      "id": 10218,
+      "district": "Salida School District R-32J",
+      "existing_director": "David Blackburn",
+      "scraped_director": "Theresa Gilson",
+      "notes": "Replacing existing Superintendent David Blackburn with the dedicated ECE Principal per persona priority. Gilson named SECC Principal for 2023-24 and continuing. Email confirmed via search results showing tgilson@salidaschools.org. Superintendent backup: dblackburn@salidaschools.org."
+    }
+  ]
+}
