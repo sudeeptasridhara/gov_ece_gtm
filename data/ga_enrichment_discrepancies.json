@@ -1,0 +1,74 @@
+[
+  {
+    "id": 647,
+    "district": "Chatham County School District",
+    "field": "director",
+    "existing": "Julian Childers",
+    "scraped": "Amanda Drought",
+    "notes": "Replaced existing director (Julian Childers, Director of Secondary Curriculum) with the more relevant ECE-specific contact, Amanda Drought. SCCPSS email pattern is first.last@sccpss.com (75% of work emails per RocketReach)."
+  },
+  {
+    "id": 650,
+    "district": "Houston County School District",
+    "field": "director",
+    "existing": "Elgin Mayfield",
+    "scraped": "Sharon Eddy",
+    "notes": "Sharon Eddy is the Pre-K coordinator and is more directly aligned with ECE than Elgin Mayfield (Asst Supt of Teaching & Learning). Email inferred from confirmed first.last@hcbe.net format used by 55%+ of HCBE staff (e.g. elgin.mayfield@hcbe.net). Alternative ECE-relevant contact: Dr. Elgin Mayfield, elgin.mayfield@hcbe.net (Assistant Superintendent of Teaching and Learning)."
+  },
+  {
+    "id": 674,
+    "district": "Laurens County School System",
+    "field": "director",
+    "existing": "Otha Jermaine Hall",
+    "scraped": "Dr. Otha Jermaine Hall",
+    "notes": "Email confirmed only as o***@lcboe.net (masked on ZoomInfo); could not confirm format from another LCBOE staff member to infer with confidence."
+  },
+  {
+    "id": 683,
+    "district": "Gordon County School System",
+    "field": "director",
+    "existing": "Amanda",
+    "scraped": "Amanda Swift",
+    "notes": "Calhoun Early Learning Academy is part of Calhoun City Schools (geographically in Gordon County), not Gordon County School System. Amanda Swift transitioned to PreK Director/Principal in Spring 2024. Gordon County School System (gcbe.org) is a separate district; their PreK lead was not identified."
+  },
+  {
+    "id": 688,
+    "district": "Madison County School System",
+    "field": "director",
+    "existing": "Amanda Sailors",
+    "scraped": "Dr. Amanda Sailors",
+    "notes": "Email confirmed via secondary source (ZoomInfo cache showing asailors@madison.k12.ga.us). District uses mixed patterns; both lastnameinitial+last and first.last in use (christy.epps and sdickens both confirmed)."
+  },
+  {
+    "id": 872,
+    "district": "GA \u2014 Early County Schools",
+    "field": "director",
+    "existing": "Jill McFay",
+    "scraped": "Greg McFay",
+    "notes": "Original input had Jill McFay (an Instructional Coach, not Director). Greg McFay is the actual ECLOA Director and serves as primary early childhood decision-maker. Email confirmed via ZoomInfo."
+  },
+  {
+    "id": 874,
+    "district": "GA \u2014 Putnam County Schools",
+    "field": "director",
+    "existing": "Queen Oliver",
+    "scraped": "Laura W. France",
+    "notes": "Title confirmed on Putnam County Charter School System leadership page. Existing director_existing 'Queen Oliver, Education Director' references the Putnam County Head Start (Pre-K), which is a separate Head Start agency rather than the district's curriculum lead; using Assistant Superintendent France as district-level decision-maker. Email inferred from typical pattern; needs verification."
+  },
+  {
+    "id": 875,
+    "district": "GA \u2014 Wilkinson County Schools",
+    "field": "director",
+    "existing": "Chiquita Geter",
+    "scraped": "Dr. Chiquita Geter",
+    "notes": "Email confirmed on Wilkinson County Special Education page. Role oversees Preschool Exceptional Children (PEC) so qualifies as ECE-adjacent in absence of dedicated district ECE director."
+  },
+  {
+    "id": 877,
+    "district": "GA \u2014 Meriwether County Schools",
+    "field": "director",
+    "existing": "Monica McDaniel",
+    "scraped": "Dr. Monica McDaniel",
+    "notes": "Email confirmed via official MCSS source; oversees P-5 curriculum including PreK."
+  }
+]
