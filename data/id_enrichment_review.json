@@ -1,0 +1,82 @@
+{
+  "discrepancies": [],
+  "replacement_recommended": [
+    {
+      "id": 309,
+      "district": "Bonneville Joint District #93",
+      "existing_director": "Jason Lords",
+      "scraped_director": "Jason Lords",
+      "notes": "Title in input was 'Director of Special Services / Early Intervention' but Jason Lords is actually Executive Director of Instruction & Learning at D93 (curriculum/teaching & learning is the right ECE persona for ID). Email inferred from district pattern [last][first_initial]@d93schools.org (64.5% pattern per RocketReach) \u2014 confirmed multiple admins use this format."
+    },
+    {
+      "id": 316,
+      "district": "Post Falls District #273",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Scott Ross",
+      "notes": "Scott Ross is Assistant Superintendent of Elementary; designated Federal Programs Compliance Officer (Title I/preschool route). Email pattern at sd273.com is first.last@sd273.com (e.g., kristi.barnhart@sd273.com)."
+    },
+    {
+      "id": 317,
+      "district": "Lewiston Independent District #340",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Jennifer Gomez",
+      "notes": "Email confirmed on official district page; also serves as Principal of Orchards Elementary. Idaho's 2025 National Distinguished Principal. Strong fit for early learning curriculum decisions."
+    },
+    {
+      "id": 320,
+      "district": "Kuna Joint District #3",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Kevin Gifford",
+      "notes": "Kevin Gifford confirmed as Director of Curriculum, Instruction and Assessment. Inferred via Kuna's primary email pattern flast@kunaschools.org (used 85.5% of the time)."
+    },
+    {
+      "id": 325,
+      "district": "Cassia Joint District #151",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Sandra Miller",
+      "notes": "Sandra (Sandy) Miller is the District Curriculum Director at Cassia County School District. Email surfaced via third-party directory."
+    },
+    {
+      "id": 329,
+      "district": "Jerome Joint District #261",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Kim Lickley",
+      "notes": "Kim Lickley listed as Federal Programs Director on Jerome SD website; oversees Title I-A and PreK-aligned funding. Email confirmed."
+    },
+    {
+      "id": 333,
+      "district": "Blaine County District #61",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Angie Martinez",
+      "notes": "Angie Martinez confirmed as Director of Curriculum, Teaching & Learning. Inferred from Blaine's flast@blaineschools.org pattern (used ~84.5% of the time)."
+    },
+    {
+      "id": 341,
+      "district": "Teton County District #401",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Angie Godfrey",
+      "notes": "Angie Godfrey listed as Curriculum Director for Teton SD401. Email inferred from staff pattern flast@d401.k12.id.us (e.g., malles@d401.k12.id.us)."
+    },
+    {
+      "id": 375,
+      "district": "Prairie Elementary District #191",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "",
+      "notes": "Tiny K-8 elementary-only district in Prairie, ID (Elmore County, NOT Cottonwood). Phone listed in input (208-962-3274) is wrong - that's Cottonwood JSD #242. Correct phone is 208-868-3243; address is 73 Smith Creek Road, Prairie, ID 83647. Historical superintendent was Troy J. Thayne; current superintendent/principal name not surfaced via web search. Recommend direct outreach to district office."
+    },
+    {
+      "id": 419,
+      "district": "South Lemhi District #292",
+      "existing_director": "Director of Early Childhood Education",
+      "scraped_director": "Shane Johnston",
+      "notes": "Dr. Shane Johnston named new superintendent August 2024 (per district announcement). However, per Idaho Ed News, he left in 2025 and Shane Matson stepped in with remote assistance from Heather Williams - leadership may be in transition. District email domain @leadoreschool.org confirmed (e.g., kpramsey@leadoreschool.org). Specific email for Johnston not surfaced."
+    },
+    {
+      "id": 12227,
+      "district": "CASSIA COUNTY JOINT DISTRICT",
+      "existing_director": "",
+      "scraped_director": "Sandra Miller",
+      "notes": "Sandra Miller is current Superintendent (39-year educator) but retiring end of 2025-26 school year; Dr. Scott Root selected as successor effective July 2026. Email format milsandr@cassiaschools.org per ZoomInfo + standard pattern. Given today's date (May 2026), Miller may still be in role or transitioning. Consider routing future outreach to Scott Root."
+    }
+  ]
+}
