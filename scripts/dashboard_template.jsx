@@ -483,6 +483,20 @@ function resolveContact(district, template) {
   };
 }
 
+// Returns the correct salutation name for a contact.
+// If the stored director name begins with "Dr." or "Dr ", uses "Dr. [Last Name]".
+// Otherwise returns the first name (first token of the full name).
+function getSalutationName(fullName) {
+  if (!fullName) return "there";
+  const trimmed = fullName.trim();
+  const drMatch = trimmed.match(/^Dr\.?\s+(.+)/i);
+  if (drMatch) {
+    const rest = drMatch[1].trim().split(/\s+/);
+    return "Dr. " + rest[rest.length - 1]; // last token = last name
+  }
+  return trimmed.split(/\s+/)[0];
+}
+
 function generateEmail(district, template, rep) {
   // Use the explicitly passed rep (may be null = not logged in → generic signature)
   const r = rep !== undefined ? rep : null;
@@ -498,7 +512,7 @@ function generateEmail(district, template, rep) {
     greetingName = district.summerBridgeContact.firstName;
   } else {
     // Use contactEdits.director when available (reflects Make Primary and manual edits)
-    greetingName = (district.contactEdits?.director ?? district.director).split(" ")[0];
+    greetingName = getSalutationName(district.contactEdits?.director ?? district.director);
   }
   const helloGreeting = ep(`Hello ${greetingName},`);
   const hiGreeting    = ep(`Hi ${greetingName},`);
@@ -622,7 +636,7 @@ function generateEmailFromOverride(override, district, rep) {
   const isSB = override._templateKey === "summerBridge" || override._templateKey === "summerBridgeShort";
   const greetingName = (isSB && district.summerBridgeContact)
     ? district.summerBridgeContact.firstName
-    : (district.contactEdits?.director ?? district.director).split(" ")[0];
+    : getSalutationName(district.contactEdits?.director ?? district.director);
   const STATE_NAMES = { FL: "Florida", AL: "Alabama", ID: "Idaho", NV: "Nevada", CA: "California", OR: "Oregon", NM: "New Mexico", GA: "Georgia", MI: "Michigan", WA: "Washington", AZ: "Arizona", UT: "Utah", CO: "Colorado", CT: "Connecticut" };
   const stateName = STATE_NAMES[district.state || "FL"] || district.state || "FL";
   const shortName = district.district.includes(" — ") ? district.district.split(" — ").slice(1).join(" — ") : district.district;
@@ -677,7 +691,7 @@ function generatePersonalizedEmail(district, rep) {
   if (!district.email) return "";
 
   const effectiveDirector = district.contactEdits?.director ?? district.director;
-  const greetingName = effectiveDirector.split(" ")[0];
+  const greetingName = getSalutationName(effectiveDirector);
   const hiGreeting = ep(`Hi ${greetingName},`);
   const calendlyLink = r && r.calendly
     ? ep(ea(r.calendly, "Schedule time with me →"))
