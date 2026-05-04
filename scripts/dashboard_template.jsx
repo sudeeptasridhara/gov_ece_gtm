@@ -246,6 +246,9 @@ const STATE_REP_EMAIL = {
   WA: "eric.bernstein@mybrightwheel.com",
   // Christie Cooley (Northeast expansion)
   CT: "christie.cooley@mybrightwheel.com",
+  NJ: "christie.cooley@mybrightwheel.com",
+  NY: "christie.cooley@mybrightwheel.com",
+  MA: "christie.cooley@mybrightwheel.com",
 };
 
 // State 2-letter code → full name as it appears in the district intelligence sheet
@@ -4510,7 +4513,7 @@ export default function BrightwheelDashboard() {
           const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "email_click" ? "bg-emerald-100 text-emerald-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
 
           const contactDistricts = districts.filter((d) => {
-            const matchSearch = !contactSearch || d.district.toLowerCase().includes(contactSearch.toLowerCase()) || d.director.toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
+            const matchSearch = !contactSearch || (d.district || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.director || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
             const matchState = contactFilterState === "all" || (d.state || "FL") === contactFilterState;
             const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
             return matchSearch && matchState && matchRep;
