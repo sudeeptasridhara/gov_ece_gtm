@@ -1101,6 +1101,7 @@ export default function BrightwheelDashboard() {
   const [filterBwStatus, setFilterBwStatus] = useState("all"); // "all" | "premium" | "free" | "no"
   const [filterEnrollment, setFilterEnrollment] = useState("all"); // "all" | "lt500" | "500to1k" | "1kto3k" | "3kplus"
   const [filterSize, setFilterSize]             = useState("all"); // "all" | "XL" | "Large" | "Medium" | "Small"
+  const [filterLevel, setFilterLevel]           = useState("all"); // "all" | "isd" | "district" — Michigan-style ISD vs. local LEA
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
@@ -3173,6 +3174,16 @@ export default function BrightwheelDashboard() {
   // Territories excluded from all views
   const TERRITORY_CODES = new Set(["AS","GU","PR","VI","MP","BI"]);
 
+  // Set of district ids that are themselves ISDs / RESAs / ESAs.
+  // A record is an ISD if (a) some other record points to it via isdParentId, or
+  // (b) it has an isdKey but no isdParentId — covers ISDs with no LEAs in our data.
+  const isdIds = useMemo(() => {
+    const refs = new Set();
+    districts.forEach(d => { if (d.isdParentId) refs.add(d.isdParentId); });
+    districts.forEach(d => { if (d.isdKey && !d.isdParentId) refs.add(d.id); });
+    return refs;
+  }, [districts]);
+
   // ── FILTERED + SORTED DISTRICTS ──
   const filtered = useMemo(() => {
     const results = districts.filter((d) => {
@@ -3208,7 +3219,11 @@ export default function BrightwheelDashboard() {
         (filterBwStatus === "any_hs"     && (d.bwStatus || "").includes("(HS)")) ||
         (filterBwStatus === "any_bw"     && !!d.bwStatus) ||
         (filterBwStatus === "no"         && !d.bwStatus);
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus;
+      const isIsd = isdIds.has(d.id);
+      const matchLevel = filterLevel === "all" ||
+        (filterLevel === "isd"      && isIsd) ||
+        (filterLevel === "district" && !isIsd);
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -3222,7 +3237,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, filterBwStatus, districtMeta]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, filterBwStatus, filterLevel, isdIds, districtMeta]);
 
   // ── PROSPECT ROWS (one row per contact) ──────────────────────────────────────
   const prospectRows = useMemo(() => {
@@ -4164,6 +4179,7 @@ export default function BrightwheelDashboard() {
                 />
                 {[
                   { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"], ...STATE_OPTIONS], style:{} },
+                  { label: "Level",      val: filterLevel,      setter: setFilterLevel,      opts: [["all","All Levels"],["isd","🏫 ISDs only"],["district","🏛️ Districts only"]], style:{} },
                   { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
                   { label: "Rep",        val: globalRepFilter,  setter: setGlobalRepFilter,  opts: [["all","All Reps"], ...Object.values(REP_PROFILES).map(r => [r.email, r.name])], style:{} },
