@@ -1,0 +1,26 @@
+{
+  "real_discrepancies": [],
+  "replacements_recommended": [
+    {
+      "id": 786,
+      "district": "Sumner-Bonney Lake School District",
+      "existing_director": "Pam Knapp",
+      "scraped_director": "Pam Knapp",
+      "notes": "WARNING: existing record lists Pam Knapp as Director of Early Childhood Programs, but multiple public sources (ZoomInfo, district transportation page) indicate Pam Knapp is the district's Director of Transportation, NOT early childhood. The actual Child Care/Preschool Director is Pam Stoner (pam_stoner@sumnersd.org). Recommend replacing with Pam Stoner. Could not confirm an email for Pam Knapp tied to early childhood."
+    },
+    {
+      "id": 939,
+      "district": "WA \u2014 Toppenish School District",
+      "existing_director": "Anastasia Sanchez",
+      "scraped_director": "Anastasia Sanchez",
+      "notes": "POSSIBLE ROLE TRANSITION: Anastasia Sanchez was sworn in as a Toppenish School Board Member (Director District 2) on Dec 15, 2025 (per Lynden/Yakima local press). She has historically served TSD as principal, federal programs director, and TELC director. It is unclear whether she still operates as TELC director alongside her new board role. Toppenish SD email pattern appears to be firstname.lastname@toppenish.wednet.edu. Recommend Eric verify before outreach. Toron Wooldridge is the new TSD Superintendent. ECEAP is operated through TELC."
+    },
+    {
+      "id": 22251,
+      "district": "Union Gap School District",
+      "existing_director": "",
+      "scraped_director": "Lisa Gredvig",
+      "notes": "Single-school PreK-8 district; ~640 students. Gredvig was scheduled to leave end of 2024 - likely replaced. Email may be inactive. Recommend verifying current superintendent before outreach."
+    }
+  ]
+}

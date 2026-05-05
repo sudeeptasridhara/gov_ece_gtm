@@ -205,5 +205,24 @@
       "Buying signal: Maine's 2026-27 4-year-old Special Ed transition (CDS-to-SAU) \u2014 Veazie is a Cohort 1 district; this is a strong outreach hook for ECE/SpEd Directors statewide.",
       "Plantations and unorganized territory entries (Glenwood Plt, Highland Plt, Upton, Woodville, Lowell, Pleasant Ridge Plt, etc.) often have no operating schools \u2014 flagged as not_found and likely not viable for outreach."
     ]
+  },
+  "WA": {
+    "state": "WA",
+    "state_name": "Washington",
+    "last_updated": "2026-05-05",
+    "pre_k_program": "ECEAP (Early Childhood Education and Assistance Program) \u2014 state-funded Pre-K for 3-4 year olds at 110% state median income, administered by DCYF (Department of Children, Youth and Families). Plus Transitional Kindergarten (TK), administered by OSPI for 4-year-olds without other Pre-K access.",
+    "literacy_initiative": "",
+    "leadership_terminology": "Largest WA districts: Seattle (~50K), Spokane, Tacoma, Lake Washington, Kent, Federal Way, Vancouver, Northshore, Puyallup, Edmonds, Mukilteo, Evergreen (Vancouver), Bellevue. WA has 9 Educational Service Districts (ESDs) \u2014 regional service agencies.",
+    "notes": [
+      "WA has **ECEAP** (Early Childhood Education and Assistance Program) \u2014 state-funded Pre-K for 3-4yo at 110% state median income, administered by DCYF. Many districts run ECEAP slots.",
+      "WA also has **Transitional Kindergarten (TK)** \u2014 a newer district-led program for 4-year-olds without other Pre-K access, administered by OSPI. Active expansion area.",
+      "The **Fair Start for Kids Act (2021)** is a major ECE funding expansion \u2014 strong adjacent signal for outreach.",
+      "Standout dedicated ECE leads: Vancouver (Kristie Lindholm, Exec Director of Schools and Learning), Everett (Anne Arnold), Ridgefield (Brittany Goff, Director of Early Learning), Eastmont (Ami Collins, Early Learning Coordinator), Wahluke (Olga Mendez, ECEAP), Quillayute Valley (Diana Reaume, Early Learning Coalition), Lake Stevens (Matt Wyant, ELC Principal), Sequim (Donna Hudson, Exec Director T&L), Port Angeles (Michaela Clancy, Director of Special Services overseeing preschool), Arlington (Carrie Saunders, APPLE/ECEAP Program Manager).",
+      "In small WA districts (especially in Eastern WA and rural areas), **ECEAP is often run by ESDs, community colleges, or county agencies** rather than district staff. Don't expect every district to have an internal ECEAP director.",
+      "For most WA districts under ~500 students, the Superintendent is the right ECE persona. Many tiny single-campus districts have a combined Superintendent/Principal role.",
+      "Email convention: most use branded `.org` or `*.wednet.edu` (`seattleschools.org`, `spokaneschools.org`, `tacomaschools.org`, `lwsd.org`, `kent.k12.wa.us`, `fwps.org`, `vansd.org`, `nsd.org`, `puyallup.k12.wa.us`, `edmonds15.org`, `mukilteo.wednet.edu`, `evergreenps.org`, `bsd405.org`). High variance \u2014 confirm pattern before sending.",
+      "OSPI (Office of Superintendent of Public Instruction), DCYF (Department of Children, Youth and Families), and the 9 ESDs are state/regional and excluded from the dashboard.",
+      "Active leadership transitions to verify before outreach: North Mason (Dr. Kristine Michael started July 2025, replaced retired Rosenbach), Waitsburg (Monty Sabin started March 2025), Goldendale (possible Hurst resignation \u2014 verify), Union Gap (Gredvig left end of 2024), Toppenish (Anastasia Sanchez sworn in as TSD Board Member Dec 2025; TELC director succession unclear)."
+    ]
   }
 }
