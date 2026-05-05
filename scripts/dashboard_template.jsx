@@ -1191,8 +1191,15 @@ export default function BrightwheelDashboard() {
   const [showOpenPanel, setShowOpenPanel]   = useState(false);
 
   // ── GRANOLA SYNC ──
-  const [granolaToken, setGranolaToken] = useState(null);
-  const [granolaConnected, setGranolaConnected] = useState(false);
+  // Token persisted to localStorage so reps don't have to re-paste it on every
+  // page reload. The dashboard is internal-only, so a single-browser-storage
+  // location is acceptable here.
+  const [granolaToken, setGranolaToken] = useState(() => {
+    try { return localStorage.getItem("bw_granola_token") || null; } catch { return null; }
+  });
+  const [granolaConnected, setGranolaConnected] = useState(() => {
+    try { return !!localStorage.getItem("bw_granola_token"); } catch { return false; }
+  });
   const [granolaSyncing, setGranolaSyncing] = useState(false);
   const [granolaLastSync, setGranolaLastSync] = useState(null);
   const [granolaModalOpen, setGranolaModalOpen] = useState(false);
@@ -1390,6 +1397,27 @@ export default function BrightwheelDashboard() {
   useEffect(() => {
     try { localStorage.setItem("bw_unmatched_granola_v1", JSON.stringify(unmatchedGranolaDocs)); } catch(e) {}
   }, [unmatchedGranolaDocs]);
+
+  // Persist the Granola API token across reloads so reps don't re-paste it
+  useEffect(() => {
+    try {
+      if (granolaToken) localStorage.setItem("bw_granola_token", granolaToken);
+      else              localStorage.removeItem("bw_granola_token");
+    } catch(e) {}
+  }, [granolaToken]);
+
+  // Auto-sync once on mount when a Granola token is already restored from
+  // localStorage. Without this, reps have to click Sync Granola manually on
+  // every page load even though they're already "connected".
+  const granolaAutoSyncedRef = React.useRef(false);
+  useEffect(() => {
+    if (granolaAutoSyncedRef.current) return;
+    if (!granolaToken) return;
+    granolaAutoSyncedRef.current = true;
+    // Defer slightly so districts state is fully hydrated before matching runs
+    const t = setTimeout(() => { syncGranolaActivity(granolaToken); }, 600);
+    return () => clearTimeout(t);
+  }, [granolaToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Migrate any legacy status values to sequence stage keys
   useEffect(() => {
@@ -2201,15 +2229,22 @@ export default function BrightwheelDashboard() {
         // Both endpoints returned zero. Diagnose based on what we got back.
         const wsAuth   = (errors.enterprise || "").startsWith("auth_");
         const dtAuth   = (errors.desktop    || "").startsWith("auth_");
-        if (wsAuth && dtAuth) {
+        const wsNet    = (errors.enterprise || "").startsWith("network_");
+        const dtNet    = (errors.desktop    || "").startsWith("network_");
+        const fldNet   = (errors.folder     || "").startsWith("network_");
+        if (wsNet && dtNet && fldNet) {
+          toast = "Granola: every endpoint failed at the network level (likely CORS or network outage). Open DevTools → Console for details.";
+        } else if (wsAuth && dtAuth) {
           toast = "Granola: token wasn't accepted by either endpoint — reconnect with a fresh API key";
         } else if (!wsAuth && counts.enterprise === 0 && dtAuth) {
           // Workspace key worked but had nothing visible; desktop path 401'd as expected
-          toast = "Granola: workspace key accepted but returned 0 notes. To pull in phone calls, share them into a workspace folder in Granola (Settings → Workspaces → Folders) then resync.";
-        } else if (wsAuth && !dtAuth && counts.desktop === 0) {
-          toast = "Granola: desktop key accepted but returned 0 docs. Try recording a meeting in Granola first, then resync.";
+          toast = "Granola: workspace key accepted but returned 0 notes. Share your phone-call notes into a workspace folder (Granola → Settings → Workspaces → Folders) then resync.";
+        } else if (wsAuth && !dtAuth && counts.desktop === 0 && counts.folder === 0) {
+          toast = "Granola: desktop key accepted but returned 0 docs. Verify the team folder is shared with you in Granola, then resync.";
+        } else if (dtNet || fldNet) {
+          toast = "Granola: desktop API call failed (network/CORS). The folder fetch needs a personal/desktop token. Check DevTools → Console.";
         } else {
-          toast = "Granola: 0 notes returned. Check that your API key has access in Granola → Settings → Workspaces → API.";
+          toast = "Granola: 0 notes returned. Check DevTools → Console for [granola] logs to see which endpoint(s) responded.";
         }
       } else {
         const segs = [];
