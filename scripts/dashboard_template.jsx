@@ -232,6 +232,7 @@ const STATE_REP_EMAIL = {
   AL: "christie.cooley@mybrightwheel.com",
   GA: "christie.cooley@mybrightwheel.com",
   MI: "christie.cooley@mybrightwheel.com",
+  NC: "christie.cooley@mybrightwheel.com",
   // Eric Truog
   ID: "eric.truog@mybrightwheel.com",
   // Kevin Elston
@@ -4828,6 +4829,7 @@ export default function BrightwheelDashboard() {
                   <option value="FL">Florida</option>
                   <option value="AL">Alabama</option>
                   <option value="GA">Georgia</option>
+                  <option value="NC">North Carolina</option>
                   <option value="MI">Michigan</option>
                   <option value="ID">Idaho</option>
                   <option value="UT">Utah</option>
@@ -5151,6 +5153,7 @@ export default function BrightwheelDashboard() {
                     <option value="FL">Florida</option>
                     <option value="AL">Alabama</option>
                     <option value="GA">Georgia</option>
+                    <option value="NC">North Carolina</option>
                     <option value="MI">Michigan</option>
                     <option value="ID">Idaho</option>
                     <option value="NV">Nevada</option>
