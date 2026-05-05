@@ -166,5 +166,23 @@
       "DESE / ADE (Arkansas Department of Education), the 15 Educational Service Cooperatives, and Head Start grantees are NOT district staff and are excluded from the dashboard.",
       "Districts under state monitoring/takeover to verify before outreach: Marvell-Elaine (state takeover 2023, ongoing). Several districts had recent supt transitions where names couldn't be verified: Bearden, Clarendon, Dierks, Fordyce, West Memphis, Blevins, Cossatot River, Mount Ida, Searcy County."
     ]
+  },
+  "NE": {
+    "state": "NE",
+    "state_name": "Nebraska",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "Sixpence Early Learning Fund (birth-3) + Early Childhood Education Grant Program (4-year-olds), administered by NDE Office of Early Childhood. Moderate funding; districts often partner with community providers.",
+    "literacy_initiative": "",
+    "leadership_terminology": "Nebraska is dominated by very small Class III/IV/V/VI districts. Largest: Omaha Public Schools (OPS, ~52K), Lincoln Public Schools (LPS, ~42K), Millard, Westside, Papillion-La Vista, Bellevue, Elkhorn, Grand Island, Kearney, North Platte, Fremont.",
+    "notes": [
+      "NE has two state-funded ECE programs: **Sixpence Early Learning Fund** (birth to 3) and the **Early Childhood Education Grant Program** (4-year-olds). Both administered by the Nebraska Department of Education (NDE) Office of Early Childhood. Funding is moderate; districts often partner with community providers.",
+      "Standout dedicated ECE leads: Omaha Public Schools (Jorja Brazda-Witters, Early Childhood Coordinator), Lincoln Public Schools (Cara Lucas-Richt, Director of Early Childhood), Grand Island (Elizabeth Lantz, Director of ECE), Hastings (Kerra Robinson, Morton Early Learning Center), Lexington (Tracy Naylor, Early Learning Academy Director), Kearney (Jenn True, PK-5 Director), Elkhorn (Tracie Burton, ECE Coordinator), Scottsbluff (Bree Rock, Bear Cub Preschool), Beatrice (Missy Timmerman, Community Preschool Director), Wayne (Misty Beair, ELC Director), Holdrege (Shana Orr), Plattsmouth (Juli Beck), South Sioux City (Dr. Rony Ortega \u2014 also on NE Board of Early Childhood Education Endowment, hot target).",
+      "For most NE districts (especially Class III/IV/V/VI rural districts <500 students), the **Superintendent** is the right ECE persona. Many small NE districts have admins wearing multiple hats.",
+      "NE has 17 Educational Service Units (ESUs) \u2014 regional service agencies that provide shared services. Some districts route ECE through their ESU. ESU staff are NOT recorded as district contacts unless explicitly embedded at a host district.",
+      "Email convention: most use branded `.org` (`ops.org`, `lps.org`, `mpsomaha.org`, `westside66.net`, `paplv.org`, `bps.org`, `elkhornweb.org`, `gips.org`, `kearneypublicschools.org`, `nppsd.org`, `fpsne.org`). Many small districts use mascot-themed domains that differ from their public website (apsbulldogs.org, dtcardinals.org, hpstigers.org, kpslonghorns.org, vcsbadger.net, wrrsd.org). Some small districts use ESU-hosted email (esu1.org, esu2.org, esu7.org).",
+      "NDE (Nebraska Department of Education) is state-level \u2014 NOT recorded as district staff. The 17 ESUs are regional and excluded.",
+      "Leadership transitions to verify before outreach: Red Cloud (active transition Dec 2025).",
+      "NDE publishes a public superintendent CSV \u2014 high-leverage backfill source for any name-only entries that need email enrichment."
+    ]
   }
 }
