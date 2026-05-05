@@ -2512,10 +2512,14 @@ export default function BrightwheelDashboard() {
   }, [gmailToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Background polling for email opens ────────────────────────────────────
-  // Re-syncs the Activity Sheet every 4 minutes while Gmail is connected.
-  // This is how new pixel opens show up without requiring a manual refresh.
+  // Re-syncs the Activity Log every 4 minutes for every rep, even those who
+  // haven't connected Gmail. Reps who are sheet editors hit the Sheets API
+  // directly; everyone else falls back to the GAS web app inside
+  // fetchActivityRows so opens / clicks / replies stay visible team-wide.
   useEffect(() => {
-    if (!gmailToken || !ACTIVITY_SHEET_ID) return;
+    if (!ACTIVITY_SHEET_ID && !TRACKING_PIXEL_URL) return;
+    // Initial fetch on mount / token change so the first paint shows the team's data
+    loadSheetActivities(gmailToken);
     const INTERVAL_MS = 4 * 60 * 1000; // 4 minutes
     const id = setInterval(() => {
       loadSheetActivities(gmailToken);
@@ -2553,14 +2557,68 @@ export default function BrightwheelDashboard() {
     return entry;
   };
 
+  // Fetches activity rows from the shared sheet for the current rep. Tries the
+  // direct Sheets API first (faster, surfaces stage_update / mailer_sent rows
+  // that the GAS endpoint filters out); falls back to the GAS web app on any
+  // permission error so reps who aren't Sheet editors still see team-wide
+  // events — including opens — instead of an empty timeline.
+  const fetchActivityRows = async (token) => {
+    // Path 1: direct Sheets API (requires the rep to be a Sheet editor)
+    if (token && ACTIVITY_SHEET_ID) {
+      try {
+        const data = await sheetFetch("values/Activity Log", { token });
+        const rows = data.values || [];
+        if (rows.length >= 2) return { rows, viaGas: false };
+      } catch (e) {
+        const isPerm = e.status === 401 || e.status === 403 || e.status === 404 || e.message === "sheet_not_shared";
+        if (!isPerm) console.warn("[activity-log] direct sheet read:", e.status, e.message);
+        // fall through to GAS
+      }
+    }
+    // Path 2: GAS web app (executes as script owner — works for everyone)
+    if (TRACKING_PIXEL_URL) {
+      try {
+        const res = await fetch(TRACKING_PIXEL_URL);
+        if (!res.ok) throw new Error(`GAS read ${res.status}`);
+        const payload = await res.json();
+        const activities = payload.activities || [];
+        // Convert activity objects back into sheet-row tuples so the parser
+        // below can keep using the same column-named accessor.
+        const HEADERS = ["activity_id","district_id","district_name","type","date","notes","full_notes","source","rep_email","director_name","dedup_id","logged_at"];
+        const rows = [HEADERS];
+        activities.forEach(a => {
+          rows.push([
+            a.id || "",
+            String(a.districtId || ""),
+            a.district || "",
+            a.type || "",
+            a.date || "",
+            a.notes || "",
+            a.granolaNotesText || "",
+            a.source || "",
+            a.repEmail || "",
+            a.directorName || "",
+            a.gmailMsgId || a.granolaDocId || "",
+            a.loggedAt || "",
+          ]);
+        });
+        return { rows, viaGas: true };
+      } catch (e) {
+        console.warn("[activity-log] GAS read fallback:", e.message);
+        return { rows: [], viaGas: false, error: e };
+      }
+    }
+    return { rows: [], viaGas: false };
+  };
+
   // Read all rows → merge into district state (deduped by activity id)
   const loadSheetActivities = async (token) => {
-    if (!ACTIVITY_SHEET_ID) return;
+    if (!ACTIVITY_SHEET_ID && !TRACKING_PIXEL_URL) return;
     setSheetSyncing(true);
     try {
-      const data = await sheetFetch("values/Activity Log", { token });
-      const rows = data.values || [];
+      const { rows, viaGas } = await fetchActivityRows(token);
       if (rows.length < 2) { setSheetConnected(true); setSheetSyncing(false); return; }
+      console.log(`[activity-log] loaded ${rows.length - 1} rows via ${viaGas ? "GAS web app" : "Sheets API"}`);
       const hdrs = rows[0];
       const col = (row, name) => row[hdrs.indexOf(name)] || "";
 
@@ -2803,9 +2861,12 @@ export default function BrightwheelDashboard() {
       showNotif(`Shared log loaded — ${total} activit${total !== 1 ? "ies" : "y"} across team ✓`);
     } catch (e) {
       setSheetSyncing(false);
-      console.warn("Sheet load:", e.status, e.message);
+      console.warn("[activity-log] load failed:", e.status, e.message);
+      // Don't show a permission toast — fetchActivityRows already falls back
+      // to the GAS endpoint, so a permission error here means both paths failed
+      // (network / GAS quota / app-script error) and a generic message is more useful.
       if (e.status === 404 || e.message === "sheet_not_shared") {
-        showNotif("⚠️ Activity sheet not accessible — ask Sudeepta to share the sheet with your Google account as an Editor.", "red");
+        showNotif("⚠️ Activity log unreachable. Refresh in a minute or ping Sudeepta if it persists.", "red");
       }
     }
   };
