@@ -1920,6 +1920,15 @@ export default function BrightwheelDashboard() {
     // Build lookup maps for matching
     const normNameToDistrict = {};
     const emailDomainToDistrict = {};
+    // Phone-number matching catches Granola call notes whose title is just
+    // "Phone call with +1XXXXXXXXXX" — by far the most common shape for iOS
+    // phone calls. Strips everything but digits and matches on the last 10
+    // digits so country-code prefixes (+1, 1-, etc.) don't break the lookup.
+    const phoneDigitsToDistrict = {};
+    const lastDigitsOf = (s) => {
+      const digits = (s || "").replace(/\D/g, "");
+      return digits.length >= 10 ? digits.slice(-10) : null;
+    };
     districts.forEach((d) => {
       const norm = normalizeDistName(d.district);
       if (norm.length >= 4) normNameToDistrict[norm] = d;
@@ -1927,6 +1936,16 @@ export default function BrightwheelDashboard() {
         const domain = d.email.split("@")[1];
         if (domain) emailDomainToDistrict[domain.toLowerCase()] = d;
       }
+      const dPhone = lastDigitsOf(d.phone);
+      if (dPhone) phoneDigitsToDistrict[dPhone] = d;
+      // Also index sfContacts and isdContactPhone since Granola call titles
+      // might match a director/ISD direct line rather than the main switchboard
+      (d.sfContacts || []).forEach(c => {
+        const p = lastDigitsOf(c?.phone);
+        if (p && !phoneDigitsToDistrict[p]) phoneDigitsToDistrict[p] = d;
+      });
+      const isdP = lastDigitsOf(d.isdContactPhone);
+      if (isdP && !phoneDigitsToDistrict[isdP]) phoneDigitsToDistrict[isdP] = d;
     });
 
     // Sort normalized names longest-first so "Gwinnett County" matches before "Gwinnett"
@@ -1935,21 +1954,29 @@ export default function BrightwheelDashboard() {
     const matchDoc = (title, notesText) => {
       const haystack = (title + " " + notesText).toLowerCase();
 
-      // 1. Normalized district name anywhere in title+notes
+      // 1. Phone number anywhere in title or notes — catches the "Phone call
+      // with +1XXXXXXXXXX" titles iOS Granola calls produce. Run this first
+      // because phone matches are the most precise signal we have.
+      const digitRuns = (title + " " + notesText).match(/\d{10,}/g) || [];
+      for (const run of digitRuns) {
+        const last10 = run.slice(-10);
+        if (phoneDigitsToDistrict[last10]) return phoneDigitsToDistrict[last10];
+      }
+      // 2. Normalized district name anywhere in title+notes
       for (const norm of normNames) {
         if (norm.length >= 6 && haystack.includes(norm)) return normNameToDistrict[norm];
       }
-      // 2. Email domain in notes
+      // 3. Email domain in notes
       for (const [domain, dist] of Object.entries(emailDomainToDistrict)) {
         if (haystack.includes("@" + domain) || haystack.includes(domain)) return dist;
       }
-      // 3. Director last name in meeting title (only if title looks call-like)
+      // 4. Director last name in meeting title (only if title looks call-like)
       const titleLower = title.toLowerCase();
       const callKeywords = ["meeting", "call", "sync", "connect", "chat", "intro", "demo"];
       if (callKeywords.some((k) => titleLower.includes(k))) {
         for (const d of districts) {
-          const lastName = d.director.split(" ").pop();
-          if (lastName.length >= 4 && titleLower.includes(lastName.toLowerCase())) return d;
+          const lastName = (d.director || "").split(" ").pop();
+          if (lastName && lastName.length >= 4 && titleLower.includes(lastName.toLowerCase())) return d;
         }
       }
       return null;
@@ -2249,15 +2276,16 @@ export default function BrightwheelDashboard() {
         if (wsNet && dtNet && fldNet) {
           nextStep = "Browser blocked all calls (likely CORS). Try Incognito, then check DevTools.";
         } else if (wsAuth && dtAuth && fldAuth) {
-          nextStep = "Token rejected everywhere. Reconnect with a fresh key from Granola → Settings → Workspaces → API.";
+          nextStep = "Token rejected everywhere. Generate a fresh personal token from Granola → Settings → API.";
         } else if (!wsAuth && dtAuth && fldAuth) {
-          nextStep = "Workspace key accepted but no notes are in workspace folders. In Granola, drag your phone-call notes into a workspace folder and resync.";
+          // Workspace API key works but team folders aren't visible to it. Most common case.
+          nextStep = "Workspace API key can't see team folders. Switch to a PERSONAL token from Granola → Settings → API (not Workspaces). The personal token sees team-folder phone calls.";
         } else if (wsAuth && !dtAuth && !fldAuth) {
-          nextStep = "Personal token accepted but found 0 docs. Confirm calls exist in your account and the team folder is shared with you.";
+          nextStep = "Personal token accepted but found 0 docs. Confirm the team folder is shared with you in Granola, then resync.";
         } else if (dtNet || fldNet) {
-          nextStep = "Desktop endpoint blocked by browser. A workspace API key from Granola → Settings → Workspaces → API is required.";
+          nextStep = "Desktop endpoint blocked by browser. The team folder needs a personal token; if that's blocked, ping Sudeepta about a server-side proxy.";
         } else {
-          nextStep = "Token works on every endpoint but no notes are visible to it. Either your workspace folder is empty, or notes haven't been moved into it yet.";
+          nextStep = "Token works on every endpoint but no notes are visible to it. If your phone calls live in a team folder, switch to a personal token from Granola → Settings → API.";
         }
         toast = `Granola — 0 notes. ${status}. ${nextStep}`;
         toastDuration = 14000; // 14s — long diagnostic, give the rep time to read
@@ -8551,15 +8579,14 @@ export default function BrightwheelDashboard() {
             </div>
 
             <div className="bg-violet-50 border border-violet-200 rounded-lg p-3 mb-4 text-xs text-violet-800 leading-relaxed">
-              <strong>How to get your workspace API key:</strong>
+              <strong>Phone calls are in a team folder? Use a personal token:</strong>
               <ol className="mt-1 ml-3 list-decimal space-y-0.5 text-violet-700">
                 <li>Open Granola on your Mac</li>
-                <li>Go to <strong>Settings → Workspaces</strong></li>
-                <li>Open the <strong>API</strong> tab</li>
+                <li>Open <strong>Settings → API</strong> (the personal API tab, not Workspaces)</li>
                 <li>Click <strong>Generate API Key</strong> and copy it</li>
               </ol>
               <p className="mt-2 text-violet-500">
-                The workspace API key only sees notes shared into a <strong>workspace folder</strong>. To pull in phone calls, drop them into a workspace folder in Granola (Settings → Workspaces → Folders). A personal/desktop key from the old Settings → API page also works as a fallback.
+                Personal tokens see notes you own <em>and</em> notes shared with you in team folders (the <code>notes.granola.ai/t/...</code> URLs). The workspace API key from <strong>Settings → Workspaces → API</strong> only sees workspace folders, not team folders, so phone calls dropped into a team folder are invisible to it.
               </p>
             </div>
 
