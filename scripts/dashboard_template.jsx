@@ -2045,7 +2045,53 @@ export default function BrightwheelDashboard() {
         console.log(`[granola] enterprise: ${counts.enterprise} notes${errors.enterprise ? ` (skipped: ${errors.enterprise})` : ""}`);
       } catch (e) {
         errors.enterprise = `network_${e.message || "unknown"}`;
+        // CORS-blocked from the browser. Fall back to the GAS proxy below.
         console.warn("[granola] enterprise fetch error:", e);
+      }
+
+      // ── Endpoint 1.5: GAS server-side proxy for the Public API ───────────────
+      // public-api.granola.ai blocks browser requests via CORS. The GAS web app
+      // at TRACKING_PIXEL_URL has a `?action=granola&token=<...>` route that
+      // calls Granola server-side and returns the JSON. Used as a fallback when
+      // the direct call fails at the network layer.
+      if (counts.enterprise === 0 && (errors.enterprise || "").startsWith("network_") && TRACKING_PIXEL_URL) {
+        try {
+          const PAGE_SIZE = 30;
+          const MAX_PAGES = 200;
+          let cursor = null;
+          let pages = 0;
+          counts.proxy = 0;
+          while (pages < MAX_PAGES) {
+            const proxyUrl = TRACKING_PIXEL_URL +
+              `?action=granola&token=${encodeURIComponent(useToken)}&pageSize=${PAGE_SIZE}` +
+              (cursor ? `&cursor=${encodeURIComponent(cursor)}` : "");
+            const res = await fetch(proxyUrl);
+            if (!res.ok) { errors.proxy = `http_${res.status}`; break; }
+            const payload = await res.json();
+            if (payload.error) { errors.proxy = payload.error; break; }
+            const notes = payload.notes || [];
+            for (const n of notes) {
+              if (seenIds.has(n.id)) continue;
+              seenIds.add(n.id);
+              documents.push({
+                id: n.id,
+                title: n.title || "",
+                created_at: n.created_at,
+                last_viewed_panel: null,
+                _ownerEmail: n.owner?.email || "",
+                _via: "proxy",
+              });
+              counts.proxy = (counts.proxy || 0) + 1;
+            }
+            pages += 1;
+            if (!payload.hasMore || !payload.cursor) break;
+            cursor = payload.cursor;
+          }
+          console.log(`[granola] proxy: ${counts.proxy || 0} notes${errors.proxy ? ` (skipped: ${errors.proxy})` : ""}`);
+        } catch (e) {
+          errors.proxy = `network_${e.message || "unknown"}`;
+          console.warn("[granola] proxy fetch error:", e);
+        }
       }
 
       // ── Endpoint 2: personal desktop endpoint, offset-paginated ──────────────
@@ -2162,6 +2208,7 @@ export default function BrightwheelDashboard() {
 
       const usedEndpoints = [];
       if (counts.enterprise > 0) usedEndpoints.push("enterprise");
+      if ((counts.proxy || 0) > 0) usedEndpoints.push("proxy");
       if (counts.desktop    > 0) usedEndpoints.push("desktop");
       if (counts.folder     > 0) usedEndpoints.push("folder");
       const endpointUsed = usedEndpoints.length ? usedEndpoints.join("+") : "none";
@@ -2292,6 +2339,7 @@ export default function BrightwheelDashboard() {
       } else {
         const segs = [];
         if (counts.enterprise > 0) segs.push(`${counts.enterprise} workspace`);
+        if ((counts.proxy || 0) > 0) segs.push(`${counts.proxy} via proxy`);
         if (counts.desktop    > 0) segs.push(`${counts.desktop} personal`);
         if (counts.folder     > 0) segs.push(`${counts.folder} from team folders`);
         const breakdown = segs.length > 1 ? ` (${segs.join(" + ")})` : "";

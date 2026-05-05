@@ -97,15 +97,29 @@ function doPost(e) {
 
 /**
  * HTTP GET handler — called when the web app URL is fetched.
- * Returns all activity rows as JSON with CORS headers so the
- * dashboard (served from GitHub Pages) can read it in the browser.
+ *
+ * Routes:
+ *   ?action=granola&token=<bearer>&cursor=<optional>
+ *     Server-side proxy for the Granola Public API. The browser can't call
+ *     public-api.granola.ai directly because of CORS, so we proxy the request
+ *     here. Returns Granola's JSON response unchanged.
+ *
+ *   (no params — default)
+ *     Returns all activity-log rows as JSON for the dashboard to ingest.
  */
 function doGet(e) {
   var output;
   try {
-    output = ContentService
-      .createTextOutput(JSON.stringify(buildPayload()))
-      .setMimeType(ContentService.MimeType.JSON);
+    var action = e && e.parameter && e.parameter.action;
+    if (action === "granola") {
+      output = ContentService
+        .createTextOutput(JSON.stringify(proxyGranolaNotes(e.parameter)))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else {
+      output = ContentService
+        .createTextOutput(JSON.stringify(buildPayload()))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
   } catch (err) {
     output = ContentService
       .createTextOutput(JSON.stringify({
@@ -116,6 +130,59 @@ function doGet(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
   return output;
+}
+
+/**
+ * Proxy a request to Granola's Public API (public-api.granola.ai/v1/notes).
+ * Browsers can't call the Granola Public API directly because of CORS, so
+ * the dashboard sends the bearer token here and we make the call server-side.
+ *
+ * Params:
+ *   token   — required. The Granola Personal API key (sent in Authorization header).
+ *   cursor  — optional. Pagination cursor from a previous response.
+ *   pageSize — optional. Defaults to 30 (Granola's max).
+ *
+ * Returns:
+ *   { notes: [...], hasMore, cursor } on success — same shape Granola returns.
+ *   { error, status, body } on failure — so the dashboard can surface it.
+ */
+function proxyGranolaNotes(params) {
+  var token = (params && params.token) || "";
+  if (!token) return { error: "missing_token", notes: [], hasMore: false, cursor: null };
+
+  var url = "https://public-api.granola.ai/v1/notes";
+  var qs = [];
+  qs.push("page_size=" + encodeURIComponent(params.pageSize || "30"));
+  if (params.cursor)        qs.push("cursor="         + encodeURIComponent(params.cursor));
+  if (params.created_after) qs.push("created_after="  + encodeURIComponent(params.created_after));
+  if (qs.length) url += "?" + qs.join("&");
+
+  var resp;
+  try {
+    resp = UrlFetchApp.fetch(url, {
+      method: "get",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Accept": "application/json",
+      },
+      muteHttpExceptions: true,
+      followRedirects: true,
+    });
+  } catch (err) {
+    return { error: "fetch_failed", message: String(err), notes: [], hasMore: false, cursor: null };
+  }
+
+  var status = resp.getResponseCode();
+  var body = resp.getContentText();
+  if (status < 200 || status >= 300) {
+    return { error: "http_" + status, status: status, body: body.slice(0, 500), notes: [], hasMore: false, cursor: null };
+  }
+
+  try {
+    return JSON.parse(body);
+  } catch (err) {
+    return { error: "parse_failed", message: String(err), body: body.slice(0, 500), notes: [], hasMore: false, cursor: null };
+  }
 }
 
 /**
