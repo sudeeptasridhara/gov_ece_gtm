@@ -374,6 +374,25 @@ function normalizeDistName(name) {
     .replace(/\s+/g, " ").trim();
 }
 
+// Human-friendly label for a district. Strips data-import artifacts so the
+// Outreach Tracking and Prospects rows show the actual district, not the
+// county the district sits in.
+//
+//   "CA — San Diego Unified"               → "San Diego Unified"
+//   "Tanya Scott — Carson City School..."  → "Carson City School District"
+//   "Bay City School District"             → "Bay City School District"
+//   ""                                     → "{County} County" fallback
+//
+function displayDistrictName(d) {
+  let name = (d?.district || "").trim();
+  // Strip leading "{2-letter state} — " state-prefix from CA-style imports
+  name = name.replace(/^[A-Z]{2}\s*[—–-]\s*/, "");
+  // Strip leading "First Last — " owner/rep prefix from earlier data merges
+  name = name.replace(/^[A-Z][a-z]+(?:\s+[A-Z]\.?)?\s+[A-Z][a-z]+\s*[—–-]\s*/, "");
+  if (!name) name = d?.county ? `${d.county} County` : "Unknown district";
+  return name;
+}
+
 // ─── PRIORITY SCORING ALGORITHM ──────────────────────────────────────────────
 function calculatePriorityScore(d) {
   let score = 0;
@@ -4891,7 +4910,7 @@ export default function BrightwheelDashboard() {
           const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "email_click" ? "bg-emerald-100 text-emerald-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
 
           const contactDistricts = districts.filter((d) => {
-            const matchSearch = !contactSearch || (d.district || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.director || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase());
+            const matchSearch = !contactSearch || (d.district || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.director || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.county || "").toLowerCase().includes(contactSearch.toLowerCase());
             const matchState = contactFilterState === "all" || (d.state || "FL") === contactFilterState;
             const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
             return matchSearch && matchState && matchRep;
@@ -5028,11 +5047,14 @@ export default function BrightwheelDashboard() {
                       >
                         <div>
                           <div className="font-medium text-gray-900 text-sm flex items-center gap-1.5 flex-wrap">
-                            {d.county} County
+                            {displayDistrictName(d)}
                             {d.state && d.state !== "FL" && <span className="text-xs bg-blue-100 text-blue-700 px-1.5 rounded font-semibold">{d.state}</span>}
                             {(() => { const m = getDistrictMeta(d); const sz = m?.size; return sz && sz !== "-" && sz !== "\\-" && SIZE_COLORS[sz] ? <span className={`text-xs px-1.5 rounded font-semibold ${SIZE_COLORS[sz]}`}>{sz}</span> : null; })()}
                           </div>
-                          <div className="text-xs text-gray-400 truncate">{d.director}
+                          <div className="text-xs text-gray-400 truncate">
+                            {d.county && <span>{d.county} County</span>}
+                            {d.county && d.director && <span className="mx-1">·</span>}
+                            {d.director}
                             {(() => { const m = getDistrictMeta(d); return m?.prek > 0 ? <span className="ml-1 text-gray-400">· {m.prek.toLocaleString()} PreK</span> : null; })()}
                           </div>
                         </div>
