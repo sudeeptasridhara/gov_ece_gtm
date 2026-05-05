@@ -94,5 +94,24 @@
       "Districts to deprioritize: Forrest County Agricultural HS (grades 9-12 only, no ECE).",
       "Buying signals to act on: Moss Point received a $900K Pre-K grant; Pascagoula-Gautier received a 2024 ELC grant; West Point is Excel by 5 certified."
     ]
+  },
+  "KY": {
+    "state": "KY",
+    "state_name": "Kentucky",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "State-funded Pre-K for 4-year-olds at 160% of federal poverty level + 3-4 year olds with disabilities. Administered by KY Department of Education (KDE). Most districts have a Pre-K Coordinator or Director of Early Learning.",
+    "literacy_initiative": "Read to Succeed Act / Senate Bill 9 (2022) \u2014 drove a major K-3 literacy overhaul (KyMTSS, Heggerty, etc.). Strong adjacent signal for ECE outreach.",
+    "leadership_terminology": "Mix of county districts (e.g., JCPS / Jefferson County, Fayette / Lexington, Boone, Kenton, Warren) and city/independent districts (Anchorage, Ashland, Beechwood, Bowling Green, Berea, Erlanger-Elsmere, etc.). Independent districts are city-only and exist within a county that has its own separate district.",
+    "notes": [
+      "KY has state-funded Pre-K for 4-year-olds at 160% federal poverty level + 3-4 year olds with disabilities, administered by KDE. Most districts have a dedicated Pre-K Coordinator or Director of Early Learning.",
+      "Read to Succeed Act / Senate Bill 9 (2022) drove a major K-3 literacy overhaul (KyMTSS, Heggerty) \u2014 this is a strong adjacent signal for ECE outreach.",
+      "KY districts split into ~120 county districts and ~50 city/independent districts. Independent districts exist *within* a county that already has its own separate district. Tiny independents (Anchorage, Burgin, Pineville, Science Hill, Southgate, East Bernstadt, Fulton, Williamstown, Paintsville) typically have only a Superintendent as the ECE contact.",
+      "A common KY pattern at small/mid districts: combined \"Director of Special Education / Preschool\" role (because federal Part B/619 funds support 3-4yo with disabilities). Examples: Boyle (Chelsea Clark), Lincoln (Julie Ball), Trimble (Alicia Jackson), Owen (Shonna Gullett).",
+      "Standout dedicated ECE/Preschool Coordinators: Erlanger-Elsmere (Jessica Soules), Floyd (Kimberly Grubb, Chief Early Childhood Officer), Hardin (Carlena Sheeran), Washington (Paula Turner), Robertson (Tamara Leadingham), Bowling Green (Amy Sample), Henderson (PreK expansion 2026-27), Hopkins (Clarissa Byard), Pike (Misty Riddle).",
+      "Email convention: most KY districts use `[name].kyschools.us` (e.g., `jefferson.kyschools.us`, `fayette.kyschools.us`). A few small districts have website on `.k12.ky.us` while staff email runs on kyschools.us (Breathitt, Hickman, Jenkins, Nicholas).",
+      "KDE (Kentucky Department of Education), regional cooperatives (West Kentucky Educational Cooperative, GRREC, KEDC), and Community Action / Head Start agencies are NOT district staff and are excluded from the dashboard.",
+      "Buying signals to act on: Henderson County preschool expansion 2026-27, Nelson County opened new Early Learning Center, Paris/TBJELC achieved Level 5 KY All STARS, Harlan County preschool investment, Floyd County named Chief Early Childhood Officer (Kimberly Grubb).",
+      "Largest KY districts: Jefferson County (JCPS, ~96K), Fayette (~42K), Boone, Kenton, Warren, Hardin, Daviess, Madison, Bullitt \u2014 all have dedicated ECE leadership."
+    ]
   }
 }
