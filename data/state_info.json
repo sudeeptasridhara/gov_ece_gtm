@@ -57,5 +57,23 @@
       "Several districts had leadership transitions to verify before outreach: Surrey (mid-transition), Grand Forks (current leadership transition).",
       "Closed/dormant districts to skip: EARL 18 / Squaw Gap (closed); Marmarth (14 students); Roosevelt 18 / Twin Buttes 37 (no current public-facing staff)."
     ]
+  },
+  "NH": {
+    "state": "NH",
+    "state_name": "New Hampshire",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "No state-funded universal Pre-K. NH ranks among the lowest states in state PreK access. Districts run PreK via Title I or local funds only.",
+    "literacy_initiative": "",
+    "leadership_terminology": "NH organizes districts by School Administrative Unit (SAU) \u2014 ~80 SAUs cover the state. Many small towns share an SAU central office; a few SAUs cover 5+ towns.",
+    "notes": [
+      "NH has no state-funded universal Pre-K. PreK in NH runs via federal Title I, local district funding, or Special Education preschool programs. NH ranks among the lowest states for state PreK access.",
+      "NH district structure: ~80 School Administrative Units (SAUs) act as the central office for one or more towns. A \"School District\" is the per-town entity but staff sit at the SAU. Small towns commonly share an SAU (e.g., SAU 9 covers Albany/Bartlett/Chatham/Conway/Eaton/Freedom/Hart's Location/Jackson/Madison/Tamworth).",
+      "For most NH districts under ~1,500 students, the **Superintendent** is the right ECE decision-maker. Larger districts (Manchester, Nashua, Concord, Rochester, Dover, Portsmouth, Salem, Bedford, Keene, Merrimack, Hudson, Lebanon) have dedicated Curriculum Directors or PreK Coordinators.",
+      "Standout dedicated Pre-K/ECE leads: Manchester, Nashua (Caitlin Burns, NEEP Coordinator), Concord (Sue Carignan, Preschool Coordinator), Portsmouth (Kristen Heath, Pre-K Coordinator), Keene (Joanne Mulligan, Jonathan Daniels Preschool), Lebanon (Karen DuBois, Director of Academics), SAU 16 / Exeter (Karen Ringuette, PreK Coordinator), SAU 47 / Jaffrey-Rindge (Storm Medders), SAU 15 / Hooksett (Rebecca Roy), Timberlane (Kim Rivers, Early Childhood Coordinator), Hampton Falls/N. Hampton (Shay Cassily, Director of Curriculum).",
+      "Special Education Director is a common alternative ECE persona in NH small districts \u2014 preschool is often housed under SpEd because Part B/619 federal funds support it.",
+      "Email convention: most districts use `sau##.org` or `sau##.us` (SAU number domains); larger districts use branded `mansd.org`, `nashua.edu`, `dover.k12.nh.us`, `keene.k12.nh.us`, `rochesterschools.com`, etc.",
+      "NHED (NH Department of Education) and Community Action / Head Start agencies (Strafford CAP, Belknap-Merrimack, etc.) are NOT district staff and are excluded from the dashboard.",
+      "Active leadership transitions to verify before outreach (as of 2025-26): SAU 6 Claremont (Broadrick incoming), SAU 50 Greenland/Newington (Zadravec retiring), SAU 53 Pembroke (Sherman retiring), SAU 32 (Leggett possibly relocating to CT), SAU 58 (Landry leaving for MA), SAU 76 Lyme (active search), SAU 60 Fall Mountain (transition), SAU 109 (Unity splitting July 2026), Rochester (Fulgoni interim\u2192permanent)."
+    ]
   }
 }
