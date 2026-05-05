@@ -148,5 +148,23 @@
       "Active leadership transitions to verify before outreach: Hagerman (Williams replaced by Belia Reyes), Mora (Trujillo\u2192Cavazos), Logan (Schofield was Utah misattribution; NM Logan now interim Ross Perschbacher), Tucumcari (Johnson retired June 2025 \u2192 Deanne McKinney), Magdalena (Kim Ortiz on admin leave, resigning 6/30/2026), Truth or Consequences + Cobre (Randall Piper concurrently serves both as Superintendent / Interim Supt for 25-26 SY).",
       "Note: ids 595 and 17661 in our data are duplicates \u2014 both represent Truth or Consequences Schools."
     ]
+  },
+  "AR": {
+    "state": "AR",
+    "state_name": "Arkansas",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "Arkansas Better Chance (ABC) \u2014 state-funded Pre-K administered by DESE for 3-4 year olds at 200% federal poverty level. Many districts have a dedicated ABC Director or Pre-K Coordinator.",
+    "literacy_initiative": "LEARNS Act (2023) \u2014 major K-12 reform package: voucher expansion, literacy mandates, teacher pay raises. Strong adjacent signal for ECE outreach.",
+    "leadership_terminology": "Arkansas has ~233 districts as a mix of county and city/town districts. Largest: Little Rock, Fort Smith, Springdale, Bentonville, Rogers, Conway, North Little Rock, Pulaski County Special, Cabot, Fayetteville.",
+    "notes": [
+      "AR has the **Arkansas Better Chance (ABC)** state-funded Pre-K program for 3-4 year olds at 200% FPL, administered by DESE (Division of Elementary and Secondary Education). Many districts have a dedicated ABC Director or Pre-K Coordinator.",
+      "The **LEARNS Act (2023)** was a major K-12 reform package \u2014 voucher expansion, K-3 literacy mandates, teacher pay raises. Strong adjacent signal for ECE/curriculum outreach.",
+      "AR has 15 Educational Service Cooperatives (ESCs) \u2014 Arch Ford, NW AR ESC, etc. Some districts route ECE through their ESC. ESC staff are NOT recorded as district contacts unless they are explicitly embedded at a host district.",
+      "Standout dedicated ECE/ABC leads: Little Rock (Esther Jones, Director of Early Childhood Programs), North Little Rock (Holly Moore, ECE Coordinator), Cabot (Suzie Kelley, Director of Pre-K), Conway (Heather Leavell, Sallie Cone Preschool), Pine Bluff (Marceinia Peoples, Pre-K Administrator), Bentonville (Lori Knight, Asst Director ECE), Fort Smith (Sarah Yancey, ECE Supervisor), Bryant (Tisha Long, ECE Director), Texarkana (Dana Walker, ABC Director), Van Buren (Robert Childers, ABC Coordinator), Springdale (Brandy Wolfenbarger, ECC Director), Paragould (Vicki Shelby, Director of ECE), Concord (Meagan Spinks, ABC Director), Harrison (Jeff Winkle, Director of ECE), Hermitage (Jade Huitt, Pre-K), Greenbrier (Angela Betancourt, ABCSS Director), Jonesboro (Allison Clem, PreK Director), Lake Hamilton (Renae Carrouth, Pre-K Coordinator).",
+      "For small AR districts (<500 students), Superintendent or combined Federal Programs/Curriculum Director is the default ECE persona \u2014 many small AR districts have admins wearing multiple hats.",
+      "Email convention: most districts use branded `.org` or `.k12.ar.us` (e.g., `lrsd.org`, `fortsmithschools.org`, `sdale.org`, `bentonvillek12.org`, `rps.k12.ar.us`, `conwayschools.org`).",
+      "DESE / ADE (Arkansas Department of Education), the 15 Educational Service Cooperatives, and Head Start grantees are NOT district staff and are excluded from the dashboard.",
+      "Districts under state monitoring/takeover to verify before outreach: Marvell-Elaine (state takeover 2023, ongoing). Several districts had recent supt transitions where names couldn't be verified: Bearden, Clarendon, Dierks, Fordyce, West Memphis, Blevins, Cossatot River, Mount Ida, Searcy County."
+    ]
   }
 }
