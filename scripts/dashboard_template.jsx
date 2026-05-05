@@ -2050,11 +2050,11 @@ export default function BrightwheelDashboard() {
       }
 
       // ── Endpoint 1.5: GAS server-side proxy for the Public API ───────────────
-      // public-api.granola.ai blocks browser requests via CORS. The GAS web app
-      // at TRACKING_PIXEL_URL has a `?action=granola&token=<...>` route that
-      // calls Granola server-side and returns the JSON. Used as a fallback when
-      // the direct call fails at the network layer.
-      if (counts.enterprise === 0 && (errors.enterprise || "").startsWith("network_") && TRACKING_PIXEL_URL) {
+      // public-api.granola.ai blocks browser requests via CORS. The activity-log
+      // GAS web app at ACTIVITY_WEBAPP_URL exposes an `?action=granola&token=<...>`
+      // route that calls Granola server-side and returns the JSON. Used as a
+      // fallback when the direct call fails at the network layer.
+      if (counts.enterprise === 0 && (errors.enterprise || "").startsWith("network_") && ACTIVITY_WEBAPP_URL) {
         try {
           const PAGE_SIZE = 30;
           const MAX_PAGES = 200;
@@ -2062,7 +2062,7 @@ export default function BrightwheelDashboard() {
           let pages = 0;
           counts.proxy = 0;
           while (pages < MAX_PAGES) {
-            const proxyUrl = TRACKING_PIXEL_URL +
+            const proxyUrl = ACTIVITY_WEBAPP_URL +
               `?action=granola&token=${encodeURIComponent(useToken)}&pageSize=${PAGE_SIZE}` +
               (cursor ? `&cursor=${encodeURIComponent(cursor)}` : "");
             const res = await fetch(proxyUrl);
