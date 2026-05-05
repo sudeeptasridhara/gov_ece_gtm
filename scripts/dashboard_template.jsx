@@ -1169,6 +1169,9 @@ export default function BrightwheelDashboard() {
   // ── CONTACT TRACKING ──
   const [contactSearch, setContactSearch] = useState("");
   const [contactFilterState, setContactFilterState] = useState("all");
+  // Click-to-filter on the Outreach Tracking metric pills:
+  // "all" | "contacted" | "replied" | "opened" | "clicked" | "not_contacted"
+  const [contactMetricFilter, setContactMetricFilter] = useState("all");
   // contactFilterRep removed — use globalRepFilter instead
   const [expandedContactId, setExpandedContactId] = useState(null);
   const [inlineActivity, setInlineActivity] = useState({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
@@ -4970,11 +4973,23 @@ export default function BrightwheelDashboard() {
           const activityIcon = (type) => type === "email" ? "✉️" : type === "email_open" ? "👁" : type === "email_click" ? "🖱️" : type === "call" ? "📞" : type === "linkedin" ? "🔗" : type === "meeting" ? "📅" : "📝";
           const activityBg = (type) => type === "email" ? "bg-blue-100 text-blue-600" : type === "email_open" ? "bg-amber-100 text-amber-600" : type === "email_click" ? "bg-emerald-100 text-emerald-600" : type === "call" ? "bg-green-100 text-green-600" : type === "linkedin" ? "bg-indigo-100 text-indigo-600" : type === "meeting" ? "bg-purple-100 text-purple-600" : "bg-gray-100 text-gray-600";
 
+          const matchesMetric = (d) => {
+            if (contactMetricFilter === "all") return true;
+            const acts = d.activities || [];
+            const status = resolveStatus(d.status);
+            if (contactMetricFilter === "contacted")     return acts.length > 0;
+            if (contactMetricFilter === "replied")       return ["responded_active","existing_customer"].includes(status);
+            if (contactMetricFilter === "opened")        return acts.some(a => a.type === "email_open");
+            if (contactMetricFilter === "clicked")       return acts.some(a => a.type === "email_click");
+            if (contactMetricFilter === "not_contacted") return acts.length === 0;
+            return true;
+          };
+
           const contactDistricts = districts.filter((d) => {
             const matchSearch = !contactSearch || (d.district || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.director || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.email || "").toLowerCase().includes(contactSearch.toLowerCase()) || (d.county || "").toLowerCase().includes(contactSearch.toLowerCase());
             const matchState = contactFilterState === "all" || (d.state || "FL") === contactFilterState;
             const matchRep = globalRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === globalRepFilter;
-            return matchSearch && matchState && matchRep;
+            return matchSearch && matchState && matchRep && matchesMetric(d);
           }).slice().sort((a, b) => {
             const aLast = a.activities?.length ? a.activities[a.activities.length - 1].date : "";
             const bLast = b.activities?.length ? b.activities[b.activities.length - 1].date : "";
@@ -4997,12 +5012,27 @@ export default function BrightwheelDashboard() {
                   <p className="text-xs text-gray-500 mt-1">Full outreach history per district. Log calls, emails, and meetings. Click a row to expand.</p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="flex gap-4 text-center">
-                    <div><div className="text-lg font-bold text-indigo-600">{totalContacted}</div><div className="text-xs text-gray-400">Contacted</div></div>
-                    <div><div className="text-lg font-bold text-green-600">{totalReplied}</div><div className="text-xs text-gray-400">Replied/Meeting</div></div>
-                    <div><div className="text-lg font-bold text-amber-600">{totalOpens}</div><div className="text-xs text-gray-400">Opened</div></div>
-                    <div><div className="text-lg font-bold text-emerald-600">{totalClicks}</div><div className="text-xs text-gray-400">Link Clicks</div></div>
-                    <div><div className="text-lg font-bold text-gray-500">{districts.length - totalContacted}</div><div className="text-xs text-gray-400">Not Yet Contacted</div></div>
+                  <div className="flex gap-2 text-center">
+                    {[
+                      { key: "contacted",     label: "Contacted",       count: totalContacted,                        color: "text-indigo-600",  ring: "ring-indigo-300 bg-indigo-50" },
+                      { key: "replied",       label: "Replied/Meeting", count: totalReplied,                          color: "text-green-600",   ring: "ring-green-300 bg-green-50" },
+                      { key: "opened",        label: "Opened",          count: totalOpens,                            color: "text-amber-600",   ring: "ring-amber-300 bg-amber-50" },
+                      { key: "clicked",       label: "Link Clicks",     count: totalClicks,                           color: "text-emerald-600", ring: "ring-emerald-300 bg-emerald-50" },
+                      { key: "not_contacted", label: "Not Yet Contacted", count: districts.length - totalContacted,   color: "text-gray-500",    ring: "ring-gray-300 bg-gray-100" },
+                    ].map(m => {
+                      const active = contactMetricFilter === m.key;
+                      return (
+                        <button
+                          key={m.key}
+                          onClick={() => setContactMetricFilter(active ? "all" : m.key)}
+                          title={active ? `Click to clear filter` : `Click to show only ${m.label.toLowerCase()} districts`}
+                          className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${active ? `ring-2 ${m.ring}` : "hover:bg-gray-50 ring-1 ring-transparent hover:ring-gray-200"}`}
+                        >
+                          <div className={`text-lg font-bold ${m.color}`}>{m.count}</div>
+                          <div className="text-xs text-gray-400 whitespace-nowrap">{m.label}</div>
+                        </button>
+                      );
+                    })}
                   </div>
                   <div className="flex flex-col items-end gap-1.5">
                     <div className="flex gap-2">
@@ -5077,6 +5107,12 @@ export default function BrightwheelDashboard() {
                   ))}
                 </select>
                 <span className="text-xs text-gray-400 self-center">{contactDistricts.length} districts</span>
+                {contactMetricFilter !== "all" && (
+                  <span className="text-xs self-center inline-flex items-center gap-1 px-2 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    {(() => { const lbl = { contacted:"Contacted", replied:"Replied/Meeting", opened:"Opened", clicked:"Link Clicks", not_contacted:"Not Yet Contacted" }[contactMetricFilter]; return `Filter: ${lbl}`; })()}
+                    <button onClick={() => setContactMetricFilter("all")} className="ml-0.5 text-indigo-500 hover:text-indigo-700 font-semibold leading-none" title="Clear filter">✕</button>
+                  </span>
+                )}
               </div>
 
               {/* Contact Table */}
