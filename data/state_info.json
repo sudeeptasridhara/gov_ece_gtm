@@ -75,5 +75,24 @@
       "NHED (NH Department of Education) and Community Action / Head Start agencies (Strafford CAP, Belknap-Merrimack, etc.) are NOT district staff and are excluded from the dashboard.",
       "Active leadership transitions to verify before outreach (as of 2025-26): SAU 6 Claremont (Broadrick incoming), SAU 50 Greenland/Newington (Zadravec retiring), SAU 53 Pembroke (Sherman retiring), SAU 32 (Leggett possibly relocating to CT), SAU 58 (Landry leaving for MA), SAU 76 Lyme (active search), SAU 60 Fall Mountain (transition), SAU 109 (Unity splitting July 2026), Rochester (Fulgoni interim\u2192permanent)."
     ]
+  },
+  "MS": {
+    "state": "MS",
+    "state_name": "Mississippi",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "Early Learning Collaborative (ELC) Act of 2013 \u2014 voluntary state Pre-K administered by MDE Office of Early Childhood. ELCs are public-private partnerships of districts + Head Start + private childcare. Coverage limited to ~30% of eligible 4-year-olds.",
+    "literacy_initiative": "",
+    "leadership_terminology": "Mix of county-wide districts (DeSoto, Madison, Rankin, Lafayette, Hinds, Harrison, Jackson) and city/municipal districts (Jackson Public, Hattiesburg, Tupelo, Oxford, Gulfport).",
+    "notes": [
+      "MS has the **Early Learning Collaborative (ELC) Act of 2013** \u2014 voluntary state Pre-K, MDE-administered. ELCs are partnerships of districts + Head Start + private childcare. Districts in an ELC have an \"ELC Lead Partner\" \u2014 strong outreach contact.",
+      "Confirmed ELC participants worth prioritizing: Cleveland (Patsy Clerk), Mississippi Achievement (Sametra Brown), Pass Christian (Mandy Lacy), Starkville-Oktibbeha (Ellen Goodman, SOELC Program Manager), Rankin County (Lakeisha Maxer), Greenwood-Leflore, Jefferson County, Hattiesburg, Lowndes County, Pascagoula-Gautier, Prentiss County, South Panola, Marion County, West Point.",
+      "Standout ECE-specific contacts: Pearl (Stacy Farrar, ECEC Director), Laurel (Marlene Jackson, Early Childhood Coordinator), Hinds County (Smith-Angrum, ECE Curriculum Director), Lee County (Jodie Boyd, ECE Director), Pascagoula-Gautier (Kelli McCorkle, Early Beginnings Director \u2014 2024 ELC grant signal), Petal (Jana Perry, Coleman Center), South Tippah (Angie Gossett, Pre-K Director), Canton (Shoney Anderson-Harris, Director of Literacy & ECE), Hattiesburg (Hope Mikell, PreK-5 Curriculum), Jackson (Felicia Thomas, Director of Early Childhood).",
+      "For small rural MS districts with no dedicated ECE staff, the **Federal Programs Director / Title I Director** is the right persona \u2014 Title I typically funds preschool there. Superintendent is the fallback for tiniest districts (<500 students).",
+      "Email convention varies widely. Most districts use `*.k12.ms.us` or branded `.org`. Several districts use staff email domains different from their public website (Lauderdale = lced.net, Tate = tcsdms.org, Franklin = fcsd.k12.ms.us, East Tallahatchie = etsdk12.org, Forrest County, Marshall County, Sunflower County, West Tallahatchie).",
+      "MDE (Mississippi Department of Education), Excel by Five (non-profit), and Head Start grantees (MS Action for Community Education, Friends of Children of Mississippi) are NOT district staff and are excluded.",
+      "Districts under MDE state takeover or in transition (verify before outreach): Okolona (Nov 2025 takeover), Wilkinson (Jan 2026 takeover), Greenwood-Leflore (Mary S. Johnson recently promoted Supt), West Tallahatchie, Forrest County, Amory.",
+      "Districts to deprioritize: Forrest County Agricultural HS (grades 9-12 only, no ECE).",
+      "Buying signals to act on: Moss Point received a $900K Pre-K grant; Pascagoula-Gautier received a 2024 ELC grant; West Point is Excel by 5 certified."
+    ]
   }
 }
