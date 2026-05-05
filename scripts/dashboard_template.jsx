@@ -892,6 +892,39 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
         )}
       </div>
 
+      {/* ── State Context (shown when STATE_INFO has notes for this state) ── */}
+      {(() => {
+        const si = (typeof STATE_INFO !== "undefined" ? STATE_INFO : {})[district.state];
+        if (!si || (!si.notes || si.notes.length === 0) && !si.pre_k_program && !si.literacy_initiative) return null;
+        return (
+          <div className="rounded-xl border border-amber-200 bg-amber-50/20 overflow-hidden">
+            <div className="px-4 py-2.5 bg-amber-50 border-b border-amber-100 flex items-center justify-between gap-2 flex-wrap">
+              <span className="text-xs font-semibold text-amber-800">🏛️ {si.state_name || district.state} — State Context</span>
+              {si.last_updated && <span className="text-xs text-amber-600 italic">Updated {si.last_updated}</span>}
+            </div>
+            <div className="px-4 py-3 space-y-2 text-xs text-gray-700">
+              {si.pre_k_program && (
+                <div><span className="font-semibold text-gray-800">Pre-K program:</span> {si.pre_k_program}</div>
+              )}
+              {si.literacy_initiative && (
+                <div><span className="font-semibold text-gray-800">Literacy initiative:</span> {si.literacy_initiative}</div>
+              )}
+              {si.leadership_terminology && (
+                <div><span className="font-semibold text-gray-800">Terminology:</span> {si.leadership_terminology}</div>
+              )}
+              {(si.notes || []).length > 0 && (
+                <div className="pt-1">
+                  <div className="font-semibold text-gray-800 mb-1">Notes:</div>
+                  <ul className="space-y-1 list-disc list-inside text-gray-600">
+                    {(si.notes || []).map((n, i) => (<li key={i}>{n}</li>))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })()}
+
       {/* ── ISD Contact (shown when district is ISD-covered) ── */}
       {(district.isdCoveredBy || district.isdContactEmail) && !district.isLeaParent && (
         <div className="rounded-xl border border-teal-200 bg-teal-50/20 overflow-hidden">

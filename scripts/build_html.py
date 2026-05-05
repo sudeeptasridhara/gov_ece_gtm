@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT       = Path(__file__).parent.parent
 DATA_FILE  = ROOT / "data" / "districts.json"
+STATE_INFO = ROOT / "data" / "state_info.json"
 TEMPLATE   = ROOT / "scripts" / "dashboard_template.jsx"
 OUT_HTML   = ROOT / "index.html"
 REACT_MIN  = ROOT / "node_modules" / "react" / "umd" / "react.production.min.js"
@@ -29,7 +30,13 @@ BABEL_CFG  = ROOT / "babel.config.json"
 def load_districts() -> str:
     with open(DATA_FILE) as f:
         data = json.load(f)
-    return "const INITIAL_DISTRICTS = " + json.dumps(data, indent=2) + ";"
+    out = "const INITIAL_DISTRICTS = " + json.dumps(data, indent=2) + ";\n"
+    state_info = {}
+    if STATE_INFO.exists():
+        with open(STATE_INFO) as f:
+            state_info = json.load(f)
+    out += "const STATE_INFO = " + json.dumps(state_info, indent=2) + ";\n"
+    return out
 
 
 def compile_jsx(jsx_src: str) -> str:
