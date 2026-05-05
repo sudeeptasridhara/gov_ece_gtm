@@ -1141,6 +1141,15 @@ export default function BrightwheelDashboard() {
   const [granolaModalOpen, setGranolaModalOpen] = useState(false);
   const [granolaTokenInput, setGranolaTokenInput] = useState("");
   const [syncedGranolaIds, setSyncedGranolaIds] = useState(new Set());
+  // Granola docs that came back from sync but didn't match any district by name/email/director.
+  // Persisted per-rep in localStorage so the rep can come back later and assign them.
+  // Shape: [{ id, title, notesText, dateStr, syncedAt }]
+  const [unmatchedGranolaDocs, setUnmatchedGranolaDocs] = useState(() => {
+    try { const s = localStorage.getItem("bw_unmatched_granola_v1"); return s ? JSON.parse(s) : []; } catch { return []; }
+  });
+  const [unmatchedGranolaModalOpen, setUnmatchedGranolaModalOpen] = useState(false);
+  // Per-doc UI state inside the modal: { [docId]: { districtId, search } }
+  const [unmatchedSelections, setUnmatchedSelections] = useState({});
   const [gmailSyncing, setGmailSyncing] = useState(false);
   const [lastSyncTime, setLastSyncTime] = useState(null);
 
@@ -1319,6 +1328,11 @@ export default function BrightwheelDashboard() {
   useEffect(() => {
     try { localStorage.setItem("bw_bounces_v1", JSON.stringify([...bounces])); } catch(e) {}
   }, [bounces]);
+
+  // Persist unmatched Granola docs so the rep can come back and assign them across sessions
+  useEffect(() => {
+    try { localStorage.setItem("bw_unmatched_granola_v1", JSON.stringify(unmatchedGranolaDocs)); } catch(e) {}
+  }, [unmatchedGranolaDocs]);
 
   // Migrate any legacy status values to sequence stage keys
   useEffect(() => {
@@ -1872,7 +1886,10 @@ export default function BrightwheelDashboard() {
       const documents = Array.isArray(payload) ? payload : (payload.documents || payload.data || []);
 
       let newActivities = [];
+      let newUnmatched = [];
       const newSyncedIds = new Set(syncedGranolaIds);
+      // Don't re-add docs that are already pending in the unmatched queue
+      const pendingUnmatchedIds = new Set(unmatchedGranolaDocs.map(u => u.id));
 
       for (const doc of documents) {
         if (newSyncedIds.has(doc.id)) continue;
@@ -1883,7 +1900,20 @@ export default function BrightwheelDashboard() {
         const dateStr = (doc.created_at || doc.createdAt || "").split("T")[0] || new Date().toISOString().split("T")[0];
 
         const matched = matchDoc(title, notesText);
-        if (!matched) continue;
+        if (!matched) {
+          // Stash the doc so the rep can manually assign it from the Outreach Tracking tab.
+          if (!pendingUnmatchedIds.has(doc.id)) {
+            newUnmatched.push({
+              id: doc.id,
+              title,
+              notesText: notesText.slice(0, 2000),
+              dateStr,
+              syncedAt: new Date().toISOString(),
+            });
+            pendingUnmatchedIds.add(doc.id);
+          }
+          continue;
+        }
 
         const activity = {
           id: doc.id,
@@ -1918,14 +1948,20 @@ export default function BrightwheelDashboard() {
         });
       }
 
+      if (newUnmatched.length > 0) {
+        setUnmatchedGranolaDocs(prev => [...newUnmatched, ...prev]);
+      }
+
       setSyncedGranolaIds(newSyncedIds);
       setGranolaLastSync(new Date().toLocaleTimeString());
       setGranolaSyncing(false);
-      showNotif(
-        newActivities.length === 0
-          ? "Granola sync — no new matched meetings found"
-          : `Granola: ${newActivities.length} meeting${newActivities.length !== 1 ? "s" : ""} matched ✓`
-      );
+      const matchedMsg = newActivities.length === 0
+        ? "no new matched meetings"
+        : `${newActivities.length} matched ✓`;
+      const unmatchedMsg = newUnmatched.length > 0
+        ? ` · ${newUnmatched.length} unmatched (click "Match Calls" to assign)`
+        : "";
+      showNotif(`Granola: ${matchedMsg}${unmatchedMsg}`);
       // Persist new activities to shared sheet
       if (newActivities.length > 0) {
         const rows = newActivities.map(({ districtId, activity }) => {
@@ -1944,6 +1980,62 @@ export default function BrightwheelDashboard() {
       );
       setGranolaSyncing(false);
     }
+  };
+
+  // Manually attach an unmatched Granola doc to a chosen district.
+  // Builds the same activity shape syncGranolaActivity creates for matched docs,
+  // appends it to the district, persists to the shared sheet, and removes it
+  // from the unmatched queue.
+  const matchUnmatchedGranolaDoc = (docId, districtId) => {
+    const doc = unmatchedGranolaDocs.find(u => u.id === docId);
+    if (!doc) return;
+    const dist = districts.find(d => d.id === districtId);
+    if (!dist) { showNotif("District not found", "red"); return; }
+
+    const activity = {
+      id: doc.id,
+      type: "call",
+      date: doc.dateStr || new Date().toISOString().split("T")[0],
+      notes: `📓 Granola: "${doc.title}"`,
+      district: dist.district,
+      directorName: dist.director,
+      source: "granola",
+      granolaDocId: doc.id,
+      granolaTitle: doc.title,
+      granolaNotesText: (doc.notesText || "").slice(0, 2000),
+      repEmail: gmailUser || "",
+    };
+
+    setDistricts(prev => {
+      const updated = [...prev];
+      const idx = updated.findIndex(d => d.id === districtId);
+      if (idx === -1) return prev;
+      const d = updated[idx];
+      // Don't double-add if somehow it was already attached
+      if ((d.activities || []).some(a => a.granolaDocId === activity.granolaDocId)) return prev;
+      updated[idx] = {
+        ...d,
+        activities: [...(d.activities || []), activity],
+        status: d.status === "not contacted" || d.status === "not_contacted" ? "reached out" : d.status,
+      };
+      return updated;
+    });
+
+    // Mark as synced so a future re-sync doesn't put it back in the unmatched queue
+    setSyncedGranolaIds(prev => { const s = new Set(prev); s.add(doc.id); return s; });
+    setUnmatchedGranolaDocs(prev => prev.filter(u => u.id !== docId));
+    setUnmatchedSelections(prev => { const c = { ...prev }; delete c[docId]; return c; });
+
+    writeToSheet([activityToRow(districtId, dist.district, activity)]);
+    showNotif(`Matched call to ${dist.district} ✓`);
+  };
+
+  // Drop an unmatched Granola doc from the queue without attaching it.
+  // Still marks the id as synced so a re-sync won't surface it again.
+  const dismissUnmatchedGranolaDoc = (docId) => {
+    setSyncedGranolaIds(prev => { const s = new Set(prev); s.add(docId); return s; });
+    setUnmatchedGranolaDocs(prev => prev.filter(u => u.id !== docId));
+    setUnmatchedSelections(prev => { const c = { ...prev }; delete c[docId]; return c; });
   };
 
   // ── SHARED GOOGLE SHEET HELPERS ──────────────────────────────────────────────
@@ -4701,6 +4793,18 @@ export default function BrightwheelDashboard() {
                       >
                         {granolaSyncing ? "⏳ Syncing Granola..." : granolaConnected ? "📓 Sync Granola" : "📓 Connect Granola"}
                       </button>
+                      {granolaConnected && unmatchedGranolaDocs.length > 0 && (
+                        <button
+                          onClick={() => setUnmatchedGranolaModalOpen(true)}
+                          title="Granola calls that didn't auto-match a contact — click to assign them"
+                          className="text-xs px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 border bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100 cursor-pointer transition-colors"
+                        >
+                          📞 Match Calls
+                          <span className="ml-0.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber-600 text-white text-[10px] font-bold">
+                            {unmatchedGranolaDocs.length}
+                          </span>
+                        </button>
+                      )}
                     </div>
                     {(lastSyncTime || granolaLastSync) && (
                       <span className="text-xs text-gray-400">
@@ -8060,6 +8164,110 @@ export default function BrightwheelDashboard() {
                 className="px-4 py-2 text-sm font-medium text-white bg-violet-600 rounded-lg hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Connect &amp; Sync
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── UNMATCHED GRANOLA CALLS MODAL ── */}
+      {unmatchedGranolaModalOpen && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={(e) => { if (e.target === e.currentTarget) setUnmatchedGranolaModalOpen(false); }}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col" style={{ maxHeight: "85vh" }} onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 text-lg">📞</div>
+                <div>
+                  <h2 className="text-base font-bold text-gray-900">Match Granola Calls to Contacts</h2>
+                  <p className="text-xs text-gray-500">
+                    {unmatchedGranolaDocs.length} call{unmatchedGranolaDocs.length !== 1 ? "s" : ""} from your Granola sync didn't auto-match a district. Pick a contact to attach each one.
+                  </p>
+                </div>
+              </div>
+              <button onClick={() => setUnmatchedGranolaModalOpen(false)} className="text-gray-400 hover:text-gray-700 text-xl font-light">✕</button>
+            </div>
+
+            {/* List */}
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+              {unmatchedGranolaDocs.length === 0 ? (
+                <div className="py-12 text-center text-sm text-gray-400">
+                  All synced calls have been matched. Run Sync Granola again to pull in new meetings.
+                </div>
+              ) : unmatchedGranolaDocs.map((doc) => {
+                const sel = unmatchedSelections[doc.id] || {};
+                const search = (sel.search || "").toLowerCase();
+                // Filter the current rep's districts (respecting the global rep filter when set)
+                const candidateDistricts = districts.filter(d => {
+                  if (globalRepFilter !== "all" && STATE_REP_EMAIL[d.state || "FL"] !== globalRepFilter) return false;
+                  if (!search) return true;
+                  const hay = ((d.district || "") + " " + (d.director || "") + " " + (d.county || "") + " " + (d.email || "")).toLowerCase();
+                  return hay.includes(search);
+                }).slice(0, 50);
+                const snippet = (doc.notesText || "").slice(0, 280);
+                return (
+                  <div key={doc.id} className="border border-gray-200 rounded-xl p-4 hover:border-violet-200 transition-colors bg-white">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-gray-900 truncate">{doc.title || "(untitled meeting)"}</div>
+                        <div className="text-xs text-gray-400 mt-0.5">📅 {doc.dateStr || "no date"}</div>
+                      </div>
+                      <button
+                        onClick={() => dismissUnmatchedGranolaDoc(doc.id)}
+                        className="text-xs text-gray-400 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 flex-shrink-0"
+                        title="Dismiss without attaching"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                    {snippet && (
+                      <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2 whitespace-pre-wrap">
+                        {snippet}{(doc.notesText || "").length > snippet.length ? "…" : ""}
+                      </p>
+                    )}
+                    <div className="grid gap-2" style={{ gridTemplateColumns: "1fr 1fr auto" }}>
+                      <input
+                        type="text"
+                        value={sel.search || ""}
+                        onChange={(e) => setUnmatchedSelections(prev => ({ ...prev, [doc.id]: { ...prev[doc.id], search: e.target.value } }))}
+                        placeholder="🔍 Search district, director, county..."
+                        className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-violet-200"
+                      />
+                      <select
+                        value={sel.districtId || ""}
+                        onChange={(e) => setUnmatchedSelections(prev => ({ ...prev, [doc.id]: { ...prev[doc.id], districtId: e.target.value ? Number(e.target.value) : "" } }))}
+                        className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-violet-200"
+                      >
+                        <option value="">Select a contact…</option>
+                        {candidateDistricts.map(d => (
+                          <option key={d.id} value={d.id}>
+                            {d.district} {d.state ? `(${d.state})` : ""} — {d.director || "no contact"}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={() => sel.districtId && matchUnmatchedGranolaDoc(doc.id, sel.districtId)}
+                        disabled={!sel.districtId}
+                        className="text-xs px-3 py-1.5 rounded-lg font-medium text-white bg-violet-600 hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        Match →
+                      </button>
+                    </div>
+                    {search && candidateDistricts.length === 0 && (
+                      <p className="text-xs text-amber-600 mt-2">No districts match this search{globalRepFilter !== "all" ? " for the selected rep" : ""}.</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex-shrink-0">
+              <span className="text-xs text-gray-400">
+                Tip: matched calls show up in the contact's outreach history and sync to the shared activity sheet.
+              </span>
+              <button onClick={() => setUnmatchedGranolaModalOpen(false)} className="px-4 py-2 text-sm text-gray-600 border border-gray-200 rounded-lg hover:bg-white">
+                Done
               </button>
             </div>
           </div>
