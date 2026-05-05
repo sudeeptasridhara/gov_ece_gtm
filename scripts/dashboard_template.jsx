@@ -1942,8 +1942,8 @@ export default function BrightwheelDashboard() {
       // personal notes that only the desktop endpoint can see.
       const documents = [];
       const seenIds = new Set();
-      const counts = { enterprise: 0, desktop: 0 };
-      const errors = { enterprise: null, desktop: null };
+      const counts = { enterprise: 0, desktop: 0, folder: 0 };
+      const errors = { enterprise: null, desktop: null, folder: null };
 
       // ── Endpoint 1: official Enterprise endpoint, cursor-paginated ───────────
       try {
@@ -2044,11 +2044,72 @@ export default function BrightwheelDashboard() {
         console.warn("[granola] desktop fetch error:", e);
       }
 
-      const endpointUsed = counts.enterprise > 0 && counts.desktop > 0
-        ? "enterprise+desktop"
-        : counts.enterprise > 0 ? "enterprise"
-        : counts.desktop > 0 ? "desktop"
-        : "none";
+      // ── Endpoint 3: shared/team folder contents ──────────────────────────────
+      // /v2/get-documents only returns notes the user OWNS. Notes shared into a
+      // team folder (like the GTM team's call-notes folder at
+      // notes.granola.ai/t/a3fb9a3e-...) are invisible to that endpoint. The
+      // recommended pattern from Granola's reverse-engineered docs is:
+      //   1. GET /v2/get-document-lists → enumerate folders + their doc IDs
+      //   2. POST /v1/get-documents-batch → batch-fetch the doc bodies
+      // Step 2 returns shared docs even when step 1 returned them by reference.
+      try {
+        const listsRes = await fetch("https://api.granola.ai/v2/get-document-lists", {
+          method: "POST",
+          headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
+          body: JSON.stringify({}),
+        });
+        if (listsRes.status === 401 || listsRes.status === 403) {
+          errors.folder = `auth_${listsRes.status}`;
+        } else if (!listsRes.ok) {
+          errors.folder = `http_${listsRes.status}`;
+        } else {
+          const listsPayload = await listsRes.json();
+          const lists = Array.isArray(listsPayload) ? listsPayload : (listsPayload.lists || listsPayload.folders || []);
+          // Collect every doc id across folders that we haven't already pulled
+          const folderDocIds = [];
+          for (const list of lists) {
+            const ids = (list?.documents || []).map(d => d?.id).filter(Boolean);
+            const fallbackIds = list?.document_ids || [];
+            const combined = ids.length ? ids : fallbackIds;
+            for (const id of combined) {
+              if (id && !seenIds.has(id) && !folderDocIds.includes(id)) folderDocIds.push(id);
+            }
+          }
+          console.log(`[granola] folders: ${lists.length} folder(s), ${folderDocIds.length} new doc id(s) to batch-fetch`);
+          // Batch fetch the doc bodies in chunks of 100 (Granola's batch cap)
+          const CHUNK = 100;
+          for (let i = 0; i < folderDocIds.length; i += CHUNK) {
+            const chunk = folderDocIds.slice(i, i + CHUNK);
+            const batchRes = await fetch("https://api.granola.ai/v1/get-documents-batch", {
+              method: "POST",
+              headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
+              body: JSON.stringify({ document_ids: chunk, include_last_viewed_panel: true }),
+            });
+            if (!batchRes.ok) {
+              errors.folder = errors.folder || `batch_http_${batchRes.status}`;
+              break;
+            }
+            const batchPayload = await batchRes.json();
+            const batchDocs = batchPayload.documents || batchPayload.docs || [];
+            for (const d of batchDocs) {
+              if (!d?.id || seenIds.has(d.id)) continue;
+              seenIds.add(d.id);
+              documents.push({ ...d, _via: "folder" });
+              counts.folder += 1;
+            }
+          }
+        }
+        console.log(`[granola] folder docs added: ${counts.folder}${errors.folder ? ` (skipped: ${errors.folder})` : ""}`);
+      } catch (e) {
+        errors.folder = `network_${e.message || "unknown"}`;
+        console.warn("[granola] folder fetch error:", e);
+      }
+
+      const usedEndpoints = [];
+      if (counts.enterprise > 0) usedEndpoints.push("enterprise");
+      if (counts.desktop    > 0) usedEndpoints.push("desktop");
+      if (counts.folder     > 0) usedEndpoints.push("folder");
+      const endpointUsed = usedEndpoints.length ? usedEndpoints.join("+") : "none";
 
       let newActivities = [];
       let newUnmatched = [];
@@ -2151,9 +2212,11 @@ export default function BrightwheelDashboard() {
           toast = "Granola: 0 notes returned. Check that your API key has access in Granola → Settings → Workspaces → API.";
         }
       } else {
-        const breakdown = endpointUsed === "enterprise+desktop"
-          ? ` (${counts.enterprise} workspace + ${counts.desktop} personal)`
-          : "";
+        const segs = [];
+        if (counts.enterprise > 0) segs.push(`${counts.enterprise} workspace`);
+        if (counts.desktop    > 0) segs.push(`${counts.desktop} personal`);
+        if (counts.folder     > 0) segs.push(`${counts.folder} from team folders`);
+        const breakdown = segs.length > 1 ? ` (${segs.join(" + ")})` : "";
         const parts = [`Granola (${endpointUsed}): ${totalDocs} note${totalDocs !== 1 ? "s" : ""} fetched${breakdown}`];
         if (newActivities.length > 0) parts.push(`${newActivities.length} matched ✓`);
         if (newUnmatched.length > 0) parts.push(`${newUnmatched.length} unmatched (click "Match Calls")`);
