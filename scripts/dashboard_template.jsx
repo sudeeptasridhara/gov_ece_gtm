@@ -2225,27 +2225,42 @@ export default function BrightwheelDashboard() {
         : 0;
       console.log(`[granola] endpoint=${endpointUsed} total=${totalDocs} matched=${newActivities.length} unmatched=${newUnmatched.length} alreadyAttached=${skippedAlreadyAttached} counts=${JSON.stringify(counts)} errors=${JSON.stringify(errors)}`);
       let toast;
+      let toastDuration = 3500;
       if (totalDocs === 0) {
-        // Both endpoints returned zero. Diagnose based on what we got back.
+        // Build a per-endpoint status string the rep can read directly without
+        // opening DevTools. Format: "WS ✓ 0 · DT ❌ 401 · FLD ❌ 401"
+        const statusFor = (count, err) => {
+          if (err && err.startsWith("auth_"))    return `❌ ${err.split("_")[1]}`;
+          if (err && err.startsWith("http_"))    return `⚠️ ${err.split("_")[1]}`;
+          if (err && err.startsWith("network_")) return `🚫 net`;
+          if (err && err.startsWith("batch_"))   return `⚠️ batch fail`;
+          return `✓ ${count}`;
+        };
+        const status = `WS ${statusFor(counts.enterprise, errors.enterprise)} · DT ${statusFor(counts.desktop, errors.desktop)} · FLD ${statusFor(counts.folder, errors.folder)}`;
+
+        // Pick the most actionable next step based on the error pattern
         const wsAuth   = (errors.enterprise || "").startsWith("auth_");
         const dtAuth   = (errors.desktop    || "").startsWith("auth_");
+        const fldAuth  = (errors.folder     || "").startsWith("auth_");
         const wsNet    = (errors.enterprise || "").startsWith("network_");
         const dtNet    = (errors.desktop    || "").startsWith("network_");
         const fldNet   = (errors.folder     || "").startsWith("network_");
+        let nextStep;
         if (wsNet && dtNet && fldNet) {
-          toast = "Granola: every endpoint failed at the network level (likely CORS or network outage). Open DevTools → Console for details.";
-        } else if (wsAuth && dtAuth) {
-          toast = "Granola: token wasn't accepted by either endpoint — reconnect with a fresh API key";
-        } else if (!wsAuth && counts.enterprise === 0 && dtAuth) {
-          // Workspace key worked but had nothing visible; desktop path 401'd as expected
-          toast = "Granola: workspace key accepted but returned 0 notes. Share your phone-call notes into a workspace folder (Granola → Settings → Workspaces → Folders) then resync.";
-        } else if (wsAuth && !dtAuth && counts.desktop === 0 && counts.folder === 0) {
-          toast = "Granola: desktop key accepted but returned 0 docs. Verify the team folder is shared with you in Granola, then resync.";
+          nextStep = "Browser blocked all calls (likely CORS). Try Incognito, then check DevTools.";
+        } else if (wsAuth && dtAuth && fldAuth) {
+          nextStep = "Token rejected everywhere. Reconnect with a fresh key from Granola → Settings → Workspaces → API.";
+        } else if (!wsAuth && dtAuth && fldAuth) {
+          nextStep = "Workspace key accepted but no notes are in workspace folders. In Granola, drag your phone-call notes into a workspace folder and resync.";
+        } else if (wsAuth && !dtAuth && !fldAuth) {
+          nextStep = "Personal token accepted but found 0 docs. Confirm calls exist in your account and the team folder is shared with you.";
         } else if (dtNet || fldNet) {
-          toast = "Granola: desktop API call failed (network/CORS). The folder fetch needs a personal/desktop token. Check DevTools → Console.";
+          nextStep = "Desktop endpoint blocked by browser. A workspace API key from Granola → Settings → Workspaces → API is required.";
         } else {
-          toast = "Granola: 0 notes returned. Check DevTools → Console for [granola] logs to see which endpoint(s) responded.";
+          nextStep = "Token works on every endpoint but no notes are visible to it. Either your workspace folder is empty, or notes haven't been moved into it yet.";
         }
+        toast = `Granola — 0 notes. ${status}. ${nextStep}`;
+        toastDuration = 14000; // 14s — long diagnostic, give the rep time to read
       } else {
         const segs = [];
         if (counts.enterprise > 0) segs.push(`${counts.enterprise} workspace`);
@@ -2259,7 +2274,7 @@ export default function BrightwheelDashboard() {
         if (newActivities.length === 0 && newUnmatched.length === 0) parts.push("nothing new");
         toast = parts.join(" · ");
       }
-      showNotif(toast);
+      showNotif(toast, "green", toastDuration);
       // Persist new activities to shared sheet
       if (newActivities.length > 0) {
         const rows = newActivities.map(({ districtId, activity }) => {
@@ -3393,9 +3408,9 @@ export default function BrightwheelDashboard() {
 
   const clearSelection = () => { setSelectedIds(new Set()); setShowBulkSeqDropdown(false); };
 
-  const showNotif = (msg, color = "green") => {
+  const showNotif = (msg, color = "green", duration = 3500) => {
     setNotification({ msg, color });
-    setTimeout(() => setNotification(null), 3500);
+    setTimeout(() => setNotification(null), duration);
   };
 
   // Territories excluded from all views
