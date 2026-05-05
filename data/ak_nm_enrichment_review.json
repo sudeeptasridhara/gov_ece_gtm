@@ -1,0 +1,74 @@
+[
+  {
+    "id": 575,
+    "state": "NM",
+    "district": "NM \u2014 Los Lunas Schools",
+    "existing": "Cathy Chavez",
+    "scraped": "Catherine (Cathy) Chavez",
+    "replacement_recommended": false
+  },
+  {
+    "id": 603,
+    "state": "NM",
+    "district": "NM \u2014 Zuni Public School District",
+    "existing": "Stickney",
+    "scraped": "Randy Stickney",
+    "replacement_recommended": false
+  },
+  {
+    "id": 608,
+    "state": "NM",
+    "district": "NM \u2014 Hagerman Municipal Schools",
+    "existing": "Ricky Williams",
+    "scraped": "Belia Reyes",
+    "replacement_recommended": true
+  },
+  {
+    "id": 614,
+    "state": "NM",
+    "district": "NM \u2014 Mora Independent Schools",
+    "existing": "Fidel Trujillo",
+    "scraped": "Norma Cavazos",
+    "replacement_recommended": true
+  },
+  {
+    "id": 618,
+    "state": "NM",
+    "district": "NM \u2014 Mountainair Public Schools",
+    "existing": "Pedro Vallejo",
+    "scraped": "Pedro \"Pete\" Vallejo",
+    "replacement_recommended": false
+  },
+  {
+    "id": 620,
+    "state": "NM",
+    "district": "NM \u2014 Logan Municipal Schools",
+    "existing": "Frank Schofield",
+    "scraped": "Ross Perschbacher",
+    "replacement_recommended": true
+  },
+  {
+    "id": 622,
+    "state": "NM",
+    "district": "NM \u2014 Corona Public Schools",
+    "existing": "Curtis Clough",
+    "scraped": "Curtis M. Clough",
+    "replacement_recommended": false
+  },
+  {
+    "id": 625,
+    "state": "NM",
+    "district": "NM \u2014 Roy Municipal Schools",
+    "existing": "Edward Fluhman",
+    "scraped": "Dr. Jim Holloway",
+    "replacement_recommended": true
+  },
+  {
+    "id": 914,
+    "state": "NM",
+    "district": "NM \u2014 Central Consolidated Schools",
+    "existing": "Candace Keams Benally",
+    "scraped": "Candace Keams-Benally",
+    "replacement_recommended": false
+  }
+]

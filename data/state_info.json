@@ -113,5 +113,40 @@
       "Buying signals to act on: Henderson County preschool expansion 2026-27, Nelson County opened new Early Learning Center, Paris/TBJELC achieved Level 5 KY All STARS, Harlan County preschool investment, Floyd County named Chief Early Childhood Officer (Kimberly Grubb).",
       "Largest KY districts: Jefferson County (JCPS, ~96K), Fayette (~42K), Boone, Kenton, Warren, Hardin, Daviess, Madison, Bullitt \u2014 all have dedicated ECE leadership."
     ]
+  },
+  "AK": {
+    "state": "AK",
+    "state_name": "Alaska",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "Limited state-funded Pre-K. The Alaska Reads Act (2022) mandated K-3 literacy improvements with optional Pre-K provisions but funding is modest. Most PreK runs via federal Title I, federal Head Start, Tribal/BIE programs, or local district funding.",
+    "literacy_initiative": "Alaska Reads Act (2022) \u2014 K-3 literacy mandate driving curriculum reviews; strong adjacent signal for ECE outreach.",
+    "leadership_terminology": "Alaska has 54 districts: 19 Borough School Districts (organized boroughs), 19 Regional Education Attendance Areas (REAAs covering unorganized boroughs), Anchorage School District (largest), plus city/independent districts (Sitka, Petersburg, Fairbanks North Star, etc.).",
+    "notes": [
+      "Alaska has 54 districts with three flavors: Borough School Districts (organized boroughs), REAAs (unorganized borough regions covering many remote villages), and city/independent districts. Anchorage is the largest (~43K students); Mat-Su, Fairbanks North Star, and Juneau are next.",
+      "Alaska Reads Act (2022) mandated K-3 literacy improvements with optional Pre-K provisions. Funding is modest, so most AK PreK runs via federal Title I, federal Head Start (RurAL CAP is the main grantee), Tribal/BIE programs, or local district programs.",
+      "Many REAAs serve 10-50 schools across vast geographic areas (e.g., Bering Strait, Lower Kuskokwim, NW Arctic Borough, Yukon-Koyukuk). For these, the Superintendent is the right ECE persona.",
+      "Standout dedicated ECE/Curriculum leads: Anchorage (Jessica Nesset, Director of Early Learning), Fairbanks North Star (Chane Beam, Exec Director Teaching & Learning), Mat-Su (Beckie Murphy), Juneau (Kristin Garot), Kodiak (Kim Saunders, Director of Special Services overseeing ECE), NW Arctic (Wanda Baltazar), Lower Kuskokwim (Alicia Miner), Kenai (Eric Pederson), Sitka (Diana Fulton), Ketchikan (Alonso Escalante), Kuspuk (Emily Vanderpool), Alaska Gateway (Suzanne Pascuzzi, Federal Programs).",
+      "Email convention varies widely: Anchorage uses `last_first@asdk12.org`, Fairbanks/Juneau/NSBSD use `first.last`, Mat-Su uses `firstname.lastname@matsuk12.us`, Kodiak uses `First.Last@kibsd.org`, Sitka uses `lastfirstinitial@ssd.org`. Some districts use `*.k12.ak.us` legacy domains.",
+      "Alaska DEED (Department of Education and Early Development) is state-level \u2014 NOT recorded as district staff. RurAL CAP (Rural Alaska Community Action Program) is a Head Start grantee \u2014 also NOT district staff."
+    ]
+  },
+  "NM": {
+    "state": "NM",
+    "state_name": "New Mexico",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "NM PreK Program \u2014 strong state-funded Pre-K administered by the Early Childhood Education and Care Department (ECECD) for 3-4 year olds. Mixed-Delivery model partners districts with private childcare and Head Start.",
+    "literacy_initiative": "K-5+ Plus (extended day) and a K-3 literacy initiative.",
+    "leadership_terminology": "Districts vary widely \u2014 Albuquerque (largest, ~73K) and other large districts (Las Cruces, Rio Rancho, Santa Fe, Gadsden, Hobbs, Farmington) have dedicated ECE staff. Many small/rural districts (especially in tribal/Pueblo areas, Navajo Nation) have limited staff.",
+    "notes": [
+      "NM has the **NM PreK Program** administered by the Early Childhood Education and Care Department (ECECD) \u2014 a robust state-funded Pre-K program for 3-4 year olds. The Mixed-Delivery model partners districts with private childcare providers and Head Start.",
+      "NM also has K-5+ Plus (extended day) and a K-3 literacy initiative.",
+      "NMPED (NM Public Education Department), ECECD (Early Childhood Education and Care Department), and Tribal Head Start agencies are NOT district staff and are excluded.",
+      "NM has Bureau of Indian Education (BIE) districts on Pueblo and Navajo Nation lands \u2014 separate federal structure.",
+      "Standout NM ECE leads (existing in dashboard): Cathy Chavez (Los Lunas), Molly Pierce, John Maldonado, Kimberly Ortiz (Magdalena \u2014 note: on admin leave, resigning 6/30/2026), Curtis Clough, Edward Fluhman (Roy Municipal \u2014 agent flagged replacement: Dr. Jim Holloway is now in role).",
+      "Standout new finds: Albuquerque (large), Las Cruces (large), Rio Rancho, Santa Fe, Gadsden, Hobbs (Amy Rhoads), Espa\u00f1ola (Holly Martinez), Las Vegas City (Cathy Gallegos), Raton (Kristie Medina), Grants-Cibola (Desiraye Lopez), Hatch Valley (Michael Chavez), Belen (Lawrence Sanchez), Mora (Norma Cavazos \u2014 replaced interim Trujillo), Dora (Brandon Hays), Clayton (Stacy Diller), Los Alamos (Gina Terrazas, PreK Director).",
+      "Email convention: most districts use branded `.org` or `.k12.nm.us` (`aps.edu` for Albuquerque, `lcps.net` for Las Cruces, `rrps.net` for Rio Rancho, `sfps.info` for Santa Fe, `gisd.us` for Gadsden, `hobbsschools.net`).",
+      "Active leadership transitions to verify before outreach: Hagerman (Williams replaced by Belia Reyes), Mora (Trujillo\u2192Cavazos), Logan (Schofield was Utah misattribution; NM Logan now interim Ross Perschbacher), Tucumcari (Johnson retired June 2025 \u2192 Deanne McKinney), Magdalena (Kim Ortiz on admin leave, resigning 6/30/2026), Truth or Consequences + Cobre (Randall Piper concurrently serves both as Superintendent / Interim Supt for 25-26 SY).",
+      "Note: ids 595 and 17661 in our data are duplicates \u2014 both represent Truth or Consequences Schools."
+    ]
   }
 }
