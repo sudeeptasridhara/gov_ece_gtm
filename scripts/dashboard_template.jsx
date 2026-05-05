@@ -1905,44 +1905,94 @@ export default function BrightwheelDashboard() {
     };
 
     try {
-      // Paginate through all of the user's Granola documents. The v2/get-documents
-      // endpoint returns at most ~100 per page, so without pagination older meetings
-      // and phone calls fall off the bottom and never get matched.
+      // ── Granola has TWO API surfaces ─────────────────────────────────────────
+      //  1. Enterprise workspace API key  → https://public-api.granola.ai/v1/notes
+      //     (cursor pagination, GET, returns workspace-shared notes including phone
+      //     calls — this is what reps generate from Settings → Workspaces → API)
+      //  2. Reverse-engineered desktop token → https://api.granola.ai/v2/get-documents
+      //     (POST with limit/offset, returns user-owned notes only)
+      //
+      // We try the official endpoint first since that's what the connect modal
+      // points reps to. If the key isn't a workspace key we fall back to the old
+      // endpoint so personal/desktop tokens still work.
       const documents = [];
-      const PAGE_SIZE = 100;
-      const MAX_PAGES = 50; // safety cap (5,000 docs)
-      let offset = 0;
-      let pages = 0;
-      while (pages < MAX_PAGES) {
-        const res = await fetch("https://api.granola.ai/v2/get-documents", {
-          method: "POST",
-          headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
-          body: JSON.stringify({
-            limit: PAGE_SIZE,
-            offset,
-            include_last_viewed_panel: true,
-          }),
-        });
+      let endpointUsed = null;
 
-        if (res.status === 401) {
-          setGranolaToken(null); setGranolaConnected(false);
-          showNotif("Granola token expired — reconnect", "red");
-          setGranolaModalOpen(true);
-          setGranolaSyncing(false);
-          return;
+      // ── Attempt 1: official Enterprise endpoint, cursor-paginated ────────────
+      try {
+        const PAGE_SIZE = 30; // API max
+        const MAX_PAGES = 200; // safety cap (~6,000 notes)
+        let cursor = null;
+        let pages = 0;
+        while (pages < MAX_PAGES) {
+          const url = new URL("https://public-api.granola.ai/v1/notes");
+          url.searchParams.set("page_size", String(PAGE_SIZE));
+          if (cursor) url.searchParams.set("cursor", cursor);
+          const res = await fetch(url.toString(), {
+            method: "GET",
+            headers: { Authorization: "Bearer " + useToken },
+          });
+          if (res.status === 401 || res.status === 403 || res.status === 404) {
+            // Not a workspace key (or workspace lacks API access). Fall back below.
+            throw new Error(`enterprise_unsupported_${res.status}`);
+          }
+          if (!res.ok) throw new Error(`Granola API ${res.status}`);
+          const payload = await res.json();
+          const notes = payload.notes || [];
+          // Normalize note shape → { id, title, last_viewed_panel, created_at }
+          for (const n of notes) {
+            documents.push({
+              id: n.id,
+              title: n.title || "",
+              created_at: n.created_at,
+              // Title-only matching for the official endpoint; richer summary fetch
+              // can be added per-note later if matching coverage is too low.
+              last_viewed_panel: null,
+              _ownerEmail: n.owner?.email || "",
+            });
+          }
+          pages += 1;
+          if (!payload.hasMore || !payload.cursor) break;
+          cursor = payload.cursor;
         }
-        if (!res.ok) throw new Error(`Granola API ${res.status}`);
-
-        const payload = await res.json();
-        const page = Array.isArray(payload)
-          ? payload
-          : (payload.docs || payload.documents || payload.data || []);
-        documents.push(...page);
-        pages += 1;
-        if (page.length < PAGE_SIZE) break; // last page
-        offset += page.length;
+        endpointUsed = "enterprise";
+        console.log(`[granola] enterprise endpoint: fetched ${documents.length} notes across ${pages} page(s)${rescan ? " (rescan)" : ""}`);
+      } catch (officialErr) {
+        // ── Attempt 2: legacy desktop-app endpoint, offset-paginated ───────────
+        if (!officialErr.message?.startsWith("enterprise_unsupported_")) {
+          // Real network/parse error — bubble up to the outer catch
+          throw officialErr;
+        }
+        const PAGE_SIZE = 100;
+        const MAX_PAGES = 50;
+        let offset = 0;
+        let pages = 0;
+        while (pages < MAX_PAGES) {
+          const res = await fetch("https://api.granola.ai/v2/get-documents", {
+            method: "POST",
+            headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
+            body: JSON.stringify({ limit: PAGE_SIZE, offset, include_last_viewed_panel: true }),
+          });
+          if (res.status === 401) {
+            setGranolaToken(null); setGranolaConnected(false);
+            showNotif("Granola token expired or invalid — reconnect", "red");
+            setGranolaModalOpen(true);
+            setGranolaSyncing(false);
+            return;
+          }
+          if (!res.ok) throw new Error(`Granola API ${res.status}`);
+          const payload = await res.json();
+          const page = Array.isArray(payload)
+            ? payload
+            : (payload.docs || payload.documents || payload.data || []);
+          documents.push(...page);
+          pages += 1;
+          if (page.length < PAGE_SIZE) break;
+          offset += page.length;
+        }
+        endpointUsed = "desktop";
+        console.log(`[granola] legacy desktop endpoint: fetched ${documents.length} docs across ${pages} page(s)${rescan ? " (rescan)" : ""}`);
       }
-      console.log(`[granola] fetched ${documents.length} docs across ${pages} page(s)${rescan ? " (rescan)" : ""}`);
 
       let newActivities = [];
       let newUnmatched = [];
@@ -2028,12 +2078,14 @@ export default function BrightwheelDashboard() {
       const skippedAlreadyAttached = rescan
         ? documents.filter(d => alreadyAttachedDocIds.has(d.id)).length
         : 0;
-      console.log(`[granola] total=${totalDocs} matched=${newActivities.length} unmatched=${newUnmatched.length} alreadyAttached=${skippedAlreadyAttached}`);
+      console.log(`[granola] endpoint=${endpointUsed} total=${totalDocs} matched=${newActivities.length} unmatched=${newUnmatched.length} alreadyAttached=${skippedAlreadyAttached}`);
       let toast;
       if (totalDocs === 0) {
-        toast = "Granola sync — API returned 0 docs (check Granola plan / token scope)";
+        toast = endpointUsed === "enterprise"
+          ? "Granola sync — workspace returned 0 notes (your API key may not have phone calls in scope; check Settings → Workspaces → API)"
+          : "Granola sync — API returned 0 docs (paste a workspace API key from Granola Settings → Workspaces → API for phone-call access)";
       } else {
-        const parts = [`Granola: ${totalDocs} doc${totalDocs !== 1 ? "s" : ""} fetched`];
+        const parts = [`Granola (${endpointUsed}): ${totalDocs} note${totalDocs !== 1 ? "s" : ""} fetched`];
         if (newActivities.length > 0) parts.push(`${newActivities.length} matched ✓`);
         if (newUnmatched.length > 0) parts.push(`${newUnmatched.length} unmatched (click "Match Calls")`);
         if (rescan && skippedAlreadyAttached > 0) parts.push(`${skippedAlreadyAttached} already attached`);
@@ -8205,13 +8257,16 @@ export default function BrightwheelDashboard() {
             </div>
 
             <div className="bg-violet-50 border border-violet-200 rounded-lg p-3 mb-4 text-xs text-violet-800 leading-relaxed">
-              <strong>How to get your API key:</strong>
+              <strong>How to get your workspace API key:</strong>
               <ol className="mt-1 ml-3 list-decimal space-y-0.5 text-violet-700">
                 <li>Open Granola on your Mac</li>
-                <li>Go to <strong>Settings → API</strong></li>
-                <li>Generate or copy your personal API key</li>
+                <li>Go to <strong>Settings → Workspaces</strong></li>
+                <li>Open the <strong>API</strong> tab</li>
+                <li>Click <strong>Generate API Key</strong> and copy it</li>
               </ol>
-              <p className="mt-2 text-violet-500">Requires a Granola Enterprise plan. Once connected, Granola meetings will be matched to districts by name and added to outreach tracking.</p>
+              <p className="mt-2 text-violet-500">
+                Use the <strong>workspace</strong> API key (not the personal/desktop key) so phone calls and team-shared notes are visible. Requires Granola Enterprise. Once connected, meetings and phone calls will be matched to districts by name and added to outreach tracking.
+              </p>
             </div>
 
             <input
