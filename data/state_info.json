@@ -20,5 +20,24 @@
       "Putnam County's Diana Wood was named TDOE 2025-26 Supervisor of the Year \u2014 strong relationship signal.",
       "TN district email domains vary widely: *.k12tn.net (Knox, Monroe, Bedford, Carter), *.k12.tn.us (Cocke, Hardin), branded .org / .com / .edu (Williamson, MNPS, MSCS, Bristol, FSSD)."
     ]
+  },
+  "SD": {
+    "state": "SD",
+    "state_name": "South Dakota",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "No universal state Pre-K. Most districts run PreK via Title I funds (federal) or partner with Head Start agencies. Some district-funded programs at larger systems.",
+    "literacy_initiative": "",
+    "leadership_terminology": "Most SD districts are very small (<500 students); Superintendents commonly hold multiple roles (Supt + Curriculum + Title I + Special Ed)",
+    "notes": [
+      "South Dakota has no universal state Pre-K program. PreK in SD is typically funded via federal Title I, federal Head Start (separate agency, not district staff), or local district funding. Most districts under ~500 students have no dedicated ECE role.",
+      "SD district email convention is overwhelmingly `firstname.lastname@k12.sd.us` (centrally hosted by SD DOE). A few districts use branded domains (e.g., Spearfish, Rapid City, Sioux Falls).",
+      "The SD DOE Public Schools Directory is the canonical staff source \u2014 searchable via doe.sd.gov.",
+      "Tribal/BIE districts on reservations (Pine Ridge, Rosebud, Cheyenne River, Standing Rock) follow separate federal funding/structure. Public districts adjacent to reservations may serve mixed populations.",
+      "Sioux Falls School District 49-5 (~24K students) is the only SD district with a clearly dedicated Director of Early Learning / Birth-to-Three Supervisor (Jennifer A. Bauer).",
+      "Largest SD districts with dedicated Curriculum Director persona: Aberdeen, Brandon Valley, Rapid City, Mitchell, Harrisburg, Brookings, Watertown, Yankton, Pierre, Huron, Tea Area, West Central, Spearfish, Madison Central, Mobridge-Pollock.",
+      "Most small/rural districts default to Superintendent as the ECE decision-maker \u2014 many wear multiple hats.",
+      "Yankton is building a 73K sq ft Early Childhood Development Center \u2014 strong outreach signal.",
+      "Recent leadership transitions to verify before outreach: Stanley County (Coverdale incoming Jan 2026), Menno (search ongoing), Castlewood (possible Books transition), Bowdle, Eagle Butte, Garretson."
+    ]
   }
 }
