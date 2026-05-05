@@ -184,5 +184,26 @@
       "Leadership transitions to verify before outreach: Red Cloud (active transition Dec 2025).",
       "NDE publishes a public superintendent CSV \u2014 high-leverage backfill source for any name-only entries that need email enrichment."
     ]
+  },
+  "ME": {
+    "state": "ME",
+    "state_name": "Maine",
+    "last_updated": "2026-05-04",
+    "pre_k_program": "Public Pre-K \u2014 universal optional 4-year-old program administered by Maine DOE. The state has been actively expanding Pre-K access. Many districts have a Pre-K Coordinator.",
+    "literacy_initiative": "",
+    "leadership_terminology": "Maine's school structure is unique: MSAD (Maine School Administrative Districts), RSU (Regional School Units, post-2007 reorganization), AOS (Alternative Organizational Structures \u2014 collaborative central-office sharing), CSD (Community School Districts), School Unions, and standalone \"Public Schools\" / \"School Department\" entities. Many small towns share a Superintendent via AOS/Union structures.",
+    "notes": [
+      "Maine has 5 district structures: **MSAD** (older, e.g. MSAD 1, 51), **RSU** (post-2007, e.g. RSU 5, 21), **AOS** (collaborative central-office sharing without full consolidation, e.g. AOS 91, 96), **CSD** (Community School Districts), **School Unions** (older multi-town consortia), and standalone single-municipality \"Public Schools\" / \"School Department\".",
+      "AOS sharing is huge in Maine \u2014 many \"Public Schools\" entries are member towns sharing a single Superintendent. Examples: AOS 96 (East Machias/Marshfield/Northfield/Cutler/Machias share Nicole Case), AOS 77 (Alexander/Crawford/Pembroke/Lubec share Mary Ellen Day), AOS 91/MDIRSS (Mount Desert/Tremont/Southwest Harbor/Cranberry Isles share Michael Zboray), AOS 90 (Baileyville/Meddybemps/Carroll Plt/MSAD 30 share Amanda Belanger), VUESC (Madawaska/MSAD 33 share Benjamin Sirois). Cluster districts will share contact info \u2014 that is correct, not a duplicate.",
+      "Maine's **Public Pre-K** is a universal optional 4-year-old program administered by Maine DOE. The state has been actively expanding Pre-K access. Most districts have a Pre-K Coordinator or run preschool through Special Ed (Part B/619 funding).",
+      "Standout dedicated ECE leads: Portland (Kathryn Soucy, Sr Dir of ECE \u2014 only true ECE specialist), Biddeford (Rico Mariello, EC Coordinator), RSU 21 (Mary Boswell, Pre-K Coordinator). Larger districts with Curriculum Directors: Bangor (Dr. Marie Robinson), Brunswick (Crofton), Falmouth (Kelly), Yarmouth (Shanna Crofton \u2014 2025 ME Curriculum Leader of the Year), MSAD 51 (Mar-E Trebilcock), RSU 5 (Erica Mazzeo), Gorham (Heather Perry), Scarborough (Katie Vetro), Kittery (Jill Pinard), RSU 14 (Christine Hesler), RSU 22 (Nickerson), Saco (Parkhurst), Auburn (Mogul), RSU 35 (Heidi Early-Hersey).",
+      "For most ME districts under ~1,500 students, the Superintendent is the right ECE persona. Special Education Director is a common alternative \u2014 preschool is often housed under SpEd because Part B/619 federal funds support it.",
+      "Email convention: most districts use branded `.org` (`portlandschools.org`, `bangorschools.net`, `lewistonpublicschools.org`, `rsu21.net`, `msad1.org`). Many small districts use `*.k12.me.us` (legacy) or shared AOS-hosted domains.",
+      "Maine DOE, Maine Roads to Quality, and community Head Start agencies (Penquis CAP, KVCAP, YMCA partners) are NOT district staff and are excluded.",
+      "Tribal schools (Indian Island, Pleasant Point, Indian Township) are BIE-funded under Maine Indian Education \u2014 separate federal structure.",
+      "Active 2025-26 leadership transitions to verify before outreach: South Portland, Bangor, Yarmouth, SU 69, SU 76, RSU 84/MSAD 14 (Margaret White resigned Sept 2025), MSAD 28/Five Town (Leigh Anne Neal starts July 2026).",
+      "Buying signal: Maine's 2026-27 4-year-old Special Ed transition (CDS-to-SAU) \u2014 Veazie is a Cohort 1 district; this is a strong outreach hook for ECE/SpEd Directors statewide.",
+      "Plantations and unorganized territory entries (Glenwood Plt, Highland Plt, Upton, Woodville, Lowell, Pleasant Ridge Plt, etc.) often have no operating schools \u2014 flagged as not_found and likely not viable for outreach."
+    ]
   }
 }
