@@ -1857,10 +1857,14 @@ export default function BrightwheelDashboard() {
   // ── GRANOLA ACTIVITY SYNC ─────────────────────────────────────────────────
   // Fetches all documents from the Granola API and matches them to districts
   // by scanning meeting titles and notes for district/director names.
-  const syncGranolaActivity = async (token) => {
+  // Pass { rescan: true } to re-evaluate previously-synced docs (useful for
+  // recovering calls that were silently dropped before the unmatched-queue
+  // feature shipped, or after district names were updated).
+  const syncGranolaActivity = async (token, opts = {}) => {
     const useToken = token || granolaToken;
     if (!useToken) { setGranolaModalOpen(true); return; }
     setGranolaSyncing(true);
+    const rescan = !!opts.rescan;
 
     // Build lookup maps for matching
     const normNameToDistrict = {};
@@ -1921,12 +1925,22 @@ export default function BrightwheelDashboard() {
 
       let newActivities = [];
       let newUnmatched = [];
-      const newSyncedIds = new Set(syncedGranolaIds);
+      // On rescan, drop the synced-id memo so previously-skipped docs get re-evaluated.
+      const newSyncedIds = rescan ? new Set() : new Set(syncedGranolaIds);
       // Don't re-add docs that are already pending in the unmatched queue
       const pendingUnmatchedIds = new Set(unmatchedGranolaDocs.map(u => u.id));
+      // On rescan, also skip docs already attached to a district as activities
+      // so we don't duplicate work the rep has already matched manually.
+      const alreadyAttachedDocIds = new Set();
+      if (rescan) {
+        districts.forEach(d => (d.activities || []).forEach(a => {
+          if (a.granolaDocId) alreadyAttachedDocIds.add(a.granolaDocId);
+        }));
+      }
 
       for (const doc of documents) {
         if (newSyncedIds.has(doc.id)) continue;
+        if (rescan && alreadyAttachedDocIds.has(doc.id)) { newSyncedIds.add(doc.id); continue; }
         newSyncedIds.add(doc.id);
 
         const title = (doc.title || "").trim();
@@ -4827,16 +4841,18 @@ export default function BrightwheelDashboard() {
                       >
                         {granolaSyncing ? "⏳ Syncing Granola..." : granolaConnected ? "📓 Sync Granola" : "📓 Connect Granola"}
                       </button>
-                      {granolaConnected && unmatchedGranolaDocs.length > 0 && (
+                      {granolaConnected && (
                         <button
                           onClick={() => setUnmatchedGranolaModalOpen(true)}
-                          title="Granola calls that didn't auto-match a contact — click to assign them"
-                          className="text-xs px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 border bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100 cursor-pointer transition-colors"
+                          title="Granola calls that didn't auto-match a contact — click to assign them, or rescan previously-synced calls"
+                          className={`text-xs px-3 py-1.5 rounded-lg font-medium flex items-center gap-1.5 border transition-colors cursor-pointer ${unmatchedGranolaDocs.length > 0 ? "bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
                         >
                           📞 Match Calls
-                          <span className="ml-0.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber-600 text-white text-[10px] font-bold">
-                            {unmatchedGranolaDocs.length}
-                          </span>
+                          {unmatchedGranolaDocs.length > 0 && (
+                            <span className="ml-0.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-amber-600 text-white text-[10px] font-bold">
+                              {unmatchedGranolaDocs.length}
+                            </span>
+                          )}
                         </button>
                       )}
                     </div>
@@ -8217,7 +8233,9 @@ export default function BrightwheelDashboard() {
                 <div>
                   <h2 className="text-base font-bold text-gray-900">Match Granola Calls to Contacts</h2>
                   <p className="text-xs text-gray-500">
-                    {unmatchedGranolaDocs.length} call{unmatchedGranolaDocs.length !== 1 ? "s" : ""} from your Granola sync didn't auto-match a district. Pick a contact to attach each one.
+                    {unmatchedGranolaDocs.length === 0
+                      ? "No unmatched calls in your queue. If you have older Granola calls that never got attached to a contact, click Rescan to re-evaluate them."
+                      : `${unmatchedGranolaDocs.length} call${unmatchedGranolaDocs.length !== 1 ? "s" : ""} from your Granola sync didn't auto-match a district. Pick a contact to attach each one.`}
                   </p>
                 </div>
               </div>
@@ -8227,8 +8245,12 @@ export default function BrightwheelDashboard() {
             {/* List */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
               {unmatchedGranolaDocs.length === 0 ? (
-                <div className="py-12 text-center text-sm text-gray-400">
-                  All synced calls have been matched. Run Sync Granola again to pull in new meetings.
+                <div className="py-12 text-center text-sm text-gray-500 max-w-md mx-auto space-y-3">
+                  <div className="text-3xl">🎉</div>
+                  <p className="font-medium text-gray-700">All synced calls are matched.</p>
+                  <p className="text-xs text-gray-500">
+                    Run Sync Granola to pull in newer meetings. Or click Rescan in the footer to re-evaluate every call from your Granola account against the current district list — useful for recovering older calls that never got attached.
+                  </p>
                 </div>
               ) : unmatchedGranolaDocs.map((doc) => {
                 const sel = unmatchedSelections[doc.id] || {};
@@ -8302,9 +8324,19 @@ export default function BrightwheelDashboard() {
               <span className="text-xs text-gray-400">
                 Tip: matched calls show up in the contact's outreach history and sync to the shared activity sheet.
               </span>
-              <button onClick={() => setUnmatchedGranolaModalOpen(false)} className="px-4 py-2 text-sm text-gray-600 border border-gray-200 rounded-lg hover:bg-white">
-                Done
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => syncGranolaActivity(undefined, { rescan: true })}
+                  disabled={granolaSyncing || !granolaConnected}
+                  title="Re-evaluate every call from your Granola account against the current district list. Useful for recovering older calls that never got attached."
+                  className="px-3 py-2 text-xs font-medium text-violet-700 bg-white border border-violet-200 rounded-lg hover:bg-violet-50 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+                >
+                  {granolaSyncing ? "⏳ Rescanning..." : "🔄 Rescan all calls"}
+                </button>
+                <button onClick={() => setUnmatchedGranolaModalOpen(false)} className="px-4 py-2 text-sm text-gray-600 border border-gray-200 rounded-lg hover:bg-white">
+                  Done
+                </button>
+              </div>
             </div>
           </div>
         </div>
