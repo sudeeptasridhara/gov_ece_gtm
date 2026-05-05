@@ -1905,23 +1905,44 @@ export default function BrightwheelDashboard() {
     };
 
     try {
-      const res = await fetch("https://api.granola.ai/v2/get-documents", {
-        method: "POST",
-        headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
+      // Paginate through all of the user's Granola documents. The v2/get-documents
+      // endpoint returns at most ~100 per page, so without pagination older meetings
+      // and phone calls fall off the bottom and never get matched.
+      const documents = [];
+      const PAGE_SIZE = 100;
+      const MAX_PAGES = 50; // safety cap (5,000 docs)
+      let offset = 0;
+      let pages = 0;
+      while (pages < MAX_PAGES) {
+        const res = await fetch("https://api.granola.ai/v2/get-documents", {
+          method: "POST",
+          headers: { Authorization: "Bearer " + useToken, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            limit: PAGE_SIZE,
+            offset,
+            include_last_viewed_panel: true,
+          }),
+        });
 
-      if (res.status === 401) {
-        setGranolaToken(null); setGranolaConnected(false);
-        showNotif("Granola token expired — reconnect", "red");
-        setGranolaModalOpen(true);
-        setGranolaSyncing(false);
-        return;
+        if (res.status === 401) {
+          setGranolaToken(null); setGranolaConnected(false);
+          showNotif("Granola token expired — reconnect", "red");
+          setGranolaModalOpen(true);
+          setGranolaSyncing(false);
+          return;
+        }
+        if (!res.ok) throw new Error(`Granola API ${res.status}`);
+
+        const payload = await res.json();
+        const page = Array.isArray(payload)
+          ? payload
+          : (payload.docs || payload.documents || payload.data || []);
+        documents.push(...page);
+        pages += 1;
+        if (page.length < PAGE_SIZE) break; // last page
+        offset += page.length;
       }
-      if (!res.ok) throw new Error(`Granola API ${res.status}`);
-
-      const payload = await res.json();
-      const documents = Array.isArray(payload) ? payload : (payload.documents || payload.data || []);
+      console.log(`[granola] fetched ${documents.length} docs across ${pages} page(s)${rescan ? " (rescan)" : ""}`);
 
       let newActivities = [];
       let newUnmatched = [];
@@ -2003,13 +2024,23 @@ export default function BrightwheelDashboard() {
       setSyncedGranolaIds(newSyncedIds);
       setGranolaLastSync(new Date().toLocaleTimeString());
       setGranolaSyncing(false);
-      const matchedMsg = newActivities.length === 0
-        ? "no new matched meetings"
-        : `${newActivities.length} matched ✓`;
-      const unmatchedMsg = newUnmatched.length > 0
-        ? ` · ${newUnmatched.length} unmatched (click "Match Calls" to assign)`
-        : "";
-      showNotif(`Granola: ${matchedMsg}${unmatchedMsg}`);
+      const totalDocs = documents.length;
+      const skippedAlreadyAttached = rescan
+        ? documents.filter(d => alreadyAttachedDocIds.has(d.id)).length
+        : 0;
+      console.log(`[granola] total=${totalDocs} matched=${newActivities.length} unmatched=${newUnmatched.length} alreadyAttached=${skippedAlreadyAttached}`);
+      let toast;
+      if (totalDocs === 0) {
+        toast = "Granola sync — API returned 0 docs (check Granola plan / token scope)";
+      } else {
+        const parts = [`Granola: ${totalDocs} doc${totalDocs !== 1 ? "s" : ""} fetched`];
+        if (newActivities.length > 0) parts.push(`${newActivities.length} matched ✓`);
+        if (newUnmatched.length > 0) parts.push(`${newUnmatched.length} unmatched (click "Match Calls")`);
+        if (rescan && skippedAlreadyAttached > 0) parts.push(`${skippedAlreadyAttached} already attached`);
+        if (newActivities.length === 0 && newUnmatched.length === 0) parts.push("nothing new");
+        toast = parts.join(" · ");
+      }
+      showNotif(toast);
       // Persist new activities to shared sheet
       if (newActivities.length > 0) {
         const rows = newActivities.map(({ districtId, activity }) => {
