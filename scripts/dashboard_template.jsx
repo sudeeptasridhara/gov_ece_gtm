@@ -6854,14 +6854,34 @@ export default function BrightwheelDashboard() {
               : p
           );
 
-          // ── Live body preview with token + bold + color highlights ─────────
+          // ── Live body preview with token + bold + color + link highlights ──
           const BodyPreview = ({ body }) => {
             if (!body.trim()) return null;
-            const parts = body.split(/(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\]|\*\*[^*]+\*\*|\[color=#[0-9a-fA-F]{3,6}\][^\[]*\[\/color\])/g);
+            // Split keeps the matched delimiters as their own array entries so
+            // we can swap each one for styled JSX. The <a href="…">…</a>
+            // alternative below renders custom hyperlinks the same way the
+            // [Learn More Link] / [Calendly Link] tokens render — as a pill —
+            // instead of leaking raw HTML into the preview.
+            const parts = body.split(/(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\]|\*\*[^*]+\*\*|\[color=#[0-9a-fA-F]{3,6}\][^\[]*\[\/color\]|<a\s+href="[^"]+"[^>]*>[^<]*<\/a>)/g);
             return (
               <div className="mt-2 border border-dashed border-amber-200 rounded-lg px-3 py-2 bg-amber-50/40 text-xs text-gray-700 whitespace-pre-wrap font-mono leading-relaxed max-h-40 overflow-y-auto">
                 <span className="block text-amber-500 font-semibold text-[10px] uppercase tracking-wide mb-1">Live preview — tokens & formatting highlighted</span>
                 {parts.map((p, i) => {
+                  const linkM = p.match(/^<a\s+href="([^"]+)"[^>]*>([^<]*)<\/a>$/);
+                  if (linkM) {
+                    const url  = linkM[1];
+                    const text = linkM[2] || url;
+                    return (
+                      <a
+                        key={i}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={url}
+                        className="bg-indigo-100 text-indigo-700 border border-indigo-300 px-1 rounded font-semibold underline decoration-indigo-300 hover:decoration-indigo-500"
+                      >🔗 {text}</a>
+                    );
+                  }
                   if (/^\[/.test(p) && /\]$/.test(p)) return <span key={i} className="bg-amber-100 text-amber-700 border border-amber-300 px-0.5 rounded font-semibold">{p}</span>;
                   const boldM = p.match(/^\*\*([^*]+)\*\*$/);
                   if (boldM) return <strong key={i}>{boldM[1]}</strong>;
