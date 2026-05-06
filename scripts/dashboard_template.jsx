@@ -6846,6 +6846,41 @@ export default function BrightwheelDashboard() {
             requestAnimationFrame(() => { el.focus(); el.setSelectionRange(newStart, newEnd); });
           };
 
+          // ── Signature preview ─────────────────────────────────────────────
+          // Mirrors the HTML emailSignature() helper so reps can see exactly
+          // what gets auto-appended to every email this tool sends. The
+          // signature is built per-sender at send time (using their REP_PROFILE
+          // entry), so this preview uses the currently signed-in rep — or a
+          // generic brightwheel block if no one is signed in.
+          const SignaturePreview = () => {
+            const showRep = currentRep;
+            return (
+              <div className="mt-3 border-t border-dashed border-gray-200 pt-3">
+                <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Signature (auto-attached on send)</div>
+                <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                  <img src={BW_LOGO_URL} alt="brightwheel" width={36} height={36} style={{ borderRadius: 6, display: "block", flexShrink: 0 }} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                  <div className="text-xs text-gray-600 leading-snug">
+                    <div>Best,</div>
+                    {showRep ? (
+                      <>
+                        <div className="font-semibold text-gray-900">{showRep.name}</div>
+                        <div>{showRep.title ? `${showRep.title} | ` : ""}brightwheel</div>
+                        <div className="text-indigo-600">{showRep.email}{showRep.phone ? ` | ${showRep.phone}` : ""}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="font-semibold text-gray-900">brightwheel</div>
+                        <div>District Partnerships Team</div>
+                        <div className="text-indigo-600">partnerships@mybrightwheel.com</div>
+                        <div className="text-[10px] text-gray-400 mt-0.5 italic">Sign in with Gmail to personalize the signature with your name and contact info.</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
           // ── Token / format highlighting in read-only view ──────────────────
           // Splits on the bracket tokens AND any <a href="…">…</a> the rep
           // inserted via the FormatBar's link button, so saved-template cards
@@ -7243,7 +7278,10 @@ export default function BrightwheelDashboard() {
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Body</span>
-                            <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">{highlightTokens(current.body)}</div>
+                            <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">
+                              {highlightTokens(current.body)}
+                              <SignaturePreview />
+                            </div>
                           </div>
                         </div>
                       )}
@@ -7364,7 +7402,10 @@ export default function BrightwheelDashboard() {
                                 </div>
                                 <div className="flex items-start gap-2">
                                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide w-14 flex-shrink-0 mt-0.5">Body</span>
-                                  <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">{highlightTokens(tmpl.body)}</div>
+                                  <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap flex-1">
+                                    {highlightTokens(tmpl.body)}
+                                    <SignaturePreview />
+                                  </div>
                                 </div>
                               </div>
                             )}
