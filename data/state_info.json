@@ -224,5 +224,24 @@
       "OSPI (Office of Superintendent of Public Instruction), DCYF (Department of Children, Youth and Families), and the 9 ESDs are state/regional and excluded from the dashboard.",
       "Active leadership transitions to verify before outreach: North Mason (Dr. Kristine Michael started July 2025, replaced retired Rosenbach), Waitsburg (Monty Sabin started March 2025), Goldendale (possible Hurst resignation \u2014 verify), Union Gap (Gredvig left end of 2024), Toppenish (Anastasia Sanchez sworn in as TSD Board Member Dec 2025; TELC director succession unclear)."
     ]
+  },
+  "KS": {
+    "state": "KS",
+    "state_name": "Kansas",
+    "last_updated": "2026-05-06",
+    "pre_k_program": "Kansas Preschool Pilot Program + At-Risk 4-year-old + Parents as Teachers (PAT) \u2014 administered by KSDE. Coverage moderate, not universal. Many districts run state-funded programs alongside Title I-funded preschool.",
+    "literacy_initiative": "",
+    "leadership_terminology": "KS districts use **USD (Unified School District) numbering**: USD #259 = Wichita, USD #233 = Olathe, USD #501 = Topeka, USD #383 = Manhattan-Ogden, USD #497 = Lawrence, USD #229 = Blue Valley, USD #512 = Shawnee Mission, USD #500 = Kansas City KS, USD #457 = Garden City, USD #207 = Fort Leavenworth.",
+    "notes": [
+      "KS has multiple state-funded ECE programs administered by KSDE: **Kansas Preschool Pilot Program**, **At-Risk 4-year-old**, and **Parents as Teachers (PAT)**. Coverage is moderate. Many districts also run Title I-funded preschool.",
+      "KS districts use **USD (Unified School District) numbering**. Largest: USD #259 Wichita (~50K), USD #233 Olathe, USD #512 Shawnee Mission, USD #229 Blue Valley, USD #500 Kansas City KS, USD #501 Topeka, USD #497 Lawrence, USD #457 Garden City.",
+      "Standout dedicated ECE leads (Brightwheel-priority cities with confirmed customer presence): Wichita (Jennifer King, EC Coordinator), Olathe (Kim Hawkins, Director of EC), Topeka (Billie Wallace, Asst Supt ECE), Lawrence (Laura Basham, Director Student Services & ECE), Salina (Lesa Larson, Heartland), Hutchinson (Katie Helfrich, Lil' Hawks), Kansas City KS (Amy Neal, Director of Early Childhood), Shawnee Mission (Carla Heintz, ECEC Principal), Manhattan-Ogden (Lucas Shivers, Dir of Elementary Ed), Pittsburg (J. Ehling, ECE Director), Holton (Karla Tanking, Dir of Early Childhood), Emporia (Joy Saulsberry, Jones ECDC), Haysville (Tiffany Brown, ECC), Newton (Alyssa Vanderhoof, Cooper EEC), Spring Hill (Shannon Fanning, SHELA), Winfield (Ashley Schneider, WELC), Auburn-Washburn (Lor Huber, ECE Coordinator), Andover (Amanda Grier, Dir of C&I).",
+      "Other strong finds: Atchison (Jacque Coleman), Garden City (Crystal Steinmetz, Dir of Curriculum), Mulvane (Casey Lucas, Asst Director Sped/ECE), Eudora (Sara Hoepner, ELC), Coffeyville (Amanda Cavaness, Hamm ELC), Dodge City (Bianca Alvarez, Bright Beginnings), Pratt (Misty Piester, PAT Director), Beloit (Amanda McGuire, PAT Director), Paola (Callie Hoffman, Hillsdale Learning Center), Derby (Kelly Kitterman, TOPS), Bonner Springs (Sarah Andaverde, Asst Supt C&I), Independence (Kellie Puderbaugh, Dir of Learning Services), Tonganoxie (Tonya Phillips, Asst Supt overseeing ECE).",
+      "For most KS districts under ~500 students (which is most of them), the **Superintendent** is the right ECE persona. KS has many small rural districts where one admin wears multiple hats.",
+      "Email convention: most use branded `.org`, `.k12.ks.us`, `usd##.com`, or `usd##.net`. Highly variable across districts. Examples: `usd259.org` (Wichita), `olatheschools.org`, `smsd.org`, `bluevalleyk12.org`, `kckps.org`, `topekapublicschools.net`, `usd497.org` (Lawrence). Confirm pattern before sending.",
+      "KSDE (Kansas State Department of Education) is state-level \u2014 NOT recorded as district staff. KS does not have ESDs in the way other states do \u2014 districts are mostly autonomous.",
+      "Active leadership transitions to verify before outreach (as of 2025-26): Atchison, North Ottawa, Abilene, Silver Lake, Waconda, Doniphan West, Leavenworth, Cherryvale, Comanche County, Hiawatha, Graham County, Jefferson County North, LaCrosse, Rock Creek, Triplains, Hays Connections (Donna Hudson-Hamilton retiring), Chaparral.",
+      "Brightwheel customer presence in KS: 167 schools in Wichita, 85 in Olathe, 72 in Topeka, 54 in Overland Park, 48 in Kansas City KS, 45 in Salina, 43 in Manhattan, 37 in Lawrence, 35 in Hutchinson, 33 in Shawnee. These cities are the highest-leverage outreach targets."
+    ]
   }
 }
