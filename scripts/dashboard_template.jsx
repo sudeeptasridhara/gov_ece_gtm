@@ -1124,7 +1124,13 @@ export default function BrightwheelDashboard() {
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
-  const [approvalQueue, setApprovalQueue] = useState([]);
+  // Email send queue. Persisted to localStorage so reps can build a queue,
+  // close the tab or reload the page, and still see their queued items when
+  // they come back to send. Without this, Christie reported queueing emails
+  // and finding the queue empty by the time she clicked Send.
+  const [approvalQueue, setApprovalQueue] = useState(() => {
+    try { const s = localStorage.getItem("bw_approval_queue_v1"); return s ? JSON.parse(s) : []; } catch { return []; }
+  });
   const [activityLog, setActivityLog] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [newActivity, setNewActivity] = useState({ type: "email", date: new Date().toISOString().split("T")[0], notes: "" });
@@ -1405,6 +1411,13 @@ export default function BrightwheelDashboard() {
       else              localStorage.removeItem("bw_granola_token");
     } catch(e) {}
   }, [granolaToken]);
+
+  // Persist the approval (send) queue so it survives page reloads and tab
+  // switches. Without this, the queue was being silently wiped between
+  // "added to queue" and "send".
+  useEffect(() => {
+    try { localStorage.setItem("bw_approval_queue_v1", JSON.stringify(approvalQueue)); } catch(e) {}
+  }, [approvalQueue]);
 
   // Auto-sync once on mount when a Granola token is already restored from
   // localStorage. Without this, reps have to click Sync Granola manually on
@@ -2571,8 +2584,10 @@ export default function BrightwheelDashboard() {
     const toMark = [...validatorSelected];
     if (!toMark.length) return;
     setBounces(prev => new Set([...prev, ...toMark]));
-    // Write bounce rows to the shared sheet for cross-rep sync
-    if (ACTIVITY_SHEET_ID && gmailToken) {
+    // Write bounce rows to the shared sheet for cross-rep sync. writeToSheet
+    // now falls through to the GAS proxy when the rep has no Gmail token, so
+    // we don't need to guard on it here.
+    {
       const now = new Date().toISOString();
       const rows = toMark.map(email => {
         const entry = validationResults.find(r => r.email.toLowerCase() === email);
@@ -3126,9 +3141,30 @@ export default function BrightwheelDashboard() {
   ];
 
   // Append one or more rows to the sheet (fire-and-forget, errors are non-blocking)
+  // Sends rows to the GAS pixel endpoint as a write proxy. Used when the rep
+  // has no Gmail token or no Sheet edit access — the GAS script runs as the
+  // owner and can always write. Fire-and-forget; errors are swallowed.
+  const writeViaGasPixel = (rows) => {
+    if (!TRACKING_PIXEL_URL || !rows.length) return;
+    rows.forEach(row => {
+      const params = new URLSearchParams({
+        write: "1",
+        row: JSON.stringify(row),
+      });
+      fetch(TRACKING_PIXEL_URL + "?" + params.toString()).catch(() => {});
+    });
+  };
+
   const writeToSheet = async (rows, token) => {
     const useToken = token || gmailToken;
-    if (!ACTIVITY_SHEET_ID || !useToken || !rows.length) return;
+    if (!rows.length) return;
+    // No Gmail token at all — go straight to the GAS write proxy. Without this
+    // path, reps who haven't connected Gmail (or whose token doesn't have sheet
+    // edit access) couldn't share custom templates, sequences, or activities.
+    if (!useToken || !ACTIVITY_SHEET_ID) {
+      writeViaGasPixel(rows);
+      return;
+    }
     try {
       await sheetFetch(`values/Activity Log!A:L:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`, {
         method: "POST",
@@ -3137,26 +3173,22 @@ export default function BrightwheelDashboard() {
       });
     } catch (e) {
       console.warn("Sheet write:", e.message);
-      if (e.status === 404 || e.message === "sheet_not_shared") {
-        // Sheet not accessible — fall back to logging through the GAS pixel endpoint
-        // so activity is recorded even when the rep's Google account isn't an editor.
-        if (TRACKING_PIXEL_URL) {
-          rows.forEach(row => {
-            const params = new URLSearchParams({
-              write: "1",
-              row: JSON.stringify(row),
-            });
-            fetch(TRACKING_PIXEL_URL + "?" + params.toString()).catch(() => {});
-          });
-          // Silent — don't distract with a toast since the GAS fallback handles it
-        } else {
-          showNotif("⚠️ Sheet not shared with your account. Ask Sudeepta to add you as an Editor to the activity sheet.", "red");
-        }
+      if (e.status === 404 || e.message === "sheet_not_shared" || e.status === 403) {
+        // Sheet not accessible — fall back to GAS pixel proxy so the row still lands.
+        writeViaGasPixel(rows);
       }
-      else if (e.status === 403) showNotif("Sheet write failed: the activity sheet isn't shared with your Google account. Ask Sudeepta to add you as an Editor.", "red");
-      else if (e.status === 401) showNotif("Sheet write failed: reconnect Gmail to refresh your token", "red");
+      else if (e.status === 401) {
+        // Token expired / revoked — try the GAS proxy anyway so the row isn't lost,
+        // and let the rep know they should reconnect for direct writes.
+        writeViaGasPixel(rows);
+        showNotif("Sheet write went through GAS proxy — reconnect Gmail for direct writes", "red");
+      }
       else if (e.status === 400) showNotif(`Sheet write failed — try disconnecting and reconnecting Gmail. Detail: ${e.message}`, "red");
-      else showNotif(`Sheet write failed: ${e.message}`, "red");
+      else {
+        // Unknown error — try GAS proxy as a last resort
+        writeViaGasPixel(rows);
+        showNotif(`Sheet write fell back to GAS proxy: ${e.message}`, "red");
+      }
     }
   };
 
@@ -3424,12 +3456,14 @@ export default function BrightwheelDashboard() {
 
   // Saves a custom email template to state, localStorage, and the shared sheet.
   // Pass tmplData=null to delete the template (writes a tombstone row).
+  // The shared-sheet write goes through writeToSheet, which now falls back to
+  // the GAS pixel proxy if the rep has no Gmail token or no sheet edit access,
+  // so templates created by any rep are visible to the whole team.
   const saveCustomTemplate = (id, tmplData) => {
     setCustomTemplates(prev => {
       if (!tmplData) { const n = { ...prev }; delete n[id]; return n; }
       return { ...prev, [id]: tmplData };
     });
-    if (!ACTIVITY_SHEET_ID || !gmailToken) return;
     const now = new Date().toISOString();
     const row = [
       String(Date.now()),
@@ -3450,12 +3484,12 @@ export default function BrightwheelDashboard() {
 
   // Saves a custom sequence to state, localStorage, and the shared sheet.
   // Pass seqData=null to delete the sequence (writes a tombstone row).
+  // Same tokenless-write pattern as saveCustomTemplate above.
   const saveCustomSequence = (id, seqData) => {
     setCustomSequences(prev => {
       if (!seqData) { const n = { ...prev }; delete n[id]; return n; }
       return { ...prev, [id]: seqData };
     });
-    if (!ACTIVITY_SHEET_ID || !gmailToken) return;
     const now = new Date().toISOString();
     const row = [
       String(Date.now()),
