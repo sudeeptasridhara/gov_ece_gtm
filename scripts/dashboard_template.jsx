@@ -6847,12 +6847,36 @@ export default function BrightwheelDashboard() {
           };
 
           // ── Token / format highlighting in read-only view ──────────────────
-          const TOKEN_RE = /(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\])/g;
-          const highlightTokens = text => text.split(TOKEN_RE).map((p, i) =>
-            /^\[/.test(p)
-              ? <span key={i} className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-mono font-semibold">{p}</span>
-              : p
-          );
+          // Splits on the bracket tokens AND any <a href="…">…</a> the rep
+          // inserted via the FormatBar's link button, so saved-template cards
+          // render hyperlinks as a styled pill instead of leaking raw HTML.
+          const TOKEN_RE = /(\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\]|<a\s+href="[^"]+"[^>]*>[^<]*<\/a>|\*\*[^*]+\*\*|\[color=#[0-9a-fA-F]{3,6}\][^\[]*\[\/color\])/g;
+          const highlightTokens = text => text.split(TOKEN_RE).map((p, i) => {
+            if (p == null || p === "") return p;
+            const linkM = p.match(/^<a\s+href="([^"]+)"[^>]*>([^<]*)<\/a>$/);
+            if (linkM) {
+              const url  = linkM[1];
+              const label = linkM[2] || url;
+              return (
+                <a
+                  key={i}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={url}
+                  className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-semibold underline decoration-indigo-300 hover:decoration-indigo-500"
+                >🔗 {label}</a>
+              );
+            }
+            if (/^\[(?:First Name|State Name|District Name|Calendly Link|Learn More Link)\]$/.test(p)) {
+              return <span key={i} className="bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 py-0 rounded text-xs font-mono font-semibold">{p}</span>;
+            }
+            const boldM = p.match(/^\*\*([^*]+)\*\*$/);
+            if (boldM) return <strong key={i}>{boldM[1]}</strong>;
+            const colorM = p.match(/^\[color=(#[0-9a-fA-F]{3,6})\](.*)\[\/color\]$/);
+            if (colorM) return <span key={i} style={{ color: colorM[1] }}>{colorM[2]}</span>;
+            return p;
+          });
 
           // ── Live body preview with token + bold + color + link highlights ──
           const BodyPreview = ({ body }) => {
