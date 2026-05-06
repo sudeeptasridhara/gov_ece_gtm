@@ -1620,11 +1620,18 @@ export default function BrightwheelDashboard() {
         body: JSON.stringify({ raw }),
       });
       if (res.ok) {
+        // Pull the Gmail message id out of the send response so the activity
+        // we log shares an id with the row syncGmailActivity will later see in
+        // Gmail Sent. Without this the same email gets logged twice — once as
+        // source="dashboard" with id=Date.now(), and again as source="gmail_sent"
+        // with id=<Gmail msg id> — and the rep activity table double-counts.
+        const sentMsg = await res.json().catch(() => null);
+        const gmailMsgId = sentMsg?.id || null;
         rejectEmail(item.id);
         showNotif("✅ Email sent — " + item.directorName);
         // Auto-log the send as an activity on the district
         const sentActivity = {
-          id: Date.now(),
+          id: gmailMsgId || Date.now(),
           type: "email",
           date: new Date().toISOString().split("T")[0],
           notes: `Sent "${item.template}" email via dashboard to ${item.to}`,
@@ -1632,6 +1639,7 @@ export default function BrightwheelDashboard() {
           directorName: item.directorName,
           source: "dashboard",
           repEmail: gmailUser || "",
+          ...(gmailMsgId ? { gmailMsgId } : {}),
         };
         setDistricts((prev) => prev.map((d) => {
           if (d.id !== item.districtId) return d;
@@ -3049,9 +3057,34 @@ export default function BrightwheelDashboard() {
 
       setDistricts(prev => prev.map(d => {
         const incoming = byDistrict[d.id] || [];
-        const existingIds = new Set((d.activities || []).map(a => String(a.id)));
-        const fresh = incoming.filter(a => !existingIds.has(String(a.id)));
-        const all = fresh.length ? [...(d.activities || []), ...fresh] : (d.activities || []);
+        // Dedupe within the incoming batch first. The pixel endpoint logs a
+        // separate row every time Gmail (or any other client) prefetches the
+        // tracking image, but every prefetch shares the same activity_id
+        // ("open_<trackingId>" or "click_<dedupKey>"), so without this we'd
+        // append the same open / click to the district 3-10 times.
+        const seenIncoming = new Set();
+        const incomingDeduped = [];
+        for (const a of incoming) {
+          const k = String(a.id);
+          if (seenIncoming.has(k)) continue;
+          seenIncoming.add(k);
+          incomingDeduped.push(a);
+        }
+        // Also dedupe what's already in d.activities — it may carry stale
+        // duplicates from earlier loads (before this fix landed) that were
+        // persisted to localStorage. Cleaning here means the rep activity
+        // table converges to the right counts after one refresh per rep.
+        const seenExisting = new Set();
+        const cleanedExisting = (d.activities || []).filter(a => {
+          const k = String(a.id);
+          if (seenExisting.has(k)) return false;
+          seenExisting.add(k);
+          return true;
+        });
+        const existingIds = seenExisting;
+        const fresh = incomingDeduped.filter(a => !existingIds.has(String(a.id)));
+        const dirtyExisting = cleanedExisting.length !== (d.activities || []).length;
+        const all = fresh.length || dirtyExisting ? [...cleanedExisting, ...fresh] : (d.activities || []);
         // Determine stage: explicit stage_update > inferred from activities > current
         let newStatus = latestStage[d.id] || d.status || "not_contacted";
         // Normalize any legacy status values
@@ -3059,7 +3092,7 @@ export default function BrightwheelDashboard() {
         if (!latestStage[d.id] && all.some(a => a.source === "gmail_reply")) newStatus = "responded_active";
         else if (!latestStage[d.id] && all.some(a => a.type === "email" && a.source !== "gmail_reply") && newStatus === "not_contacted") newStatus = "contacted";
         const mailerSent = mailerSentMap[d.id] || d.mailerSent || false;
-        if (!fresh.length && newStatus === d.status && mailerSent === d.mailerSent) return d;
+        if (!fresh.length && !dirtyExisting && newStatus === d.status && mailerSent === d.mailerSent) return d;
         return { ...d, activities: all, status: newStatus, mailerSent };
       }));
 
@@ -4429,7 +4462,35 @@ export default function BrightwheelDashboard() {
                     );
                     const counts = {};
                     ACT_TYPES.forEach(t => { counts[t.key] = 0; });
-                    logs.forEach(a => { if (counts[a.type] !== undefined) counts[a.type]++; });
+                    // Dedupe per-rep, per-type so we never count the same
+                    // logical event twice. A single send can land as both a
+                    // "dashboard" and a "gmail_sent" row (different activity
+                    // ids, same Gmail message id). A single open can land as
+                    // multiple pixel rows from prefetches (same trackingId).
+                    // Without this safeguard the rep table inflates whichever
+                    // rep happens to have the most clients that prefetch.
+                    const seenByType = {
+                      email:        new Set(),  // dedupe by gmailMsgId, else id
+                      email_open:   new Set(),  // dedupe by trackingId, else id
+                      email_click:  new Set(),  // dedupe by id (which already encodes trackingId+url)
+                      call:         new Set(),
+                      linkedin:     new Set(),
+                      meeting:      new Set(),
+                      note:         new Set(),
+                    };
+                    const dedupKey = (a) => {
+                      if (a.type === "email")       return a.gmailMsgId || String(a.id);
+                      if (a.type === "email_open")  return a.trackingId  || String(a.id);
+                      if (a.type === "email_click") return String(a.id);
+                      return String(a.id);
+                    };
+                    logs.forEach(a => {
+                      if (counts[a.type] === undefined) return;
+                      const k = dedupKey(a);
+                      if (seenByType[a.type].has(k)) return;
+                      seenByType[a.type].add(k);
+                      counts[a.type]++;
+                    });
                     const total = Object.values(counts).reduce((s, n) => s + n, 0);
                     return { email, rep, counts, total };
                   })
