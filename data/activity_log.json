@@ -1,6 +1,26 @@
 {
-  "lastSynced": "2026-05-05T13:18:30.352057+00:00",
+  "lastSynced": "2026-05-06T13:23:41.351926+00:00",
   "activities": [
+    {
+      "gmailMsgId": "19dfa42eb1cc9162",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-05-05",
+      "notes": "↩️ Reply received: \"Invitation: Sudeepta / Eric @ Wed May 6, 2026 10am - 10:30am (EDT) (Sudeepta Sridhara)\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19df8b1756b85bec",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-05-05",
+      "notes": "↩️ Reply received: \"Updated invitation: Daily Stand-up: Gov GTM Hub @ Tue May 5, 2026 1:15pm - 1:30pm (EDT) (Sudeepta Sridhara)\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
     {
       "gmailMsgId": "19dd9bccadae2a04",
       "districtId": 9999,
