@@ -1627,7 +1627,7 @@ export default function BrightwheelDashboard() {
         // with id=<Gmail msg id> — and the rep activity table double-counts.
         const sentMsg = await res.json().catch(() => null);
         const gmailMsgId = sentMsg?.id || null;
-        rejectEmail(item.id);
+        rejectEmail(item.id, false);
         showNotif("✅ Email sent — " + item.directorName);
         // Auto-log the send as an activity on the district
         const sentActivity = {
@@ -1686,7 +1686,7 @@ export default function BrightwheelDashboard() {
       });
       if (res.ok) {
         const data = await res.json();
-        rejectEmail(item.id);
+        rejectEmail(item.id, false);
         if (openInGmail) {
           // Open the specific draft in Gmail compose — Yesware injects its tracking pixel here
           const messageId = data?.message?.id;
@@ -4145,9 +4145,15 @@ export default function BrightwheelDashboard() {
     showNotif(`✅ Approved & sent to Gmail drafts — ${queueItem.directorName}`);
   };
 
-  const rejectEmail = (id) => {
+  // Removes an item from the approval queue. The optional `announce` flag
+  // controls whether to show the red "Email removed from queue" toast — pass
+  // `false` from successful send/draft paths so the rep doesn't see what looks
+  // like an error message right after a successful action. The toast still
+  // fires when a rep explicitly clicks the ✕ on a queue item (the original
+  // intent of this function).
+  const rejectEmail = (id, announce = true) => {
     setApprovalQueue((prev) => prev.filter((x) => x.id !== id));
-    showNotif("Email removed from queue.", "red");
+    if (announce) showNotif("Email removed from queue.", "red");
   };
 
   const CURRICULUM_VENDORS = [...new Set(INITIAL_DISTRICTS.map((d) => d.curriculumVendor))];

@@ -36,6 +36,11 @@ const SHEET_ID   = "1PasvZHeHTbAaiM1oI0Xe9pxyx-MgwDTF64Y-yuQACwM";
 const SHEET_NAME = "Activity Log";
 
 function doGet(e) {
+  // `e` is undefined when this function is invoked directly from the Apps
+  // Script editor's Run button (no HTTP request, so no event object). Guard
+  // against that so a smoke-test run doesn't throw before reaching anything
+  // useful — the live web-app deploy always passes a real `e`.
+  e = e || {};
   const p = e.parameter || {};
 
   // ── Write-proxy mode ────────────────────────────────────────────────────────
