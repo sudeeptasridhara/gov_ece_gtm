@@ -148,7 +148,7 @@ function doGet(e) {
  */
 function proxyGranolaNotes(params) {
   var token = (params && params.token) || "";
-  if (!token) return { error: "missing_token", notes: [], hasMore: false, cursor: null };
+  if (!token) return { error: "missing_token", notes: [], hasMore: false, cursor: null, _proxy: "granola_v1" };
 
   var url = "https://public-api.granola.ai/v1/notes";
   var qs = [];
@@ -169,13 +169,24 @@ function proxyGranolaNotes(params) {
       followRedirects: true,
     });
   } catch (err) {
-    return { error: "fetch_failed", message: String(err), notes: [], hasMore: false, cursor: null };
+    // Most common cause: script.external_request OAuth scope not authorized.
+    // The script owner needs to run authorizeExternalFetch() once from the
+    // editor and approve the permission prompt.
+    return {
+      error: "fetch_failed",
+      message: String(err),
+      hint: "Run the authorizeExternalFetch() function once in the Apps Script editor and approve the script.external_request permission, then redeploy.",
+      notes: [],
+      hasMore: false,
+      cursor: null,
+      _proxy: "granola_v1",
+    };
   }
 
   var status = resp.getResponseCode();
   var body = resp.getContentText();
   if (status < 200 || status >= 300) {
-    return { error: "http_" + status, status: status, body: body.slice(0, 500), notes: [], hasMore: false, cursor: null };
+    return { error: "http_" + status, status: status, body: body.slice(0, 500), notes: [], hasMore: false, cursor: null, _proxy: "granola_v1" };
   }
 
   try {
@@ -188,6 +199,26 @@ function proxyGranolaNotes(params) {
   } catch (err) {
     return { error: "parse_failed", message: String(err), body: body.slice(0, 500), notes: [], hasMore: false, cursor: null, _proxy: "granola_v1" };
   }
+}
+
+/**
+ * One-time setup. Run this function manually from the Apps Script editor to
+ * trigger the script.external_request permission prompt. Without this scope,
+ * UrlFetchApp.fetch (used by proxyGranolaNotes) throws a permission error.
+ *
+ * Steps for the script owner:
+ *   1. Open this script in the Apps Script editor
+ *   2. Select `authorizeExternalFetch` from the function dropdown at the top
+ *   3. Click Run
+ *   4. When prompted, click Review permissions, choose your account, click
+ *      Advanced → Go to <project name> (unsafe), then Allow
+ *   5. The execution log should show "external fetch authorized"
+ *   6. Redeploy (Manage deployments → Edit → New version → Deploy)
+ */
+function authorizeExternalFetch() {
+  var resp = UrlFetchApp.fetch("https://www.google.com/", { muteHttpExceptions: true });
+  Logger.log("external fetch authorized — status " + resp.getResponseCode());
+  return resp.getResponseCode();
 }
 
 /**
