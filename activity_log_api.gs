@@ -277,9 +277,42 @@ function buildPayload() {
       continue;
     }
 
-    // Skip meta-rows (stage changes, mailer confirmations) and blank rows
+    // Pass through team-shared meta-rows even when district_id is 0. These rows
+    // hold custom email templates, custom sequences, and template overrides
+    // created by any rep — without them, reps fetching via this proxy never
+    // see templates created by their teammates. The dashboard parser keys
+    // these on `type` and reads the template id from district_name (col C),
+    // the JSON payload from full_notes (col G), and the timestamp from
+    // logged_at (col L), so we expose all of those.
+    if (
+      type === "custom_template" ||
+      type === "custom_template_deleted" ||
+      type === "custom_sequence" ||
+      type === "custom_sequence_deleted" ||
+      type === "template_override" ||
+      type === "district_note" ||
+      type === "stage_update" ||
+      type === "mailer_sent"
+    ) {
+      activities.push({
+        id:           String(row[0] || (Date.now() + "_" + i)),
+        districtId:   distId || 0,
+        district:     String(row[2] || "").trim(),   // col C — template/sequence id, or district name
+        type:         type,
+        date:         String(row[4] || "").trim(),
+        notes:        String(row[5] || "").trim(),   // col F — label / subject / stage label
+        full_notes:   String(row[6] || "").trim(),   // col G — JSON payload for templates/sequences, raw stage key for stage_update
+        source:       String(row[7] || "").trim(),
+        repEmail:     String(row[8] || "").trim(),
+        directorName: String(row[9] || "").trim(),
+        dedup_id:     String(row[10] || "").trim(),  // col K — template/sequence id (used by dashboard to key these rows)
+        loggedAt:     String(row[11] || "").trim(),
+      });
+      continue;
+    }
+
+    // Skip remaining rows that are missing a district_id (defensive)
     if (!distId) continue;
-    if (type === "stage_update" || type === "mailer_sent") continue;
 
     var dedupId = String(row[10] || "").trim();
 

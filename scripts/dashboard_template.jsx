@@ -1312,10 +1312,15 @@ export default function BrightwheelDashboard() {
   }), [customSequences]);
 
   // Wrapper that uses a saved template override when available, otherwise falls
-  // back to the hardcoded generateEmail function.
+  // back to the hardcoded generateEmail function. Custom team templates (created
+  // via the Email Copy tab) are stored in customTemplates and rendered with
+  // generateEmailFromOverride — same shape as a manual override.
   const getEmailBody = (district, template, rep) => {
     if (templateOverrides[template]) {
       return generateEmailFromOverride({ ...templateOverrides[template], _templateKey: template }, district, rep);
+    }
+    if (customTemplates[template]) {
+      return generateEmailFromOverride({ ...customTemplates[template], _templateKey: template }, district, rep);
     }
     return generateEmail(district, template, rep);
   };
@@ -2862,11 +2867,15 @@ export default function BrightwheelDashboard() {
             a.type || "",
             a.date || "",
             a.notes || "",
-            a.granolaNotesText || "",
+            // full_notes (col G): granola notes for granola rows; JSON payload for
+            // shared custom_template / custom_sequence / template_override rows.
+            a.granolaNotesText || a.full_notes || "",
             a.source || "",
             a.repEmail || "",
             a.directorName || "",
-            a.gmailMsgId || a.granolaDocId || "",
+            // dedup_id (col K): gmail/granola id for activity rows; template /
+            // sequence id for the team-shared meta-rows above.
+            a.gmailMsgId || a.granolaDocId || a.dedup_id || "",
             a.loggedAt || "",
           ]);
         });
