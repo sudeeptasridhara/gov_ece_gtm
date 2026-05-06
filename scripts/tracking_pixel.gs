@@ -115,11 +115,25 @@ function doGet(e) {
   }
 
   if (isClick && destUrl) {
+    // Apps Script HtmlService renders the response inside a sandboxed iframe
+    // under script.google.com. A bare meta-refresh navigates that iframe, not
+    // the parent window, so destinations that send X-Frame-Options: DENY or a
+    // restrictive frame-ancestors CSP (ChiliPiper, Calendly, Stripe, most
+    // marketing domains) just render blank — the user clicked the link and
+    // got an empty page. Break out via top.location so the parent window
+    // navigates instead, with a meta-refresh fallback for clients that block
+    // the script.
+    var jsSafeUrl   = destUrl.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/<\/script/gi, "<\\/script");
+    var htmlSafeUrl = destUrl.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     return HtmlService
       .createHtmlOutput(
-        '<html><head><meta http-equiv="refresh" content="0;url=' +
-        destUrl.replace(/"/g, "&quot;") +
-        '"></head><body>Redirecting…</body></html>'
+        '<!doctype html><html><head>' +
+        '<meta http-equiv="refresh" content="0;url=' + htmlSafeUrl + '">' +
+        '<script>' +
+        'try { window.top.location.href = "' + jsSafeUrl + '"; }' +
+        'catch (e) { window.location.href = "' + jsSafeUrl + '"; }' +
+        '</script>' +
+        '</head><body>Redirecting&hellip; <a href="' + htmlSafeUrl + '" target="_top">Click here if you are not redirected.</a></body></html>'
       )
       .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
   }
