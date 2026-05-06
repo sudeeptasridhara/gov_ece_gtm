@@ -2081,6 +2081,13 @@ export default function BrightwheelDashboard() {
             const res = await fetch(proxyUrl);
             if (!res.ok) { errors.proxy = `http_${res.status}`; break; }
             const payload = await res.json();
+            // Detect "GAS not redeployed yet": old script returns the activity
+            // log payload (no _proxy marker, no notes field) instead of Granola data.
+            if (!payload._proxy) {
+              errors.proxy = "not_deployed";
+              console.warn("[granola] proxy response missing _proxy marker — GAS web app needs redeploy", payload);
+              break;
+            }
             if (payload.error) { errors.proxy = payload.error; break; }
             const notes = payload.notes || [];
             for (const n of notes) {
@@ -2317,13 +2324,16 @@ export default function BrightwheelDashboard() {
         // Build a per-endpoint status string the rep can read directly without
         // opening DevTools. Format: "WS ✓ 0 · DT ❌ 401 · FLD ❌ 401"
         const statusFor = (count, err) => {
+          if (err === "not_deployed")            return `❌ not deployed`;
           if (err && err.startsWith("auth_"))    return `❌ ${err.split("_")[1]}`;
           if (err && err.startsWith("http_"))    return `⚠️ ${err.split("_")[1]}`;
           if (err && err.startsWith("network_")) return `🚫 net`;
           if (err && err.startsWith("batch_"))   return `⚠️ batch fail`;
+          if (err)                                return `⚠️ ${err}`;
           return `✓ ${count}`;
         };
-        const status = `WS ${statusFor(counts.enterprise, errors.enterprise)} · DT ${statusFor(counts.desktop, errors.desktop)} · FLD ${statusFor(counts.folder, errors.folder)}`;
+        const proxyAttempted = counts.proxy != null || errors.proxy;
+        const status = `WS ${statusFor(counts.enterprise, errors.enterprise)} · ${proxyAttempted ? `PROXY ${statusFor(counts.proxy || 0, errors.proxy)} · ` : ""}DT ${statusFor(counts.desktop, errors.desktop)} · FLD ${statusFor(counts.folder, errors.folder)}`;
 
         // Pick the most actionable next step based on the error pattern
         const wsAuth   = (errors.enterprise || "").startsWith("auth_");
@@ -2332,8 +2342,13 @@ export default function BrightwheelDashboard() {
         const wsNet    = (errors.enterprise || "").startsWith("network_");
         const dtNet    = (errors.desktop    || "").startsWith("network_");
         const fldNet   = (errors.folder     || "").startsWith("network_");
+        const proxyRanCleanly = counts.proxy != null && !errors.proxy;
         let nextStep;
-        if (wsNet && dtNet && fldNet) {
+        if (errors.proxy === "not_deployed") {
+          nextStep = "The GAS Granola proxy isn't deployed yet. Sudeepta needs to update activity_log_api.gs in Apps Script and click Deploy → Manage deployments → New version.";
+        } else if (proxyRanCleanly && counts.proxy === 0) {
+          nextStep = "Proxy reached the Granola Public API but it returned 0 notes for your token. The team folder isn't exposed to this Personal API key. In Granola, ask the team folder owner to invite your account, or generate a key from a user that owns the folder.";
+        } else if (wsNet && dtNet && fldNet) {
           nextStep = "Browser blocked all calls (likely CORS). Try Incognito, then check DevTools.";
         } else if (wsAuth && dtAuth && fldAuth) {
           nextStep = "Token rejected everywhere. Generate a fresh personal token from Granola → Settings → API.";

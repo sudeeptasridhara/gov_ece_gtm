@@ -179,9 +179,14 @@ function proxyGranolaNotes(params) {
   }
 
   try {
-    return JSON.parse(body);
+    var parsed = JSON.parse(body);
+    // Tag the response so the dashboard can verify the proxy is actually
+    // deployed (vs. the GAS endpoint silently returning the activity log
+    // because the old script is still installed).
+    parsed._proxy = "granola_v1";
+    return parsed;
   } catch (err) {
-    return { error: "parse_failed", message: String(err), body: body.slice(0, 500), notes: [], hasMore: false, cursor: null };
+    return { error: "parse_failed", message: String(err), body: body.slice(0, 500), notes: [], hasMore: false, cursor: null, _proxy: "granola_v1" };
   }
 }
 
