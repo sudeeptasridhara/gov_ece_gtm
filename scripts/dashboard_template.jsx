@@ -1293,8 +1293,26 @@ export default function BrightwheelDashboard() {
 
   // ── BOUNCE TRACKING ───────────────────────────────────────────────────────────
   // Set of lowercase email addresses where delivery has failed (hard bounce).
+  // KNOWN_HARD_BOUNCES lists addresses confirmed to bounce that the auto-
+  // detector missed in earlier runs (it used to only scan the bounce email's
+  // subject for the bounced address, which never matched Gmail's generic
+  // "Delivery Status Notification (Failure)" subject). They get merged into
+  // the bounces set on every load so the queue guard suppresses sends to them
+  // immediately, even before the rep next clicks Sync Gmail. Add to this list
+  // if a contact bounces and the auto-detector still hasn't picked it up.
+  const KNOWN_HARD_BOUNCES = [
+    "oharold@ycsd.york.va.us",
+    "mpowers@bcpschools.org",
+  ];
   const [bounces, setBounces] = useState(() => {
-    try { const s = localStorage.getItem("bw_bounces_v1"); return s ? new Set(JSON.parse(s)) : new Set(); } catch { return new Set(); }
+    try {
+      const s = localStorage.getItem("bw_bounces_v1");
+      const stored = s ? new Set(JSON.parse(s)) : new Set();
+      KNOWN_HARD_BOUNCES.forEach(e => stored.add(e.toLowerCase()));
+      return stored;
+    } catch {
+      return new Set(KNOWN_HARD_BOUNCES.map(e => e.toLowerCase()));
+    }
   });
   const [bounceConfirm, setBounceConfirm] = useState(null); // { district, template, contactEmail, contactName }
 
@@ -1414,6 +1432,43 @@ export default function BrightwheelDashboard() {
   useEffect(() => {
     try { localStorage.setItem("bw_bounces_v1", JSON.stringify([...bounces])); } catch(e) {}
   }, [bounces]);
+
+  // One-shot: write KNOWN_HARD_BOUNCES to the shared activity log so every
+  // other rep's dashboard picks them up on next sync. Gated by a localStorage
+  // flag so we only write once per browser; the bounces set on the sheet is
+  // deduped by email at read time anyway, so a stray duplicate is harmless.
+  useEffect(() => {
+    try {
+      const flagKey = "bw_known_bounces_seeded_v1";
+      const seededAlready = JSON.parse(localStorage.getItem(flagKey) || "[]");
+      const seededSet = new Set(seededAlready);
+      const toSeed = KNOWN_HARD_BOUNCES.filter(e => !seededSet.has(e.toLowerCase()));
+      if (toSeed.length === 0) return;
+      const district = (email) => {
+        const d = districts.find(x => (x.email || "").toLowerCase() === email.toLowerCase());
+        return d || null;
+      };
+      const sheetRows = toSeed.map(email => {
+        const d = district(email);
+        return [
+          `bounce_seed_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+          String(d?.id || 0),
+          email,
+          "bounce",
+          new Date().toISOString().split("T")[0],
+          email,
+          "",
+          "manual_seed",
+          gmailUser || "",
+          d?.director || "",
+          email,
+          new Date().toISOString(),
+        ];
+      });
+      writeToSheet(sheetRows);
+      localStorage.setItem(flagKey, JSON.stringify([...seededSet, ...toSeed.map(e => e.toLowerCase())]));
+    } catch (e) { /* non-blocking */ }
+  }, [districts]);
 
   // Persist unmatched Granola docs so the rep can come back and assign them across sessions
   useEffect(() => {
@@ -1867,38 +1922,111 @@ export default function BrightwheelDashboard() {
       }
 
       // ── PASS 3: Bounce detection ─────────────────────────────────────────
-      // Search for delivery-failure emails from mailer-daemon / postmaster.
-      // Match against district emails by looking at the subject line.
-      const bounceQuery = `in:inbox after:${afterStr} (from:mailer-daemon OR from:postmaster) (subject:"delivery" OR subject:"undeliverable" OR subject:"failed" OR subject:"returned")`;
-      const bounceMsgs = await searchMessages(bounceQuery, 50);
+      // Find delivery-failure notifications and flag the bounced addresses.
+      // The previous version only searched the bounce email's *subject* for
+      // the bounced address, but Gmail / Google Workspace bounces have a
+      // generic subject ("Delivery Status Notification (Failure)") — the
+      // bounced address is in the body. So we widen the search query and
+      // pull the message body via format=full, then look for any district
+      // address in subject + headers + body.
+      const bounceQuery = `in:inbox after:${afterStr} (from:mailer-daemon OR from:postmaster OR subject:"undeliverable" OR subject:"undeliverable mail" OR subject:"delivery status" OR subject:"address not found" OR subject:"mail delivery failed" OR subject:"could not be delivered" OR subject:"returned mail" OR subject:"recipient address rejected")`;
+      const bounceMsgs = await searchMessages(bounceQuery, 100);
+
+      // Decode a base64url body part. Gmail returns body data URL-safe-base64.
+      const b64urlDecode = (data) => {
+        if (!data) return "";
+        try {
+          const s = data.replace(/-/g, "+").replace(/_/g, "/");
+          return decodeURIComponent(escape(atob(s)));
+        } catch { return ""; }
+      };
+      // Walk the MIME tree and concat every text/* part body.
+      const collectText = (part) => {
+        if (!part) return "";
+        let text = "";
+        if (part.mimeType && part.mimeType.startsWith("text/") && part.body && part.body.data) {
+          text += b64urlDecode(part.body.data) + "\n";
+        }
+        if (Array.isArray(part.parts)) {
+          for (const sub of part.parts) text += collectText(sub);
+        }
+        return text;
+      };
+      const getFullText = async (id) => {
+        try {
+          const data = await gmailGet(`messages/${id}?format=full`);
+          const headers = {};
+          (data.payload?.headers || []).forEach(({ name, value }) => { headers[name.toLowerCase()] = value; });
+          const body = collectText(data.payload || {});
+          return { id: data.id, threadId: data.threadId, headers, body };
+        } catch { return null; }
+      };
+
       const newBounceEmails = new Set();
       for (const stub of bounceMsgs) {
         if (newSyncedIds.has(stub.id)) continue;
-        const msg = await getMeta(stub.id);
+        const msg = await getFullText(stub.id);
         if (!msg) continue;
-        const subject = (msg.headers.subject || "").toLowerCase();
-        // Check if any district email appears in the bounce subject
-        const matchedDistrict = Object.entries(emailToDistrict).find(([email]) => subject.includes(email));
-        if (!matchedDistrict) { newSyncedIds.add(stub.id); continue; }
-        const [bouncedEmail, district] = matchedDistrict;
+        // Concatenate everything we'd want to scan for a bounced address —
+        // subject, all relevant headers, and the body. Lowercase once so the
+        // includes() check below is simple.
+        const haystack = [
+          msg.headers.subject || "",
+          msg.headers["x-failed-recipients"] || "",
+          msg.headers["original-recipient"] || "",
+          msg.headers["final-recipient"] || "",
+          msg.headers["delivered-to"] || "",
+          msg.headers.to || "",
+          msg.body || "",
+        ].join(" ").toLowerCase();
+        // Find every district email that appears anywhere in the haystack.
+        // A single failure notification can list multiple recipients, so we
+        // collect all of them rather than stopping at the first match.
+        const matched = Object.entries(emailToDistrict).filter(([email]) => haystack.includes(email));
+        if (matched.length === 0) { newSyncedIds.add(stub.id); continue; }
         const dateStr = msg.headers.date ? new Date(msg.headers.date).toISOString().split("T")[0] : new Date().toISOString().split("T")[0];
-        const activity = {
-          id: stub.id,
-          type: "bounce",
-          date: dateStr,
-          notes: bouncedEmail,
-          district: district.district,
-          directorName: district.director,
-          source: "gmail_bounce",
-          gmailMsgId: stub.id,
-        };
-        newActivities.push({ districtId: district.id, activity });
-        newBounceEmails.add(bouncedEmail.toLowerCase());
+        for (const [bouncedEmail, district] of matched) {
+          // Use a stable per-(message,recipient) id so retries don't dup.
+          const activity = {
+            id: stub.id + "_" + bouncedEmail,
+            type: "bounce",
+            date: dateStr,
+            notes: bouncedEmail,
+            district: district.district,
+            directorName: district.director,
+            source: "gmail_bounce",
+            gmailMsgId: stub.id,
+          };
+          newActivities.push({ districtId: district.id, activity });
+          newBounceEmails.add(bouncedEmail.toLowerCase());
+        }
         newSyncedIds.add(stub.id);
         await new Promise(r => setTimeout(r, 50));
       }
       if (newBounceEmails.size > 0) {
         setBounces(prev => new Set([...prev, ...newBounceEmails]));
+        // Persist each freshly-detected bounce to the shared activity log so
+        // every other rep's dashboard picks them up on next sync — without
+        // this, only the rep whose Gmail surfaced the bounce sees it.
+        const sheetRows = [];
+        for (const [bouncedEmail, district] of Object.entries(emailToDistrict)) {
+          if (!newBounceEmails.has(bouncedEmail.toLowerCase())) continue;
+          sheetRows.push([
+            `bounce_gmail_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+            String(district.id || 0),
+            bouncedEmail,
+            "bounce",
+            new Date().toISOString().split("T")[0],
+            bouncedEmail,
+            "",
+            "gmail_bounce",
+            gmailUser || "",
+            district.director || "",
+            bouncedEmail,
+            new Date().toISOString(),
+          ]);
+        }
+        if (sheetRows.length > 0) writeToSheet(sheetRows);
       }
     } catch (e) {
       showNotif("Sync error: " + e.message, "red");
