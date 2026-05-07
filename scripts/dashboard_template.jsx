@@ -4449,9 +4449,19 @@ export default function BrightwheelDashboard() {
           const total = ovDistricts.length;
           const priority = ovDistricts.filter(d => { const sz = getDistrictMeta(d)?.size; return sz === "XL" || sz === "L" || sz === "M"; }).length;
           const notContacted = ovDistricts.filter(d => resolveStatus(d.status) === "not_contacted").length;
+          // "Contacted" = any district the team has touched at all (anything
+          // except not_contacted). Includes blocked and existing_customer
+          // because those reflect prior outreach too.
           const contacted = ovDistricts.filter(d => resolveStatus(d.status) !== "not_contacted").length;
           const inProgress = ovDistricts.filter(d => ["contacted","responded_active"].includes(resolveStatus(d.status))).length;
-          const won = ovDistricts.filter(d => ["responded_active","existing_customer"].includes(resolveStatus(d.status))).length;
+          // Closed Won = existing_customer stage only. Previously the filter
+          // also included "responded_active" (which is "actively working" —
+          // still in pipeline, not won), so the tile was reading much higher
+          // than reality (~23 closed wons even though most of those were just
+          // active replies). The Pipeline-by-State table already filtered to
+          // existing_customer for its Won column, so the tile and the table
+          // now match.
+          const won = ovDistricts.filter(d => resolveStatus(d.status) === "existing_customer").length;
           // Districts with direct contact email
           const withDirectContact = ovDistricts.filter(d => (d.email && d.email.trim() !== "") || (d.sfContacts || []).some(c => c.email && c.email.trim() !== "")).length;
           // Districts covered via ISD (no direct contact, but ISD has one)
