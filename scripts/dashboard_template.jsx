@@ -3777,9 +3777,10 @@ export default function BrightwheelDashboard() {
       const matchLevel = filterLevel === "all" ||
         (filterLevel === "isd"      && isIsd) ||
         (filterLevel === "district" && !isIsd);
-      const hasMdr = d.contactSource === "MDR" || d.secondaryContactSource === "MDR";
+      const hasMdrAdditional = (d.additionalContacts || []).some(c => c?.source === "MDR");
+      const hasMdr = d.contactSource === "MDR" || d.secondaryContactSource === "MDR" || hasMdrAdditional;
       const matchContactSource = filterContactSource === "all" ||
-        (filterContactSource === "scraper"  && d.contactSource === "scraper" && d.secondaryContactSource !== "MDR") ||
+        (filterContactSource === "scraper"  && d.contactSource === "scraper" && d.secondaryContactSource !== "MDR" && !hasMdrAdditional) ||
         (filterContactSource === "mdr"      && hasMdr) ||
         (filterContactSource === "mdr_only" && d.contactSource === "MDR");
       return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel && matchContactSource;
