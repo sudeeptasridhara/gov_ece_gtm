@@ -1,6 +1,16 @@
 {
-  "lastSynced": "2026-05-06T13:23:41.351926+00:00",
+  "lastSynced": "2026-05-07T13:07:43.791246+00:00",
   "activities": [
+    {
+      "gmailMsgId": "19dfec74090c14ce",
+      "districtId": 9996,
+      "district": "brightwheel (TEST)",
+      "directorName": "Christie Cooley",
+      "type": "note",
+      "date": "2026-05-06",
+      "notes": "↩️ Reply received: \"Fwd: Free Mother’s Day Resource for Your Classrooms\" from christie.cooley@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
     {
       "gmailMsgId": "19dfa42eb1cc9162",
       "districtId": 9999,
