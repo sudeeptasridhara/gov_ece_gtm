@@ -37,6 +37,17 @@ const DISTRICT_META_WEBAPP_URL = "https://script.google.com/a/macros/mybrightwhe
 // See scripts/tracking_pixel.gs for deployment instructions.
 const TRACKING_PIXEL_URL = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbyi7oXAHhXcGWUUMMjkULINMqZ31Ue9hKKiiP6Mfb6TE5puxE7bgqKbeH8-MQbL9WVa/exec";
 
+// Static redirect page hosted on GitHub Pages. Email links route through here
+// instead of through TRACKING_PIXEL_URL so we avoid the Apps Script HtmlService
+// iframe sandbox — that sandbox blocks auto top-navigation, which means any
+// destination that sets X-Frame-Options: DENY (ChiliPiper, Calendly, Stripe,
+// most marketing platforms) lands the recipient on a blank page when clicked
+// from inside the iframe. GitHub Pages serves at top level, so the redirect
+// runs there and ChiliPiper loads normally. The page itself fires a beacon
+// to TRACKING_PIXEL_URL?click=1&url=… so the click row still lands in the
+// activity-log sheet exactly the way it did before.
+const REDIRECT_URL = "https://bw-gov.github.io/gov_ece_gtm/redirect.html";
+
 // ─── SEQUENCE STAGES ─────────────────────────────────────────────────────────
 const SEQUENCE_STAGES = {
   not_contacted:     { label: "Not Contacted",               color: "bg-gray-100 text-gray-500",    dot: "bg-gray-400"   },
@@ -1575,21 +1586,26 @@ export default function BrightwheelDashboard() {
   };
 
   // ── Link click tracking helper ────────────────────────────────────────────
-  // Rewrites every href in the email body to route through the tracking pixel
-  // endpoint, which logs the click and then 302-redirects to the real URL.
-  // Skips mailto: links, anchors (#), and the pixel URL itself.
+  // Rewrites every href in the email body to route through the GitHub Pages
+  // redirect page, which fires a beacon to the GAS click endpoint to log the
+  // click and then top-level-redirects to the real URL. We don't link straight
+  // to GAS because Apps Script HtmlService renders inside a sandboxed iframe
+  // that blocks auto top-navigation, which lands the recipient on a blank
+  // page whenever the destination disallows iframing (ChiliPiper, Calendly,
+  // Stripe, etc.). Skips mailto: links, anchors (#), and the redirect URL
+  // itself so we don't double-wrap.
   const wrapLinksForClickTracking = (htmlBody, trackingId, districtId, repEmail, template) => {
-    if (!TRACKING_PIXEL_URL) return htmlBody;
+    if (!REDIRECT_URL) return htmlBody;
     return htmlBody.replace(/href="([^"]+)"/g, (match, url) => {
       if (
         url.startsWith("mailto:") ||
         url.startsWith("#") ||
+        url.includes(REDIRECT_URL) ||
         url.includes(TRACKING_PIXEL_URL)
       ) return match;
       const clickUrl =
-        TRACKING_PIXEL_URL +
-        "?click=1" +
-        "&url=" + encodeURIComponent(url) +
+        REDIRECT_URL +
+        "?url=" + encodeURIComponent(url) +
         "&id="  + encodeURIComponent(trackingId) +
         "&d="   + encodeURIComponent(districtId) +
         "&r="   + encodeURIComponent(repEmail) +

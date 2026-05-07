@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting… — brightwheel</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9fafb;
+      color: #374151;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrap { text-align: center; padding: 32px; }
+    .pulse {
+      display: inline-block; width: 8px; height: 8px; background: #5046e5;
+      border-radius: 50%; margin-right: 6px; vertical-align: middle;
+      animation: pulse 1s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .label { font-size: 13px; color: #6b7280; }
+    .fallback {
+      display: none;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .fallback a {
+      color: #5046e5;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .fallback.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="label"><span class="pulse"></span>Redirecting&hellip;</div>
+    <div id="fallback" class="fallback">
+      Taking longer than expected.
+      <br />
+      <a id="manual-link" href="#" target="_top">Click here to continue.</a>
+    </div>
+    <noscript>
+      <div style="margin-top:16px;font-size:13px;color:#dc2626;">
+        JavaScript is required to redirect. Please enable JavaScript or
+        <a id="ns-link" href="#" target="_top" style="color:#5046e5;text-decoration:underline;">click here</a>.
+      </div>
+    </noscript>
+  </div>
+
+  <script>
+  (function () {
+    // ── Click-tracking redirect ───────────────────────────────────────────
+    // Email links the dashboard sends route through here so we can log clicks
+    // to the same Google Sheet the rest of the activity log writes to. We do
+    // it from GitHub Pages (rather than directly through Apps Script) because
+    // Apps Script HtmlService renders inside a sandboxed iframe whose sandbox
+    // only allows top-navigation-by-user-activation — so an auto-redirect
+    // inside it gets blocked when the destination sets X-Frame-Options: DENY
+    // (ChiliPiper, Calendly, Stripe, most marketing platforms). GitHub Pages
+    // serves at top level, so window.location.replace lands the recipient on
+    // the real destination with no iframe involved.
+    //
+    // Expected query params:
+    //   url — destination URL (required)
+    //   id  — tracking id  (e.g. "<districtId>_<timestamp>")
+    //   d   — district id
+    //   r   — sender rep email
+    //   t   — template / campaign name
+
+    var GAS_ENDPOINT = "https://script.google.com/a/macros/mybrightwheel.com/s/AKfycbyi7oXAHhXcGWUUMMjkULINMqZ31Ue9hKKiiP6Mfb6TE5puxE7bgqKbeH8-MQbL9WVa/exec";
+
+    function getParams() {
+      try {
+        var p = new URLSearchParams(window.location.search);
+        return {
+          dest:       p.get("url") || "",
+          trackingId: p.get("id")  || "",
+          districtId: p.get("d")   || "",
+          repEmail:   p.get("r")   || "",
+          template:   p.get("t")   || ""
+        };
+      } catch (e) {
+        return { dest: "", trackingId: "", districtId: "", repEmail: "", template: "" };
+      }
+    }
+
+    function logClick(p) {
+      if (!p.dest) return;
+      var qs = "?click=1" +
+        "&url=" + encodeURIComponent(p.dest) +
+        "&id="  + encodeURIComponent(p.trackingId) +
+        "&d="   + encodeURIComponent(p.districtId) +
+        "&r="   + encodeURIComponent(p.repEmail) +
+        "&t="   + encodeURIComponent(p.template);
+      var fullUrl = GAS_ENDPOINT + qs;
+      // sendBeacon is designed for fire-and-forget "log on unload" — survives
+      // navigation. Image GET is the universal fallback.
+      try {
+        if (navigator.sendBeacon) navigator.sendBeacon(fullUrl);
+      } catch (e) {}
+      try {
+        var img = new Image();
+        img.referrerPolicy = "no-referrer";
+        img.src = fullUrl;
+      } catch (e) {}
+    }
+
+    function isSafeUrl(url) {
+      // Permit only http/https schemes — guard against javascript: / data: etc.
+      return /^https?:\/\//i.test(url);
+    }
+
+    var p = getParams();
+
+    // Wire up the manual-fallback link first so it's always usable.
+    var manualLink = document.getElementById("manual-link");
+    var nsLink     = document.getElementById("ns-link");
+    if (p.dest && isSafeUrl(p.dest)) {
+      if (manualLink) manualLink.href = p.dest;
+      if (nsLink)     nsLink.href     = p.dest;
+    } else {
+      // No / unsafe destination — surface immediately, don't attempt redirect.
+      var fb = document.getElementById("fallback");
+      if (fb) {
+        fb.className = "fallback show";
+        fb.innerHTML = '<span style="color:#dc2626;">Missing or invalid destination URL.</span>';
+      }
+      return;
+    }
+
+    // Fire the click log, then redirect at top level. The 30ms delay gives
+    // sendBeacon / Image a chance to dispatch before navigation cancels them
+    // on browsers that don't fully support keepalive.
+    logClick(p);
+    setTimeout(function () {
+      try { window.location.replace(p.dest); }
+      catch (e) { window.location.href = p.dest; }
+    }, 30);
+
+    // If we're still on this page 1.5s later, the redirect was blocked
+    // (popup blocker, security extension, etc.) — show the manual link.
+    setTimeout(function () {
+      var fb = document.getElementById("fallback");
+      if (fb) fb.className = "fallback show";
+    }, 1500);
+  })();
+  </script>
+</body>
+</html>
