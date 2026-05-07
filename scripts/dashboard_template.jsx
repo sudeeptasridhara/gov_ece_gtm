@@ -1132,6 +1132,7 @@ export default function BrightwheelDashboard() {
   const [filterEnrollment, setFilterEnrollment] = useState("all"); // "all" | "lt500" | "500to1k" | "1kto3k" | "3kplus"
   const [filterSize, setFilterSize]             = useState("all"); // "all" | "XL" | "Large" | "Medium" | "Small"
   const [filterLevel, setFilterLevel]           = useState("all"); // "all" | "isd" | "district" — Michigan-style ISD vs. local LEA
+  const [filterContactSource, setFilterContactSource] = useState("all"); // "all" | "scraper" | "mdr" | "mdr_only" — contact provenance filter
   const [sortBy, setSortBy] = useState("priority"); // priority | enrollment | tier | adoptionYear | lastUpdated
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [modalTab, setModalTab] = useState("overview");
@@ -3776,7 +3777,12 @@ export default function BrightwheelDashboard() {
       const matchLevel = filterLevel === "all" ||
         (filterLevel === "isd"      && isIsd) ||
         (filterLevel === "district" && !isIsd);
-      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel;
+      const hasMdr = d.contactSource === "MDR" || d.secondaryContactSource === "MDR";
+      const matchContactSource = filterContactSource === "all" ||
+        (filterContactSource === "scraper"  && d.contactSource === "scraper" && d.secondaryContactSource !== "MDR") ||
+        (filterContactSource === "mdr"      && hasMdr) ||
+        (filterContactSource === "mdr_only" && d.contactSource === "MDR");
+      return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel && matchContactSource;
     });
     return results.sort((a, b) => {
       if (sortBy === "enrollment") return (b.enrollment || 0) - (a.enrollment || 0);
@@ -3790,7 +3796,7 @@ export default function BrightwheelDashboard() {
       // default: priority score descending
       return (b.priority || 0) - (a.priority || 0);
     });
-  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, filterBwStatus, filterLevel, isdIds, districtMeta]);
+  }, [districts, search, filterState, filterPriority, filterCurriculum, filterStatus, sortBy, globalRepFilter, filterSalesforce, filterEnrollment, filterSize, filterBwStatus, filterLevel, filterContactSource, isdIds, districtMeta]);
 
   // ── PROSPECT ROWS (one row per contact) ──────────────────────────────────────
   const prospectRows = useMemo(() => {
@@ -4785,6 +4791,7 @@ export default function BrightwheelDashboard() {
                   { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                   { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                   { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
+                  { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["mdr_only","📋 MDR primary"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
                     style={f.style}
@@ -8007,6 +8014,7 @@ export default function BrightwheelDashboard() {
                     { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                     { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                     { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
+                    { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["mdr_only","📋 MDR primary"]], style:{} },
                   ].map((f) => (
                     <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
                       style={f.style}
