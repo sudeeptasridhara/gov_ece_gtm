@@ -1758,7 +1758,40 @@ export default function BrightwheelDashboard() {
       });
       if (res.ok) {
         const data = await res.json();
+        // Pull the underlying Gmail message id out of the draft response. Gmail
+        // preserves this id when the rep eventually clicks Send from the
+        // Drafts UI (the draft → sent transition keeps the same message id),
+        // so storing it now lets syncGmailActivity dedupe against the
+        // gmail_sent row it'll later create on next sync.
+        const gmailMsgId = data?.message?.id || null;
         rejectEmail(item.id, false);
+        // Optimistically log the draft as a sent email activity. The rep
+        // intentionally drafted from the queue with the express purpose of
+        // sending via Gmail (typically with Yesware in the loop), so treating
+        // this as "contacted" the moment the draft is created keeps the
+        // dashboard in sync without forcing reps to manually click Sync Gmail
+        // afterward. If the rep abandons the draft, the worst case is one
+        // false-positive activity — which is better than the current state of
+        // every dashboard-drafted email being invisible to the team.
+        const draftActivity = {
+          id: gmailMsgId || Date.now(),
+          type: "email",
+          date: new Date().toISOString().split("T")[0],
+          notes: `Sent "${item.template}" email via dashboard to ${item.to}`,
+          district: item.district,
+          directorName: item.directorName,
+          source: "dashboard",
+          repEmail: gmailUser || "",
+          ...(gmailMsgId ? { gmailMsgId } : {}),
+        };
+        setDistricts((prev) => prev.map((d) => {
+          if (d.id !== item.districtId) return d;
+          const already = (d.activities || []).some((a) => a.source === "dashboard" && a.notes === draftActivity.notes && a.date === draftActivity.date);
+          if (already) return d;
+          return { ...d, activities: [...(d.activities || []), draftActivity], status: resolveStatus(d.status) === "not_contacted" ? "contacted" : d.status };
+        }));
+        setActivityLog((prev) => [draftActivity, ...prev]);
+        writeToSheet([activityToRow(item.districtId, item.district, { ...draftActivity, repEmail: gmailUser || "" })]);
         if (openInGmail) {
           // Open the specific draft in Gmail compose — Yesware injects its tracking pixel here
           const messageId = data?.message?.id;
