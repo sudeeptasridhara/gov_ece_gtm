@@ -791,7 +791,7 @@ function generatePersonalizedEmail(district, rep) {
 }
 
 // ─── CONTACTS PANEL COMPONENT ─────────────────────────────────────────────────
-function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
+function ContactsPanel({ district, bounces, sourceFilter = "all", onUpdate, onMarkBounced }) {
   const [editTarget, setEditTarget] = React.useState(null);
   const [draft, setDraft] = React.useState({});
 
@@ -801,6 +801,20 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
   const mainTitle = district.contactEdits?.title ?? district.title ?? "";
 
   const additionalContacts = district.additionalContacts || [];
+
+  // Source-aware visibility
+  const primaryIsMdr = district.contactSource === "MDR";
+  const primaryIsScraper = district.contactSource === "scraper";
+  const showPrimary =
+    sourceFilter === "all" || sourceFilter === "mdr_scraper" ||
+    (sourceFilter === "mdr" && primaryIsMdr) ||
+    (sourceFilter === "scraper" && primaryIsScraper);
+  const visibleAdditional = additionalContacts.filter(c => {
+    if (sourceFilter === "all" || sourceFilter === "mdr_scraper") return true;
+    if (sourceFilter === "mdr") return c.source === "MDR";
+    if (sourceFilter === "scraper") return c.source !== "MDR";
+    return true;
+  });
 
   const saveMainEdit = () => {
     onUpdate({ contactEdits: { ...draft } });
@@ -878,10 +892,17 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
     <div className="space-y-3">
 
       {/* ── Main Director Contact ── */}
+      {showPrimary && (
       <div className={`rounded-xl border overflow-hidden ${bounces.has(mainEmail.toLowerCase()) ? "border-red-200 bg-red-50/30" : "border-gray-200 bg-white"}`}>
         <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold text-gray-700">Primary Contact</span>
+            {primaryIsMdr && (
+              <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium" title="Sourced from MDR Educators List">📋 MDR</span>
+            )}
+            {primaryIsScraper && (
+              <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-medium" title="Sourced from Claude scraper">🤖 Scraper</span>
+            )}
             {bounces.has(mainEmail.toLowerCase()) && (
               <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">⚠️ Bounced</span>
             )}
@@ -921,6 +942,7 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
           </div>
         )}
       </div>
+      )}
 
       {/* ── State Context (shown when STATE_INFO has notes for this state) ── */}
       {(() => {
@@ -1023,11 +1045,24 @@ function ContactsPanel({ district, bounces, onUpdate, onMarkBounced }) {
       )}
 
       {/* ── Additional Contacts ── */}
-      {additionalContacts.map(c => (
+      {visibleAdditional.length === 0 && !showPrimary && (
+        <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50/30 px-4 py-3 text-xs text-gray-500 italic">
+          No contacts match the current Source filter for this district.
+        </div>
+      )}
+      {visibleAdditional.map(c => (
         <div key={c.id} className={`rounded-xl border overflow-hidden ${bounces.has((c.email||"").toLowerCase()) ? "border-red-200 bg-red-50/30" : "border-gray-200 bg-white"}`}>
           <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 border-b border-gray-100">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-gray-700">{c.role || "Additional Contact"}</span>
+              <span className="text-xs font-semibold text-gray-700">{c.role || (c.wasSecondary ? "Secondary Contact" : "Additional Contact")}</span>
+              {c.source === "MDR" && (
+                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium" title={c.matchesPrimary ? "MDR also has this contact (matches primary)" : "Sourced from MDR Educators List"}>
+                  📋 MDR{c.matchesPrimary ? " ✓" : ""}
+                </span>
+              )}
+              {c.source && c.source !== "MDR" && (
+                <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-medium" title={`Sourced from ${c.source}`}>🤖 {c.source}</span>
+              )}
               {bounces.has((c.email||"").toLowerCase()) && (
                 <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">⚠️ Bounced</span>
               )}
@@ -3824,10 +3859,10 @@ export default function BrightwheelDashboard() {
         (filterLevel === "isd"      && isIsd) ||
         (filterLevel === "district" && !isIsd);
       const hasMdrAdditional = (d.additionalContacts || []).some(c => c?.source === "MDR");
-      const hasMdr = d.contactSource === "MDR" || d.secondaryContactSource === "MDR" || hasMdrAdditional;
+      const hasMdr = d.contactSource === "MDR" || hasMdrAdditional;
       const hasScraper = d.contactSource === "scraper";
       const matchContactSource = filterContactSource === "all" ||
-        (filterContactSource === "scraper"      && hasScraper && !d.secondaryContactSource && !hasMdrAdditional) ||
+        (filterContactSource === "scraper"      && hasScraper && !hasMdrAdditional) ||
         (filterContactSource === "mdr"          && hasMdr) ||
         (filterContactSource === "mdr_scraper"  && hasScraper && hasMdr);
       return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel && matchContactSource;
@@ -7783,6 +7818,7 @@ export default function BrightwheelDashboard() {
                           <ContactsPanel
                             district={selectedDi}
                             bounces={bounces}
+                            sourceFilter={filterContactSource}
                             onUpdate={(updates) => updateDistrict(selectedDi.id, updates)}
                             onMarkBounced={(email) => setBounces(prev => new Set([...prev, email.toLowerCase()]))}
                           />
@@ -8450,6 +8486,7 @@ export default function BrightwheelDashboard() {
                     <ContactsPanel
                       district={selectedDistrict}
                       bounces={bounces}
+                      sourceFilter={filterContactSource}
                       onUpdate={(updates) => updateDistrict(selectedDistrict.id, updates)}
                       onMarkBounced={(email) => setBounces(prev => new Set([...prev, email.toLowerCase()]))}
                     />
