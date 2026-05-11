@@ -805,14 +805,17 @@ function ContactsPanel({ district, bounces, sourceFilter = "all", onUpdate, onMa
   // Source-aware visibility
   const primaryIsMdr = district.contactSource === "MDR";
   const primaryIsScraper = district.contactSource === "scraper";
+  const primaryIsGovSpend = district.contactSource === "GovSpend";
   const showPrimary =
     sourceFilter === "all" || sourceFilter === "mdr_scraper" ||
     (sourceFilter === "mdr" && primaryIsMdr) ||
+    (sourceFilter === "govspend" && primaryIsGovSpend) ||
     (sourceFilter === "scraper" && primaryIsScraper);
   const visibleAdditional = additionalContacts.filter(c => {
     if (sourceFilter === "all" || sourceFilter === "mdr_scraper") return true;
     if (sourceFilter === "mdr") return c.source === "MDR";
-    if (sourceFilter === "scraper") return c.source !== "MDR";
+    if (sourceFilter === "govspend") return c.source === "GovSpend";
+    if (sourceFilter === "scraper") return !c.source || (c.source !== "MDR" && c.source !== "GovSpend");
     return true;
   });
 
@@ -899,6 +902,9 @@ function ContactsPanel({ district, bounces, sourceFilter = "all", onUpdate, onMa
             <span className="text-xs font-semibold text-gray-700">Primary Contact</span>
             {primaryIsMdr && (
               <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium" title="Sourced from MDR Educators List">📋 MDR</span>
+            )}
+            {primaryIsGovSpend && (
+              <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium" title="Sourced from GovSpend">🏛️ GovSpend</span>
             )}
             {primaryIsScraper && (
               <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-medium" title="Sourced from Claude scraper">🤖 Scraper</span>
@@ -1060,7 +1066,12 @@ function ContactsPanel({ district, bounces, sourceFilter = "all", onUpdate, onMa
                   📋 MDR{c.matchesPrimary ? " ✓" : ""}
                 </span>
               )}
-              {c.source && c.source !== "MDR" && (
+              {c.source === "GovSpend" && (
+                <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium" title={c.matchesPrimary ? "GovSpend also has this contact (matches primary)" : "Sourced from GovSpend"}>
+                  🏛️ GovSpend{c.matchesPrimary ? " ✓" : ""}
+                </span>
+              )}
+              {c.source && c.source !== "MDR" && c.source !== "GovSpend" && (
                 <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-medium" title={`Sourced from ${c.source}`}>🤖 {c.source}</span>
               )}
               {bounces.has((c.email||"").toLowerCase()) && (
@@ -3859,11 +3870,14 @@ export default function BrightwheelDashboard() {
         (filterLevel === "isd"      && isIsd) ||
         (filterLevel === "district" && !isIsd);
       const hasMdrAdditional = (d.additionalContacts || []).some(c => c?.source === "MDR");
+      const hasGsAdditional  = (d.additionalContacts || []).some(c => c?.source === "GovSpend");
       const hasMdr = d.contactSource === "MDR" || hasMdrAdditional;
+      const hasGs  = d.contactSource === "GovSpend" || hasGsAdditional;
       const hasScraper = d.contactSource === "scraper";
       const matchContactSource = filterContactSource === "all" ||
-        (filterContactSource === "scraper"      && hasScraper && !hasMdrAdditional) ||
+        (filterContactSource === "scraper"      && hasScraper && !hasMdrAdditional && !hasGsAdditional) ||
         (filterContactSource === "mdr"          && hasMdr) ||
+        (filterContactSource === "govspend"     && hasGs) ||
         (filterContactSource === "mdr_scraper"  && hasScraper && hasMdr);
       return matchSearch && matchPriority && matchState && matchCurriculum && matchStatus && matchRep && matchSalesforce && matchEnrollment && matchSize && matchBwStatus && matchLevel && matchContactSource;
     });
@@ -4874,7 +4888,7 @@ export default function BrightwheelDashboard() {
                   { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                   { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                   { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
-                  { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["mdr_scraper","🤖+📋 MDR + Scraper"]], style:{} },
+                  { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["govspend","🏛️ GovSpend (any)"],["mdr_scraper","🤖+📋 MDR + Scraper"]], style:{} },
                 ].map((f) => (
                   <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
                     style={f.style}
@@ -8098,7 +8112,7 @@ export default function BrightwheelDashboard() {
                     { label: "Salesforce", val: filterSalesforce, setter: setFilterSalesforce, opts: [["all","SF: All"], ["in_sf","✓ In SF"], ["not_in_sf","Not in SF"]], style:{} },
                     { label: "BW SaaS",   val: filterBwStatus,  setter: setFilterBwStatus,  opts: [["all","BW: All"],["any_bw","🐝 Any Customer"],["premium","🐝 K12 Premium"],["free","🐝 K12 Free"],["any_hs","🐝 HeadStart"],["premium_hs","🐝 HS Premium"],["free_hs","🐝 HS Free"],["no","Not a customer"]], style:{} },
                     { label: "Enrollment", val: filterEnrollment, setter: setFilterEnrollment, opts: [["all","Enroll."],["lt500","<500"],["500to1k","500–1k"],["1kto3k","1k–3k"],["3kplus","3k+"]], style:{} },
-                    { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["mdr_scraper","🤖+📋 MDR + Scraper"]], style:{} },
+                    { label: "Source",     val: filterContactSource, setter: setFilterContactSource, opts: [["all","Source: All"],["scraper","🤖 Scraper only"],["mdr","📋 MDR (any)"],["govspend","🏛️ GovSpend (any)"],["mdr_scraper","🤖+📋 MDR + Scraper"]], style:{} },
                   ].map((f) => (
                     <select key={f.label} value={f.val} onChange={(e) => f.setter(e.target.value)}
                       style={f.style}
