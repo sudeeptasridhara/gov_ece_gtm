@@ -1841,15 +1841,28 @@ export default function BrightwheelDashboard() {
     if (!useToken) { connectGmail((t) => syncGmailActivity(t)); return; }
     setGmailSyncing(true);
 
-    // Build a fast lookup: email address → district
+    // Build a fast lookup: email address → district. We include every kind of
+    // contact email the dashboard knows about so Gmail Sync's backfill catches
+    // sends regardless of which contact a rep emailed. Previously this only
+    // included the primary, summer-bridge, and additional contacts — which
+    // meant emails to Salesforce contacts or ISD-routed contacts (which is
+    // how a lot of districts get their early-childhood mail handled) were
+    // invisible to the sync and never landed on the right district row.
     const emailToDistrict = {};
+    const addMapping = (email, d) => {
+      if (!email) return;
+      const key = String(email).toLowerCase().trim();
+      if (!key || !key.includes("@")) return;
+      // First district to claim an email wins; keeps the mapping stable when
+      // the same contact happens to be reused across districts.
+      if (!emailToDistrict[key]) emailToDistrict[key] = d;
+    };
     districts.forEach((d) => {
-      const effectiveEmail = (d.contactEdits?.email ?? d.email);
-      if (effectiveEmail) emailToDistrict[effectiveEmail.toLowerCase().trim()] = d;
-      if (d.summerBridgeContact?.email) emailToDistrict[d.summerBridgeContact.email.toLowerCase().trim()] = d;
-      (d.additionalContacts || []).forEach(c => {
-        if (c.email) emailToDistrict[c.email.toLowerCase().trim()] = d;
-      });
+      addMapping(d.contactEdits?.email ?? d.email, d);
+      addMapping(d.summerBridgeContact?.email, d);
+      (d.additionalContacts || []).forEach(c => addMapping(c?.email, d));
+      (d.sfContacts || []).forEach(c => addMapping(c?.email, d));
+      addMapping(d.isdContactEmail, d);
     });
 
     // Gmail API helper
