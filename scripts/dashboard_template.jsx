@@ -7873,6 +7873,31 @@ export default function BrightwheelDashboard() {
                       </div>
                     )}
 
+                    {/* GovSpend Vendor Spend (preschool-relevant POs) */}
+                    {selectedDi.govspendVendors && selectedDi.govspendVendors.length > 0 && (
+                      <div className="bg-white rounded-xl border border-emerald-200 p-4">
+                        <h4 className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">🏛️ GovSpend — Preschool-Relevant Vendor Spend</h4>
+                        <div className="space-y-3">
+                          {selectedDi.govspendVendors.map((v, i) => (
+                            <div key={i} className="border border-emerald-100 rounded-lg p-3 bg-emerald-50/30">
+                              <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                                <span className="text-sm font-semibold text-gray-800">{v.vendor}</span>
+                                <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">{v.status}</span>
+                                <span className="text-xs text-gray-500">{v.poCount} POs</span>
+                                <span className="text-xs text-gray-500">most recent: <span className="font-medium text-gray-700">{v.mostRecentPO}</span></span>
+                              </div>
+                              {v.keyProducts && (
+                                <div className="text-xs text-gray-700 mt-1"><span className="text-gray-500 font-medium">Key products:</span> {v.keyProducts}</div>
+                              )}
+                              {v.notes && (
+                                <div className="text-xs text-gray-600 mt-1 italic">{v.notes}</div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Board Notes */}
                     {selectedDi.boardNotes && selectedDi.boardNotes.length > 0 && (
                       <div className="bg-white rounded-xl border border-gray-200 p-4">
@@ -8859,6 +8884,30 @@ export default function BrightwheelDashboard() {
                           </div>
                         </div>
                       ))}
+                    </div>
+                  )}
+
+                  {selectedDistrict.govspendVendors && selectedDistrict.govspendVendors.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">🏛️ GovSpend — Preschool-Relevant Vendor Spend</h4>
+                      <div className="space-y-3">
+                        {selectedDistrict.govspendVendors.map((v, i) => (
+                          <div key={i} className="border border-emerald-200 rounded-lg p-3 bg-emerald-50/30">
+                            <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                              <span className="text-sm font-semibold text-gray-800">{v.vendor}</span>
+                              <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">{v.status}</span>
+                              <span className="text-xs text-gray-500">{v.poCount} POs</span>
+                              <span className="text-xs text-gray-500">most recent: <span className="font-medium text-gray-700">{v.mostRecentPO}</span></span>
+                            </div>
+                            {v.keyProducts && (
+                              <div className="text-xs text-gray-700 mt-1"><span className="text-gray-500 font-medium">Key products:</span> {v.keyProducts}</div>
+                            )}
+                            {v.notes && (
+                              <div className="text-xs text-gray-600 mt-1 italic">{v.notes}</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                   <div className="mt-6 bg-indigo-50 border border-indigo-100 rounded-lg p-4">
