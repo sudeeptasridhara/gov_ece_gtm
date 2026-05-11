@@ -4132,29 +4132,63 @@ export default function BrightwheelDashboard() {
   };
 
   // Queue a single district's next email step. `silent` skips per-item notif.
+  // Falls back to the ISD contact when the district has no direct email — this
+  // matches the Prospects-tab bulk-queue behavior so districts whose early-
+  // childhood contact lives at the ISD level (Washington, Michigan ISDs, NY
+  // BOCES, etc.) actually get queued instead of silently failing inside
+  // queueEmail when district.email is blank.
   const queueSequenceEmail = (district, campaign, silent = false) => {
     const step = getNextEmailStepForDistrict(district, campaign);
     if (!step) {
       if (!silent) showNotif(`⚠️ No email step queued — next action for ${district.district} is not an email`, "red");
       return false;
     }
-    queueEmail(district, step.templateKey, silent);
-    return true;
+    const primaryEmail = (district.contactEdits?.email ?? district.email ?? "").trim();
+    if (primaryEmail) {
+      return queueEmail(district, step.templateKey, silent);
+    }
+    if (district.isdContactEmail && district.isdContactEmail.trim()) {
+      const isdOverride = {
+        name: district.isdContactName || "",
+        firstName: (district.isdContactName || "").split(" ")[0],
+        email: district.isdContactEmail,
+        title: district.isdContactTitle || "",
+        phone: district.isdContactPhone || "",
+        source: "isd",
+        isdName: district.isdCoveredBy,
+      };
+      return queueEmail(district, step.templateKey, silent, false, false, isdOverride);
+    }
+    // Last resort — let queueEmail surface its own "No email on file" toast
+    // so the rep knows why this district was skipped.
+    return queueEmail(district, step.templateKey, silent);
   };
 
-  // Bulk-queue all selected districts' next email steps. Returns count queued.
+  // Bulk-queue all selected districts' next email steps. Returns count actually
+  // added to the approval queue (not just "had a step"). Dedupes shared ISD
+  // contacts so one ISD covering 20 districts only queues one email, matching
+  // the Prospects-tab bulk-queue behavior.
   const bulkQueueSequenceEmails = (districtIds, campaign) => {
     let queued = 0, skipped = 0;
+    const seenIsdEmails = new Set();
     districtIds.forEach(id => {
       const d = districts.find(x => x.id === id);
       if (!d) { skipped++; return; }
+      // If we're about to route through an ISD email, dedupe across districts
+      // so one ISD doesn't get N copies of the same template.
+      const primaryEmail = (d.contactEdits?.email ?? d.email ?? "").trim();
+      if (!primaryEmail && d.isdContactEmail && d.isdContactEmail.trim()) {
+        const k = d.isdContactEmail.trim().toLowerCase();
+        if (seenIsdEmails.has(k)) { skipped++; return; }
+        seenIsdEmails.add(k);
+      }
       const ok = queueSequenceEmail(d, campaign, true);
       if (ok) queued++; else skipped++;
     });
     if (queued > 0) {
-      showNotif(`📧 ${queued} email${queued !== 1 ? "s" : ""} added to Send Queue${skipped > 0 ? ` · ${skipped} skipped (no email step)` : ""} ✓`);
+      showNotif(`📧 ${queued} email${queued !== 1 ? "s" : ""} added to Send Queue${skipped > 0 ? ` · ${skipped} skipped` : ""} ✓`);
     } else if (skipped > 0) {
-      showNotif(`⚠️ Nothing queued — none of the selected districts have an email next-step`, "red");
+      showNotif(`⚠️ Nothing queued — selected districts have no email next-step or contact`, "red");
     }
     setSeqSelected(new Set());
     return queued;
@@ -4162,31 +4196,67 @@ export default function BrightwheelDashboard() {
 
   // Bulk: queue + immediately draft all in Gmail (for Yesware tracking).
   // Mirrors draftAllAndOpenGmail() but scoped to just the items we just queued.
+  // Includes the same ISD-fallback path as bulkQueueSequenceEmails so districts
+  // routed through an ISD contact (no district.email of their own) still get
+  // a draft instead of being silently dropped.
   const bulkDraftSequenceInGmail = async (districtIds, campaign) => {
     if (!gmailToken && GOOGLE_CLIENT_ID) { connectGmail(() => {}); return; }
     // Queue silently so we know exactly which items to draft
     const itemsToDraft = [];
+    const seenIsdEmails = new Set();
     districtIds.forEach(id => {
       const d = districts.find(x => x.id === id);
       if (!d) return;
       const step = getNextEmailStepForDistrict(d, campaign);
       if (!step) return;
-      // Resolve contact + body the same way queueEmail does so we have a draftable item
-      const contact = resolveContact(d, step.templateKey);
+      // Resolve contact + body the same way queueEmail does so we have a
+      // draftable item. Fall back to the ISD contact when the district has no
+      // direct email.
+      const primaryEmail = (d.contactEdits?.email ?? d.email ?? "").trim();
+      let contact;
+      let districtForEmail = d;
+      let isIsdContact = false;
+      if (primaryEmail) {
+        contact = resolveContact(d, step.templateKey);
+      } else if (d.isdContactEmail && d.isdContactEmail.trim()) {
+        const k = d.isdContactEmail.trim().toLowerCase();
+        if (seenIsdEmails.has(k)) return; // dedupe shared ISDs
+        seenIsdEmails.add(k);
+        isIsdContact = true;
+        contact = {
+          name: d.isdContactName || "",
+          email: d.isdContactEmail,
+          title: d.isdContactTitle || "",
+          phone: d.isdContactPhone || "",
+          isSummerBridge: false,
+          source: "isd",
+          isdName: d.isdCoveredBy,
+        };
+        districtForEmail = {
+          ...d,
+          director: contact.name,
+          email: contact.email,
+          district: d.isdCoveredBy || d.district,
+          contactEdits: { ...(d.contactEdits || {}), director: contact.name, email: contact.email, title: contact.title, phone: contact.phone },
+        };
+      } else {
+        return;
+      }
       if (!contact.email) return;
       if (bounces.has((contact.email || "").toLowerCase())) return;
       if (unsubs.has((contact.email || "").toLowerCase())) return;
       const body = step.templateKey === "personalized"
-        ? generatePersonalizedEmail(d, currentRep)
-        : getEmailBody(d, step.templateKey, currentRep);
+        ? generatePersonalizedEmail(districtForEmail, currentRep)
+        : getEmailBody(districtForEmail, step.templateKey, currentRep);
       if (!body) return;
       const item = {
         id: Date.now() + Math.random(),
-        district: d.district,
+        district: isIsdContact ? (d.isdCoveredBy || d.district) : d.district,
         districtId: d.id,
         to: contact.email,
         directorName: contact.name,
         isSummerBridgeContact: contact.isSummerBridge || false,
+        isIsdEmail: isIsdContact,
         template: step.templateKey,
         body,
         status: "pending",
@@ -4315,26 +4385,31 @@ export default function BrightwheelDashboard() {
     writeToSheet([activityToRow(district.id, district.district, act)]);
   };
 
+  // Returns true when an item is actually appended to the approval queue,
+  // false when it was skipped for any reason (no email, bounced, unsub'd,
+  // empty body, duplicate). Callers rely on this signal to keep bulk-queue
+  // counters honest — without it the success toast would lie ("X emails
+  // added") whenever queueEmail silently bails.
   const queueEmail = (district, template, silent = false, forceUnsub = false, forceBounce = false, contactOverride = null) => {
     // contactOverride: { name, firstName, email, title, phone } — if provided, use instead of resolveContact
     const contact = contactOverride || resolveContact(district, template);
     if (!contact.email) {
-      showNotif(`⚠️ No email on file for ${contact.name || district.director || district.district} — skipped`, "red");
-      return;
+      if (!silent) showNotif(`⚠️ No email on file for ${contact.name || district.director || district.district} — skipped`, "red");
+      return false;
     }
     // Bounce guard
     const isBounce = bounces.has((contact.email || "").toLowerCase());
     if (isBounce && !forceBounce) {
-      if (silent) return;
+      if (silent) return false;
       setBounceConfirm({ district, template, contactEmail: contact.email, contactName: contact.name, contactOverride });
-      return;
+      return false;
     }
     // Unsubscribe guard
     const isUnsub = unsubs.has((contact.email || "").toLowerCase());
     if (isUnsub && !forceUnsub) {
-      if (silent) return;
+      if (silent) return false;
       setUnsubConfirm({ district, template, contactEmail: contact.email, contactName: contact.name, contactOverride });
-      return;
+      return false;
     }
     // Patch district so email body greets the right person.
     // For ISD contacts, replace the district name with the ISD name so email body
@@ -4358,8 +4433,8 @@ export default function BrightwheelDashboard() {
       ? generatePersonalizedEmail(districtForEmail, currentRep)
       : getEmailBody(districtForEmail, template, currentRep);
     if (!body) {
-      showNotif(`⚠️ Not enough intel to personalize email for ${district.district}`, "red");
-      return;
+      if (!silent) showNotif(`⚠️ Not enough intel to personalize email for ${district.district}`, "red");
+      return false;
     }
     const item = {
       id: Date.now() + Math.random(),
@@ -4374,17 +4449,19 @@ export default function BrightwheelDashboard() {
       status: "pending",
       createdAt: new Date().toLocaleString(),
     };
+    let actuallyQueued = true;
     setApprovalQueue((prev) => {
       // For ISD contacts: dedupe by template+email only (one email per ISD regardless of which district triggered it)
       // For direct contacts: dedupe by districtId+template+email
       if (isIsdContact) {
-        if (prev.find((x) => x.template === template && x.to === contact.email)) return prev;
+        if (prev.find((x) => x.template === template && x.to === contact.email)) { actuallyQueued = false; return prev; }
       } else {
-        if (prev.find((x) => x.districtId === district.id && x.template === template && x.to === contact.email)) return prev;
+        if (prev.find((x) => x.districtId === district.id && x.template === template && x.to === contact.email)) { actuallyQueued = false; return prev; }
       }
       return [item, ...prev];
     });
-    if (!silent) showNotif(`📧 Queued for ${contact.name || district.director}`);
+    if (!silent && actuallyQueued) showNotif(`📧 Queued for ${contact.name || district.director}`);
+    return actuallyQueued;
   };
 
   const approveEmail = (queueItem) => {
