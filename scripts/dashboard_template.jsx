@@ -3899,14 +3899,52 @@ export default function BrightwheelDashboard() {
   const prospectRows = useMemo(() => {
     const rows = [];
     const seenIsdEmails = new Set(); // deduplicate ISD contacts — one row per ISD across all filtered districts
+    const isMdrFilter = filterContactSource === "mdr";
+    const isGsFilter  = filterContactSource === "govspend";
+
     filtered.forEach(d => {
-      // Primary contact (always include if any info)
       const primaryName  = d.contactEdits?.director ?? d.director ?? "";
       const primaryEmail = d.contactEdits?.email    ?? d.email    ?? "";
       const primaryTitle = d.contactEdits?.title    ?? d.title    ?? "";
       const primaryPhone = d.contactEdits?.phone    ?? d.phone    ?? "";
+      const primaryIsMdr = d.contactSource === "MDR";
+      const primaryIsGs  = d.contactSource === "GovSpend";
+
+      // MDR / GovSpend contacts from additionalContacts. These were previously
+      // invisible in the prospects table — even when the rep had filtered to
+      // Source = MDR, the only thing they saw was the district's primary
+      // contact, and the bulk-queue button routed to that primary. Surface
+      // them as their own rows so reps can actually see and email them.
+      const additionalMdr = (d.additionalContacts || []).filter(c => c?.source === "MDR" && c?.email && String(c.email).trim());
+      const additionalGs  = (d.additionalContacts || []).filter(c => c?.source === "GovSpend" && c?.email && String(c.email).trim());
+
+      // When the source filter is set to a specific provider, we want every
+      // row in the table to represent THAT provider's contact — no primary,
+      // no SF, no ISD — so the rep can multi-select and bulk-queue with the
+      // certainty that every checked row goes to the filtered source.
+      if (isMdrFilter) {
+        if (primaryIsMdr && primaryEmail.trim()) {
+          rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "mdr", isPrimary: true } });
+        }
+        additionalMdr.forEach(c => {
+          rows.push({ d, contact: { name: c.name || "", firstName: c.firstName || (c.name || "").split(" ")[0], email: c.email, title: c.title || "", phone: c.phone || "", source: "mdr", isPrimary: false } });
+        });
+        return; // skip the standard primary/ISD/SF rows below
+      }
+      if (isGsFilter) {
+        if (primaryIsGs && primaryEmail.trim()) {
+          rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "govspend", isPrimary: true } });
+        }
+        additionalGs.forEach(c => {
+          rows.push({ d, contact: { name: c.name || "", firstName: c.firstName || (c.name || "").split(" ")[0], email: c.email, title: c.title || "", phone: c.phone || "", source: "govspend", isPrimary: false } });
+        });
+        return;
+      }
+
+      // Default view: primary + ISD fallback + SF, plus any MDR / GovSpend
+      // additional contacts so they're discoverable even when no source filter
+      // is active.
       rows.push({ d, contact: { name: primaryName, email: primaryEmail, title: primaryTitle, phone: primaryPhone, source: "primary" } });
-      // ISD contact — one row per unique ISD email; only when district has no direct email
       if (!primaryEmail.trim() && d.isdContactEmail && d.isdContactEmail.trim()) {
         const isdEmailKey = d.isdContactEmail.trim().toLowerCase();
         if (!seenIsdEmails.has(isdEmailKey)) {
@@ -3914,20 +3952,31 @@ export default function BrightwheelDashboard() {
           rows.push({ d, contact: { name: d.isdContactName || "", email: d.isdContactEmail, title: d.isdContactTitle || "", phone: d.isdContactPhone || "", source: "isd", isdName: d.isdCoveredBy } });
         }
       }
-      // SF contacts — skip if same email as primary, or name contains "Unknown"
       (d.sfContacts || []).forEach(c => {
         const nm = [c.firstName, c.lastName]
           .filter(x => x && !x.toLowerCase().includes("unknown") && x.trim())
           .join(" ").trim();
         const em = (c.email || "").trim();
-        if (!nm || !em) return;                              // skip if no name or no email
-        if (em === primaryEmail) return;                    // skip duplicate of primary
-        if (rows.some(r => r.d.id === d.id && r.contact.email === em)) return; // dedup
+        if (!nm || !em) return;
+        if (em === primaryEmail) return;
+        if (rows.some(r => r.d.id === d.id && r.contact.email === em)) return;
         rows.push({ d, contact: { name: nm, email: em, title: c.title || "", phone: c.phone || "", source: "sf" } });
+      });
+      // Surface MDR / GovSpend additionals in the default view too, deduped
+      // against rows already added (e.g., if the primary is the same person).
+      additionalMdr.forEach(c => {
+        const em = String(c.email).trim().toLowerCase();
+        if (rows.some(r => r.d.id === d.id && (r.contact.email || "").toLowerCase() === em)) return;
+        rows.push({ d, contact: { name: c.name || "", firstName: c.firstName || (c.name || "").split(" ")[0], email: c.email, title: c.title || "", phone: c.phone || "", source: "mdr", isPrimary: false } });
+      });
+      additionalGs.forEach(c => {
+        const em = String(c.email).trim().toLowerCase();
+        if (rows.some(r => r.d.id === d.id && (r.contact.email || "").toLowerCase() === em)) return;
+        rows.push({ d, contact: { name: c.name || "", firstName: c.firstName || (c.name || "").split(" ")[0], email: c.email, title: c.title || "", phone: c.phone || "", source: "govspend", isPrimary: false } });
       });
     });
     return rows;
-  }, [filtered]);
+  }, [filtered, filterContactSource]);
 
   // ── MAP HOOKS THAT DEPEND ON filtered ── (must come after filtered)
 
@@ -4075,17 +4124,65 @@ export default function BrightwheelDashboard() {
     }
   };
 
+  // Helpers: return the MDR / GovSpend contact for a district, or null. Looks
+  // at the primary (when its contactSource matches) and then walks the
+  // district's additionalContacts list. Used by bulkQueue and the per-row
+  // queue button so emails actually go to the filtered-source contact.
+  const getProviderContact = (d, providerKey) => {
+    const wanted = providerKey === "mdr" ? "MDR" : "GovSpend";
+    const primaryEmail = (d.contactEdits?.email ?? d.email ?? "").trim();
+    if (d.contactSource === wanted && primaryEmail) {
+      return {
+        name: d.contactEdits?.director ?? d.director ?? "",
+        firstName: (d.contactEdits?.director ?? d.director ?? "").split(" ")[0],
+        email: primaryEmail,
+        title: d.contactEdits?.title ?? d.title ?? "",
+        phone: d.contactEdits?.phone ?? d.phone ?? "",
+        source: providerKey,
+      };
+    }
+    const extra = (d.additionalContacts || []).find(c => c?.source === wanted && c?.email && String(c.email).trim());
+    if (extra) {
+      return {
+        name: extra.name || "",
+        firstName: extra.firstName || (extra.name || "").split(" ")[0],
+        email: String(extra.email).trim(),
+        title: extra.title || "",
+        phone: extra.phone || "",
+        source: providerKey,
+      };
+    }
+    return null;
+  };
+
   const bulkQueue = (template) => {
     const isFLOnly = template === "summerBridge" || template === "summerBridgeShort";
     const toQueue = districts.filter((d) => selectedIds.has(d.id) && (!isFLOnly || (d.state || "FL") === "FL"));
+    // When the Source filter is set to a specific provider (MDR / GovSpend),
+    // route every selected district's email to that provider's contact — even
+    // if a different contact is set as the district's primary. Without this
+    // the bulk-queue button silently defaulted to the primary, which made the
+    // Source filter feel broken.
+    const providerOverride = (filterContactSource === "mdr" || filterContactSource === "govspend") ? filterContactSource : null;
     // Deduplicate ISD contacts — one email per ISD when multiple selected districts share the same ISD contact
     const seenIsdEmails = new Set();
-    let queued = 0;
+    const seenProviderEmails = new Set();
+    let queued = 0, skipped = 0;
     toQueue.forEach((d) => {
+      if (providerOverride) {
+        const override = getProviderContact(d, providerOverride);
+        if (!override) { skipped++; return; }
+        const k = override.email.toLowerCase();
+        if (seenProviderEmails.has(k)) { skipped++; return; }
+        seenProviderEmails.add(k);
+        const ok = queueEmail(d, template, true, false, false, override);
+        if (ok) queued++; else skipped++;
+        return;
+      }
       const primaryEmail = (d.contactEdits?.email ?? d.email ?? "").trim();
       if (primaryEmail) {
-        queueEmail(d, template, true);
-        queued++;
+        const ok = queueEmail(d, template, true);
+        if (ok) queued++; else skipped++;
       } else if (d.isdContactEmail && d.isdContactEmail.trim()) {
         const isdEmailKey = d.isdContactEmail.trim().toLowerCase();
         if (!seenIsdEmails.has(isdEmailKey)) {
@@ -4099,14 +4196,19 @@ export default function BrightwheelDashboard() {
             source: "isd",
             isdName: d.isdCoveredBy,
           };
-          queueEmail(d, template, true, false, false, isdOverride);
-          queued++;
+          const ok = queueEmail(d, template, true, false, false, isdOverride);
+          if (ok) queued++; else skipped++;
         }
       } else {
         queueEmail(d, template, true); // no contact — will show warning
+        skipped++;
       }
     });
-    showNotif(`📧 ${queued} email${queued !== 1 ? "s" : ""} added to Send Queue ✓`);
+    if (queued > 0) {
+      showNotif(`📧 ${queued} email${queued !== 1 ? "s" : ""} added to Send Queue${skipped > 0 ? ` · ${skipped} skipped` : ""} ✓`);
+    } else {
+      showNotif(`⚠️ Nothing queued — selected districts have no email on file for this source`, "red");
+    }
     clearSelection();
   };
 
@@ -5074,6 +5176,8 @@ export default function BrightwheelDashboard() {
                           {contact.title && <div className="text-gray-400 truncate text-xs italic">{contact.title}</div>}
                           {contact.source === "sf" && <span className="text-xs bg-blue-50 text-blue-500 px-1 rounded">SF</span>}
                           {contact.source === "isd" && <span className="text-xs bg-teal-50 text-teal-600 border border-teal-200 px-1 rounded" title={contact.isdName}>🏫 via ISD</span>}
+                          {contact.source === "mdr" && <span className="text-xs bg-purple-50 text-purple-700 border border-purple-200 px-1 rounded" title="Sourced from MDR Educators List">📋 MDR</span>}
+                          {contact.source === "govspend" && <span className="text-xs bg-orange-50 text-orange-700 border border-orange-200 px-1 rounded" title="Sourced from GovSpend">🏛️ GovSpend</span>}
                           {(d.activities || []).some(a => a.type === "email_open") && (
                             <span className="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-1 rounded ml-1" title={`Opened · ${(d.activities||[]).filter(a=>a.type==="email_open").length}x`}>👁 opened</span>
                           )}
@@ -5220,8 +5324,18 @@ export default function BrightwheelDashboard() {
                                     <button
                                       key={t.key}
                                       onClick={() => {
-                                        const isdOverride = contact.source === "isd" ? { name: contact.name, firstName: (contact.name || "").split(" ")[0], email: contact.email, title: contact.title || "", phone: contact.phone || "", source: "isd", isdName: contact.isdName } : null;
-                                        queueEmail(d, t.key, false, false, false, isdOverride);
+                                        // Pass an explicit contact override so the queued email goes to the
+                                        // contact represented by THIS row, not the district's primary. The
+                                        // override is built from whichever non-primary source the row carries
+                                        // (ISD / MDR / GovSpend / SF); for primary rows we pass null and
+                                        // queueEmail uses resolveContact's default path.
+                                        let contactOverride = null;
+                                        if (contact.source === "isd") {
+                                          contactOverride = { name: contact.name, firstName: (contact.name || "").split(" ")[0], email: contact.email, title: contact.title || "", phone: contact.phone || "", source: "isd", isdName: contact.isdName };
+                                        } else if (contact.source === "mdr" || contact.source === "govspend" || contact.source === "sf") {
+                                          contactOverride = { name: contact.name, firstName: (contact.name || "").split(" ")[0], email: contact.email, title: contact.title || "", phone: contact.phone || "", source: contact.source };
+                                        }
+                                        queueEmail(d, t.key, false, false, false, contactOverride);
                                         setEmailPickerId(null);
                                       }}
                                       className="w-full text-left px-3 py-2 hover:bg-indigo-50 hover:text-indigo-700 transition-colors font-medium"
