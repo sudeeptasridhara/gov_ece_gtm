@@ -319,5 +319,23 @@
       "**Buying signals to act on**: Tomah newly approved Four-Day All-Day 4K beginning 2025-26; La Crosse all-day 4K expansion to all elementaries 2026-27; Wausau opening new Lincoln Early Learning Academy 2025-26; Viroqua opened new ELC March 2023.",
       "**UHS (Union High School) districts** \u2014 Hartford UHS, Lake Geneva-Genoa City UHS, Union Grove UHS, Nicolet UHS, Big Foot UHS \u2014 are 9-12 only and have NO 4K. Deprioritize for ECE outreach."
     ]
+  },
+  "PA": {
+    "state": "PA",
+    "state_name": "Pennsylvania",
+    "last_updated": "2026-05-11",
+    "pre_k_program": "Pennsylvania Pre-K Counts \u2014 state-funded Pre-K for at-risk 3-5yo, administered by PDE. Plus Head Start Supplemental Assistance Program (HSSAP) \u2014 state extension of federal Head Start.",
+    "literacy_initiative": "Read by 3 / Science of Reading initiatives driving K-3 literacy reform.",
+    "leadership_terminology": "PA has 500 public school districts. Largest: Philadelphia (~120K), Pittsburgh, Reading, Allentown, Bethlehem, Erie, Lancaster, Harrisburg, Scranton, Easton, State College Area, North Penn, Central Bucks, Council Rock, Neshaminy, Pennsbury, West Chester, Downingtown.",
+    "notes": [
+      "PA has **Pennsylvania Pre-K Counts** \u2014 state-funded Pre-K for at-risk 3-5yo, administered by PDE. Plus **HSSAP (Head Start Supplemental Assistance Program)** \u2014 state extension of federal Head Start. **Keystone STARS** is PA's quality rating system for ECE programs.",
+      "**Science of Reading / Read by 3** initiatives are driving K-3 literacy reform statewide \u2014 strong adjacent ECE signal.",
+      "PA has **29 Intermediate Units (IUs)** \u2014 regional service agencies that often operate Pre-K Counts programs for partner districts. **IU staff are NOT recorded as district contacts** \u2014 they're regional, not district-employed.",
+      "**Standout dedicated ECE leads**: Philadelphia (Diane Castelbuono, Deputy Chief for Early Learning), Allentown (Frankelli, Exec Director of Early Learning), Harrisburg (Sabina Grant-Spencer, Director of Early Childhood), Lancaster (Kelly Fountain, Director of Early Learning), Pequea Valley (Lisa Eckert, Director of Early Learning), Phoenixville (Pacitto, Exec Director Curriculum + Early Learning), Interboro (Valerie Eckman, oversees Pre-K Counts), Pittsburgh (Sherlyn Harrison, Head Start), Pennsbury (Spack, Director of Elementary Ed), Radnor (Schaefer, Asst to Supt T&L + Early Learning Academy), Easton (Benita Draper, Asst Supt C&I), Laurel Highlands (Bubonovich, Elementary Curriculum + Federal Programs).",
+      "**Curriculum/T&L Directors** are the most common ECE persona match at mid-size PA districts (those without dedicated ECE roles). Many small rural districts default to Superintendent.",
+      "Email convention: most use `*.k12.pa.us` or branded `.org` (e.g., `philasd.org` Philadelphia, `pghschools.org` Pittsburgh, `readingsd.org` Reading, `allentownsd.org`, `basdschools.org` Bethlehem, `eriesd.org`, `sdlancaster.org` Lancaster, `hbgsd.us` Harrisburg, `scrsd.org` Scranton, `cbsd.org` Central Bucks).",
+      "PDE (Pennsylvania Department of Education) and the 29 IUs are state/regional and excluded.",
+      "Buying signals: Scranton SD actively exploring PA Pre-K Counts expansion. Several districts in active leadership transitions \u2014 Mount Union (curriculum director Mike Hummel left under criminal charges 2023, role turned over)."
+    ]
   }
 }
