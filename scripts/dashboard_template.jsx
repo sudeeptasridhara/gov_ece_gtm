@@ -6163,7 +6163,11 @@ export default function BrightwheelDashboard() {
 
           // ── Enroll panel filtered list ──
           const enrollFiltered = available.filter(d => {
-            const matchSearch = !enrollSearch || d.district.toLowerCase().includes(enrollSearch.toLowerCase()) || d.director.toLowerCase().includes(enrollSearch.toLowerCase()) || d.county.toLowerCase().includes(enrollSearch.toLowerCase());
+            const q = (enrollSearch || "").toLowerCase();
+            const matchSearch = !q ||
+              (d.district || "").toLowerCase().includes(q) ||
+              (d.director || "").toLowerCase().includes(q) ||
+              (d.county   || "").toLowerCase().includes(q);
             const matchState = enrollStateFilter === "all" || (d.state || "FL") === enrollStateFilter;
             const matchRep = enrollRepFilter === "all" || STATE_REP_EMAIL[d.state || "FL"] === enrollRepFilter;
             const matchPriority = enrollPriorityFilter === "all"
