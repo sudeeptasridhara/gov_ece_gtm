@@ -7879,10 +7879,15 @@ export default function BrightwheelDashboard() {
         {activeTab === "districtinfo" && (() => {
           const diDistricts = districts.filter(d => {
             const matchState = diInfoState === "all" || (d.state || "FL") === diInfoState;
-            const matchSearch = !diInfoSearch ||
-              d.district.toLowerCase().includes(diInfoSearch.toLowerCase()) ||
-              d.director.toLowerCase().includes(diInfoSearch.toLowerCase()) ||
-              (d.county || "").toLowerCase().includes(diInfoSearch.toLowerCase());
+            // Guard every string field — any null/undefined here crashed the
+            // entire tab the moment the rep typed a character, because the
+            // filter ran across every district and a single missing district
+            // name or director threw inside .toLowerCase().
+            const q = (diInfoSearch || "").toLowerCase();
+            const matchSearch = !q ||
+              (d.district || "").toLowerCase().includes(q) ||
+              (d.director || "").toLowerCase().includes(q) ||
+              (d.county   || "").toLowerCase().includes(q);
             return matchState && matchSearch;
           });
 
@@ -7935,7 +7940,8 @@ export default function BrightwheelDashboard() {
                   {diInfoShowResults && diInfoSearch && !selectedDi && diDistricts.length > 0 && (
                     <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 rounded-xl shadow-xl mt-1 max-h-64 overflow-y-auto">
                       {diDistricts.slice(0, 25).map(d => {
-                        const shortN = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                        const distName = d.district || "";
+                        const shortN = distName.includes(" — ") ? distName.split(" — ").slice(1).join(" — ") : distName;
                         const repP = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
                         return (
                           <div
