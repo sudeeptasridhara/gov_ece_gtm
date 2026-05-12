@@ -337,5 +337,22 @@
       "PDE (Pennsylvania Department of Education) and the 29 IUs are state/regional and excluded.",
       "Buying signals: Scranton SD actively exploring PA Pre-K Counts expansion. Several districts in active leadership transitions \u2014 Mount Union (curriculum director Mike Hummel left under criminal charges 2023, role turned over)."
     ]
+  },
+  "OK": {
+    "state": "OK",
+    "state_name": "Oklahoma",
+    "last_updated": "2026-05-11",
+    "pre_k_program": "Oklahoma Universal Pre-K \u2014 one of the strongest state Pre-K programs in the US. Available to all 4-year-olds statewide since 1998, administered by OSDE. Most districts have a dedicated Pre-K Coordinator or Director of Early Childhood.",
+    "literacy_initiative": "Reading Sufficiency Act (RSA) drives K-3 literacy reform. Districts must screen all K-3 students for reading proficiency and provide intervention.",
+    "leadership_terminology": "OK has 507 public school districts. Largest: Oklahoma City (OKCPS), Tulsa Public Schools, Edmond, Putnam City, Norman, Broken Arrow, Moore, Mustang, Bixby, Owasso, Yukon, Union, Bartlesville, Lawton, Stillwater, Enid, Mid-Del, Westmoore.",
+    "notes": [
+      "Oklahoma has **Universal Pre-K** since 1998 \u2014 one of the strongest state Pre-K programs nationally. Available to all 4-year-olds statewide. Administered by OSDE. **Most OK districts have a dedicated Pre-K Coordinator or Director of Early Childhood** \u2014 this is the right target persona.",
+      "**Reading Sufficiency Act (RSA)** drives K-3 literacy reform and required screening \u2014 strong adjacent ECE signal.",
+      "**Standout dedicated ECE leads**: Oklahoma City (Dr. Stephanie Hinton, Executive Director Early Childhood), Tulsa (Jordan Sheffield-Mix, Director of Early Childhood Education), Norman (Jaylynn Richardson, Early Childhood/Elementary Programs Coordinator), Putnam City (Wendy Hagy, Early Childhood Chair), Owasso (Mark Officer, Asst Supt T&L), Mid-Del (Leslie Pope, Exec Dir Elementary Instruction), Claremore (Dawn Nipps, Exec Dir Student Learning), Jenks (Kathryn Innis, ECC Coordinator), Bartlesville (Tiffany Holmes, Exec Dir Teaching & Learning), Lawton (Donna Catlin, PreK Coordinator), Moore (Pam Plumley, EC Coordinator), Tahlequah (Misty Blunt, Director EC), Broken Arrow (Kristin Henness, ED Teaching & Learning), Bixby (Tonya Morgan), Enid (Kristen Jones), Stillwater (Janet Vinson), Blanchard (Karen Cooksey), Edmond (Candice Delcamp, ECC Principal), Skiatook (Jodi Long, Director Early Childhood Center), Verdigris (Shauna Myers, ECC), Frederick (Megan Newton, PreK-2 Principal), Mustang (Misty Eidson, Director Elementary Curriculum), Glenpool (Mava Goddard, Exec Director C&I), Choctaw-Nicoma Park (Shannon Shay, Director Elementary Ed), Guymon (Dixie Purdy, Asst Supt C&I), El Reno (Julie Owens, Curriculum Director), Sand Springs / Weatherford / Durant have dedicated ECE Center principals.",
+      "Email convention: most use branded `.org`/`.com` or `*.k12.ok.us` (e.g., `okcps.org`, `tulsaschools.org`, `edmondschools.net`, `putnamcityschools.org`, `norman.k12.ok.us`, `baschools.org` Broken Arrow, `mooreschools.com`, `mustangps.org`, `bixbyps.org`, `owassops.org`, `yukonps.com`, `unionps.org`).",
+      "For most small/rural OK districts (which is most of OK's 507 districts), the Superintendent is the right ECE persona \u2014 many tiny districts have admins wearing multiple hats.",
+      "OSDE (Oklahoma State Department of Education) is state-level \u2014 NOT recorded as district staff.",
+      "Many OK district websites use JavaScript-loaded staff directories that don't index well \u2014 emails for small districts often need Apollo enrichment."
+    ]
   }
 }
