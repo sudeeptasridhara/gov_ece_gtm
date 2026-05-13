@@ -1,0 +1,282 @@
+[
+  {
+    "id": 20847,
+    "district": "BARBERS HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bhisd.net"
+  },
+  {
+    "id": 20855,
+    "district": "BELLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bellsisd.net"
+  },
+  {
+    "id": 20864,
+    "district": "BIRDVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.birdvilleschools.net"
+  },
+  {
+    "id": 20869,
+    "district": "BLANKET ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.blanketisd.org"
+  },
+  {
+    "id": 20875,
+    "district": "BLUM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.blumisd.net"
+  },
+  {
+    "id": 20880,
+    "district": "BOOKER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bookerisd.net"
+  },
+  {
+    "id": 20885,
+    "district": "BOWIE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bowieisd.net/"
+  },
+  {
+    "id": 20890,
+    "district": "BRAZOS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brazosisd.net"
+  },
+  {
+    "id": 20897,
+    "district": "BROADDUS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.broaddusisd.com"
+  },
+  {
+    "id": 20903,
+    "district": "BROWNFIELD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brownfieldisd.net"
+  },
+  {
+    "id": 20911,
+    "district": "BUENA VISTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bvisd.net"
+  },
+  {
+    "id": 20919,
+    "district": "BURTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.burtonisd.net"
+  },
+  {
+    "id": 20927,
+    "district": "CALVERT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.calvertisd.com"
+  },
+  {
+    "id": 20934,
+    "district": "CARLISLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.carlisleisd.org"
+  },
+  {
+    "id": 20942,
+    "district": "CELESTE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.celesteisd.org"
+  },
+  {
+    "id": 20951,
+    "district": "CHANNING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.channingisd.net"
+  },
+  {
+    "id": 20958,
+    "district": "CHILDRESS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.childressisd.net"
+  },
+  {
+    "id": 20967,
+    "district": "CLARENDON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.clarendonisd.net"
+  },
+  {
+    "id": 20976,
+    "district": "COAHOMA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.coahomaisd.com"
+  },
+  {
+    "id": 20991,
+    "district": "COMSTOCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.comstockisd.net"
+  },
+  {
+    "id": 21003,
+    "district": "COUPLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.couplandisd.org"
+  },
+  {
+    "id": 21012,
+    "district": "CROSBYTON CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crosbyton.k12.tx.us"
+  },
+  {
+    "id": 21025,
+    "district": "DALHART ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dalhartisd.org"
+  },
+  {
+    "id": 21032,
+    "district": "DAYTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.daytonisd.net/"
+  },
+  {
+    "id": 21038,
+    "district": "DELL CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dellcityisd.net"
+  },
+  {
+    "id": 21047,
+    "district": "DEWEYVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.deweyvilleisd.com"
+  },
+  {
+    "id": 21054,
+    "district": "DODD CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.doddcityisd.net"
+  },
+  {
+    "id": 21066,
+    "district": "EARLY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.earlyisd.net/"
+  },
+  {
+    "id": 21081,
+    "district": "ELECTRA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.electraisd.net/"
+  },
+  {
+    "id": 21091,
+    "district": "EVERMAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eisd.org"
+  },
+  {
+    "id": 21099,
+    "district": "FARWELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.farwellschools.org"
+  },
+  {
+    "id": 21106,
+    "district": "FLOYDADA COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.floydadaisd.esc17.net"
+  },
+  {
+    "id": 21113,
+    "district": "FORT STOCKTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fsisd.net"
+  },
+  {
+    "id": 21124,
+    "district": "FRUITVALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fruitvaleisd.com"
+  },
+  {
+    "id": 21136,
+    "district": "GATESVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gatesvilleisd.org"
+  },
+  {
+    "id": 21144,
+    "district": "GLASSCOCK COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gckats.net"
+  },
+  {
+    "id": 21157,
+    "district": "GRAHAM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grahamisd.com"
+  },
+  {
+    "id": 21163,
+    "district": "GRANDVIEW-HOPKINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://gvhisd.net"
+  },
+  {
+    "id": 21169,
+    "district": "GREENWOOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.greenwood.esc18.net"
+  },
+  {
+    "id": 21175,
+    "district": "GUNTER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gunterisd.org"
+  }
+]

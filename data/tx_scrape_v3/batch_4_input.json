@@ -1,0 +1,282 @@
+[
+  {
+    "id": 20853,
+    "district": "BEEVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.beevilleisd.net/"
+  },
+  {
+    "id": 20859,
+    "district": "BENAVIDES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.benavidesisd.net"
+  },
+  {
+    "id": 20867,
+    "district": "BLANCO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.blancoisd.org"
+  },
+  {
+    "id": 20872,
+    "district": "BLOOMINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bisd-tx.org/"
+  },
+  {
+    "id": 20878,
+    "district": "BOLING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bolingisd.net/"
+  },
+  {
+    "id": 20883,
+    "district": "BOSQUEVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bosquevilleisd.org"
+  },
+  {
+    "id": 20888,
+    "district": "BRACKETT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brackettisd.net"
+  },
+  {
+    "id": 20895,
+    "district": "BRIDGE CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bridgecityisd.net"
+  },
+  {
+    "id": 20901,
+    "district": "BROOKESMITH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brookesmithisd.net"
+  },
+  {
+    "id": 20909,
+    "district": "BRYSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brysonisd.net/"
+  },
+  {
+    "id": 20916,
+    "district": "BURKEVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.burkevilleisd.org"
+  },
+  {
+    "id": 20923,
+    "district": "CALALLEN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.calallen.org"
+  },
+  {
+    "id": 20930,
+    "district": "CANADIAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.canadianisd.net"
+  },
+  {
+    "id": 20939,
+    "district": "CASTLEBERRY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.castleberryisd.net"
+  },
+  {
+    "id": 20947,
+    "district": "CENTERVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.centerville.k12.tx.us"
+  },
+  {
+    "id": 20956,
+    "district": "CHESTER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://chesterisd.com"
+  },
+  {
+    "id": 20964,
+    "district": "CHRISTOVAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.christovalisd.org"
+  },
+  {
+    "id": 20973,
+    "district": "CLIFTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cliftonisd.org"
+  },
+  {
+    "id": 20986,
+    "district": "COMANCHE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.comancheisd.net"
+  },
+  {
+    "id": 20997,
+    "district": "COPPERAS COVE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccisd.com"
+  },
+  {
+    "id": 21007,
+    "district": "CRANFILLS GAP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://cranfillsgapisd.net"
+  },
+  {
+    "id": 21019,
+    "district": "CULBERSON COUNTY-ALLAMOORE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccaisd.net"
+  },
+  {
+    "id": 21030,
+    "district": "DAWSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dawson.esc17.net/"
+  },
+  {
+    "id": 21036,
+    "district": "DEKALB ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dekalbisd.net"
+  },
+  {
+    "id": 21045,
+    "district": "DEVINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.devineisd.org"
+  },
+  {
+    "id": 21052,
+    "district": "DIMMITT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dimmittisd.net"
+  },
+  {
+    "id": 21062,
+    "district": "DUNCANVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.duncanvilleisd.org"
+  },
+  {
+    "id": 21073,
+    "district": "EDCOUCH-ELSA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eeisd.org"
+  },
+  {
+    "id": 21087,
+    "district": "EULA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eulaisd.us/"
+  },
+  {
+    "id": 21094,
+    "district": "FABENS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fabensisd.net"
+  },
+  {
+    "id": 21103,
+    "district": "FLORENCE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://florenceisd.net"
+  },
+  {
+    "id": 21110,
+    "district": "FORSAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://forsan.esc18.net/"
+  },
+  {
+    "id": 21118,
+    "district": "FREER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.freerisd.org"
+  },
+  {
+    "id": 21131,
+    "district": "GANADO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ganadoisd.org"
+  },
+  {
+    "id": 21140,
+    "district": "GHOLSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gholsonisd.org"
+  },
+  {
+    "id": 21150,
+    "district": "GONZALES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gonzalesisd.net"
+  },
+  {
+    "id": 21161,
+    "district": "GRANDFALLS-ROYALTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grisd.com/"
+  },
+  {
+    "id": 21167,
+    "district": "GRAPEVINE-COLLEYVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gcisd.net"
+  },
+  {
+    "id": 21173,
+    "district": "GROVETON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grovetonisd.net"
+  },
+  {
+    "id": 21179,
+    "district": "HALLETTSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hisdbrahmas.org"
+  }
+]

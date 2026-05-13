@@ -1,0 +1,282 @@
+[
+  {
+    "id": 20849,
+    "district": "BASTROP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bisdtx.org"
+  },
+  {
+    "id": 20858,
+    "district": "BEN BOLT-PALITO BLANCO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://bbpbschools.net"
+  },
+  {
+    "id": 20866,
+    "district": "BLACKWELL CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.blackwellhornets.org"
+  },
+  {
+    "id": 20871,
+    "district": "BLOOMING GROVE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.BGISD.org"
+  },
+  {
+    "id": 20877,
+    "district": "BOLES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://bolesisd.com"
+  },
+  {
+    "id": 20882,
+    "district": "BORGER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.borgerisd.net"
+  },
+  {
+    "id": 20887,
+    "district": "BOYS RANCH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.boysranchisd.org"
+  },
+  {
+    "id": 20894,
+    "district": "BRENHAM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brenhamisd.net"
+  },
+  {
+    "id": 20900,
+    "district": "BROOKELAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brookelandisd.net"
+  },
+  {
+    "id": 20907,
+    "district": "BRUCEVILLE-EDDY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.beisd.net"
+  },
+  {
+    "id": 20915,
+    "district": "BURKBURNETT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.burkburnettisd.org"
+  },
+  {
+    "id": 20922,
+    "district": "CADDO MILLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://CaddoMillsisd.org"
+  },
+  {
+    "id": 20929,
+    "district": "CAMPBELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.campbellisd.org/"
+  },
+  {
+    "id": 20937,
+    "district": "CARROLLTON-FARMERS BRANCH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cfbisd.edu/"
+  },
+  {
+    "id": 20946,
+    "district": "CENTERVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.centervilleisd.net"
+  },
+  {
+    "id": 20955,
+    "district": "CHEROKEE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cherokeeisd.net"
+  },
+  {
+    "id": 20960,
+    "district": "CHILTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.chiltonisd.org"
+  },
+  {
+    "id": 20970,
+    "district": "CLEAR CREEK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccisd.net"
+  },
+  {
+    "id": 20984,
+    "district": "COLUMBUS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.columbusisd.org"
+  },
+  {
+    "id": 20996,
+    "district": "COPPELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.coppellisd.com"
+  },
+  {
+    "id": 21006,
+    "district": "CRANE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.craneisd.com"
+  },
+  {
+    "id": 21015,
+    "district": "CROWELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crowellisd.net"
+  },
+  {
+    "id": 21029,
+    "district": "DARROUZETT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.darrouzettisd.gov"
+  },
+  {
+    "id": 21034,
+    "district": "DECATUR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.decaturisd.us"
+  },
+  {
+    "id": 21042,
+    "district": "DESOTO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.desotoisd.org"
+  },
+  {
+    "id": 21051,
+    "district": "DIME BOX ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://dimeboxisd.net"
+  },
+  {
+    "id": 21061,
+    "district": "DUMAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dumasisd.org"
+  },
+  {
+    "id": 21072,
+    "district": "ECTOR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ectorisd.net"
+  },
+  {
+    "id": 21083,
+    "district": "ELKHART ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.elkhartisd.org"
+  },
+  {
+    "id": 21093,
+    "district": "EZZELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ezzellisd.org"
+  },
+  {
+    "id": 21102,
+    "district": "FLATONIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.flatoniaisd.net"
+  },
+  {
+    "id": 21108,
+    "district": "FORESTBURG ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.forestburgisd.net"
+  },
+  {
+    "id": 21116,
+    "district": "FRANKSTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.frankstonisd.net"
+  },
+  {
+    "id": 21126,
+    "district": "FT HANCOCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fhisd.net"
+  },
+  {
+    "id": 21138,
+    "district": "GEORGE WEST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gwisd.us"
+  },
+  {
+    "id": 21148,
+    "district": "GOLDTHWAITE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.goldisd.net"
+  },
+  {
+    "id": 21160,
+    "district": "GRAND SALINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grandsalineisd.net"
+  },
+  {
+    "id": 21166,
+    "district": "GRAPELAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grapelandisd.net"
+  },
+  {
+    "id": 21172,
+    "district": "GROOM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.groomisd.net"
+  },
+  {
+    "id": 21177,
+    "district": "GUTHRIE CSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.guthriejags.net"
+  }
+]
