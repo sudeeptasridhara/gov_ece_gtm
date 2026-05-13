@@ -1,0 +1,359 @@
+[
+  {
+    "id": 16209,
+    "district": "SPRINGFIELD R-XII",
+    "state": "MO",
+    "county": "",
+    "website": "http://SPRINGFIELDPUBLICSCHOOLSMO.ORG"
+  },
+  {
+    "id": 15960,
+    "district": "JEFFERSON CITY",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.JCSCHOOLS.US"
+  },
+  {
+    "id": 16117,
+    "district": "PARKWAY C-2",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.parkwayschools.net"
+  },
+  {
+    "id": 16161,
+    "district": "RITENOUR",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ritenourschools.org"
+  },
+  {
+    "id": 16244,
+    "district": "UNIVERSITY CITY",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.UCITYSCHOOLS.ORG"
+  },
+  {
+    "id": 16162,
+    "district": "RIVERVIEW GARDENS",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.rgsd.k12.mo.us"
+  },
+  {
+    "id": 15897,
+    "district": "FOX C-6",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.foxc6.org"
+  },
+  {
+    "id": 15916,
+    "district": "GRANDVIEW R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.grandviewr2.com/"
+  },
+  {
+    "id": 15895,
+    "district": "FORT OSAGE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.FORTOSAGE.NET"
+  },
+  {
+    "id": 16214,
+    "district": "ST. JOSEPH",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.sjsd.k12.mo.us"
+  },
+  {
+    "id": 16103,
+    "district": "ORCHARD FARM R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ofsd.k12.mo.us"
+  },
+  {
+    "id": 16165,
+    "district": "ROLLA 31",
+    "state": "MO",
+    "county": "",
+    "website": "http://rolla31.org"
+  },
+  {
+    "id": 16089,
+    "district": "NORTH ST. FRANCOIS CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.NCSD.K12.MO.US"
+  },
+  {
+    "id": 15956,
+    "district": "JACKSON R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.JACKSONR2SCHOOLS.COM"
+  },
+  {
+    "id": 16063,
+    "district": "NAYLOR R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.nayloreagles.com"
+  },
+  {
+    "id": 15934,
+    "district": "HAYTI R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.haytir2.org"
+  },
+  {
+    "id": 15785,
+    "district": "BERNIE R-XIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.BERNIE.K12.MO.US"
+  },
+  {
+    "id": 15820,
+    "district": "CARL JUNCTION R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.cjr1.org"
+  },
+  {
+    "id": 16027,
+    "district": "MARIONVILLE R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.MARIONVILLE.US/"
+  },
+  {
+    "id": 16270,
+    "district": "WILLARD R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.willardschools.net"
+  },
+  {
+    "id": 15894,
+    "district": "FORSYTH R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.forsythpanthers.org"
+  },
+  {
+    "id": 16237,
+    "district": "TIPTON R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://TIPTON.K12.MO.US/"
+  },
+  {
+    "id": 16132,
+    "district": "PLEASANT HILL R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://phr3.org"
+  },
+  {
+    "id": 15772,
+    "district": "ARCHIE R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://archie.k12.mo.us"
+  },
+  {
+    "id": 16240,
+    "district": "TROY R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.TROY.K12.MO.US/"
+  },
+  {
+    "id": 16193,
+    "district": "SOUTH CALLAWAY CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.sc.k12.mo.us"
+  },
+  {
+    "id": 16248,
+    "district": "VAN-FAR R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.vf.k12.mo.us"
+  },
+  {
+    "id": 15774,
+    "district": "ATLANTA C-3",
+    "state": "MO",
+    "county": "",
+    "website": "http://atlanta.k12.mo.us/"
+  },
+  {
+    "id": 16168,
+    "district": "SALISBURY R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.salisbury.k12.mo.us"
+  },
+  {
+    "id": 16197,
+    "district": "SOUTH NODAWAY CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SOUTHNODAWAY.K12.MO.US"
+  },
+  {
+    "id": 16194,
+    "district": "SOUTH HARRISON CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.shr2.k12.mo.us"
+  },
+  {
+    "id": 16239,
+    "district": "TRI-COUNTY R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://TRICOUNTY.K12.MO.US"
+  },
+  {
+    "id": 15762,
+    "district": "ADAIR CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.NOVINGER.K12.MO.US/"
+  },
+  {
+    "id": 15768,
+    "district": "ALTENBURG 48",
+    "state": "MO",
+    "county": "",
+    "website": "http://aps48.com"
+  },
+  {
+    "id": 15776,
+    "district": "AVA R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.avabears.net"
+  },
+  {
+    "id": 15783,
+    "district": "BELLEVIEW R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://none"
+  },
+  {
+    "id": 15790,
+    "district": "BLAIR OAKS R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.blairoaks.k12.mo.us"
+  },
+  {
+    "id": 15796,
+    "district": "BOONVILLE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.bpsk12.net"
+  },
+  {
+    "id": 15802,
+    "district": "BRECKENRIDGE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://Breckenridger1.org"
+  },
+  {
+    "id": 15808,
+    "district": "BUCKLIN R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://BUCKLIN.K12.MO.US"
+  },
+  {
+    "id": 15813,
+    "district": "CALHOUN R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.calhoun.k12.mo.us"
+  },
+  {
+    "id": 15824,
+    "district": "CASSVILLE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://CASSVILLE.K12.MO.US"
+  },
+  {
+    "id": 15832,
+    "district": "CHILHOWEE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://chilhowee.k12.mo.us"
+  },
+  {
+    "id": 15839,
+    "district": "CLEVER R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CLEVERBLUEJAYS.ORG"
+  },
+  {
+    "id": 15844,
+    "district": "COLE CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://coler1indians.socs.net/"
+  },
+  {
+    "id": 15852,
+    "district": "COWGILL R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.COWGILLR6.com"
+  },
+  {
+    "id": 15857,
+    "district": "CROCKER R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.crockerschools.org"
+  },
+  {
+    "id": 15862,
+    "district": "DELTA C-7",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.deltac7.k12.mo.us"
+  },
+  {
+    "id": 15868,
+    "district": "DIXON R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.dixonr1.com"
+  },
+  {
+    "id": 15875,
+    "district": "EAST LYNNE 40",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.eastlynne40school.org"
+  },
+  {
+    "id": 15884,
+    "district": "EXETER R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.EXETER.K12.MO.US/"
+  }
+]

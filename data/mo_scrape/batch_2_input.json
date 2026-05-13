@@ -1,0 +1,366 @@
+[
+  {
+    "id": 16215,
+    "district": "ST. LOUIS CITY",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.slps.org"
+  },
+  {
+    "id": 15993,
+    "district": "LEE'S SUMMIT R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lsr7.org"
+  },
+  {
+    "id": 16001,
+    "district": "LIBERTY 53",
+    "state": "MO",
+    "county": "",
+    "website": "http://LPS53.org"
+  },
+  {
+    "id": 16037,
+    "district": "MEHLVILLE R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.MEHLVILLESCHOOLDISTRICT.COM"
+  },
+  {
+    "id": 15977,
+    "district": "KIRKWOOD R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.kirkwoodschools.org"
+  },
+  {
+    "id": 16021,
+    "district": "MAPLEWOOD-RICHMOND HEIGHTS",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mrhschools.net"
+  },
+  {
+    "id": 15781,
+    "district": "BAYLESS",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.BAYLESSK12.ORG"
+  },
+  {
+    "id": 15784,
+    "district": "BELTON 124",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.beltonschools.org"
+  },
+  {
+    "id": 15825,
+    "district": "CENTER 58",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.center.k12.mo.us/"
+  },
+  {
+    "id": 16192,
+    "district": "SMITHVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SMITHVILLESCHOOLDISTRICT.NET"
+  },
+  {
+    "id": 16032,
+    "district": "MARYVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.maryville.k12.mo.us/"
+  },
+  {
+    "id": 16254,
+    "district": "WASHINGTON",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.washington.k12.mo.us"
+  },
+  {
+    "id": 16213,
+    "district": "ST. JAMES R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://stjschools.org"
+  },
+  {
+    "id": 15827,
+    "district": "CENTRAL R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.centralr3.org"
+  },
+  {
+    "id": 15831,
+    "district": "CHARLESTON R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.charlestonbluejays.org"
+  },
+  {
+    "id": 16064,
+    "district": "NEELYVILLE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://NEELYVILLE.K12.MO.US/"
+  },
+  {
+    "id": 15908,
+    "district": "GIDEON 37",
+    "state": "MO",
+    "county": "",
+    "website": "http://gideon.k12.mo.us"
+  },
+  {
+    "id": 15877,
+    "district": "EAST PRAIRIE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.EASTPRAIRIE.ORG"
+  },
+  {
+    "id": 16170,
+    "district": "SARCOXIE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SARCOXIE.K12.MO.US"
+  },
+  {
+    "id": 16113,
+    "district": "OZARK R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ozarktigers.org/"
+  },
+  {
+    "id": 15800,
+    "district": "BRANSON R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.BRANSON.K12.MO.US/"
+  },
+  {
+    "id": 16172,
+    "district": "SCHOOL OF THE OSAGE",
+    "state": "MO",
+    "county": "",
+    "website": "http://osageschools.org/"
+  },
+  {
+    "id": 16252,
+    "district": "WARRENSBURG R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.warrensburgr6.org"
+  },
+  {
+    "id": 15932,
+    "district": "HARRISONVILLE R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://harrisonvilleschools.org/"
+  },
+  {
+    "id": 16114,
+    "district": "PALMYRA R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.PALMYRA.K12.MO.US/"
+  },
+  {
+    "id": 16273,
+    "district": "WINFIELD R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.WINFIELD.K12.MO.US"
+  },
+  {
+    "id": 16080,
+    "district": "NORTH CALLAWAY CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://nc.k12.mo.us"
+  },
+  {
+    "id": 15981,
+    "district": "LA PLATA R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://laplata.k12.mo.us"
+  },
+  {
+    "id": 16050,
+    "district": "MOBERLY",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.MOBERLY.K12.MO.US"
+  },
+  {
+    "id": 16076,
+    "district": "NODAWAY-HOLT R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://NODHOLT.ORG"
+  },
+  {
+    "id": 15833,
+    "district": "CHILLICOTHE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.chillicotheschools.org/"
+  },
+  {
+    "id": 15777,
+    "district": "AVENUE CITY R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.avenuecityschool.org"
+  },
+  {
+    "id": 16101,
+    "district": "ODESSA R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.odessar7.net"
+  },
+  {
+    "id": 15764,
+    "district": "ADRIAN R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.ADRIAN.K12.MO.US"
+  },
+  {
+    "id": 15770,
+    "district": "APPLETON CITY R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://appletoncity.k12.mo.us/"
+  },
+  {
+    "id": 15779,
+    "district": "BAKERSFIELD R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://BAKERSFIELD.K12.MO.US"
+  },
+  {
+    "id": 15787,
+    "district": "BILLINGS R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.billings.k12.mo.us"
+  },
+  {
+    "id": 15792,
+    "district": "BLUE EYE R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.blueeye.k12.mo.us"
+  },
+  {
+    "id": 15798,
+    "district": "BOWLING GREEN R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.bgschools.k12.mo.us"
+  },
+  {
+    "id": 15805,
+    "district": "BROOKFIELD R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.brookfieldr3.org"
+  },
+  {
+    "id": 15810,
+    "district": "BUTLER R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://butlerr5.org/"
+  },
+  {
+    "id": 15817,
+    "district": "CAMPBELL R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CAMPBELL.K12.MO.US"
+  },
+  {
+    "id": 15828,
+    "district": "CENTRALIA R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.cr6.org"
+  },
+  {
+    "id": 15835,
+    "district": "CLARKSBURG C-2",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.CLARKSBURG.K12.MO.US"
+  },
+  {
+    "id": 15841,
+    "district": "CLINTON",
+    "state": "MO",
+    "county": "",
+    "website": "http://clintoncardinals.org"
+  },
+  {
+    "id": 15849,
+    "district": "COOPER CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.BUNCETON.K12.MO.US/"
+  },
+  {
+    "id": 15854,
+    "district": "CRANE R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CRANE.K12.MO.US"
+  },
+  {
+    "id": 15859,
+    "district": "DADEVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://bearcats.dadeville.k12.mo.us"
+  },
+  {
+    "id": 15864,
+    "district": "DENT-PHELPS R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://dentphelps.org"
+  },
+  {
+    "id": 15871,
+    "district": "DREXEL R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.drexel.k12.mo.us/"
+  },
+  {
+    "id": 15878,
+    "district": "EL DORADO SPRINGS R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.eldok12.org"
+  },
+  {
+    "id": 15886,
+    "district": "FAIR PLAY R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.fairplay.k12.mo.us/"
+  }
+]

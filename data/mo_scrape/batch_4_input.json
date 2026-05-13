@@ -1,0 +1,366 @@
+[
+  {
+    "id": 16083,
+    "district": "NORTH KANSAS CITY 74",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.NKCSCHOOLS.ORG"
+  },
+  {
+    "id": 16116,
+    "district": "PARK HILL",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.PARKHILL.K12.MO.US/"
+  },
+  {
+    "id": 15896,
+    "district": "FORT ZUMWALT SCHOOL DISTRICT",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.fz.k12.mo.us"
+  },
+  {
+    "id": 15935,
+    "district": "HAZELWOOD",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hazelwood.k12.mo.us/"
+  },
+  {
+    "id": 15837,
+    "district": "CLAYTON",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.claytonschools.net"
+  },
+  {
+    "id": 15962,
+    "district": "JENNINGS",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.jenningsk12.org"
+  },
+  {
+    "id": 16245,
+    "district": "VALLEY PARK",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.vpschools.org"
+  },
+  {
+    "id": 15915,
+    "district": "GRANDVIEW C-4",
+    "state": "MO",
+    "county": "",
+    "website": "http://grandviewc4.net"
+  },
+  {
+    "id": 15954,
+    "district": "INDEPENDENCE 30",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.isdschools.org"
+  },
+  {
+    "id": 15883,
+    "district": "EXCELSIOR SPRINGS 40",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.ESSD40.COM"
+  },
+  {
+    "id": 16210,
+    "district": "ST. CHARLES R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.stcharlessd.org/"
+  },
+  {
+    "id": 16038,
+    "district": "MERAMEC VALLEY R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mvr3.k12.mo.us/"
+  },
+  {
+    "id": 15889,
+    "district": "FARMINGTON R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.farmington.k12.mo.us"
+  },
+  {
+    "id": 15819,
+    "district": "CAPE GIRARDEAU 63",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.capetigers.com"
+  },
+  {
+    "id": 15869,
+    "district": "DONIPHAN R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://doniphanr1.k12.mo.us"
+  },
+  {
+    "id": 15823,
+    "district": "CARUTHERSVILLE 18",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CPS18.ORG"
+  },
+  {
+    "id": 16143,
+    "district": "PUXICO R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.PUXICO.K12.MO.US"
+  },
+  {
+    "id": 16257,
+    "district": "WEBB CITY R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.WCR7.ORG"
+  },
+  {
+    "id": 15775,
+    "district": "AURORA R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.aurorar8.org/"
+  },
+  {
+    "id": 16150,
+    "district": "REPUBLIC R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.REPUBLICSCHOOLS.ORG"
+  },
+  {
+    "id": 15946,
+    "district": "HOLLISTER R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hollister.k12.mo.us"
+  },
+  {
+    "id": 16184,
+    "district": "SHELDON R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.sheldon.k12.mo.us"
+  },
+  {
+    "id": 15978,
+    "district": "KNOB NOSTER R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.KNOBNOSTER.K12.MO.US"
+  },
+  {
+    "id": 16044,
+    "district": "MIDWAY R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.midwayk12.net"
+  },
+  {
+    "id": 16115,
+    "district": "PARIS R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.pariscoyotes.com"
+  },
+  {
+    "id": 15901,
+    "district": "FULTON 58",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.FULTON58.ORG"
+  },
+  {
+    "id": 15847,
+    "district": "COMMUNITY R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CR6.NET/"
+  },
+  {
+    "id": 16015,
+    "district": "MACON CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://schoolweb.missouri.edu/maconr4.k12.mo.us/"
+  },
+  {
+    "id": 15940,
+    "district": "HIGBEE R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.higbeeschool.com/"
+  },
+  {
+    "id": 16091,
+    "district": "NORTHEAST NODAWAY CO. R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://nenr5.com"
+  },
+  {
+    "id": 16118,
+    "district": "PATTONSBURG R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.pattonsburg.k12.mo.us"
+  },
+  {
+    "id": 16238,
+    "district": "TRENTON R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://trentonr9.k12.mo.us"
+  },
+  {
+    "id": 16259,
+    "district": "WELLINGTON-NAPOLEON R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.wntigers.net"
+  },
+  {
+    "id": 15767,
+    "district": "ALBANY R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.albany.k12.mo.us"
+  },
+  {
+    "id": 15773,
+    "district": "ASH GROVE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.agpirates.com"
+  },
+  {
+    "id": 15782,
+    "district": "BELL CITY R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.bellcity.k12.mo.us"
+  },
+  {
+    "id": 15789,
+    "district": "BLACKWATER R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.BLACKWATER.K12.MO.US"
+  },
+  {
+    "id": 15795,
+    "district": "BONCL R-X",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.bonclbluejays.com"
+  },
+  {
+    "id": 15801,
+    "district": "BRAYMER C-4",
+    "state": "MO",
+    "county": "",
+    "website": "http://braymerbobcats.org"
+  },
+  {
+    "id": 15807,
+    "district": "BUCHANAN CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.bcr4.org"
+  },
+  {
+    "id": 15812,
+    "district": "CAINSVILLE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://cainsville.k12.mo.us"
+  },
+  {
+    "id": 15821,
+    "district": "CARROLLTON R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.trojans.k12.mo.us"
+  },
+  {
+    "id": 15830,
+    "district": "CHAFFEE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://chaffeer2.org"
+  },
+  {
+    "id": 15838,
+    "district": "CLEARWATER R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://cwtigers.net"
+  },
+  {
+    "id": 15843,
+    "district": "COLE CAMP R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.colecamp.k12.mo.us"
+  },
+  {
+    "id": 15851,
+    "district": "COUCH R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.couch.k12.mo.us"
+  },
+  {
+    "id": 15856,
+    "district": "CRAWFORD CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ccr2.org"
+  },
+  {
+    "id": 15861,
+    "district": "DAVIS R-XII",
+    "state": "MO",
+    "county": "",
+    "website": "http://davisr12.com"
+  },
+  {
+    "id": 15867,
+    "district": "DIAMOND R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.diamondwildcats.org"
+  },
+  {
+    "id": 15874,
+    "district": "EAST CARTER CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ecarter.k12.mo.us"
+  },
+  {
+    "id": 15882,
+    "district": "EVERTON R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.EVERTONTIGERS.ORG/"
+  },
+  {
+    "id": 15888,
+    "district": "FAIRVIEW R-XI",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.FAIRVIEW.K12.MO.US"
+  }
+]
