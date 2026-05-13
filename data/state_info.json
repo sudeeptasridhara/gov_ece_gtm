@@ -372,5 +372,25 @@
       "**District typology**: City (large urban), Local (smaller / rural), Exempted Village (small village-based). Most ECE programming concentrated in City and large Local districts.",
       "Some staff directories sit behind JavaScript-loaded portals (PowerSchool, FinalForms) that don't index well \u2014 Apollo/ZoomInfo enrichment likely needed for the remaining 419 unenriched OH districts."
     ]
+  },
+  "MT": {
+    "state": "MT",
+    "state_name": "Montana",
+    "last_updated": "2026-05-13",
+    "pre_k_program": "Montana does NOT have universal Pre-K. State-funded preschool is limited \u2014 Best Beginnings pilot ran 2013-2019. Preschool is offered voluntarily by individual districts or via Head Start partnerships, especially on reservations.",
+    "literacy_initiative": "Montana K-12 Literacy Targeted Intervention Program (2023) \u2014 state-funded early literacy intervention for K-3. STARS to Quality (childcare QRIS) \u2014 operated by DPHHS.",
+    "leadership_terminology": "Montana has ~390 public school districts but ~825 schools. Many tiny K-8 'Elem' districts pair with stand-alone 'H S' districts in the same town (e.g., Billings Elem + Billings H S share a superintendent). Largest: Billings, Missoula, Great Falls, Bozeman, Butte, Helena, Kalispell, Belgrade, Hamilton, Whitefish, Havre, Polson.",
+    "notes": [
+      "**Unique district structure**: Montana uses paired Elem (K-8) and H S (9-12) districts that share a superintendent in larger towns \u2014 Billings Elem + Billings H S, Bozeman Elem + Bozeman H S, etc. K-12 districts exist in smaller towns. When a town has paired Elem + H S records, expect the same super on both.",
+      "**Class A/B/C districts**: Class C (smallest, <105 high schoolers) are the bulk of MT \u2014 many one-room schools or single-building K-8. ECE persona for Class C is typically the supt-principal combined role.",
+      "**Tribal/reservation districts** often have Head Start partnerships: Browning, Heart Butte (Blackfeet), Hardin, Lodge Grass, Pryor (Crow), Harlem, Dodson (Fort Belknap), Lame Deer, Busby, Ashland (Northern Cheyenne), Wolf Point, Frazer, Poplar, Brockton (Fort Peck), Polson, Arlee, St Ignatius, Ronan (Flathead/CSKT), Hays-Lodge Pole (Fort Belknap), Rocky Boy (Chippewa Cree), Box Elder.",
+      "**Standout ECE leads**: Billings (Cindy Westin, Asst Supt T&L), Bozeman (Marilyn King, Dep Supt Instruction + 'Bozeman Reads Early Learning Center' opened 2024), Great Falls (Jaclyn Mainwaring, Asst Supt K-6), Helena (Joshua McKay, Asst Supt + Justine Alberts curriculum), Missoula (curriculum directors at MCPS), Butte (Jacqueline Paffhaus, Curriculum Director), Belgrade (Curriculum Department), Whitefish (Lisa Bloom, curriculum \u2192 interim supt 2026-27), Hamilton (curriculum lead), Laurel (Charla Wetsch), Sidney (Thom Barnhart, curriculum \u2192 supt July 2026), Polson (Betsy Wade), Ronan (Sandra Beal), Anaconda (Tiffany Rehbein July 2025), Columbia Falls (curriculum dept), Evergreen, Heart Butte (Marcy Cobell, turnaround leader).",
+      "**Active buying signals**: Bozeman just opened 'Bozeman Reads Early Learning Center' (Fall 2024) \u2014 flagship ECE infrastructure. Several reservation districts in active Head Start MOU renewals.",
+      "**Leadership transitions to flag**: Anaconda (Norbeck replacing terminated Barnes), Whitefish (Means retiring June 2026 \u2014 Bloom interim), Sidney (Barnhart from curriculum to supt July 2026), Park City (Whitesell July 2025), Three Forks, Ronan, Malta, Heart Butte (Cobell post-Upham), Polson (Andy Fors), Somers (Alex Ator), Harrison (super resignation/leave), Winifred (Fordyce contract not renewed).",
+      "**Email convention**: most districts use `.k12.mt.us` (e.g., `billings.k12.mt.us`, `bsd7.org` Bozeman, `gfps.k12.mt.us` Great Falls, `helenaschools.org`, `bsd44.org` Belgrade, `mcpsmt.org` Missoula, `cfmtschools.net` Columbia Falls, `whitefishschools.org`, `polson.k12.mt.us`). Some districts use `.com`/`.org` (e.g., `teameureka.net` Eureka, `whitehallmt.org`).",
+      "**Reject regional/co-op contacts**: Northwest Montana Educational Cooperative, Western Montana Comprehensive Developmental Center, Eastern MT Special Services Co-op, county superintendents (Powder River, Sweet Grass) \u2014 NOT district staff.",
+      "**OPI** (Office of Public Instruction, opi.mt.gov) is state-level \u2014 never recorded as district staff.",
+      "**Hutterite colony schools** (North Harlem Colony, etc.) and one-room K-8 schools (Melville, Jackson, Wise River, Pendroy, Moore) have 0 FTE district admin \u2014 county supt supervised. Recommended skip for direct outreach."
+    ]
   }
 }

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 16441,
+    "district": "Great Falls Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.gfps.k12.mt.us/"
+  },
+  {
+    "id": 16335,
+    "district": "Butte H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.bsd1.org"
+  },
+  {
+    "id": 16460,
+    "district": "Helena H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://helenaschools.org"
+  },
+  {
+    "id": 16500,
+    "district": "Livingston Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.livingston.k12.mt.us"
+  },
+  {
+    "id": 16490,
+    "district": "Laurel Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.laurel.k12.mt.us"
+  },
+  {
+    "id": 16600,
+    "district": "Sidney Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://mt01001320.schoolwires.net"
+  },
+  {
+    "id": 16554,
+    "district": "Polson Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.polson.k12.mt.us"
+  },
+  {
+    "id": 16664,
+    "district": "Wolf Point H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.wolfpointschools.org"
+  },
+  {
+    "id": 16626,
+    "district": "Three Forks H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.tfschools.com"
+  },
+  {
+    "id": 16578,
+    "district": "Ronan H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.ronank12.edu"
+  },
+  {
+    "id": 16413,
+    "district": "Florence-Carlton K-12 Schls",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.florencecarlton.org"
+  },
+  {
+    "id": 16624,
+    "district": "Thompson Falls H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.thompsonfalls.net"
+  },
+  {
+    "id": 16313,
+    "district": "Bigfork Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.bigforkschools.org"
+  },
+  {
+    "id": 16376,
+    "district": "Cut Bank Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.cutbankschools.net"
+  },
+  {
+    "id": 16366,
+    "district": "Conrad H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.conradschools.org"
+  },
+  {
+    "id": 16602,
+    "district": "Simms H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://srvs.k12.mt.us"
+  },
+  {
+    "id": 16416,
+    "district": "Fort Benton Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.fortbentonschools.com"
+  },
+  {
+    "id": 16449,
+    "district": "Harlem Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.harlem-hs.k12.mt.us"
+  },
+  {
+    "id": 16509,
+    "district": "Malta K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.malta.k12.mt.us"
+  },
+  {
+    "id": 16465,
+    "district": "Hinsdale H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.hinsdale.k12.mt.us"
+  },
+  {
+    "id": 16557,
+    "district": "Poplar H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.poplarschools.com"
+  },
+  {
+    "id": 16551,
+    "district": "Plentywood K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.plentywood.k12.mt.us"
+  },
+  {
+    "id": 16486,
+    "district": "Lambert Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://lps.schoolwires.net"
+  },
+  {
+    "id": 16589,
+    "district": "Savage H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.savagepublicschool.com"
+  },
+  {
+    "id": 16299,
+    "district": "Baker K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://baker.k12.mt.us"
+  },
+  {
+    "id": 16568,
+    "district": "Red Lodge H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://mt15000219.schoolwires.net"
+  },
+  {
+    "id": 16473,
+    "district": "Joliet Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.jolietschools.org"
+  },
+  {
+    "id": 16570,
+    "district": "Reed Point H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://reedpoint.k12.mt.us"
+  },
+  {
+    "id": 16447,
+    "district": "Hardin Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://hardin.k12.mt.us"
+  },
+  {
+    "id": 16359,
+    "district": "Colstrip Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://ColstripPublicSchools.org"
+  },
+  {
+    "id": 16327,
+    "district": "Broadus Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.broadus.net"
+  },
+  {
+    "id": 16469,
+    "district": "Hysham K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16518,
+    "district": "Melville Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16477,
+    "district": "Judith Gap H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://judithgap.k12.mt.us"
+  },
+  {
+    "id": 16583,
+    "district": "Roy K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://roy.k12.mt.us"
+  },
+  {
+    "id": 16439,
+    "district": "Grass Range Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.grps.k12.mt.us"
+  },
+  {
+    "id": 16653,
+    "district": "Whitehall H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.whitehallschools.org"
+  },
+  {
+    "id": 16596,
+    "district": "Sheridan Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://sheridan.k12.mt.us"
+  },
+  {
+    "id": 16471,
+    "district": "Jackson Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16289,
+    "district": "Arlee Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.arleeschools.org"
+  }
+]
