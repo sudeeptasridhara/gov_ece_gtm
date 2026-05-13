@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21088,
+    "district": "EUSTACE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eustaceisd.net"
+  },
+  {
+    "id": 21005,
+    "district": "CRANDALL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crandall-isd.net"
+  },
+  {
+    "id": 21808,
+    "district": "WYLIE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wylieisd.net"
+  },
+  {
+    "id": 21802,
+    "district": "WOLFE CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wcisd.net"
+  },
+  {
+    "id": 21617,
+    "district": "SANGER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sisd.sangerisd.net"
+  },
+  {
+    "id": 21419,
+    "district": "MINERAL WELLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mwisd.net"
+  },
+  {
+    "id": 21145,
+    "district": "GLEN ROSE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.grisd.net/"
+  },
+  {
+    "id": 21060,
+    "district": "DUBLIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dublinisd.us"
+  },
+  {
+    "id": 21550,
+    "district": "RANGER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ranger.esc14.net/"
+  },
+  {
+    "id": 21153,
+    "district": "GORDON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gordonisd.net"
+  },
+  {
+    "id": 21436,
+    "district": "MUENSTER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.MuensterISD.net"
+  },
+  {
+    "id": 20980,
+    "district": "COLLINSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.collinsvilleisd.org"
+  },
+  {
+    "id": 21786,
+    "district": "WHITEWRIGHT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.whitewrightisd.com"
+  },
+  {
+    "id": 21398,
+    "district": "MELISSA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.melissaisd.org"
+  },
+  {
+    "id": 21413,
+    "district": "MILDRED ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mildredisd.org"
+  },
+  {
+    "id": 20904,
+    "district": "BROWNSBORO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gobearsgo.net"
+  },
+  {
+    "id": 21097,
+    "district": "FANNINDEL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fannindel.net"
+  },
+  {
+    "id": 20968,
+    "district": "CLARKSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.clarksvilleisd.net"
+  },
+  {
+    "id": 21332,
+    "district": "LINDEN-KILDARE CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lkcisd.net"
+  },
+  {
+    "id": 21230,
+    "district": "HUGHES SPRINGS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hsisd.net"
+  },
+  {
+    "id": 21730,
+    "district": "UNION GROVE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ugisd.org"
+  },
+  {
+    "id": 21695,
+    "district": "TATUM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tatumisd.org"
+  },
+  {
+    "id": 21377,
+    "district": "MARSHALL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.marshallisd.com"
+  },
+  {
+    "id": 20852,
+    "district": "BECKVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.beckvilleisd.net"
+  },
+  {
+    "id": 21178,
+    "district": "HALE CENTER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hcisdowls.net/"
+  },
+  {
+    "id": 21380,
+    "district": "MARTINSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.martinsvilleisd.com"
+  },
+  {
+    "id": 20999,
+    "district": "CORRIGAN-CAMDEN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccisdtx.com"
+  },
+  {
+    "id": 21805,
+    "district": "WOODVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.woodvilleeagles.org/"
+  },
+  {
+    "id": 21089,
+    "district": "EVADALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.evadalek12.net"
+  },
+  {
+    "id": 21329,
+    "district": "LIBERTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.libertyisd.net"
+  },
+  {
+    "id": 21231,
+    "district": "HULL-DAISETTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hdisd.net"
+  },
+  {
+    "id": 21229,
+    "district": "HUFFMAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.huffmanisd.net"
+  },
+  {
+    "id": 20950,
+    "district": "CHANNELVIEW ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cvisd.org"
+  },
+  {
+    "id": 21675,
+    "district": "STAFFORD MSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.staffordmsd.org"
+  },
+  {
+    "id": 21575,
+    "district": "ROBY CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.robycisd.org"
+  },
+  {
+    "id": 20801,
+    "district": "ALBA-GOLDEN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.agisd.org"
+  },
+  {
+    "id": 20809,
+    "district": "ALTO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.alto.esc7.net"
+  },
+  {
+    "id": 20817,
+    "district": "ANDREWS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.andrews.esc18.net"
+  },
+  {
+    "id": 20824,
+    "district": "AQUILLA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.aquillaisd.net/"
+  },
+  {
+    "id": 20842,
+    "district": "BALLINGER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ballingerisd.net"
+  }
+]

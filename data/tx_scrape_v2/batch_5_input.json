@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21273,
+    "district": "KEMP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kempisd.org"
+  },
+  {
+    "id": 21580,
+    "district": "ROCKWALL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rockwallisd.com/"
+  },
+  {
+    "id": 21538,
+    "district": "PRINCETON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.princetonisd.net"
+  },
+  {
+    "id": 21541,
+    "district": "PROSPER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.prosper-isd.net"
+  },
+  {
+    "id": 21470,
+    "district": "NORTHWEST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nisdtx.org"
+  },
+  {
+    "id": 20804,
+    "district": "ALEDO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://aledoisd.org"
+  },
+  {
+    "id": 21158,
+    "district": "GRANBURY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.granburyisd.org"
+  },
+  {
+    "id": 21070,
+    "district": "EASTLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eastlandisd.net/"
+  },
+  {
+    "id": 20892,
+    "district": "BRECKENRIDGE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.breckenridgeisd.org"
+  },
+  {
+    "id": 21128,
+    "district": "GAINESVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gainesvilleisd.org"
+  },
+  {
+    "id": 21086,
+    "district": "ERA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eraisd.net"
+  },
+  {
+    "id": 21640,
+    "district": "SHERMAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shermanisd.net/"
+  },
+  {
+    "id": 21740,
+    "district": "VAN ALSTYNE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.vanalstyneisd.org"
+  },
+  {
+    "id": 21123,
+    "district": "FROST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.frostisd.org"
+  },
+  {
+    "id": 21722,
+    "district": "TRINIDAD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.trinidadisd.com"
+  },
+  {
+    "id": 21020,
+    "district": "CUMBY COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cumbyisd.net"
+  },
+  {
+    "id": 21466,
+    "district": "NORTH LAMAR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.northlamar.net"
+  },
+  {
+    "id": 21384,
+    "district": "MAUD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.maudisd.net"
+  },
+  {
+    "id": 21646,
+    "district": "SIMMS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.simmsisd.net"
+  },
+  {
+    "id": 21187,
+    "district": "HARDIN-JEFFERSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hjisd.net"
+  },
+  {
+    "id": 21724,
+    "district": "TROUP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.troupisd.org"
+  },
+  {
+    "id": 21206,
+    "district": "HENDERSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hendersonisd.org"
+  },
+  {
+    "id": 21189,
+    "district": "HARLETON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harletonisd.net"
+  },
+  {
+    "id": 21637,
+    "district": "SHELBYVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shelbyville.k12.tx.us/"
+  },
+  {
+    "id": 21259,
+    "district": "JOAQUIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.joaquinisd.net"
+  },
+  {
+    "id": 21057,
+    "district": "DOUGLASS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.douglassisd.com"
+  },
+  {
+    "id": 21151,
+    "district": "GOODRICH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.goodrichisd.net"
+  },
+  {
+    "id": 21757,
+    "district": "WARREN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.warrenisd.net"
+  },
+  {
+    "id": 21184,
+    "district": "HAMSHIRE-FANNETT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hfisd.net"
+  },
+  {
+    "id": 21694,
+    "district": "TARKINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tarkingtonisd.net"
+  },
+  {
+    "id": 21639,
+    "district": "SHEPHERD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shepherdisd.net"
+  },
+  {
+    "id": 21129,
+    "district": "GALENA PARK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.galenaparkisd.com"
+  },
+  {
+    "id": 21035,
+    "district": "DEER PARK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dpisd.org"
+  },
+  {
+    "id": 20982,
+    "district": "COLORADO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccity.esc14.net/"
+  },
+  {
+    "id": 21183,
+    "district": "HAMLIN COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hamlincollegiate.com/"
+  },
+  {
+    "id": 20805,
+    "district": "ALICE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.aliceisd.net"
+  },
+  {
+    "id": 20812,
+    "district": "ALVORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.alvordisd.net"
+  },
+  {
+    "id": 20821,
+    "district": "ANTHONY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.anthonyisd.net"
+  },
+  {
+    "id": 20836,
+    "district": "AVALON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://avalonisd.net"
+  },
+  {
+    "id": 20845,
+    "district": "BANGS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bangsisd.net"
+  }
+]
