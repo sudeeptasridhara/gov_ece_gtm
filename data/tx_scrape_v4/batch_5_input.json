@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21185,
+    "district": "HAPPY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://happyisd.net"
+  },
+  {
+    "id": 21195,
+    "district": "HART ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hartisd.net"
+  },
+  {
+    "id": 21200,
+    "district": "HAWLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hawley.esc14.net"
+  },
+  {
+    "id": 21207,
+    "district": "HENRIETTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.henrietta-isd.net/"
+  },
+  {
+    "id": 21212,
+    "district": "HIGH ISLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.highislandisd.com"
+  },
+  {
+    "id": 21217,
+    "district": "HITCHCOCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hitchcockisd.org"
+  },
+  {
+    "id": 21222,
+    "district": "HOOKS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hooksisd.net"
+  },
+  {
+    "id": 21236,
+    "district": "HURST-EULESS-BEDFORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hebisd.edu"
+  },
+  {
+    "id": 21244,
+    "district": "IRA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ira.esc14.net/"
+  },
+  {
+    "id": 21251,
+    "district": "JACKSBORO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jacksboroisd.net"
+  },
+  {
+    "id": 21257,
+    "district": "JIM HOGG COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jhcisdpk12.org"
+  },
+  {
+    "id": 21263,
+    "district": "JOURDANTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jourdantonisd.net"
+  },
+  {
+    "id": 21271,
+    "district": "KELLER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kellerisd.net"
+  },
+  {
+    "id": 21277,
+    "district": "KENNEDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kennedaleisd.net"
+  },
+  {
+    "id": 21287,
+    "district": "KNIPPA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.knippaisd.net"
+  },
+  {
+    "id": 21293,
+    "district": "LA FERIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.laferiaisd.org"
+  },
+  {
+    "id": 21301,
+    "district": "LA VILLA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lavillaisd.org"
+  },
+  {
+    "id": 21308,
+    "district": "LAMESA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lamesa.esc17.net"
+  },
+  {
+    "id": 21314,
+    "district": "LASARA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lasaraisd.net"
+  },
+  {
+    "id": 21320,
+    "district": "LEFORS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.leforsisd.net/"
+  },
+  {
+    "id": 21328,
+    "district": "LIBERTY HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.libertyhill.txed.net/"
+  },
+  {
+    "id": 21338,
+    "district": "LITTLEFIELD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lfdisd.org"
+  },
+  {
+    "id": 21344,
+    "district": "LOMETA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lometaisd.org"
+  },
+  {
+    "id": 21351,
+    "district": "LORENZO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lorenzoisd.net/"
+  },
+  {
+    "id": 21358,
+    "district": "LUEDERS-AVOCA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.laisd.esc14.net"
+  },
+  {
+    "id": 21369,
+    "district": "MALTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.maltaisd.net"
+  },
+  {
+    "id": 21375,
+    "district": "MARION ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.marionisd.net"
+  },
+  {
+    "id": 21383,
+    "district": "MATHIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mathisisd.org"
+  },
+  {
+    "id": 21392,
+    "district": "MCLEAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcleanisd.com"
+  },
+  {
+    "id": 21399,
+    "district": "MEMPHIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.memphisisd.net"
+  },
+  {
+    "id": 21410,
+    "district": "MIDWAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.midwayisd.org"
+  },
+  {
+    "id": 21417,
+    "district": "MILLSAP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.millsapisd.net"
+  },
+  {
+    "id": 21424,
+    "district": "MONTGOMERY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.misd.org"
+  },
+  {
+    "id": 21429,
+    "district": "MORTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mortonisd.net"
+  },
+  {
+    "id": 21437,
+    "district": "MULESHOE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.muleshoeisd.net"
+  },
+  {
+    "id": 21444,
+    "district": "NAVARRO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nisd.us"
+  },
+  {
+    "id": 21454,
+    "district": "NEW DIANA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ndisd.org"
+  },
+  {
+    "id": 21459,
+    "district": "NEWTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.newtonisd.net"
+  },
+  {
+    "id": 21465,
+    "district": "NORTH HOPKINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.northhopkins.net"
+  },
+  {
+    "id": 21475,
+    "district": "ODEM-EDROY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.oeisd.org"
+  }
+]

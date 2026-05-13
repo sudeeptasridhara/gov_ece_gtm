@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21004,
+    "district": "COVINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.covingtonisd.org"
+  },
+  {
+    "id": 21188,
+    "district": "HARLANDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harlandale.net/"
+  },
+  {
+    "id": 21196,
+    "district": "HARTLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hartleyisd.net/"
+  },
+  {
+    "id": 21202,
+    "district": "HEARNE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hearneisd.com/en-us"
+  },
+  {
+    "id": 21208,
+    "district": "HEREFORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.herefordisd.net"
+  },
+  {
+    "id": 21213,
+    "district": "HIGHLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.highland.esc14.net"
+  },
+  {
+    "id": 21218,
+    "district": "HOLLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hollandisd.org"
+  },
+  {
+    "id": 21224,
+    "district": "HOWE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.howeisd.net"
+  },
+  {
+    "id": 21239,
+    "district": "INDUSTRIAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.industrialisd.org"
+  },
+  {
+    "id": 21245,
+    "district": "IRAAN-SHEFFIELD COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://isisd.net"
+  },
+  {
+    "id": 21252,
+    "district": "JACKSONVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jisd.org/"
+  },
+  {
+    "id": 21258,
+    "district": "JIM NED CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jimned.esc14.net"
+  },
+  {
+    "id": 21265,
+    "district": "JUNCTION ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.junctionisd.net"
+  },
+  {
+    "id": 21272,
+    "district": "KELTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.keltonisd.net"
+  },
+  {
+    "id": 21279,
+    "district": "KERMIT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kermitisd.org"
+  },
+  {
+    "id": 21288,
+    "district": "KNOX CITY-O'BRIEN CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.knoxcityschools.net/"
+  },
+  {
+    "id": 21294,
+    "district": "LA GLORIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lagloriaisd.net"
+  },
+  {
+    "id": 21302,
+    "district": "LACKLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lacklandisd.net"
+  },
+  {
+    "id": 21309,
+    "district": "LAMPASAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lisdtx.org"
+  },
+  {
+    "id": 21315,
+    "district": "LATEXO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.latexoisd.net/"
+  },
+  {
+    "id": 21322,
+    "district": "LEON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://leonisd.net"
+  },
+  {
+    "id": 21330,
+    "district": "LIBERTY-EYLAU ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.leisd.net"
+  },
+  {
+    "id": 21340,
+    "district": "LLANO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.llanoisd.org"
+  },
+  {
+    "id": 21346,
+    "district": "LONE OAK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.loisd.net"
+  },
+  {
+    "id": 21352,
+    "district": "LOS FRESNOS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lfcisd.net"
+  },
+  {
+    "id": 21360,
+    "district": "LULING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.luling.txed.net/"
+  },
+  {
+    "id": 21370,
+    "district": "MANOR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.manorisd.net"
+  },
+  {
+    "id": 21376,
+    "district": "MARLIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.marlinisd.org"
+  },
+  {
+    "id": 21385,
+    "district": "MAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mayisd.com"
+  },
+  {
+    "id": 21393,
+    "district": "MCLEOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcleodisd.net"
+  },
+  {
+    "id": 21400,
+    "district": "MENARD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.menardisd.net"
+  },
+  {
+    "id": 21411,
+    "district": "MIDWAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://wwwmidwayisd.net"
+  },
+  {
+    "id": 21418,
+    "district": "MINEOLA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mineolaisd.net"
+  },
+  {
+    "id": 21425,
+    "district": "MOODY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.moodyisd.org/"
+  },
+  {
+    "id": 21430,
+    "district": "MOTLEY COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.motleyco.org"
+  },
+  {
+    "id": 21438,
+    "district": "MULLIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mullinisd.net/"
+  },
+  {
+    "id": 21446,
+    "district": "NAZARETH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nazarethisd.net"
+  },
+  {
+    "id": 21455,
+    "district": "NEW HOME ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://newhomeisd.org"
+  },
+  {
+    "id": 21460,
+    "district": "NIXON-SMILEY CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nixonsmiley.net"
+  },
+  {
+    "id": 21467,
+    "district": "NORTH ZULCH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nzisd.org"
+  }
+]

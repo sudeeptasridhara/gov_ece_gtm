@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21182,
+    "district": "HAMILTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hamiltonisd.org"
+  },
+  {
+    "id": 21194,
+    "district": "HARROLD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harroldisd.net"
+  },
+  {
+    "id": 21199,
+    "district": "HAWKINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hawkinsisd.org"
+  },
+  {
+    "id": 21205,
+    "district": "HEMPSTEAD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hempsteadisd.org"
+  },
+  {
+    "id": 21211,
+    "district": "HIDALGO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hidalgo-isd.org"
+  },
+  {
+    "id": 21216,
+    "district": "HILLSBORO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hillsboroisd.org"
+  },
+  {
+    "id": 21221,
+    "district": "HONEY GROVE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://honeygroveisd.net"
+  },
+  {
+    "id": 21233,
+    "district": "HUNT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.huntisd.org"
+  },
+  {
+    "id": 21243,
+    "district": "IOWA PARK CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ipcisd.net/"
+  },
+  {
+    "id": 21250,
+    "district": "ITASCA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.itascaisd.org"
+  },
+  {
+    "id": 21255,
+    "district": "JAYTON-GIRARD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jaytonjaybirds.com/"
+  },
+  {
+    "id": 21262,
+    "district": "JOSHUA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.joshuaisd.org"
+  },
+  {
+    "id": 21270,
+    "district": "KEENE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.keeneisd.org"
+  },
+  {
+    "id": 21276,
+    "district": "KENNARD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kennardisd.net"
+  },
+  {
+    "id": 21286,
+    "district": "KLONDIKE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.klondike.esc17.net"
+  },
+  {
+    "id": 21292,
+    "district": "KRUM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.krumisd.net"
+  },
+  {
+    "id": 21300,
+    "district": "LA VERNIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lvisd.org"
+  },
+  {
+    "id": 21307,
+    "district": "LAMAR CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lcisd.org/"
+  },
+  {
+    "id": 21312,
+    "district": "LAPOYNOR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lapoynorisd.net/"
+  },
+  {
+    "id": 21319,
+    "district": "LEARY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.learyisd.net/"
+  },
+  {
+    "id": 21327,
+    "district": "LEXINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lexingtonisd.net"
+  },
+  {
+    "id": 21337,
+    "district": "LITTLE ELM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.littleelmisd.net"
+  },
+  {
+    "id": 21343,
+    "district": "LOHN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lohnisd.net"
+  },
+  {
+    "id": 21350,
+    "district": "LORENA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lorenaisd.net"
+  },
+  {
+    "id": 21355,
+    "district": "LOVELADY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.loveladyisd.net"
+  },
+  {
+    "id": 21368,
+    "district": "MALONE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.maloneisd.org"
+  },
+  {
+    "id": 21374,
+    "district": "MARFA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.marfaisd.com"
+  },
+  {
+    "id": 21381,
+    "district": "MASON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.masonisd.net"
+  },
+  {
+    "id": 21390,
+    "district": "MCGREGOR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcgregor-isd.org"
+  },
+  {
+    "id": 21396,
+    "district": "MEDINA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.medinaisd.org"
+  },
+  {
+    "id": 21407,
+    "district": "MIAMI ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.miamiisd.net"
+  },
+  {
+    "id": 21416,
+    "district": "MILLER GROVE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mgisd.net/"
+  },
+  {
+    "id": 21423,
+    "district": "MONTE ALTO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.montealtoisd.org"
+  },
+  {
+    "id": 21428,
+    "district": "MORGAN MILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.morganmill.esc11.net"
+  },
+  {
+    "id": 21435,
+    "district": "MOUNT VERNON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mtvernonisd.net"
+  },
+  {
+    "id": 21441,
+    "district": "MURCHISON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.murchisonisd.com"
+  },
+  {
+    "id": 21453,
+    "district": "NEW DEAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ndisd.net"
+  },
+  {
+    "id": 21458,
+    "district": "NEWCASTLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.newcastle-isd.net"
+  },
+  {
+    "id": 21463,
+    "district": "NORMANGEE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.normangeeisd.org"
+  },
+  {
+    "id": 21474,
+    "district": "OAKWOOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.oakwoodisd.net/"
+  }
+]

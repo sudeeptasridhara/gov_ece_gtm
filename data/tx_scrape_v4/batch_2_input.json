@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21013,
+    "district": "CROSS PLAINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crossplainsisd.net"
+  },
+  {
+    "id": 21191,
+    "district": "HARMONY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harmonyisd.net"
+  },
+  {
+    "id": 21197,
+    "district": "HARTS BLUFF ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hbisd.net"
+  },
+  {
+    "id": 21203,
+    "district": "HEDLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hedleyisd.net"
+  },
+  {
+    "id": 21209,
+    "district": "HERMLEIGH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hermleigh.esc14.net"
+  },
+  {
+    "id": 21214,
+    "district": "HIGHLAND PARK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hpisd.org"
+  },
+  {
+    "id": 21219,
+    "district": "HOLLIDAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hollidayisd.net"
+  },
+  {
+    "id": 21227,
+    "district": "HUCKABAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hisd.us"
+  },
+  {
+    "id": 21240,
+    "district": "INGLESIDE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.inglesideisd.org"
+  },
+  {
+    "id": 21246,
+    "district": "IREDELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.iredell-isd.com/"
+  },
+  {
+    "id": 21253,
+    "district": "JARRELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jarrellisd.org"
+  },
+  {
+    "id": 21260,
+    "district": "JOHNSON CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.jc.txed.net/"
+  },
+  {
+    "id": 21266,
+    "district": "KARNACK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.karnackisd.org"
+  },
+  {
+    "id": 21274,
+    "district": "KENEDY COUNTY WIDE CSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.saritaschool.net"
+  },
+  {
+    "id": 21283,
+    "district": "KINGSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kingsvilleisd.com"
+  },
+  {
+    "id": 21289,
+    "district": "KOPPERL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kopperlisd.org"
+  },
+  {
+    "id": 21295,
+    "district": "LA GRANGE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lgisd.net"
+  },
+  {
+    "id": 21303,
+    "district": "LAGO VISTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lagovistaisd.net"
+  },
+  {
+    "id": 21310,
+    "district": "LANCASTER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lancasterisd.org"
+  },
+  {
+    "id": 21316,
+    "district": "LAZBUDDIE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lazbuddieisd.org"
+  },
+  {
+    "id": 21324,
+    "district": "LEVELLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.levellandisd.net/"
+  },
+  {
+    "id": 21334,
+    "district": "LINGLEVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lingleville.us"
+  },
+  {
+    "id": 21341,
+    "district": "LOCKHART ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lockhartisd.org"
+  },
+  {
+    "id": 21348,
+    "district": "LOOP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.loopisd.net"
+  },
+  {
+    "id": 21353,
+    "district": "LOUISE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://louiseisd.net"
+  },
+  {
+    "id": 21362,
+    "district": "LYFORD CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lyfordcisd.net"
+  },
+  {
+    "id": 21372,
+    "district": "MARATHON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.marathonisd.net"
+  },
+  {
+    "id": 21378,
+    "district": "MART ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.martisd.org"
+  },
+  {
+    "id": 21388,
+    "district": "MCCAMEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcisd.esc18.net"
+  },
+  {
+    "id": 21394,
+    "district": "MCMULLEN COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcisd.us"
+  },
+  {
+    "id": 21402,
+    "district": "MERIDIAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.meridianisd.org"
+  },
+  {
+    "id": 21412,
+    "district": "MILANO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.milanoisd.net"
+  },
+  {
+    "id": 21421,
+    "district": "MONAHANS-WICKETT-PYOTE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mwpisd.esc18.net"
+  },
+  {
+    "id": 21426,
+    "district": "MORAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.moran.esc14.net"
+  },
+  {
+    "id": 21431,
+    "district": "MOULTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.moultonisd.net"
+  },
+  {
+    "id": 21439,
+    "district": "MUMFORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mumford.k12.tx.us/"
+  },
+  {
+    "id": 21447,
+    "district": "NECHES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nechesisd.com"
+  },
+  {
+    "id": 21456,
+    "district": "NEW SUMMERFIELD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.newsummerfieldisd.org/"
+  },
+  {
+    "id": 21461,
+    "district": "NOCONA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.noconaisd.net"
+  },
+  {
+    "id": 21472,
+    "district": "NURSERY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nurseryisd.org"
+  }
+]
