@@ -1,0 +1,282 @@
+[
+  {
+    "id": 20834,
+    "district": "AUSTIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.austinisd.org"
+  },
+  {
+    "id": 21468,
+    "district": "NORTHSIDE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://northsideisd.us/"
+  },
+  {
+    "id": 21518,
+    "district": "PLANO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pisd.edu/"
+  },
+  {
+    "id": 21132,
+    "district": "GARLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.garlandisd.net"
+  },
+  {
+    "id": 21497,
+    "district": "PASADENA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www1.pasadenaisd.org"
+  },
+  {
+    "id": 21668,
+    "district": "SPRING BRANCH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.springbranchisd.com"
+  },
+  {
+    "id": 21080,
+    "district": "EL PASO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.episd.org"
+  },
+  {
+    "id": 20998,
+    "district": "CORPUS CHRISTI ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ccisd.us"
+  },
+  {
+    "id": 21313,
+    "district": "LAREDO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.laredoisd.org"
+  },
+  {
+    "id": 20905,
+    "district": "BROWNSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bisd.us"
+  },
+  {
+    "id": 21055,
+    "district": "DONNA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.donnaisd.net"
+  },
+  {
+    "id": 21238,
+    "district": "IDALOU ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.idalouisd.net"
+  },
+  {
+    "id": 20920,
+    "district": "BUSHLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bushlandisd.net"
+  },
+  {
+    "id": 21299,
+    "district": "LA VEGA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lavegaisd.org"
+  },
+  {
+    "id": 21784,
+    "district": "WHITEHOUSE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.whitehouseisd.org/"
+  },
+  {
+    "id": 21448,
+    "district": "NEDERLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nederland.k12.tx.us/"
+  },
+  {
+    "id": 21698,
+    "district": "TEMPLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tisd.org"
+  },
+  {
+    "id": 21511,
+    "district": "PFLUGERVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pflugervilleisd.net"
+  },
+  {
+    "id": 21058,
+    "district": "DRIPPING SPRINGS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dsisdtx.us"
+  },
+  {
+    "id": 20985,
+    "district": "COMAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.comalisd.org"
+  },
+  {
+    "id": 21075,
+    "district": "EDGEWOOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.edgewood-isd.net"
+  },
+  {
+    "id": 21658,
+    "district": "SOMERSET ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sisdk12.net/"
+  },
+  {
+    "id": 20924,
+    "district": "CALDWELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.caldwellisd.net"
+  },
+  {
+    "id": 21049,
+    "district": "DICKINSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dickinsonisd.org"
+  },
+  {
+    "id": 20891,
+    "district": "BRAZOSPORT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.brazosportisd.net"
+  },
+  {
+    "id": 21778,
+    "district": "WHARTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.whartonisd.net"
+  },
+  {
+    "id": 21747,
+    "district": "VICTORIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.visd.net"
+  },
+  {
+    "id": 20835,
+    "district": "AUSTWELL-TIVOLI ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.atisd.net/"
+  },
+  {
+    "id": 21059,
+    "district": "DRISCOLL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.driscollisd.us"
+  },
+  {
+    "id": 20935,
+    "district": "CARRIZO SPRINGS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cscisd.net"
+  },
+  {
+    "id": 21241,
+    "district": "INGRAM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ingramisd.net"
+  },
+  {
+    "id": 21669,
+    "district": "SPRING HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shisd.net"
+  },
+  {
+    "id": 21515,
+    "district": "PITTSBURG ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pittsburgisd.net"
+  },
+  {
+    "id": 21442,
+    "district": "NACOGDOCHES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nacisd.org"
+  },
+  {
+    "id": 21010,
+    "district": "CROCKETT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crockettisd.net/"
+  },
+  {
+    "id": 21085,
+    "district": "ENNIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ennis.k12.tx.us/"
+  },
+  {
+    "id": 21409,
+    "district": "MIDLOTHIAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://WWW.MIDLOTHIANISD.ORG"
+  },
+  {
+    "id": 21226,
+    "district": "HUBBARD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hubbardisd.com"
+  },
+  {
+    "id": 21371,
+    "district": "MANSFIELD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mansfieldisd.org"
+  },
+  {
+    "id": 20798,
+    "district": "ADRIAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.adrianisd.net"
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21223,
+    "district": "HOUSTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.houstonisd.org"
+  },
+  {
+    "id": 21661,
+    "district": "SOUTH SAN ANTONIO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.southsanisd.net"
+  },
+  {
+    "id": 21268,
+    "district": "KATY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.katyisd.org/"
+  },
+  {
+    "id": 21391,
+    "district": "MCKINNEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mckinneyisd.net"
+  },
+  {
+    "id": 21248,
+    "district": "IRVING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.irvingisd.net"
+  },
+  {
+    "id": 20863,
+    "district": "BIG SPRING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bsisd.esc18.net"
+  },
+  {
+    "id": 21718,
+    "district": "TOMBALL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tomballisd.net"
+  },
+  {
+    "id": 21657,
+    "district": "SOCORRO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sisd.net"
+  },
+  {
+    "id": 21727,
+    "district": "TULOSO-MIDWAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tmisd.us/"
+  },
+  {
+    "id": 21387,
+    "district": "MCALLEN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcallenisd.org"
+  },
+  {
+    "id": 21296,
+    "district": "LA JOYA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lajoyaisd.com/"
+  },
+  {
+    "id": 21356,
+    "district": "LUBBOCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lubbockisd.org"
+  },
+  {
+    "id": 20813,
+    "district": "AMARILLO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.amaisd.org"
+  },
+  {
+    "id": 21408,
+    "district": "MIDLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.midlandisd.net"
+  },
+  {
+    "id": 21729,
+    "district": "TYLER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tylerisd.org"
+  },
+  {
+    "id": 20953,
+    "district": "CHAPEL HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://chisddevils.com/"
+  },
+  {
+    "id": 21361,
+    "district": "LUMBERTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lumbertonisd.org"
+  },
+  {
+    "id": 21725,
+    "district": "TROY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.troyisd.org"
+  },
+  {
+    "id": 21139,
+    "district": "GEORGETOWN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.georgetownisd.org"
+  },
+  {
+    "id": 21201,
+    "district": "HAYS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hayscisd.net"
+  },
+  {
+    "id": 21625,
+    "district": "SCHERTZ-CIBOLO-U CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.scucisd.org/"
+  },
+  {
+    "id": 21188,
+    "district": "HARLANDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harlandale.net/"
+  },
+  {
+    "id": 21443,
+    "district": "NATALIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nataliaisd.net"
+  },
+  {
+    "id": 21235,
+    "district": "HUNTSVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.huntsville-isd.org/"
+  },
+  {
+    "id": 21120,
+    "district": "FRIENDSWOOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.myfisd.com"
+  },
+  {
+    "id": 21027,
+    "district": "DAMON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.damonisd.net"
+  },
+  {
+    "id": 21078,
+    "district": "EDNA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ednaisd.org"
+  },
+  {
+    "id": 21018,
+    "district": "CUERO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cueroisd.org/"
+  },
+  {
+    "id": 21647,
+    "district": "SINTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sintonisd.net"
+  },
+  {
+    "id": 20846,
+    "district": "BANQUETE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.banqueteisd.net/"
+  },
+  {
+    "id": 21596,
+    "district": "SABINAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sabinalisd.net"
+  },
+  {
+    "id": 21192,
+    "district": "HARPER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.harperisd.net"
+  },
+  {
+    "id": 21773,
+    "district": "WEST SABINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.westsabineisd.net"
+  },
+  {
+    "id": 20861,
+    "district": "BIG SANDY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bigsandyisd.org"
+  },
+  {
+    "id": 21234,
+    "district": "HUNTINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.huntingtonisd.com"
+  },
+  {
+    "id": 21095,
+    "district": "FAIRFIELD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fairfieldisd.org"
+  },
+  {
+    "id": 21555,
+    "district": "RED OAK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.redoakisd.org"
+  },
+  {
+    "id": 21249,
+    "district": "ITALY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.italyisd.org"
+  },
+  {
+    "id": 21146,
+    "district": "GODLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.godleyisd.net"
+  },
+  {
+    "id": 20795,
+    "district": "ABERNATHY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.abernathyisd.com/"
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21127,
+    "district": "FT SAM HOUSTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fshisd.net"
+  },
+  {
+    "id": 21604,
+    "district": "SAN ANTONIO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.saisd.net/"
+  },
+  {
+    "id": 21469,
+    "district": "NORTHSIDE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nisd.net"
+  },
+  {
+    "id": 21122,
+    "district": "FRISCO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.friscoisd.org"
+  },
+  {
+    "id": 21404,
+    "district": "MESQUITE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mesquiteisd.org"
+  },
+  {
+    "id": 21500,
+    "district": "PEARLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pearlandisd.org"
+  },
+  {
+    "id": 21232,
+    "district": "HUMBLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.humbleisd.net"
+  },
+  {
+    "id": 21812,
+    "district": "YSLETA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.yisd.net"
+  },
+  {
+    "id": 21105,
+    "district": "FLOUR BLUFF ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.flourbluffschools.net"
+  },
+  {
+    "id": 21732,
+    "district": "UNITED ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.uisd.net"
+  },
+  {
+    "id": 21190,
+    "district": "HARLINGEN CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hcisd.org"
+  },
+  {
+    "id": 21401,
+    "district": "MERCEDES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.misdtx.net"
+  },
+  {
+    "id": 21634,
+    "district": "SHALLOWATER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shallowaterisd.net"
+  },
+  {
+    "id": 21569,
+    "district": "RIVER ROAD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rrisd.net"
+  },
+  {
+    "id": 20992,
+    "district": "CONNALLY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.connally.org"
+  },
+  {
+    "id": 20952,
+    "district": "CHAPEL HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.chapelhillisd.org"
+  },
+  {
+    "id": 21527,
+    "district": "PORT NECHES-GROVES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pngisd.org"
+  },
+  {
+    "id": 21600,
+    "district": "SALADO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.saladoisd.org"
+  },
+  {
+    "id": 21237,
+    "district": "HUTTO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.hipponation.org"
+  },
+  {
+    "id": 21794,
+    "district": "WIMBERLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wimberleyisd.net"
+  },
+  {
+    "id": 21264,
+    "district": "JUDSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.judsonisd.org"
+  },
+  {
+    "id": 21076,
+    "district": "EDGEWOOD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eisd.net"
+  },
+  {
+    "id": 21363,
+    "district": "LYTLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lytleisd.org/"
+  },
+  {
+    "id": 21445,
+    "district": "NAVASOTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.navasotaisd.org"
+  },
+  {
+    "id": 21619,
+    "district": "SANTA FE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sfisd.org"
+  },
+  {
+    "id": 21689,
+    "district": "SWEENY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sweenyisd.org/"
+  },
+  {
+    "id": 21079,
+    "district": "EL CAMPO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ecisd.org"
+  },
+  {
+    "id": 21149,
+    "district": "GOLIAD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.goliadisd.org/"
+  },
+  {
+    "id": 21692,
+    "district": "TAFT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.taftisd.net"
+  },
+  {
+    "id": 20799,
+    "district": "AGUA DULCE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://adisd.net"
+  },
+  {
+    "id": 21735,
+    "district": "UVALDE CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.uvaldecisd.net"
+  },
+  {
+    "id": 21117,
+    "district": "FREDERICKSBURG ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fisd.org/"
+  },
+  {
+    "id": 21597,
+    "district": "SABINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sabineisd.org"
+  },
+  {
+    "id": 21142,
+    "district": "GILMER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gilmerisd.org/"
+  },
+  {
+    "id": 20949,
+    "district": "CENTRAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.centralisd.com/"
+  },
+  {
+    "id": 21489,
+    "district": "PALESTINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.palestineschools.org"
+  },
+  {
+    "id": 21760,
+    "district": "WAXAHACHIE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wisd.org/"
+  },
+  {
+    "id": 21386,
+    "district": "MAYPEARL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.maypearlisd.org"
+  },
+  {
+    "id": 20971,
+    "district": "CLEBURNE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.c-isd.com"
+  },
+  {
+    "id": 20794,
+    "district": "ABBOTT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.abbottisd.org"
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21026,
+    "district": "DALLAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dallasisd.org"
+  },
+  {
+    "id": 21114,
+    "district": "FORT WORTH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fwisd.org"
+  },
+  {
+    "id": 20803,
+    "district": "ALDINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.aldineisd.org"
+  },
+  {
+    "id": 21040,
+    "district": "DENTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dentonisd.org"
+  },
+  {
+    "id": 20828,
+    "district": "ARLINGTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.aisd.net"
+  },
+  {
+    "id": 20961,
+    "district": "CHINA SPRING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.chinaspringisd.net"
+  },
+  {
+    "id": 21366,
+    "district": "MAGNOLIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.magnoliaisd.org"
+  },
+  {
+    "id": 20932,
+    "district": "CANUTILLO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.canutillo-isd.org"
+  },
+  {
+    "id": 21771,
+    "district": "WEST OSO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.westosoisd.net"
+  },
+  {
+    "id": 21077,
+    "district": "EDINBURG CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ecisd.us"
+  },
+  {
+    "id": 21420,
+    "district": "MISSION CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mcisd.net"
+  },
+  {
+    "id": 21357,
+    "district": "LUBBOCK-COOPER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lcisd.net"
+  },
+  {
+    "id": 20933,
+    "district": "CANYON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.canyonisd.net"
+  },
+  {
+    "id": 21071,
+    "district": "ECTOR COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ectorcountyisd.org"
+  },
+  {
+    "id": 21347,
+    "district": "LONGVIEW ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lisd.org/"
+  },
+  {
+    "id": 20851,
+    "district": "BEAUMONT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bmtisd.com/"
+  },
+  {
+    "id": 21282,
+    "district": "KILLEEN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.killeenisd.org"
+  },
+  {
+    "id": 21588,
+    "district": "ROUND ROCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.roundrockisd.org"
+  },
+  {
+    "id": 21065,
+    "district": "EANES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eanesisd.net"
+  },
+  {
+    "id": 21611,
+    "district": "SAN MARCOS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.smcisd.net"
+  },
+  {
+    "id": 21068,
+    "district": "EAST CENTRAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ecisd.net"
+  },
+  {
+    "id": 21665,
+    "district": "SOUTHWEST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.swisd.net"
+  },
+  {
+    "id": 20908,
+    "district": "BRYAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bryanisd.org"
+  },
+  {
+    "id": 21130,
+    "district": "GALVESTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gisd.org"
+  },
+  {
+    "id": 20811,
+    "district": "ALVIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.alvinisd.net"
+  },
+  {
+    "id": 20983,
+    "district": "COLUMBIA-BRAZORIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cbisd.com"
+  },
+  {
+    "id": 21488,
+    "district": "PALACIOS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.palaciosisd.org"
+  },
+  {
+    "id": 21641,
+    "district": "SHINER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shinerisd.net"
+  },
+  {
+    "id": 20825,
+    "district": "ARANSAS PASS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.apisd.org"
+  },
+  {
+    "id": 21064,
+    "district": "EAGLE PASS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.eaglepassisd.net"
+  },
+  {
+    "id": 21280,
+    "district": "KERRVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kerrvilleisd.net"
+  },
+  {
+    "id": 21281,
+    "district": "KILGORE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kisd.org"
+  },
+  {
+    "id": 21496,
+    "district": "PARIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.parisisd.net/"
+  },
+  {
+    "id": 20862,
+    "district": "BIG SANDY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bigsandyisd.net"
+  },
+  {
+    "id": 21048,
+    "district": "DIBOLL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.dibollisd.com"
+  },
+  {
+    "id": 21405,
+    "district": "MEXIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mexiaisd.net"
+  },
+  {
+    "id": 21101,
+    "district": "FERRIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ferrisisd.org"
+  },
+  {
+    "id": 21415,
+    "district": "MILFORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.milfordisd.org"
+  },
+  {
+    "id": 20917,
+    "district": "BURLESON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.burlesonisd.net"
+  },
+  {
+    "id": 20796,
+    "district": "ABILENE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.abileneisd.org"
+  }
+]

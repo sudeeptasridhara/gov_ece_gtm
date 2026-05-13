@@ -1,0 +1,282 @@
+[
+  {
+    "id": 21304,
+    "district": "LAKE DALLAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ldisd.net"
+  },
+  {
+    "id": 21022,
+    "district": "CYPRESS-FAIRBANKS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cfisd.net"
+  },
+  {
+    "id": 21285,
+    "district": "KLEIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.kleinisd.net"
+  },
+  {
+    "id": 21326,
+    "district": "LEWISVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lisd.net/"
+  },
+  {
+    "id": 21111,
+    "district": "FORT BEND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.fortbend.k12.tx.us/"
+  },
+  {
+    "id": 21670,
+    "district": "SPRING ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.springisd.org/"
+  },
+  {
+    "id": 20993,
+    "district": "CONROE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.conroeisd.net"
+  },
+  {
+    "id": 20974,
+    "district": "CLINT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.clintweb.net"
+  },
+  {
+    "id": 21345,
+    "district": "LONDON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.londonisd.net"
+  },
+  {
+    "id": 21512,
+    "district": "PHARR-SAN JUAN-ALAMO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.psjaisd.us"
+  },
+  {
+    "id": 21767,
+    "district": "WESLACO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wisd.us"
+  },
+  {
+    "id": 21119,
+    "district": "FRENSHIP ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.frenship.net"
+  },
+  {
+    "id": 21471,
+    "district": "NUECES CANYON CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nccisd.net"
+  },
+  {
+    "id": 21750,
+    "district": "WACO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wacoisd.org"
+  },
+  {
+    "id": 21331,
+    "district": "LINDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lindaleeagles.org"
+  },
+  {
+    "id": 21526,
+    "district": "PORT ARTHUR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.paisd.org"
+  },
+  {
+    "id": 20857,
+    "district": "BELTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bisd.net/"
+  },
+  {
+    "id": 21318,
+    "district": "LEANDER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.leanderisd.org"
+  },
+  {
+    "id": 21305,
+    "district": "LAKE TRAVIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ltisdschools.org"
+  },
+  {
+    "id": 21451,
+    "district": "NEW BRAUNFELS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.nbisd.org"
+  },
+  {
+    "id": 21464,
+    "district": "NORTH EAST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.neisd.net"
+  },
+  {
+    "id": 21397,
+    "district": "MEDINA VALLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mvisd.com"
+  },
+  {
+    "id": 20979,
+    "district": "COLLEGE STATION ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.csisd.org"
+  },
+  {
+    "id": 21704,
+    "district": "TEXAS CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.tcisd.org"
+  },
+  {
+    "id": 20818,
+    "district": "ANGLETON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.angletonisd.net"
+  },
+  {
+    "id": 20850,
+    "district": "BAY CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.bcblackcats.net"
+  },
+  {
+    "id": 21382,
+    "district": "MATAGORDA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.matagordaisd.org"
+  },
+  {
+    "id": 21811,
+    "district": "YORKTOWN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.yisd.org"
+  },
+  {
+    "id": 21170,
+    "district": "GREGORY-PORTLAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.g-pisd.org"
+  },
+  {
+    "id": 21017,
+    "district": "CRYSTAL CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crystalcityisd.org"
+  },
+  {
+    "id": 20987,
+    "district": "COMFORT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.comfort.txed.net"
+  },
+  {
+    "id": 21143,
+    "district": "GLADEWATER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.gladewaterisd.com"
+  },
+  {
+    "id": 21434,
+    "district": "MOUNT PLEASANT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.mpisd.net"
+  },
+  {
+    "id": 21359,
+    "district": "LUFKIN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.lufkinisd.org/"
+  },
+  {
+    "id": 21009,
+    "district": "CROCKETT COUNTY CONSOLIDATED CSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ozonaschools.net"
+  },
+  {
+    "id": 21000,
+    "district": "CORSICANA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.cisd.org"
+  },
+  {
+    "id": 21490,
+    "district": "PALMER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.palmer-isd.org"
+  },
+  {
+    "id": 21225,
+    "district": "HUBBARD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://hubbardisd.net"
+  },
+  {
+    "id": 21016,
+    "district": "CROWLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.crowleyisdtx.org"
+  },
+  {
+    "id": 20797,
+    "district": "ACADEMY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.academyisd.net/"
+  }
+]
