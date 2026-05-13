@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18742,
+    "district": "Buckeye Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.buckeyeschools.info/"
+  },
+  {
+    "id": 18749,
+    "district": "Campbell City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.campbell.k12.oh.us/"
+  },
+  {
+    "id": 18756,
+    "district": "Carey Exempted Village Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://careyschools.org"
+  },
+  {
+    "id": 18761,
+    "district": "Centerburg Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.centerburgschools.org/"
+  },
+  {
+    "id": 18767,
+    "district": "Chesapeake Union Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.peake.k12.oh.us/"
+  },
+  {
+    "id": 18775,
+    "district": "Clear Fork Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://cfcolts.org/"
+  },
+  {
+    "id": 18783,
+    "district": "Coldwater Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://cw.noacsc.org/"
+  },
+  {
+    "id": 18790,
+    "district": "Community STE(A)M Academy - Xenia",
+    "state": "OH",
+    "county": "",
+    "website": "http://communitysteam.com/"
+  },
+  {
+    "id": 18795,
+    "district": "Cory-Rawson Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://cory-rawson.k12.oh.us/"
+  },
+  {
+    "id": 18800,
+    "district": "Crestview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crestviewrebels.org/"
+  },
+  {
+    "id": 18805,
+    "district": "Cuyahoga Falls City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cfalls.org/"
+  },
+  {
+    "id": 18810,
+    "district": "Dawson-Bryant Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.db.k12.oh.us/"
+  },
+  {
+    "id": 18817,
+    "district": "Dover City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.dovertornadoes.com"
+  },
+  {
+    "id": 18824,
+    "district": "East Liverpool City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.elcsd.k12.oh.us/"
+  },
+  {
+    "id": 18829,
+    "district": "Eastern Local School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ep.k12.oh.us"
+  },
+  {
+    "id": 18835,
+    "district": "Edison Local (formerly Berlin-Milan)",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.edisonchargers.org"
+  },
+  {
+    "id": 18843,
+    "district": "Fairbanks Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairbanks.k12.oh.us/"
+  },
+  {
+    "id": 18851,
+    "district": "Fairport Harbor Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fhevs.org/"
+  },
+  {
+    "id": 18856,
+    "district": "Felicity-Franklin Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.felicityschools.org/"
+  },
+  {
+    "id": 18864,
+    "district": "Fort Recovery Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fortrecoveryschools.org/"
+  },
+  {
+    "id": 18870,
+    "district": "Fremont City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fremontschools.net/"
+  },
+  {
+    "id": 18878,
+    "district": "Geneva Area City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.genevaschools.org/"
+  },
+  {
+    "id": 18883,
+    "district": "Global Impact STEM Academy",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.globalimpactacademy.org"
+  },
+  {
+    "id": 18892,
+    "district": "Greeneview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.greeneview.k12.oh.us/"
+  },
+  {
+    "id": 18903,
+    "district": "Hicksville Exempted Village School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hicksvilleschools.org"
+  },
+  {
+    "id": 18909,
+    "district": "Holgate Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.holgateschools.org/"
+  },
+  {
+    "id": 18915,
+    "district": "Huntington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.huntsmen.org/"
+  },
+  {
+    "id": 18921,
+    "district": "Indian Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ivschools.org/"
+  },
+  {
+    "id": 18930,
+    "district": "Jefferson Township Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.jeffersontwp.k12.oh.us/"
+  },
+  {
+    "id": 18936,
+    "district": "Kelleys Island Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.kelleys.k12.oh.us/"
+  },
+  {
+    "id": 18943,
+    "district": "Kirtland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.kirtlandschools.org/"
+  },
+  {
+    "id": 18954,
+    "district": "Leetonia Exempted Village School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.leetonia.k12.oh.us/"
+  },
+  {
+    "id": 18959,
+    "district": "Liberty Union-Thurston Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.libertyunion.org"
+  },
+  {
+    "id": 18965,
+    "district": "Lisbon Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lisbon.k12.oh.us/"
+  },
+  {
+    "id": 18976,
+    "district": "Lowellville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lowellville.k12.oh.us/"
+  },
+  {
+    "id": 18981,
+    "district": "Madison Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.madisonmohawks.org/"
+  },
+  {
+    "id": 18986,
+    "district": "Manchester Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.panthercountry.org/"
+  },
+  {
+    "id": 18998,
+    "district": "Marysville Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.marysville.k12.oh.us/"
+  },
+  {
+    "id": 19005,
+    "district": "McComb Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://mccomblocalschool.org/"
+  },
+  {
+    "id": 19012,
+    "district": "Miami East Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.miamieast.k12.oh.us/"
+  }
+]

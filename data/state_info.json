@@ -354,5 +354,23 @@
       "OSDE (Oklahoma State Department of Education) is state-level \u2014 NOT recorded as district staff.",
       "Many OK district websites use JavaScript-loaded staff directories that don't index well \u2014 emails for small districts often need Apollo enrichment."
     ]
+  },
+  "OH": {
+    "state": "OH",
+    "state_name": "Ohio",
+    "last_updated": "2026-05-13",
+    "pre_k_program": "Ohio Early Childhood Education (ECE) grants administered by ODEW (Ohio Department of Education and Workforce). Districts apply for ECE grants to fund classroom-based preschool for at-risk 3-4 year olds. Many large districts operate full-day, multi-classroom preschool programs.",
+    "literacy_initiative": "Science of Reading mandate (HB 33, 2023) \u2014 all K-3 districts must use ODEW-approved core curriculum (LETRS training required for K-3 + ECE teachers, full rollout by 2025-26). Reading by Grade 3 retention law.",
+    "leadership_terminology": "Ohio has 619 public school districts. Largest: Columbus, Cleveland, Cincinnati, Toledo, Akron, Dayton, Canton, Youngstown, Parma, South-Western, Lakota Local, Westerville, Olentangy, Dublin, Hilliard, Hamilton, Mason, Pickerington. Ohio uses 'City', 'Local', 'Exempted Village' as district type suffixes. Reject Educational Service Center (ESC) contacts as district staff.",
+    "notes": [
+      "**ODEW Science of Reading mandate (HB 33)** is the biggest curriculum buying signal in OH right now \u2014 K-3 and ECE teachers must complete LETRS training by 2025-26, and districts must use ODEW-approved curriculum. Strong adjacent ECE signal.",
+      "**Educational Service Centers (ESCs)** support smaller districts with curriculum, sped, and ECE coordination \u2014 reject ESC staff (@escneo.org, @hcesc.org, @lcesc.org, @scoesc.org, @mvesc.org, @athensmeigs.com, etc.) as district-level contacts.",
+      "**Standout dedicated ECE leads**: Cleveland (Office of Early Childhood & Literacy), Toledo (Ann Newton, ECE), Akron (Early Learning Program), Youngstown (Kelsey Kepple, ECE Supervisor), Hamilton Local (Jan Strahm, Preschool Coordinator), Centerville (Andrea Contestable, Preschool), Lakewood (Lincoln Elementary preschool conversion 2027-28), Shaker Heights (new Ludlow ELC, IB-PYP), Lakota (six early childhood schools, Lori Brown Exec Dir C&I), Middletown (Keri Hensley, Sr Dir Curriculum), Euclid (Cynthia Urbic, PK-5 Coordinator), Blanchester (Raechel Purdon \u2014 explicitly owns Early Learning & Development), Pickerington (Bethany Rutter), Parma (Amy Szeremet), Strongsville (Ciara Vanderhoff), Gahanna-Jefferson (Missy Grimmett), Findlay (Nelson), Marion (Garilee Ogden), Bellevue (Kimberly Swartz), Loveland (Stace Puerta), Cincinnati (multi-school preschool network), Northmont (Jessie Zink), Forest Hills, Wyoming (Whitely incoming).",
+      "**Strong active buying signals**: Green Local (Summit) actively reviewing preschool curriculum for Fall 2025 implementation; Kettering uses Creative Curriculum + Pathfinders PreK (ODEW-funded); Batavia has 20+ student PK waitlist; Franklin Monroe brand-new Junior Jet Academy preschool opened Aug 2023; Lakewood Lincoln Elementary preschool conversion 2027-28.",
+      "**Recent leadership transitions to flag**: Adams County Ohio Valley (Larry Hook hired May 2026), Allen East (Willoughby incoming Aug 2026), Lakota (Whitely incoming from Wyoming), St Clairsville (Laudermilt interim supt), Marietta (new supt May 2025), Elyria (Griffiths promoted Aug 2025), Bath Local (Estes retiring, Cano incoming), Benjamin Logan (Scheu retiring, Flynn incoming), Canton Local (Yeagley leaving to Lake Local), Mayfield (Loncar new Aug 2023), Lakewood Student Services (Morgan new Aug 2025), Johnstown-Monroe (Wagner left for state superintendent role), Indian Hill (Stewart moving to Superintendent).",
+      "**Email convention varies widely** \u2014 many districts use a district-specific domain (e.g., `columbus.k12.oh.us`, `cmsdnet.net` Cleveland, `cps-k12.org` Cincinnati, `tps.org` Toledo, `akronschools.com`, `dps.k12.oh.us` Dayton, `cantonlocal.org`, `lakotaonline.com`, `pickeringtonschools.org`, `dublinschools.net`, `hilliardschools.org`, `olentangy.k12.oh.us`, `westerville.k12.oh.us`). Other districts route through `*.k12.oh.us` or ESC-hosted email; verify before sending.",
+      "**District typology**: City (large urban), Local (smaller / rural), Exempted Village (small village-based). Most ECE programming concentrated in City and large Local districts.",
+      "Some staff directories sit behind JavaScript-loaded portals (PowerSchool, FinalForms) that don't index well \u2014 Apollo/ZoomInfo enrichment likely needed for the remaining 419 unenriched OH districts."
+    ]
   }
 }

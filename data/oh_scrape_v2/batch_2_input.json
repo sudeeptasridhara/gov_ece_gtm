@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18740,
+    "district": "Bryan City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bryan.k12.oh.us/"
+  },
+  {
+    "id": 18745,
+    "district": "Buckeye Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.buckeyevalley.k12.oh.us/"
+  },
+  {
+    "id": 18754,
+    "district": "Cardinal Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://cardinalschools.org/"
+  },
+  {
+    "id": 18759,
+    "district": "Cedar Cliff Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://cedarcliffschools.net"
+  },
+  {
+    "id": 18765,
+    "district": "Champion Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.championlocal.org/"
+  },
+  {
+    "id": 18773,
+    "district": "Clay Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.clay.k12.oh.us/"
+  },
+  {
+    "id": 18780,
+    "district": "Clinton-Massie Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cmfalcons.org"
+  },
+  {
+    "id": 18786,
+    "district": "Columbia Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.columbia.k12.oh.us/"
+  },
+  {
+    "id": 18793,
+    "district": "Continental Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://continentalpirates.org/"
+  },
+  {
+    "id": 18798,
+    "district": "Covington Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.covington.k12.oh.us/"
+  },
+  {
+    "id": 18803,
+    "district": "Crestwood Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crestwoodschools.org/"
+  },
+  {
+    "id": 18808,
+    "district": "Danbury Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.danburyschools.org/"
+  },
+  {
+    "id": 18815,
+    "district": "Delaware City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.dcs.k12.oh.us/"
+  },
+  {
+    "id": 18822,
+    "district": "East Holmes Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.eastholmes.k12.oh.us/"
+  },
+  {
+    "id": 18827,
+    "district": "Eastern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.easternlocal.com/"
+  },
+  {
+    "id": 18832,
+    "district": "Edgerton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.edgerton.k12.oh.us/"
+  },
+  {
+    "id": 18838,
+    "district": "Elida Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.home.elida.k12.oh.us/"
+  },
+  {
+    "id": 18849,
+    "district": "Fairlawn Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairlawn.k12.oh.us/"
+  },
+  {
+    "id": 18854,
+    "district": "Fayetteville-Perry Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fpls.us"
+  },
+  {
+    "id": 18862,
+    "district": "Fort Frye Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fortfrye.k12.oh.us/"
+  },
+  {
+    "id": 18867,
+    "district": "Franklin Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.franklinlocalschools.org/"
+  },
+  {
+    "id": 18874,
+    "district": "Gallia County Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.gallialocal.org/"
+  },
+  {
+    "id": 18881,
+    "district": "Gibsonburg Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.gibsonburg.k12.oh.us/"
+  },
+  {
+    "id": 18886,
+    "district": "Grand Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.grand-valley.k12.oh.us/"
+  },
+  {
+    "id": 18901,
+    "district": "Harrison Hills City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hhcsd.org/"
+  },
+  {
+    "id": 18907,
+    "district": "Hillsboro City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hillsboro.k12.oh.us/"
+  },
+  {
+    "id": 18912,
+    "district": "Hubbard Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hubbard.k12.oh.us/"
+  },
+  {
+    "id": 18918,
+    "district": "Indian Creek Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.iclsd.org"
+  },
+  {
+    "id": 18928,
+    "district": "Jefferson Area Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.jalsd.org/"
+  },
+  {
+    "id": 18934,
+    "district": "Joseph Badger Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.badgerbraves.org"
+  },
+  {
+    "id": 18939,
+    "district": "Kenton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.kentoncityschools.org/"
+  },
+  {
+    "id": 18946,
+    "district": "Lake Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakeschools.org/"
+  },
+  {
+    "id": 18957,
+    "district": "Liberty Center Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.libertycenter.k12.oh.us/"
+  },
+  {
+    "id": 18962,
+    "district": "Licking Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lickingvalley.k12.oh.us"
+  },
+  {
+    "id": 18973,
+    "district": "Loudonville-Perrysville Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://lpschools.k12.oh.us/"
+  },
+  {
+    "id": 18979,
+    "district": "Mad River Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://thunder.madriver.k12.oh.us/"
+  },
+  {
+    "id": 18984,
+    "district": "Madison-Plains Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mplsd.org/"
+  },
+  {
+    "id": 18991,
+    "district": "Margaretta Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.margarettaschooldistrict.com"
+  },
+  {
+    "id": 19002,
+    "district": "Maumee City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.maumee.k12.oh.us/"
+  },
+  {
+    "id": 19009,
+    "district": "Meigs Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ml.k12.oh.us/"
+  }
+]

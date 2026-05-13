@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18819,
+    "district": "East Cleveland City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.east-cleveland.k12.oh.us/"
+  },
+  {
+    "id": 18811,
+    "district": "Dayton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.daytonpublic/"
+  },
+  {
+    "id": 19287,
+    "district": "Youngstown City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ycsd.org"
+  },
+  {
+    "id": 18951,
+    "district": "Lakota Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakotaschools.org"
+  },
+  {
+    "id": 18906,
+    "district": "Hilliard City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hilliardschools.org/"
+  },
+  {
+    "id": 18999,
+    "district": "Mason City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.masonohioschools.com"
+  },
+  {
+    "id": 19042,
+    "district": "New Lebanon Local School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newlebanonschools.org/"
+  },
+  {
+    "id": 19016,
+    "district": "Middletown City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.middletowncityschools.com/"
+  },
+  {
+    "id": 18841,
+    "district": "Euclid City",
+    "state": "OH",
+    "county": "",
+    "website": "http://euclidschools.org/"
+  },
+  {
+    "id": 19008,
+    "district": "Medina City SD",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.medinabees.org/"
+  },
+  {
+    "id": 18847,
+    "district": "Fairfield Union Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairfieldunion.org"
+  },
+  {
+    "id": 18913,
+    "district": "Huber Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.myhhcs.org"
+  },
+  {
+    "id": 18987,
+    "district": "Mansfield City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tygerpride.com/"
+  },
+  {
+    "id": 18971,
+    "district": "Lorain City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lorainschools.org/"
+  },
+  {
+    "id": 18782,
+    "district": "Clyde-Green Springs Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.clyde.k12.oh.us/"
+  },
+  {
+    "id": 18892,
+    "district": "Greeneview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.greeneview.k12.oh.us/"
+  },
+  {
+    "id": 18924,
+    "district": "Jackson City",
+    "state": "OH",
+    "county": "",
+    "website": "http://jcs.k12.oh.us/"
+  },
+  {
+    "id": 19289,
+    "district": "Zanesville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.zanesville.k12.oh.us/"
+  },
+  {
+    "id": 19282,
+    "district": "Worthington City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.worthington.k12.oh.us/"
+  },
+  {
+    "id": 18896,
+    "district": "Groveport Madison Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.gocruisers.org/"
+  },
+  {
+    "id": 18771,
+    "district": "Circleville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://circlevillecityschools.org/"
+  },
+  {
+    "id": 18969,
+    "district": "Logan-Hocking Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://loganhocking.k12.oh.us/"
+  },
+  {
+    "id": 18922,
+    "district": "Ironton City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tigertown.com/"
+  },
+  {
+    "id": 18747,
+    "district": "Caldwell Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.caldwell.k12.oh.us/"
+  },
+  {
+    "id": 19018,
+    "district": "Milford Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.milfordschools.org/"
+  },
+  {
+    "id": 18868,
+    "district": "Franklin Monroe Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.franklin-monroe.k12.oh.us/"
+  },
+  {
+    "id": 19145,
+    "district": "Rossford Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rossfordschools.org/"
+  },
+  {
+    "id": 18859,
+    "district": "Finneytown Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://finneytown.org/"
+  },
+  {
+    "id": 18672,
+    "district": "Ada Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://ada.k12.oh.us/"
+  },
+  {
+    "id": 18678,
+    "district": "Alliance City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.alliancecityschools.org/"
+  },
+  {
+    "id": 18683,
+    "district": "Anthony Wayne Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.anthonywayneschools.org"
+  },
+  {
+    "id": 18688,
+    "district": "Arlington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.arlingtonlocalschools.com/"
+  },
+  {
+    "id": 18697,
+    "district": "Barberton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.barbertonschools.org/"
+  },
+  {
+    "id": 18702,
+    "district": "Beachwood City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.beachwoodschools.org/"
+  },
+  {
+    "id": 18708,
+    "district": "Bellefontaine City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bellefontaine.k12.oh.us/"
+  },
+  {
+    "id": 18715,
+    "district": "Berne Union Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://berne-union.k12.oh.us/"
+  },
+  {
+    "id": 18722,
+    "district": "Blanchester Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.blanschools.org/"
+  },
+  {
+    "id": 18727,
+    "district": "Boardman Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.boardman.k12.oh.us/"
+  },
+  {
+    "id": 18733,
+    "district": "Bright Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.blsd.us"
+  },
+  {
+    "id": 18738,
+    "district": "Brown Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.brownlocalschools.com/"
+  }
+]

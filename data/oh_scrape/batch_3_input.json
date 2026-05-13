@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18778,
+    "district": "Cleveland Heights-University Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.chuh.org/"
+  },
+  {
+    "id": 19203,
+    "district": "Toledo City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tps.org/"
+  },
+  {
+    "id": 18753,
+    "district": "Canton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cantonlocal.org"
+  },
+  {
+    "id": 18898,
+    "district": "Hamilton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hamilton-local.k12.oh.us/"
+  },
+  {
+    "id": 19088,
+    "district": "Olentangy Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.olentangy.k12.oh.us/"
+  },
+  {
+    "id": 19010,
+    "district": "Mentor Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mentorschools.net/"
+  },
+  {
+    "id": 18942,
+    "district": "Kings Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.kingslocal.net/"
+  },
+  {
+    "id": 19178,
+    "district": "Springfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://springfieldspartans.org/"
+  },
+  {
+    "id": 19141,
+    "district": "Rocky River City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rrcs.org/"
+  },
+  {
+    "id": 18877,
+    "district": "Garfield Heights City Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.garfieldheightscityschools.com/"
+  },
+  {
+    "id": 18845,
+    "district": "Fairfield City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairfieldcityschools.com/"
+  },
+  {
+    "id": 18762,
+    "district": "Centerville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.centerville.k12.oh.us/"
+  },
+  {
+    "id": 19281,
+    "district": "Wooster City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.woostercityschools.org/"
+  },
+  {
+    "id": 19148,
+    "district": "Sandusky City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sandusky-city.k12.oh.us/"
+  },
+  {
+    "id": 18695,
+    "district": "Avon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.avonlocalschools.org/"
+  },
+  {
+    "id": 18890,
+    "district": "Green Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.greenlocalschools.org/"
+  },
+  {
+    "id": 18895,
+    "district": "Greenville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.greenville.k12.oh.us/"
+  },
+  {
+    "id": 18952,
+    "district": "Lancaster City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lancaster.k12.oh.us/"
+  },
+  {
+    "id": 19033,
+    "district": "Mount Vernon City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mvcsd.us"
+  },
+  {
+    "id": 18887,
+    "district": "Grandview Heights Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ghschools.org"
+  },
+  {
+    "id": 18970,
+    "district": "London City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.london.k12.oh.us/"
+  },
+  {
+    "id": 18711,
+    "district": "Benjamin Logan Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.benjaminlogan.org"
+  },
+  {
+    "id": 18997,
+    "district": "Martins Ferry City",
+    "state": "OH",
+    "county": "",
+    "website": "http://mfcsd.k12.oh.us/"
+  },
+  {
+    "id": 18710,
+    "district": "Belpre City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.belpre.k12.oh.us/"
+  },
+  {
+    "id": 19082,
+    "district": "Norwood City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.norwoodschools.org/"
+  },
+  {
+    "id": 19122,
+    "district": "Princeton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.princeton.k12.oh.us/"
+  },
+  {
+    "id": 19029,
+    "district": "Monroeville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.monroevilleschools.org/"
+  },
+  {
+    "id": 18919,
+    "district": "Indian Hill Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://indianhillschools.org/"
+  },
+  {
+    "id": 18967,
+    "district": "Lockland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.locklandschools.org/"
+  },
+  {
+    "id": 18676,
+    "district": "Alexander Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.alexanderschools.org/"
+  },
+  {
+    "id": 18681,
+    "district": "Anna Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.anna.k12.oh.us/"
+  },
+  {
+    "id": 18686,
+    "district": "Arcanum-Butler Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.arcanum-butler.k12.oh.us/"
+  },
+  {
+    "id": 18693,
+    "district": "Austintown Local Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.austintownschools.org/"
+  },
+  {
+    "id": 18700,
+    "district": "Bath Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bathwildcats.org/"
+  },
+  {
+    "id": 18706,
+    "district": "Bellaire Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bellaire.k12.oh.us/"
+  },
+  {
+    "id": 18713,
+    "district": "Berea City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.berea.k12.oh.us/"
+  },
+  {
+    "id": 18720,
+    "district": "Bio-Med Science Academy STEM School",
+    "state": "OH",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18725,
+    "district": "Bloomfield-Mespo Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bloomfieldmesposchools.org/"
+  },
+  {
+    "id": 18731,
+    "district": "Brecksville-Broadview Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bbhcsd.org/"
+  },
+  {
+    "id": 18736,
+    "district": "Brooklyn City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bcshurricanes.org"
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18779,
+    "district": "Cleveland Municipal",
+    "state": "OH",
+    "county": "",
+    "website": "http://clevelandmetroschools.org/"
+  },
+  {
+    "id": 18675,
+    "district": "Akron City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.akronschools.com/"
+  },
+  {
+    "id": 19058,
+    "district": "North Canton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northcantonschools.org/"
+  },
+  {
+    "id": 18950,
+    "district": "Lakota Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakotaonline.com/"
+  },
+  {
+    "id": 18818,
+    "district": "Dublin City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.dublinschools.net/"
+  },
+  {
+    "id": 19193,
+    "district": "Sycamore Community City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sycamoreschools.org/"
+  },
+  {
+    "id": 18953,
+    "district": "Lebanon City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lebanonschools.org/"
+  },
+  {
+    "id": 19179,
+    "district": "Springfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.springfieldspartans.org"
+  },
+  {
+    "id": 19154,
+    "district": "Shaker Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.shaker.org/"
+  },
+  {
+    "id": 18739,
+    "district": "Brunswick City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bcsoh.org/"
+  },
+  {
+    "id": 18846,
+    "district": "Fairfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairfieldlocal.org/"
+  },
+  {
+    "id": 18844,
+    "district": "Fairborn City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairborn.k12.oh.us/"
+  },
+  {
+    "id": 18689,
+    "district": "Ashland City",
+    "state": "OH",
+    "county": "",
+    "website": "http://ashlandcityschools.org/"
+  },
+  {
+    "id": 19222,
+    "district": "Upper Sandusky Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.usevs.org/"
+  },
+  {
+    "id": 18729,
+    "district": "Bowling Green City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bgcs.k12.oh.us/"
+  },
+  {
+    "id": 18891,
+    "district": "Green Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.green-local.k12.oh.us/"
+  },
+  {
+    "id": 18923,
+    "district": "Jackson Center Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.jctigers.org"
+  },
+  {
+    "id": 19049,
+    "district": "Newark City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newarkcityschools.org"
+  },
+  {
+    "id": 19128,
+    "district": "Reynoldsburg City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.reyn.org/"
+  },
+  {
+    "id": 19270,
+    "district": "Whitehall City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.whitehallcityschools.org/"
+  },
+  {
+    "id": 19044,
+    "district": "New London Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nlschools.org/"
+  },
+  {
+    "id": 18968,
+    "district": "Logan Elm Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.loganelmschools.com/"
+  },
+  {
+    "id": 19181,
+    "district": "St Clairsville-Richland City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.stcschools.com"
+  },
+  {
+    "id": 18993,
+    "district": "Marietta City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.marietta-city.org/"
+  },
+  {
+    "id": 18861,
+    "district": "Forest Hills Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.foresthills.edu/"
+  },
+  {
+    "id": 18833,
+    "district": "Edgewood City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.edgewoodschools.com/"
+  },
+  {
+    "id": 19144,
+    "district": "Ross Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rossrams.com/"
+  },
+  {
+    "id": 19284,
+    "district": "Wyoming City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wyomingcityschools.org/"
+  },
+  {
+    "id": 19180,
+    "district": "St Bernard-Elmwood Place City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sbepschools.org/"
+  },
+  {
+    "id": 18677,
+    "district": "Allen East Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ae.k12.oh.us/"
+  },
+  {
+    "id": 18682,
+    "district": "Ansonia Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ansonia.k12.oh.us/"
+  },
+  {
+    "id": 18687,
+    "district": "Archbold-Area Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.archbold.k12.oh.us/"
+  },
+  {
+    "id": 18696,
+    "district": "Ayersville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ayersville.org/"
+  },
+  {
+    "id": 18701,
+    "district": "Bay Village City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bayvillageschools.com/"
+  },
+  {
+    "id": 18707,
+    "district": "Bellbrook-Sugarcreek Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sugarcreek.k12.oh.us/"
+  },
+  {
+    "id": 18714,
+    "district": "Berkshire Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.berkshireschools.org/"
+  },
+  {
+    "id": 18721,
+    "district": "Black River Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.blackriverschools.org/"
+  },
+  {
+    "id": 18726,
+    "district": "Bluffton Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.blufftonschools.org"
+  },
+  {
+    "id": 18732,
+    "district": "Bridgeport Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bevs.k12.oh.us/"
+  },
+  {
+    "id": 18737,
+    "district": "Brookville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.brookvilleschools.org/"
+  }
+]

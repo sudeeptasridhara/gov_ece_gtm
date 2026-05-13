@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18741,
+    "district": "Buckeye Central Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.buckeye-central.k12.oh.us/"
+  },
+  {
+    "id": 18746,
+    "district": "Bucyrus City",
+    "state": "OH",
+    "county": "",
+    "website": "http://bucyrusschools.org/"
+  },
+  {
+    "id": 18755,
+    "district": "Cardington-Lincoln Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cardington.k12.oh.us/"
+  },
+  {
+    "id": 18760,
+    "district": "Celina City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.celinaschools.org/"
+  },
+  {
+    "id": 18766,
+    "district": "Chardon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.chardon.k12.oh.us/"
+  },
+  {
+    "id": 18774,
+    "district": "Claymont City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.claymontschools.org/"
+  },
+  {
+    "id": 18781,
+    "district": "Cloverleaf Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cloverleaflocal.org/"
+  },
+  {
+    "id": 18787,
+    "district": "Columbiana Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.columbiana.k12.oh.us/"
+  },
+  {
+    "id": 18794,
+    "district": "Copley-Fairlawn City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.copley-fairlawn.org"
+  },
+  {
+    "id": 18799,
+    "district": "Crestline Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crestline.k12.oh.us/"
+  },
+  {
+    "id": 18804,
+    "district": "Crooksville Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crooksville.org"
+  },
+  {
+    "id": 18809,
+    "district": "Danville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.danvilleschools.org/"
+  },
+  {
+    "id": 18816,
+    "district": "Delphos City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.delphoscityschools.org/"
+  },
+  {
+    "id": 18823,
+    "district": "East Knox Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.eastknox.k12.oh.us/"
+  },
+  {
+    "id": 18828,
+    "district": "Eastern Local School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.elsd.us/"
+  },
+  {
+    "id": 18834,
+    "district": "Edison Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.edisonlocal.k12.oh.us/"
+  },
+  {
+    "id": 18839,
+    "district": "Elmwood Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.elmwood.k12.oh.us/"
+  },
+  {
+    "id": 18850,
+    "district": "Fairless Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairlesslocalschools.org"
+  },
+  {
+    "id": 18855,
+    "district": "Federal Hocking Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fedhock.com/"
+  },
+  {
+    "id": 18863,
+    "district": "Fort Loramie Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.loramie.k12.oh.us/"
+  },
+  {
+    "id": 18869,
+    "district": "Fredericktown Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fredericktownschools.com/"
+  },
+  {
+    "id": 18876,
+    "district": "Garaway Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.garaway.org/"
+  },
+  {
+    "id": 18882,
+    "district": "Girard City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://girardcityschools.org/"
+  },
+  {
+    "id": 18888,
+    "district": "Granville Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.granvilleschools.org/"
+  },
+  {
+    "id": 18902,
+    "district": "Heath City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.heath.k12.oh.us/"
+  },
+  {
+    "id": 18908,
+    "district": "Hillsdale Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hillsdale.k12.oh.us/"
+  },
+  {
+    "id": 18914,
+    "district": "Hudson City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hudson.k12.oh.us/"
+  },
+  {
+    "id": 18920,
+    "district": "Indian Lake Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.indianlake.k12.oh.us/"
+  },
+  {
+    "id": 18929,
+    "district": "Jefferson Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.west-jefferson.k12.oh.us/"
+  },
+  {
+    "id": 18935,
+    "district": "Kalida Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://kalidaschools.org"
+  },
+  {
+    "id": 18941,
+    "district": "Keystone Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://keystonelocalschools.org/"
+  },
+  {
+    "id": 18947,
+    "district": "Lakeview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakeviewlocal.org/"
+  },
+  {
+    "id": 18958,
+    "district": "Liberty Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.libertylocalschools.org/"
+  },
+  {
+    "id": 18964,
+    "district": "Lincolnview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lincolnview.k12.oh.us/"
+  },
+  {
+    "id": 18974,
+    "district": "Louisville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.louisvillecityschools.org"
+  },
+  {
+    "id": 18980,
+    "district": "Madeira City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.madeiracityschools.org/"
+  },
+  {
+    "id": 18985,
+    "district": "Manchester Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mlsd.us/"
+  },
+  {
+    "id": 18996,
+    "district": "Marlington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.marlingtonlocal.org"
+  },
+  {
+    "id": 19004,
+    "district": "Maysville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.maysvillelocal.org"
+  },
+  {
+    "id": 19011,
+    "district": "Metro Early College High School",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.themetroschool.org"
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18789,
+    "district": "Columbus Grove Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://cg.noacsc.org/"
+  },
+  {
+    "id": 18770,
+    "district": "Cincinnati Public Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cps-k12.org/"
+  },
+  {
+    "id": 18752,
+    "district": "Canton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ccsdistrict.org/"
+  },
+  {
+    "id": 18897,
+    "district": "Hamilton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://hamiltoncityschools.com/"
+  },
+  {
+    "id": 19266,
+    "district": "Westerville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westerville.k12.oh.us/"
+  },
+  {
+    "id": 18949,
+    "district": "Lakewood Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakewoodlocal.k12.oh.us/"
+  },
+  {
+    "id": 18704,
+    "district": "Beavercreek City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.beavercreek.k12.oh.us/"
+  },
+  {
+    "id": 19177,
+    "district": "Springfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.springfield-schools.org"
+  },
+  {
+    "id": 19268,
+    "district": "Westlake City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wlake.org"
+  },
+  {
+    "id": 18988,
+    "district": "Maple Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mapleschools.com/"
+  },
+  {
+    "id": 19062,
+    "district": "North Olmsted City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northolmstedschools.org/"
+  },
+  {
+    "id": 18940,
+    "district": "Kettering City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ketteringschools.org/"
+  },
+  {
+    "id": 19235,
+    "district": "Wadsworth City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wadsworth.k12.oh.us/"
+  },
+  {
+    "id": 18858,
+    "district": "Findlay City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.findlaycityschools.org/"
+  },
+  {
+    "id": 18694,
+    "district": "Avon Lake City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.avonlakecityschools.org/"
+  },
+  {
+    "id": 18889,
+    "district": "Green Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.green-local.k12.oh.us/"
+  },
+  {
+    "id": 18894,
+    "district": "Greenon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.greenonschools.org/"
+  },
+  {
+    "id": 18926,
+    "district": "Jackson-Milton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.jacksonmilton.k12.oh.us/"
+  },
+  {
+    "id": 18995,
+    "district": "Marion Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.marionlocal.org/"
+  },
+  {
+    "id": 18718,
+    "district": "Bexley City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bexley.us/"
+  },
+  {
+    "id": 19038,
+    "district": "New Albany-Plain Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.napls.us/"
+  },
+  {
+    "id": 18691,
+    "district": "Athens City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.athenscsd.org"
+  },
+  {
+    "id": 19184,
+    "district": "Steubenville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://steubenville.k12.oh.us/"
+  },
+  {
+    "id": 18875,
+    "district": "Gallipolis City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.gallipoliscityschools.k12.oh.us/"
+  },
+  {
+    "id": 19009,
+    "district": "Meigs Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ml.k12.oh.us/"
+  },
+  {
+    "id": 19084,
+    "district": "Oak Hills Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://ohlsd.us/"
+  },
+  {
+    "id": 19028,
+    "district": "Monroe Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.monroelocalschools.com/"
+  },
+  {
+    "id": 18992,
+    "district": "Mariemont City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mariemontschools.org/"
+  },
+  {
+    "id": 19126,
+    "district": "Reading Community City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.readingschools.org/"
+  },
+  {
+    "id": 18674,
+    "district": "Adena Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.adena.k12.oh.us/"
+  },
+  {
+    "id": 18680,
+    "district": "Amherst Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.amherstk12.org"
+  },
+  {
+    "id": 18685,
+    "district": "Arcadia Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.arcadiaschools.org/"
+  },
+  {
+    "id": 18692,
+    "district": "Aurora City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.aurora-schools.org/"
+  },
+  {
+    "id": 18699,
+    "district": "Batavia Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bataviaschools.org/"
+  },
+  {
+    "id": 18705,
+    "district": "Bedford City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bedfordschools.org/"
+  },
+  {
+    "id": 18712,
+    "district": "Benton Carroll Salem Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bcs.k12.oh.us/"
+  },
+  {
+    "id": 18717,
+    "district": "Bethel-Tate Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.betheltate.org/"
+  },
+  {
+    "id": 18724,
+    "district": "Bloom-Vernon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bv.k12.oh.us/"
+  },
+  {
+    "id": 18730,
+    "district": "Bradford Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bradford.k12.oh.us/"
+  },
+  {
+    "id": 18735,
+    "district": "Brookfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.brookfield.k12.oh.us/"
+  }
+]

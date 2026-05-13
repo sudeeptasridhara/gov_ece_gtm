@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18743,
+    "district": "Buckeye Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.buckeyelocal.net/"
+  },
+  {
+    "id": 18750,
+    "district": "Canal Winchester Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cwschools.org/"
+  },
+  {
+    "id": 18757,
+    "district": "Carlisle Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.carlisleindians.org/"
+  },
+  {
+    "id": 18763,
+    "district": "Central Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.centrallocal.org/"
+  },
+  {
+    "id": 18769,
+    "district": "Chippewa Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.chippewa.k12.oh.us/"
+  },
+  {
+    "id": 18776,
+    "district": "Clearview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.clearview.k12.oh.us/"
+  },
+  {
+    "id": 18784,
+    "district": "College Corner Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.uc.k12.in.us/"
+  },
+  {
+    "id": 18791,
+    "district": "Conneaut Area City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cacsk12.org/"
+  },
+  {
+    "id": 18796,
+    "district": "Coshocton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.coshoctoncityschools.com"
+  },
+  {
+    "id": 18801,
+    "district": "Crestview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crestviewschools.net"
+  },
+  {
+    "id": 18806,
+    "district": "Cuyahoga Heights Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cuyhts.org"
+  },
+  {
+    "id": 18813,
+    "district": "Deer Park Community City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.deerparkcityschools.org/"
+  },
+  {
+    "id": 18820,
+    "district": "East Clinton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.east-clinton.k12.oh.us/"
+  },
+  {
+    "id": 18825,
+    "district": "East Muskingum Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.east-muskingum.k12.oh.us/"
+  },
+  {
+    "id": 18830,
+    "district": "Eastwood Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.eastwoodschools.org/"
+  },
+  {
+    "id": 18836,
+    "district": "Edon Northwest Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.edon.k12.oh.us/"
+  },
+  {
+    "id": 18846,
+    "district": "Fairfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairfieldlocal.org/"
+  },
+  {
+    "id": 18852,
+    "district": "Fairview Park City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairviewparkschools.org/"
+  },
+  {
+    "id": 18857,
+    "district": "Field Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fieldlocalschools.org/"
+  },
+  {
+    "id": 18865,
+    "district": "Fostoria City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fostoriaschools.org"
+  },
+  {
+    "id": 18871,
+    "district": "Frontier Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.flsd.k12.oh.us/"
+  },
+  {
+    "id": 18879,
+    "district": "Genoa Area Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.genoaschools.com/"
+  },
+  {
+    "id": 18884,
+    "district": "Goshen Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.goshenlocalschools.org/"
+  },
+  {
+    "id": 18899,
+    "district": "Hardin Northern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://hn.k12.oh.us/"
+  },
+  {
+    "id": 18904,
+    "district": "Highland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.highlandschools.org/"
+  },
+  {
+    "id": 18910,
+    "district": "Hopewell-Loudon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hopewell-loudon.k12.oh.us/"
+  },
+  {
+    "id": 18916,
+    "district": "Huron City Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.huron-city.k12.oh.us/"
+  },
+  {
+    "id": 19290,
+    "district": "iSTEM",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.istemghs.org"
+  },
+  {
+    "id": 18931,
+    "district": "Jennings Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.jenningslocal.org/"
+  },
+  {
+    "id": 18937,
+    "district": "Kenston Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://kenstonlocal.org/"
+  },
+  {
+    "id": 18944,
+    "district": "LaBrae Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://labrae.school"
+  },
+  {
+    "id": 18955,
+    "district": "Leipsic Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://llsdk12.org/"
+  },
+  {
+    "id": 18960,
+    "district": "Liberty-Benton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.liberty-benton.org/"
+  },
+  {
+    "id": 18966,
+    "district": "Little Miami Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.littlemiamischools.com/"
+  },
+  {
+    "id": 18977,
+    "district": "Lucas Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lucascubs.org/"
+  },
+  {
+    "id": 18982,
+    "district": "Madison Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.madisonschools.net/"
+  },
+  {
+    "id": 18989,
+    "district": "Mapleton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://mapletonmounties.org/"
+  },
+  {
+    "id": 19000,
+    "district": "Massillon City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.massillonschools.org/"
+  },
+  {
+    "id": 19006,
+    "district": "McDonald Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mcdonald.k12.oh.us/"
+  },
+  {
+    "id": 19013,
+    "district": "Miami Trace Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.miamitrace.k12.oh.us/"
+  }
+]

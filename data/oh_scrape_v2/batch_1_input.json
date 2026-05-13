@@ -1,0 +1,282 @@
+[
+  {
+    "id": 18724,
+    "district": "Bloom-Vernon Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.bv.k12.oh.us/"
+  },
+  {
+    "id": 18744,
+    "district": "Buckeye Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.buckeyeschools.org/"
+  },
+  {
+    "id": 18751,
+    "district": "Canfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.canfield.access-k12.org/"
+  },
+  {
+    "id": 18758,
+    "district": "Carrollton Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.carrolltonschools.org"
+  },
+  {
+    "id": 18764,
+    "district": "Chagrin Falls Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.chagrinschools.org"
+  },
+  {
+    "id": 18772,
+    "district": "Clark-Shawnee Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.clarkshawnee.org"
+  },
+  {
+    "id": 18777,
+    "district": "Clermont Northeastern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cneschools.org/"
+  },
+  {
+    "id": 18785,
+    "district": "Colonel Crawford Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.cck12.org/"
+  },
+  {
+    "id": 18792,
+    "district": "Conotton Valley Union Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.conottonvalley.k12.oh.us/"
+  },
+  {
+    "id": 18797,
+    "district": "Coventry Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.coventryschools.org/"
+  },
+  {
+    "id": 18802,
+    "district": "Crestview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.crestviewknights.com"
+  },
+  {
+    "id": 18807,
+    "district": "Dalton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.daltonlocal.org"
+  },
+  {
+    "id": 18814,
+    "district": "Defiance City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.defiancecityschools.org/"
+  },
+  {
+    "id": 18821,
+    "district": "East Guernsey Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.eguernsey.k12.oh.us"
+  },
+  {
+    "id": 18826,
+    "district": "East Palestine City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.myepschools.org/"
+  },
+  {
+    "id": 18831,
+    "district": "Eaton Community City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.eaton.k12.oh.us/"
+  },
+  {
+    "id": 18837,
+    "district": "Elgin Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.elginschools.org/"
+  },
+  {
+    "id": 18848,
+    "district": "Fairland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fairland.k12.oh.us/"
+  },
+  {
+    "id": 18853,
+    "district": "Fayette Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.fayettesch.org/"
+  },
+  {
+    "id": 18860,
+    "district": "Firelands Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.firelandsschools.org/"
+  },
+  {
+    "id": 18866,
+    "district": "Franklin City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.franklincityschools.com/"
+  },
+  {
+    "id": 18873,
+    "district": "Galion City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.galionschools.org"
+  },
+  {
+    "id": 18880,
+    "district": "Georgetown Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.gtown.k12.oh.us/"
+  },
+  {
+    "id": 18885,
+    "district": "Graham Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.grahamlocalschools.org/"
+  },
+  {
+    "id": 18900,
+    "district": "Hardin-Houston Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hardinhouston.org"
+  },
+  {
+    "id": 18905,
+    "district": "Highland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://highland.k12.oh.us/"
+  },
+  {
+    "id": 18911,
+    "district": "Howland Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.howlandschools.com/"
+  },
+  {
+    "id": 18917,
+    "district": "Independence Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.independence.k12.oh.us/"
+  },
+  {
+    "id": 18927,
+    "district": "James A Garfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://jagschools.org"
+  },
+  {
+    "id": 18933,
+    "district": "Jonathan Alder Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.alder.k12.oh.us/"
+  },
+  {
+    "id": 18938,
+    "district": "Kent City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.kentschools.net/"
+  },
+  {
+    "id": 18945,
+    "district": "Lake Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lakelocal.org/"
+  },
+  {
+    "id": 18956,
+    "district": "Lexington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lexington.k12.oh.us/"
+  },
+  {
+    "id": 18961,
+    "district": "Licking Heights Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lhschools.org/"
+  },
+  {
+    "id": 18972,
+    "district": "Lordstown Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lordstown.k12.oh.us/"
+  },
+  {
+    "id": 18978,
+    "district": "Lynchburg-Clay Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.lclsd.org/"
+  },
+  {
+    "id": 18983,
+    "district": "Madison Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mlsd.net/"
+  },
+  {
+    "id": 18990,
+    "district": "Maplewood Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.maplewood.k12.oh.us/"
+  },
+  {
+    "id": 19001,
+    "district": "Mathews Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mathewslocal.org/"
+  },
+  {
+    "id": 19007,
+    "district": "Mechanicsburg Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mechanicsburg.k12.oh.us/"
+  }
+]
