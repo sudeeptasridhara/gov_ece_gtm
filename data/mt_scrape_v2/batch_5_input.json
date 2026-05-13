@@ -1,0 +1,268 @@
+[
+  {
+    "id": 16285,
+    "district": "Amsterdam Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://amsterdamschool.org"
+  },
+  {
+    "id": 16294,
+    "district": "Augusta Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://augustaschool.org"
+  },
+  {
+    "id": 16300,
+    "district": "Basin Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16311,
+    "district": "Big Sky School K-12",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.bssd72.org"
+  },
+  {
+    "id": 16321,
+    "district": "Boulder Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.bgs.k12.mt.us"
+  },
+  {
+    "id": 16332,
+    "district": "Browning Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://bps.k12.mt.us"
+  },
+  {
+    "id": 16340,
+    "district": "Cascade Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.cascade.k12.mt.us"
+  },
+  {
+    "id": 16345,
+    "district": "Charlo Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.charlo.k12.mt.us"
+  },
+  {
+    "id": 16356,
+    "district": "Cleveland Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16369,
+    "district": "Cottonwood Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://cottonwoodelementary.com"
+  },
+  {
+    "id": 16382,
+    "district": "Deer Creek Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16389,
+    "district": "Divide Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.divideschool.education"
+  },
+  {
+    "id": 16395,
+    "district": "Dutton/Brady K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://dbps.k12.mt.us"
+  },
+  {
+    "id": 16405,
+    "district": "Fair-Mont-Egan Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.fremontana.net"
+  },
+  {
+    "id": 16425,
+    "district": "Frontier Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.frontierk8.org"
+  },
+  {
+    "id": 16430,
+    "district": "Garfield County H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.jordanpublicschools.org"
+  },
+  {
+    "id": 16443,
+    "district": "Greenfield Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://tetoncomt.org/superintendent-of-schools/g"
+  },
+  {
+    "id": 16461,
+    "district": "Hellgate Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.hellgate.k12.mt.us"
+  },
+  {
+    "id": 16479,
+    "district": "Kester Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16484,
+    "district": "Knees Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16498,
+    "district": "Lincoln K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://sites.google.com/a/lincoln.k12.mt.us/webp"
+  },
+  {
+    "id": 16506,
+    "district": "Lustre Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16514,
+    "district": "McLeod Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16528,
+    "district": "Mountain View Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16535,
+    "district": "Nye Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16542,
+    "district": "Pass Creek Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16549,
+    "district": "Pleasant Valley Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.pleasantvalleyschoolmontana.org"
+  },
+  {
+    "id": 16560,
+    "district": "Powell County H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.pchs.dl.k12.mt.us"
+  },
+  {
+    "id": 16566,
+    "district": "Rau Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.rauschool.net"
+  },
+  {
+    "id": 16580,
+    "district": "Ross Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16598,
+    "district": "Shields Valley Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.shieldsvalleyschools.com"
+  },
+  {
+    "id": 16608,
+    "district": "St Ignatius K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://web.stignatiusschools.org"
+  },
+  {
+    "id": 16617,
+    "district": "Swan Lake-Salmon Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.lakecounty-mt.org/schools/"
+  },
+  {
+    "id": 16628,
+    "district": "Trail Creek Elem",
+    "state": "MT",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 16635,
+    "district": "Turner H S",
+    "state": "MT",
+    "county": "",
+    "website": "http://turner.k12.mt.us"
+  },
+  {
+    "id": 16641,
+    "district": "Valley View Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://valleyviewschool.net/index.html"
+  },
+  {
+    "id": 16648,
+    "district": "Westby K-12 Schools",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.westbyschool.k12.mt.us"
+  },
+  {
+    "id": 16667,
+    "district": "Yaak Elem",
+    "state": "MT",
+    "county": "",
+    "website": "http://www.yaakschool.org"
+  }
+]
