@@ -1,0 +1,373 @@
+[
+  {
+    "id": 15819,
+    "district": "CAPE GIRARDEAU 63",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.capetigers.com"
+  },
+  {
+    "id": 15899,
+    "district": "FRANKLIN CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://FRANKLINCOUNTYR2.K12.MO.US"
+  },
+  {
+    "id": 15907,
+    "district": "GASCONADE CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.dutchmen.us"
+  },
+  {
+    "id": 15914,
+    "district": "GRAIN VALLEY R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://GRAINVALLEYSCHOOLS.ORG"
+  },
+  {
+    "id": 15921,
+    "district": "GREENVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://bears.k12.mo.us"
+  },
+  {
+    "id": 15926,
+    "district": "HAMILTON R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://hamilton.k12.mo.us"
+  },
+  {
+    "id": 15933,
+    "district": "HARTVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hartville.k12.mo.us"
+  },
+  {
+    "id": 15942,
+    "district": "HILLSBORO R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.HSDR3.ORG"
+  },
+  {
+    "id": 15948,
+    "district": "HOWELL VALLEY R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://HVPANTHERS.ORG"
+  },
+  {
+    "id": 15953,
+    "district": "IBERIA R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.iberia.k12.mo.us"
+  },
+  {
+    "id": 15961,
+    "district": "JEFFERSON CO. R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.JR7.K12.MO.US/"
+  },
+  {
+    "id": 15971,
+    "district": "KING CITY R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.KINGCITYschools.org"
+  },
+  {
+    "id": 15979,
+    "district": "KNOX CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.KNOX.K12.MO.US"
+  },
+  {
+    "id": 15986,
+    "district": "LAKELAND R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.LAKELAND.K12.MO.US"
+  },
+  {
+    "id": 15991,
+    "district": "LAWSON R-XIV",
+    "state": "MO",
+    "county": "",
+    "website": "http://LAWSONCARDINALS.ORG"
+  },
+  {
+    "id": 15997,
+    "district": "LESTERVILLE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lesterville.k12.mo.us"
+  },
+  {
+    "id": 16003,
+    "district": "LINCOLN R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lincoln.k12.mo.us/"
+  },
+  {
+    "id": 16011,
+    "district": "LOUISIANA R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://SCHOOLWEB.MISSOURI.EDU/LOUISIANA.K12.MO.US"
+  },
+  {
+    "id": 16019,
+    "district": "MANES R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.manes.k12.mo.us"
+  },
+  {
+    "id": 16025,
+    "district": "MARION C. EARLY R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mcepanthers.com"
+  },
+  {
+    "id": 16033,
+    "district": "MAYSVILLE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://MAYSVILLE.K12.MO.US/"
+  },
+  {
+    "id": 16041,
+    "district": "MIAMI R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.miami-mustangs.com"
+  },
+  {
+    "id": 16048,
+    "district": "MIRABILE C-1",
+    "state": "MO",
+    "county": "",
+    "website": "http://mirabilec1.org"
+  },
+  {
+    "id": 16056,
+    "district": "MONTROSE R-XIV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.montrose.k12.mo.us"
+  },
+  {
+    "id": 16061,
+    "district": "MOUNTAIN VIEW-BIRCH TREE R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://mvbt.k12.mo.us/"
+  },
+  {
+    "id": 16069,
+    "district": "NEW FRANKLIN R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.NFRANKLIN.K12.MO.US/"
+  },
+  {
+    "id": 16075,
+    "district": "NIANGUA R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.NIANGUASCHOOLS.COM"
+  },
+  {
+    "id": 16084,
+    "district": "NORTH MERCER CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.northmercer.k12.mo.us"
+  },
+  {
+    "id": 16092,
+    "district": "NORTHEAST RANDOLPH CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ner4.k12.mo.us"
+  },
+  {
+    "id": 16099,
+    "district": "OAK HILL R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://district.oakhillr1.k12.mo.us"
+  },
+  {
+    "id": 16106,
+    "district": "ORRICK R-XI",
+    "state": "MO",
+    "county": "",
+    "website": "http://ORRICK.K12.MO.US/"
+  },
+  {
+    "id": 16111,
+    "district": "OSCEOLA",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.osceola.k12.mo.us"
+  },
+  {
+    "id": 16123,
+    "district": "PETTIS CO. R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://NORTHWEST.K12.MO.US"
+  },
+  {
+    "id": 16129,
+    "district": "PLAINVIEW R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.plainviewschool.org"
+  },
+  {
+    "id": 16135,
+    "district": "POLO R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.POLO.K12.MO.US"
+  },
+  {
+    "id": 16141,
+    "district": "PURDY R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://PURDYK12.COM/"
+  },
+  {
+    "id": 16149,
+    "district": "RENICK R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://renick.k12.mo.us"
+  },
+  {
+    "id": 16155,
+    "district": "RICHMOND R-XVI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.richmondspartans.org"
+  },
+  {
+    "id": 16163,
+    "district": "ROCK PORT R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://rockport.k12.mo.us/homepage1/frontpage.html"
+  },
+  {
+    "id": 16175,
+    "district": "SCOTT CITY R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://scr1.org"
+  },
+  {
+    "id": 16181,
+    "district": "SEYMOUR R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SEYMOURSCHOOL.NET/"
+  },
+  {
+    "id": 16190,
+    "district": "SLATER",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SLATERSCHOOLS.NET"
+  },
+  {
+    "id": 16199,
+    "district": "SOUTHERN BOONE CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.sbschools.us/"
+  },
+  {
+    "id": 16204,
+    "district": "SPARTA R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.spartaschools.net"
+  },
+  {
+    "id": 16216,
+    "district": "STANBERRY R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://sr2.k12.mo.us"
+  },
+  {
+    "id": 16221,
+    "district": "STOUTLAND R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.stoutlandschools.com"
+  },
+  {
+    "id": 16226,
+    "district": "SUCCESS R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.success.k12.mo.us"
+  },
+  {
+    "id": 16232,
+    "district": "TANEYVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.taneyvilletigers.org"
+  },
+  {
+    "id": 16243,
+    "district": "UNION STAR R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.usr2.com"
+  },
+  {
+    "id": 16250,
+    "district": "WALNUT GROVE R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.WGTIGERS.COM"
+  },
+  {
+    "id": 16260,
+    "district": "WELLSVILLE MIDDLETOWN R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://wmr1.k12.mo.us/"
+  },
+  {
+    "id": 16269,
+    "district": "WHEATON R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://wheatonschools.org"
+  },
+  {
+    "id": 16277,
+    "district": "WORTH CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://wc.k12.mo.us/"
+  }
+]

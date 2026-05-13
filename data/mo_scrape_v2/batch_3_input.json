@@ -1,0 +1,373 @@
+[
+  {
+    "id": 15851,
+    "district": "COUCH R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.couch.k12.mo.us"
+  },
+  {
+    "id": 15902,
+    "district": "GAINESVILLE R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://gainesvillebulldogs.com"
+  },
+  {
+    "id": 15909,
+    "district": "GILLIAM C-4",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.gilliamschools.com"
+  },
+  {
+    "id": 15917,
+    "district": "GREEN CITY R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.greencity.k12.mo.us/index.html"
+  },
+  {
+    "id": 15922,
+    "district": "GRUNDY CO. R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://grundyr5.k12.mo.us"
+  },
+  {
+    "id": 15927,
+    "district": "HANCOCK PLACE",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hancock.k12.mo.us/"
+  },
+  {
+    "id": 15936,
+    "district": "HENRY CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://henrycountyr1.k12.mo.us"
+  },
+  {
+    "id": 15943,
+    "district": "HOLCOMB R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://holcomb.k12.mo.us/"
+  },
+  {
+    "id": 15949,
+    "district": "HUDSON R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://hudsonelementaryschool.org"
+  },
+  {
+    "id": 15954,
+    "district": "INDEPENDENCE 30",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.isdschools.org"
+  },
+  {
+    "id": 15963,
+    "district": "JOHNSON CO. R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.crestridge.org"
+  },
+  {
+    "id": 15972,
+    "district": "KINGSTON 42",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.kingston42.com"
+  },
+  {
+    "id": 15980,
+    "district": "LA MONTE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.LAMONTE.K12.MO.US"
+  },
+  {
+    "id": 15987,
+    "district": "LAMAR R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lamar.k12.mo.us/"
+  },
+  {
+    "id": 15992,
+    "district": "LEBANON R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lebanon.k12.mo.us/"
+  },
+  {
+    "id": 15998,
+    "district": "LEWIS CO. C-1",
+    "state": "MO",
+    "county": "",
+    "website": "http://lewis.k12.mo.us/"
+  },
+  {
+    "id": 16005,
+    "district": "LINN CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://linnr1.k12.mo.us/"
+  },
+  {
+    "id": 16012,
+    "district": "LUTIE R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://schoolweb.missouri.edu/lutieschool.com"
+  },
+  {
+    "id": 16020,
+    "district": "MANSFIELD R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://MANSFIELDSCHOOL.NET"
+  },
+  {
+    "id": 16026,
+    "district": "MARION CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://marion.k12.mo.us"
+  },
+  {
+    "id": 16034,
+    "district": "MCDONALD CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mcdonaldr1.net"
+  },
+  {
+    "id": 16043,
+    "district": "MIDDLE GROVE C-1",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.middlegrove.k12.mo.us"
+  },
+  {
+    "id": 16049,
+    "district": "MISSOURI CITY 56",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.MOCITY.K12.MO.US"
+  },
+  {
+    "id": 16057,
+    "district": "MORGAN CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mcr1.us"
+  },
+  {
+    "id": 16062,
+    "district": "MT. VERNON R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mtvernon.k12.mo.us"
+  },
+  {
+    "id": 16070,
+    "district": "NEW HAVEN",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.newhavenschools.org"
+  },
+  {
+    "id": 16077,
+    "district": "NORBORNE R-VIII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.norborneschools.com"
+  },
+  {
+    "id": 16086,
+    "district": "NORTH PEMISCOT CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.northpem.k12.mo.us"
+  },
+  {
+    "id": 16093,
+    "district": "NORTHEAST VERNON CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://sites.google.com/nevc.k12.mo.us/nevc/Home"
+  },
+  {
+    "id": 16100,
+    "district": "OAK RIDGE R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.oakridger6schools.com"
+  },
+  {
+    "id": 16107,
+    "district": "OSAGE CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.chamois.k12.mo.us"
+  },
+  {
+    "id": 16112,
+    "district": "OTTERVILLE R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ottervillervi.k12.mo.us/"
+  },
+  {
+    "id": 16124,
+    "district": "PETTIS CO. R-XII",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.PETTISR12.K12.MO.US/"
+  },
+  {
+    "id": 16130,
+    "district": "PLATO R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.plato.k12.mo.us"
+  },
+  {
+    "id": 16137,
+    "district": "PORTAGEVILLE",
+    "state": "MO",
+    "county": "",
+    "website": "http://PORTAGEVILLE.K12.MO.US"
+  },
+  {
+    "id": 16142,
+    "district": "PUTNAM CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.PUTNAMCOUNTYR1.NET"
+  },
+  {
+    "id": 16151,
+    "district": "RICH HILL R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.richhill.k12.mo.us"
+  },
+  {
+    "id": 16156,
+    "district": "RICHWOODS R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.richwoodsr7.org"
+  },
+  {
+    "id": 16166,
+    "district": "ROSCOE C-1",
+    "state": "MO",
+    "county": "",
+    "website": "http://none"
+  },
+  {
+    "id": 16176,
+    "district": "SCOTT CO. CENTRAL",
+    "state": "MO",
+    "county": "",
+    "website": "http://SCOTTCENTRAL.K12.MO.US/"
+  },
+  {
+    "id": 16182,
+    "district": "SHAWNEE R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://shawnee.k12.mo.us"
+  },
+  {
+    "id": 16191,
+    "district": "SMITHTON R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://SMITHTON.K12.MO.US/"
+  },
+  {
+    "id": 16200,
+    "district": "SOUTHERN REYNOLDS CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ewhippets.com"
+  },
+  {
+    "id": 16207,
+    "district": "SPOKANE R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.spokane.k12.mo.us"
+  },
+  {
+    "id": 16217,
+    "district": "STE. GENEVIEVE CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.sgdragons.org"
+  },
+  {
+    "id": 16222,
+    "district": "STRAFFORD R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.STRAFFORDSCHOOLS.NET"
+  },
+  {
+    "id": 16228,
+    "district": "SUMMERSVILLE R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.SVILLE.K12.MO.US/"
+  },
+  {
+    "id": 16233,
+    "district": "TARKIO R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://tarkio.k12.mo.us/"
+  },
+  {
+    "id": 16245,
+    "district": "VALLEY PARK",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.vpschools.org"
+  },
+  {
+    "id": 16251,
+    "district": "WARREN CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.WARRENCOR3.ORG/"
+  },
+  {
+    "id": 16263,
+    "district": "WEST PLAINS R-VII",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.zizzers.org"
+  },
+  {
+    "id": 16271,
+    "district": "WILLOW SPRINGS R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.WILLOWSPRINGSSCHOOL.COM"
+  },
+  {
+    "id": 16278,
+    "district": "WRIGHT CITY R-II OF WARREN CO.",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.wrightcity.k12.mo.us/"
+  }
+]

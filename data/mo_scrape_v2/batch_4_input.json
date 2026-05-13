@@ -1,0 +1,373 @@
+[
+  {
+    "id": 15890,
+    "district": "FAYETTE R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.fayette.k12.mo.us"
+  },
+  {
+    "id": 15903,
+    "district": "GALENA R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.galena.k12.mo.us"
+  },
+  {
+    "id": 15910,
+    "district": "GILMAN CITY R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.gilman.k12.mo.us"
+  },
+  {
+    "id": 15918,
+    "district": "GREEN FOREST R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.gfr2.k12.mo.us"
+  },
+  {
+    "id": 15923,
+    "district": "HALE R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://haleschooldistrict.com"
+  },
+  {
+    "id": 15929,
+    "district": "HARDEMAN R-X",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hardemanschool.com"
+  },
+  {
+    "id": 15937,
+    "district": "HERMITAGE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.hermitage.k12.mo.us"
+  },
+  {
+    "id": 15944,
+    "district": "HOLDEN R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.holdenschools.org"
+  },
+  {
+    "id": 15950,
+    "district": "HUMANSVILLE R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.humansvillerivmo.sites.thrillshare.com"
+  },
+  {
+    "id": 15955,
+    "district": "IRON CO. C-4",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.ironC4.k12.mo.us"
+  },
+  {
+    "id": 15965,
+    "district": "JUNCTION HILL C-12",
+    "state": "MO",
+    "county": "",
+    "website": "http://junctionhill.k12.mo.us"
+  },
+  {
+    "id": 15973,
+    "district": "KINGSTON K-14",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.KINGSTON.K12.MO.US/"
+  },
+  {
+    "id": 15982,
+    "district": "LACLEDE CO. C-5",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.JEBC5.K12.MO.US/"
+  },
+  {
+    "id": 15988,
+    "district": "LAQUEY R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.laqueyhornets.us/"
+  },
+  {
+    "id": 15994,
+    "district": "LEESVILLE R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.LEESVILLE.K12.MO.US/"
+  },
+  {
+    "id": 15999,
+    "district": "LEXINGTON R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.lexr5.org"
+  },
+  {
+    "id": 16006,
+    "district": "LIVINGSTON CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.chulaschool.org"
+  },
+  {
+    "id": 16013,
+    "district": "MACKS CREEK R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.mackscreekpirates.org"
+  },
+  {
+    "id": 16022,
+    "district": "MARCELINE R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.MARCELINESCHOOLS.ORG"
+  },
+  {
+    "id": 16029,
+    "district": "MARQUAND-ZION R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://mz.k12.mo.us"
+  },
+  {
+    "id": 16035,
+    "district": "MEADOW HEIGHTS R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.meadowheights.k12.mo.us"
+  },
+  {
+    "id": 16045,
+    "district": "MILAN C-2",
+    "state": "MO",
+    "county": "",
+    "website": "http://MILAN.K12.MO.US"
+  },
+  {
+    "id": 16052,
+    "district": "MONITEAU CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CALIFORNIAK12.ORG/HOME.ASP"
+  },
+  {
+    "id": 16058,
+    "district": "MORGAN CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://versaillestigers.org"
+  },
+  {
+    "id": 16065,
+    "district": "NELL HOLCOMB R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.nellholcomb.k12.mo.us"
+  },
+  {
+    "id": 16071,
+    "district": "NEW MADRID CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.nmceaglenation.com"
+  },
+  {
+    "id": 16079,
+    "district": "NORTH ANDREW CO. R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://NORTHANDREW.ORG"
+  },
+  {
+    "id": 16087,
+    "district": "NORTH PLATTE CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.nppanthers.org"
+  },
+  {
+    "id": 16094,
+    "district": "NORTHWEST R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.northwestschools.net"
+  },
+  {
+    "id": 16102,
+    "district": "ORAN R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://ORAN.K12.MO.US"
+  },
+  {
+    "id": 16108,
+    "district": "OSAGE CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.linn.k12.mo.us"
+  },
+  {
+    "id": 16120,
+    "district": "PEMISCOT CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://R3.K12.MO.US/"
+  },
+  {
+    "id": 16125,
+    "district": "PHELPS CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://PCR3.K12.MO.US"
+  },
+  {
+    "id": 16131,
+    "district": "PLATTE CO. R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.plattecountyschooldistrict.com"
+  },
+  {
+    "id": 16138,
+    "district": "POTOSI R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://potosir3.org"
+  },
+  {
+    "id": 16144,
+    "district": "RALLS CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://RALLSR2.K12.MO.US/"
+  },
+  {
+    "id": 16152,
+    "district": "RICHARDS R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://RICHARDSSCHOOL.K12.MO.US/"
+  },
+  {
+    "id": 16157,
+    "district": "RIDGEWAY R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://N/A"
+  },
+  {
+    "id": 16169,
+    "district": "SANTA FE R-X",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.santafechiefs.k12.mo.us"
+  },
+  {
+    "id": 16177,
+    "district": "SCOTT CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.kellyhawks.org"
+  },
+  {
+    "id": 16183,
+    "district": "SHELBY CO. R-IV",
+    "state": "MO",
+    "county": "",
+    "website": "http://WWW.CARDINALS.K12.MO.US/"
+  },
+  {
+    "id": 16195,
+    "district": "SOUTH HOLT CO. R-I",
+    "state": "MO",
+    "county": "",
+    "website": "http://SOUTHHOLTR1.COM/"
+  },
+  {
+    "id": 16201,
+    "district": "SOUTHLAND C-9",
+    "state": "MO",
+    "county": "",
+    "website": "http://southland.k12.mo.us"
+  },
+  {
+    "id": 16208,
+    "district": "SPRING BLUFF R-XV",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.springbluffpirates.com"
+  },
+  {
+    "id": 16218,
+    "district": "STEELVILLE R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://steelville.k12.mo.us"
+  },
+  {
+    "id": 16223,
+    "district": "STRAIN-JAPAN R-XVI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.strainjapanschool.com/"
+  },
+  {
+    "id": 16229,
+    "district": "SUNRISE R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://sunrise-r9.com"
+  },
+  {
+    "id": 16234,
+    "district": "THAYER R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://THAYER.K12.MO.US/"
+  },
+  {
+    "id": 16246,
+    "district": "VALLEY R-VI",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.valleyschooldistrict.org"
+  },
+  {
+    "id": 16253,
+    "district": "WARSAW R-IX",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.warsawk12.org/"
+  },
+  {
+    "id": 16264,
+    "district": "WEST PLATTE CO. R-II",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.wpsd.net"
+  },
+  {
+    "id": 16274,
+    "district": "WINONA R-III",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.winonar3.org"
+  },
+  {
+    "id": 16279,
+    "district": "ZALMA R-V",
+    "state": "MO",
+    "county": "",
+    "website": "http://www.zalma.k12.mo.us"
+  }
+]
