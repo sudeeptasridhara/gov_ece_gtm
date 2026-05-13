@@ -1,6 +1,36 @@
 {
-  "lastSynced": "2026-05-07T13:07:43.791246+00:00",
+  "lastSynced": "2026-05-13T13:30:09.086852+00:00",
   "activities": [
+    {
+      "gmailMsgId": "19e1cbb267a23a95",
+      "districtId": 9998,
+      "district": "brightwheel (TEST)",
+      "directorName": "Kevin Elston",
+      "type": "note",
+      "date": "2026-05-12",
+      "notes": "↩️ Reply received: \"Accepted: Daily stand up: gov AI tool @ Tue May 12, 2026 2pm - 2:15pm (EDT) (Sudeepta Sridhara)\" from kevin.elston@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19e1cb371b93f238",
+      "districtId": 9997,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Bernstein",
+      "type": "note",
+      "date": "2026-05-12",
+      "notes": "↩️ Reply received: \"Accepted: Daily stand up: gov AI tool @ Tue May 12, 2026 2pm - 2:15pm (EDT) (Sudeepta Sridhara)\" from eric.bernstein@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
+    {
+      "gmailMsgId": "19e1797b79541ed6",
+      "districtId": 9999,
+      "district": "brightwheel (TEST)",
+      "directorName": "Eric Truog",
+      "type": "note",
+      "date": "2026-05-11",
+      "notes": "↩️ Reply received: \"Canceled event with note: Daily Stand-up: Gov GTM Hub @ Tue May 12, 2026 12:30pm - 1pm (EDT) (Sudeepta Sridhara)\" from eric.truog@mybrightwheel.com",
+      "source": "gmail_reply"
+    },
     {
       "gmailMsgId": "19dfec74090c14ce",
       "districtId": 9996,
