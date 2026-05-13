@@ -1,0 +1,310 @@
+[
+  {
+    "id": 19021,
+    "district": "Milton-Union Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.milton-union.k12.oh.us/"
+  },
+  {
+    "id": 19026,
+    "district": "Mogadore Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mogadore.net/"
+  },
+  {
+    "id": 19034,
+    "district": "Mt Healthy City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mthcs.org/"
+  },
+  {
+    "id": 19040,
+    "district": "New Bremen Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newbremenschools.org"
+  },
+  {
+    "id": 19046,
+    "district": "New Philadelphia City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.npschools.org/"
+  },
+  {
+    "id": 19052,
+    "district": "Newton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newton.k12.oh.us/"
+  },
+  {
+    "id": 19059,
+    "district": "North Central Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ncschool.k12.oh.us/"
+  },
+  {
+    "id": 19065,
+    "district": "North Union Local School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.n-union.k12.oh.us/"
+  },
+  {
+    "id": 19071,
+    "district": "Northridge Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northridge.k12.oh.us/"
+  },
+  {
+    "id": 19076,
+    "district": "Northwestern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northwestern.k12.oh.us/"
+  },
+  {
+    "id": 19081,
+    "district": "Norwayne Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.norwaynelocal.k12.oh.us/"
+  },
+  {
+    "id": 19089,
+    "district": "Olmsted Falls City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ofcs.net/"
+  },
+  {
+    "id": 19094,
+    "district": "Osnaburg Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ecweb.sparcc.org"
+  },
+  {
+    "id": 19099,
+    "district": "Painesville City Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.painesville-city.k12.oh.us/"
+  },
+  {
+    "id": 19105,
+    "district": "Paulding Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.pauldingschools.org/"
+  },
+  {
+    "id": 19110,
+    "district": "Perrysburg Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.perrysburgschools.net/"
+  },
+  {
+    "id": 19116,
+    "district": "Pleasant Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.pleasant.treca.org/"
+  },
+  {
+    "id": 19123,
+    "district": "Put-In-Bay Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.put-in-bay.k12.oh.us/"
+  },
+  {
+    "id": 19130,
+    "district": "Ridgedale Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ridgedaleschools.org"
+  },
+  {
+    "id": 19135,
+    "district": "River Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rvk12.org"
+  },
+  {
+    "id": 19140,
+    "district": "Rock Hill Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rockhill.org/"
+  },
+  {
+    "id": 19149,
+    "district": "Sandy Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sandyvalleylocal.org/"
+  },
+  {
+    "id": 19155,
+    "district": "Shawnee Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://limashawnee.com/"
+  },
+  {
+    "id": 19160,
+    "district": "South Central Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.south-central.org"
+  },
+  {
+    "id": 19167,
+    "district": "Southeastern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sepanthers.org"
+  },
+  {
+    "id": 19172,
+    "district": "Southwest Licking Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.swl.k12.oh.us/"
+  },
+  {
+    "id": 19183,
+    "district": "St Marys City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.smriders.net"
+  },
+  {
+    "id": 19190,
+    "district": "Stryker Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.stryker.k12.oh.us/"
+  },
+  {
+    "id": 19197,
+    "district": "Tallmadge City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tallmadgeschools.org/"
+  },
+  {
+    "id": 19202,
+    "district": "Tipp City Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tippcityschools.com/"
+  },
+  {
+    "id": 19208,
+    "district": "Tri-Village Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tri-village.k12.oh.us/"
+  },
+  {
+    "id": 19213,
+    "district": "Troy City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.troy.k12.oh.us/"
+  },
+  {
+    "id": 19218,
+    "district": "Union Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://ulschools.com/"
+  },
+  {
+    "id": 19225,
+    "district": "Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.valleyindians.net"
+  },
+  {
+    "id": 19230,
+    "district": "Vandalia-Butler City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.vbcsd.com/"
+  },
+  {
+    "id": 19236,
+    "district": "Walnut Township Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.walnuttsd.org/"
+  },
+  {
+    "id": 19241,
+    "district": "Washington Court House City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.washingtonch.k12.oh.us/"
+  },
+  {
+    "id": 19246,
+    "district": "Waverly City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.waverly.k12.oh.us/"
+  },
+  {
+    "id": 19251,
+    "district": "Weathersfield Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.weathersfield.k12.oh.us/"
+  },
+  {
+    "id": 19256,
+    "district": "West Carrollton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westcarrolltonschools.com/"
+  },
+  {
+    "id": 19261,
+    "district": "West Muskingum Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westmschools.org"
+  },
+  {
+    "id": 19267,
+    "district": "Westfall Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westfallschools.com"
+  },
+  {
+    "id": 19274,
+    "district": "Willoughby-Eastlake City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.weschools.org/"
+  },
+  {
+    "id": 19280,
+    "district": "Woodridge Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.woodridge.k12.oh.us/"
+  }
+]

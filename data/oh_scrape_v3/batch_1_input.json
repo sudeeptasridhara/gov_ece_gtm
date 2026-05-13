@@ -1,0 +1,317 @@
+[
+  {
+    "id": 19014,
+    "district": "Miamisburg City",
+    "state": "OH",
+    "county": "",
+    "website": "http://miamisburgcityschools.org/"
+  },
+  {
+    "id": 19022,
+    "district": "Minerva Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mlsd.sparcc.org/"
+  },
+  {
+    "id": 19027,
+    "district": "Mohawk Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mohawk.k12.oh.us/"
+  },
+  {
+    "id": 19035,
+    "district": "Napoleon Area City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.napoleon.k12.oh.us/"
+  },
+  {
+    "id": 19041,
+    "district": "New Knoxville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nk.k12.oh.us/"
+  },
+  {
+    "id": 19047,
+    "district": "New Richmond Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nrschools.org/"
+  },
+  {
+    "id": 19053,
+    "district": "Niles City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nilescityschools.org/"
+  },
+  {
+    "id": 19060,
+    "district": "North College Hill City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northcollegehill.org/"
+  },
+  {
+    "id": 19066,
+    "district": "Northeastern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nelsd.org/"
+  },
+  {
+    "id": 19072,
+    "district": "Northridge Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northridgeschools.org"
+  },
+  {
+    "id": 19077,
+    "district": "Northwestern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northwestern-wayne.k12.oh.us"
+  },
+  {
+    "id": 19083,
+    "district": "Oak Hill Union Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.oakhill.k12.oh.us/"
+  },
+  {
+    "id": 19090,
+    "district": "Ontario Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ontarioschools.org/"
+  },
+  {
+    "id": 19095,
+    "district": "Otsego Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.otsegoknights.org/"
+  },
+  {
+    "id": 19100,
+    "district": "Paint Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.paintvalleylocalschools.org/"
+  },
+  {
+    "id": 19106,
+    "district": "Perkins Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.perkinsschools.org/"
+  },
+  {
+    "id": 19111,
+    "district": "Pettisville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://pettisvilleschools.org/"
+  },
+  {
+    "id": 19117,
+    "district": "Plymouth-Shiloh Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://plymouth.schoolwires.com/"
+  },
+  {
+    "id": 19124,
+    "district": "Pymatuning Valley Local School District",
+    "state": "OH",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 19131,
+    "district": "Ridgemont Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ridgemont.k12.oh.us/"
+  },
+  {
+    "id": 19136,
+    "district": "River View Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.river-view.k12.oh.us/"
+  },
+  {
+    "id": 19142,
+    "district": "Rolling Hills Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rollinghills.k12.oh.us/"
+  },
+  {
+    "id": 19150,
+    "district": "Scioto Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.piketon.k12.oh.us/"
+  },
+  {
+    "id": 19156,
+    "district": "Sheffield-Sheffield Lake City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sheffieldschools.org"
+  },
+  {
+    "id": 19162,
+    "district": "South Point Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.southpoint.k12.oh.us/"
+  },
+  {
+    "id": 19168,
+    "district": "Southern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.southern.k12.oh.us/"
+  },
+  {
+    "id": 19173,
+    "district": "Southwest Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.southwestschools.org/"
+  },
+  {
+    "id": 19185,
+    "district": "Stow-Munroe Falls City School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.smfschools.org/"
+  },
+  {
+    "id": 19191,
+    "district": "Swanton Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.swantonschools.org/"
+  },
+  {
+    "id": 19198,
+    "district": "Teays Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tvsd.us/"
+  },
+  {
+    "id": 19204,
+    "district": "Toronto City",
+    "state": "OH",
+    "county": "",
+    "website": "http://torontocsd.org/"
+  },
+  {
+    "id": 19209,
+    "district": "Triad Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.triadk12.org"
+  },
+  {
+    "id": 19214,
+    "district": "Tuscarawas Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tvtrojans.org/"
+  },
+  {
+    "id": 19219,
+    "district": "Union-Scioto Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.unioto.org/"
+  },
+  {
+    "id": 19226,
+    "district": "Valley STEM+ME2 Academy",
+    "state": "OH",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 19231,
+    "district": "Vanlue Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://vanlueschool.org/"
+  },
+  {
+    "id": 19237,
+    "district": "Wapakoneta City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wapak.org/"
+  },
+  {
+    "id": 19242,
+    "district": "Washington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wls4kids.org/"
+  },
+  {
+    "id": 19247,
+    "district": "Wayne Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wayne-local.com/"
+  },
+  {
+    "id": 19252,
+    "district": "Wellington Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wellingtonvillageschools.org/"
+  },
+  {
+    "id": 19257,
+    "district": "West Clermont Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westcler.org"
+  },
+  {
+    "id": 19262,
+    "district": "Western Brown Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wb.k12.oh.us/"
+  },
+  {
+    "id": 19269,
+    "district": "Wheelersburg Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.burg.k12.oh.us/"
+  },
+  {
+    "id": 19275,
+    "district": "Wilmington City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wilmingtoncityschools.com"
+  },
+  {
+    "id": 19283,
+    "district": "Wynford Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wynfordroyals.org"
+  }
+]

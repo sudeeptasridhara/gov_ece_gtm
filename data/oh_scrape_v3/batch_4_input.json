@@ -1,0 +1,317 @@
+[
+  {
+    "id": 19019,
+    "district": "Millcreek-West Unity Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.hilltopcadets.org"
+  },
+  {
+    "id": 19025,
+    "district": "Mississinawa Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mississinawa.k12.oh.us/"
+  },
+  {
+    "id": 19032,
+    "district": "Mount Gilead Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.mgschools.org"
+  },
+  {
+    "id": 19039,
+    "district": "New Boston Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newboston.k12.oh.us/"
+  },
+  {
+    "id": 19045,
+    "district": "New Miami Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.new-miami.k12.oh.us/"
+  },
+  {
+    "id": 19051,
+    "district": "Newton Falls Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.newton-falls.k12.oh.us/"
+  },
+  {
+    "id": 19057,
+    "district": "North Bass Local",
+    "state": "OH",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 19064,
+    "district": "North Royalton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northroyaltonsd.org/"
+  },
+  {
+    "id": 19070,
+    "district": "Northmor Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.knightpride.org"
+  },
+  {
+    "id": 19075,
+    "district": "Northwest Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.northwest.sparcc.org/"
+  },
+  {
+    "id": 19080,
+    "district": "Norwalk City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.norwalktruckers.net"
+  },
+  {
+    "id": 19087,
+    "district": "Old Fort Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.oldfortschools.org"
+  },
+  {
+    "id": 19093,
+    "district": "Orrville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.orrvilleschools.org"
+  },
+  {
+    "id": 19098,
+    "district": "Ottoville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ottovilleschools.org/"
+  },
+  {
+    "id": 19104,
+    "district": "Patrick Henry Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.phpatriots.org/"
+  },
+  {
+    "id": 19109,
+    "district": "Perry Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://perrylocal.org/"
+  },
+  {
+    "id": 19115,
+    "district": "Plain Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.plainlocal.org"
+  },
+  {
+    "id": 19121,
+    "district": "Preble Shawnee Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.psarrows.com"
+  },
+  {
+    "id": 19129,
+    "district": "Richmond Heights Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.richmondheightsschools.org/"
+  },
+  {
+    "id": 19134,
+    "district": "Rittman Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://rittman.k12.oh.us/"
+  },
+  {
+    "id": 19139,
+    "district": "Riverside Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.painesville-township.k12.oh.us/"
+  },
+  {
+    "id": 19147,
+    "district": "Salem City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.salemquakers.org"
+  },
+  {
+    "id": 19153,
+    "district": "Shadyside Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.shadyside.k12.oh.us/"
+  },
+  {
+    "id": 19159,
+    "district": "Solon City",
+    "state": "OH",
+    "county": "",
+    "website": "http://solonschools.org/"
+  },
+  {
+    "id": 19166,
+    "district": "Southeastern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sels.us"
+  },
+  {
+    "id": 19171,
+    "district": "Southington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.southington.k12.oh.us/"
+  },
+  {
+    "id": 19182,
+    "district": "St Henry Consolidated Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sthenryschools.org/"
+  },
+  {
+    "id": 19189,
+    "district": "Struthers City",
+    "state": "OH",
+    "county": "",
+    "website": "http://strutherscityschools.org/"
+  },
+  {
+    "id": 19195,
+    "district": "Symmes Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.symmesvalley.k12.oh.us/"
+  },
+  {
+    "id": 19201,
+    "district": "Tiffin City Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tiffincityschools.org"
+  },
+  {
+    "id": 19207,
+    "district": "Tri-Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tvschools.org/about-us"
+  },
+  {
+    "id": 19212,
+    "district": "Trotwood-Madison City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.trotwood.k12.oh.us/"
+  },
+  {
+    "id": 19217,
+    "district": "Twinsburg City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.twinsburg.k12.oh.us/"
+  },
+  {
+    "id": 19224,
+    "district": "Urbana City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.urbanacityschools.org"
+  },
+  {
+    "id": 19229,
+    "district": "Van Wert City",
+    "state": "OH",
+    "county": "",
+    "website": "http://vwcs.net/"
+  },
+  {
+    "id": 19234,
+    "district": "Vinton County Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.vinton.k12.oh.us/"
+  },
+  {
+    "id": 19240,
+    "district": "Warrensville Heights City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.warrensville.k12.oh.us/"
+  },
+  {
+    "id": 19245,
+    "district": "Wauseon Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://sites.google.com/wauseonindians.org/wevs/home"
+  },
+  {
+    "id": 19250,
+    "district": "Waynesfield-Goshen Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wgschools.org/"
+  },
+  {
+    "id": 19255,
+    "district": "West Branch Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westbranch.k12.oh.us/"
+  },
+  {
+    "id": 19260,
+    "district": "West Liberty-Salem Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wlstigers.org/"
+  },
+  {
+    "id": 19265,
+    "district": "Western Reserve Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westernreserve.k12.oh.us/"
+  },
+  {
+    "id": 19273,
+    "district": "Williamsburg Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://burgschools.org/"
+  },
+  {
+    "id": 19279,
+    "district": "Woodmore Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.woodmoreschools.com/"
+  },
+  {
+    "id": 19288,
+    "district": "Zane Trace Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.zanetrace.org/"
+  }
+]

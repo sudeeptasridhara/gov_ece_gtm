@@ -1,0 +1,317 @@
+[
+  {
+    "id": 19017,
+    "district": "Midview Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.midviewk12.org/"
+  },
+  {
+    "id": 19024,
+    "district": "Minster Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.minsterschools.org"
+  },
+  {
+    "id": 19031,
+    "district": "Morgan Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.morganschools.org"
+  },
+  {
+    "id": 19037,
+    "district": "Nelsonville-York City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nelsonvilleyork.k12.oh.us/"
+  },
+  {
+    "id": 19043,
+    "district": "New Lexington School District",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nlpanthers.org/"
+  },
+  {
+    "id": 19050,
+    "district": "Newcomerstown Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nctschools.org/"
+  },
+  {
+    "id": 19056,
+    "district": "North Baltimore Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nbls.org/"
+  },
+  {
+    "id": 19063,
+    "district": "North Ridgeville City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nrcs.net/"
+  },
+  {
+    "id": 19068,
+    "district": "Northern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nlsd.k12.oh.us/"
+  },
+  {
+    "id": 19074,
+    "district": "Northwest Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nwmohawks.org/"
+  },
+  {
+    "id": 19079,
+    "district": "Norton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.nortonschools.org"
+  },
+  {
+    "id": 19086,
+    "district": "Oberlin City Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.oberlinschools.net/"
+  },
+  {
+    "id": 19092,
+    "district": "Oregon City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.oregoncityschools.org/"
+  },
+  {
+    "id": 19097,
+    "district": "Ottawa-Glandorf Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://ottawaglandorf.org/"
+  },
+  {
+    "id": 19102,
+    "district": "Parkway Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.parkwayschools.org/"
+  },
+  {
+    "id": 19108,
+    "district": "Perry Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://perry-lake.org/"
+  },
+  {
+    "id": 19114,
+    "district": "Piqua City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.piqua.org/"
+  },
+  {
+    "id": 19119,
+    "district": "Port Clinton City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.pccsd.net/"
+  },
+  {
+    "id": 19127,
+    "district": "Revere Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.revereschools.org/"
+  },
+  {
+    "id": 19133,
+    "district": "Ripley-Union-Lewis-Huntington Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.rulh.us"
+  },
+  {
+    "id": 19138,
+    "district": "Riverside Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.riverside.k12.oh.us"
+  },
+  {
+    "id": 19146,
+    "district": "Russia Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.russiaschool.org/"
+  },
+  {
+    "id": 19152,
+    "district": "Seneca East Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.se-tigers.com"
+  },
+  {
+    "id": 19158,
+    "district": "Sidney City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sidneycityschools.org/"
+  },
+  {
+    "id": 19165,
+    "district": "Southeast Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.sepirates.org"
+  },
+  {
+    "id": 19170,
+    "district": "Southern Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.southernlocal.org/"
+  },
+  {
+    "id": 19175,
+    "district": "Springboro Community City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.springboro.org/"
+  },
+  {
+    "id": 19187,
+    "district": "Streetsboro City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.streetsboroschools.com/"
+  },
+  {
+    "id": 19194,
+    "district": "Sylvania Schools",
+    "state": "OH",
+    "county": "",
+    "website": "http://sylvania.k12.oh.us/"
+  },
+  {
+    "id": 19200,
+    "district": "Three Rivers Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.threeriversschools.org/"
+  },
+  {
+    "id": 19206,
+    "district": "Tri-State STEM+M School",
+    "state": "OH",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 19211,
+    "district": "Triway Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.triway.us"
+  },
+  {
+    "id": 19216,
+    "district": "Twin Valley Community Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.tvs.k12.oh.us/"
+  },
+  {
+    "id": 19223,
+    "district": "Upper Scioto Valley Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.usv.k12.oh.us/"
+  },
+  {
+    "id": 19228,
+    "district": "Van Buren Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://vbschools.net/"
+  },
+  {
+    "id": 19233,
+    "district": "Versailles Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.versailles.k12.oh.us"
+  },
+  {
+    "id": 19239,
+    "district": "Warren Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.warrenlocal.org/"
+  },
+  {
+    "id": 19244,
+    "district": "Waterloo Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.viking.portage.k12.oh.us/"
+  },
+  {
+    "id": 19249,
+    "district": "Waynedale Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.waynedale.us"
+  },
+  {
+    "id": 19254,
+    "district": "Wellsville Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wellsville.k12.oh.us/"
+  },
+  {
+    "id": 19259,
+    "district": "West Holmes Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.westholmes.org"
+  },
+  {
+    "id": 19264,
+    "district": "Western Reserve Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.western-reserve.org/"
+  },
+  {
+    "id": 19272,
+    "district": "Willard City",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.willard.k12.oh.us/"
+  },
+  {
+    "id": 19278,
+    "district": "Wolf Creek Local",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.wolfcreek.k12.oh.us/"
+  },
+  {
+    "id": 19286,
+    "district": "Yellow Springs Exempted Village",
+    "state": "OH",
+    "county": "",
+    "website": "http://www.ysschools.org/"
+  }
+]
