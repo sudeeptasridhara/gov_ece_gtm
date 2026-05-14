@@ -1,0 +1,443 @@
+[
+  {
+    "id": 17097,
+    "district": "Allendale Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.allendalek8.com"
+  },
+  {
+    "id": 17104,
+    "district": "Atlantic County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.acsssd.net"
+  },
+  {
+    "id": 17111,
+    "district": "Bayonne School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bboed.org"
+  },
+  {
+    "id": 17119,
+    "district": "Bergen County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://bcss.bergen.org"
+  },
+  {
+    "id": 17128,
+    "district": "Black Horse Pike Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bhprsd.org"
+  },
+  {
+    "id": 17138,
+    "district": "Bradley Beach School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bbesnj.org"
+  },
+  {
+    "id": 17147,
+    "district": "Burlington City Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.burlington-nj.net/"
+  },
+  {
+    "id": 17153,
+    "district": "Califon Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.califonschool.org"
+  },
+  {
+    "id": 17159,
+    "district": "Carlstadt-East Rutherford Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bectonhs.org"
+  },
+  {
+    "id": 17164,
+    "district": "Chester Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.chester-nj.org"
+  },
+  {
+    "id": 17171,
+    "district": "Cliffside Park School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.cliffsidepark.edu"
+  },
+  {
+    "id": 17182,
+    "district": "Cumberland Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.crhsd.org"
+  },
+  {
+    "id": 17188,
+    "district": "Delran Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.delranschools.org"
+  },
+  {
+    "id": 17194,
+    "district": "Dover Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://dover-nj.org"
+  },
+  {
+    "id": 17199,
+    "district": "East Amwell Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eastamwell.org"
+  },
+  {
+    "id": 17213,
+    "district": "Educational Services Commission of Morris County",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.escmorris.com"
+  },
+  {
+    "id": 17225,
+    "district": "Essex Regional Educational Services Commission",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eresc.org"
+  },
+  {
+    "id": 17240,
+    "district": "Frankford Township Consolidated School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.frankfordschool.org"
+  },
+  {
+    "id": 17250,
+    "district": "Frelinghuysen Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.FRELINGHUYSENSCHOOL.ORG"
+  },
+  {
+    "id": 17256,
+    "district": "Gibbsboro Elementary School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gibbsboroschool.org"
+  },
+  {
+    "id": 17265,
+    "district": "Green Brook Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gbtps.org"
+  },
+  {
+    "id": 17283,
+    "district": "Hampton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mckeown.org"
+  },
+  {
+    "id": 17296,
+    "district": "High Bridge Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hbschools.org"
+  },
+  {
+    "id": 17308,
+    "district": "Hopewell Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://hopewellcrest.org"
+  },
+  {
+    "id": 17324,
+    "district": "Kingsway Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.krsd.org"
+  },
+  {
+    "id": 17333,
+    "district": "Lakeland Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lakeland.k12.nj.us"
+  },
+  {
+    "id": 17346,
+    "district": "Linden Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lindenps.org"
+  },
+  {
+    "id": 17351,
+    "district": "Little Ferry Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lfboe.org"
+  },
+  {
+    "id": 17356,
+    "district": "Long Beach Island School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lbischools.org"
+  },
+  {
+    "id": 17361,
+    "district": "Lumberton Township Board of Education",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lumberton.k12.nj.us"
+  },
+  {
+    "id": 17367,
+    "district": "Manalapan-Englishtown Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mersnj.us/"
+  },
+  {
+    "id": 17373,
+    "district": "Mantua Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mantuaschools.com"
+  },
+  {
+    "id": 17387,
+    "district": "Merchantville School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.merchantvilleschool.org"
+  },
+  {
+    "id": 17414,
+    "district": "Morris-Union Jointure Commission School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mujc.org"
+  },
+  {
+    "id": 17436,
+    "district": "North Caldwell School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ncboe.org"
+  },
+  {
+    "id": 17446,
+    "district": "Northern Valley Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.nvnet.org"
+  },
+  {
+    "id": 17472,
+    "district": "Passaic Valley Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pvrhs.org"
+  },
+  {
+    "id": 17477,
+    "district": "Pennsauken Township Board of Education School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://PENNSAUKEN.NET"
+  },
+  {
+    "id": 17482,
+    "district": "Pine Hill School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pinehillschools.org"
+  },
+  {
+    "id": 17487,
+    "district": "Plainfield Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.plainfieldnjk12.org"
+  },
+  {
+    "id": 17494,
+    "district": "Port Republic School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.portnj.org"
+  },
+  {
+    "id": 17505,
+    "district": "Red Bank Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rbrhs.org"
+  },
+  {
+    "id": 17510,
+    "district": "River Dell Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.riverdell.org"
+  },
+  {
+    "id": 17515,
+    "district": "Riverton School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.riverton.k12.nj.us"
+  },
+  {
+    "id": 17520,
+    "district": "Roosevelt Borough Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rps1.org"
+  },
+  {
+    "id": 17525,
+    "district": "Rumson Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rumsonschool.org"
+  },
+  {
+    "id": 17530,
+    "district": "Saddle River School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wandellschool.org"
+  },
+  {
+    "id": 17535,
+    "district": "School District of the Chathams",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.chatham-nj.org"
+  },
+  {
+    "id": 17543,
+    "district": "Somerdale School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.somerdale-park.org"
+  },
+  {
+    "id": 17551,
+    "district": "South Brunswick School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sbschools.org"
+  },
+  {
+    "id": 17557,
+    "district": "South River Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.srivernj.org"
+  },
+  {
+    "id": 17562,
+    "district": "Spring Lake Borough",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hwmountz.k12.nj.us"
+  },
+  {
+    "id": 17567,
+    "district": "Stanhope School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.stanhopeschools.org"
+  },
+  {
+    "id": 17573,
+    "district": "Summit Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.summit.k12.nj.us"
+  },
+  {
+    "id": 17579,
+    "district": "Tenafly Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.tenaflyschools.org"
+  },
+  {
+    "id": 17584,
+    "district": "Totowa Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.totowa.k12.nj.us"
+  },
+  {
+    "id": 17593,
+    "district": "Union County Educational Services Commission",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ucesc.org"
+  },
+  {
+    "id": 17609,
+    "district": "Warren Hills Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.warrenhills.org"
+  },
+  {
+    "id": 17616,
+    "district": "Watchung Hills Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.whrhs.org"
+  },
+  {
+    "id": 17626,
+    "district": "West Morris Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wmrhsd.org"
+  },
+  {
+    "id": 17636,
+    "district": "White Township Consolidated School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.whitetwpsd.org"
+  },
+  {
+    "id": 17642,
+    "district": "Wood-Ridge School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wood-ridgeschools.org"
+  },
+  {
+    "id": 17647,
+    "district": "Woodcliff Lake School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodcliff-lake.com"
+  }
+]

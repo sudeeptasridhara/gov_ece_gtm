@@ -1,0 +1,450 @@
+[
+  {
+    "id": 17095,
+    "district": "Alexandria Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.alexandriaschools.org"
+  },
+  {
+    "id": 17100,
+    "district": "Alpine Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.alpineschool.org"
+  },
+  {
+    "id": 17109,
+    "district": "Barrington School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.barringtonschools.net"
+  },
+  {
+    "id": 17115,
+    "district": "Belleville Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bellevilleschools.org"
+  },
+  {
+    "id": 17124,
+    "district": "Berlin Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.btwpschools.org"
+  },
+  {
+    "id": 17132,
+    "district": "Bloomsbury Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bburyes.org"
+  },
+  {
+    "id": 17143,
+    "district": "Brielle Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.brielleschool.org"
+  },
+  {
+    "id": 17150,
+    "district": "Butler Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.butlerboe.org"
+  },
+  {
+    "id": 17157,
+    "district": "Cape May County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.cmcspecialservices.org"
+  },
+  {
+    "id": 17162,
+    "district": "Central Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.centralreg.k12.nj.us"
+  },
+  {
+    "id": 17169,
+    "district": "Clearview Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.clearviewregional.edu"
+  },
+  {
+    "id": 17179,
+    "district": "Cranbury Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.cranburyschool.org"
+  },
+  {
+    "id": 17186,
+    "district": "Delaware Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dtsk8.org"
+  },
+  {
+    "id": 17192,
+    "district": "Denville Township K-8 School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.denville.org"
+  },
+  {
+    "id": 17197,
+    "district": "Dunellen Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dunellenschools.org"
+  },
+  {
+    "id": 17204,
+    "district": "East Orange School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eastorange.k12.nj.us"
+  },
+  {
+    "id": 17219,
+    "district": "Elmwood Park School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.elmwoodparkschools.org/"
+  },
+  {
+    "id": 17232,
+    "district": "Fairfield Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.fairfield.k12.nj.us"
+  },
+  {
+    "id": 17246,
+    "district": "Fredon Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.fredon.org"
+  },
+  {
+    "id": 17253,
+    "district": "Garfield Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://gboe.org"
+  },
+  {
+    "id": 17263,
+    "district": "Great Meadows Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gmrsd.com"
+  },
+  {
+    "id": 17280,
+    "district": "Hamilton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hamiltonschools.org"
+  },
+  {
+    "id": 17286,
+    "district": "Harding Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hardingtwp.org"
+  },
+  {
+    "id": 17302,
+    "district": "Ho-Ho-Kus School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hohokus.org"
+  },
+  {
+    "id": 17318,
+    "district": "Jersey City Public Schools",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.jcboe.org"
+  },
+  {
+    "id": 17331,
+    "district": "Lafayette Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ltes.org"
+  },
+  {
+    "id": 17343,
+    "district": "Lenape Valley Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lvhs.org"
+  },
+  {
+    "id": 17349,
+    "district": "Little Egg Harbor Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lehsd.org"
+  },
+  {
+    "id": 17354,
+    "district": "Lodi School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lodinjschools.org/"
+  },
+  {
+    "id": 17359,
+    "district": "Lower Cape May Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lcmrschools.com"
+  },
+  {
+    "id": 17364,
+    "district": "Magnolia School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.magnoliaschools.org"
+  },
+  {
+    "id": 17371,
+    "district": "Mansfield Township Elementary School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mansfieldtsd.org"
+  },
+  {
+    "id": 17381,
+    "district": "Maywood School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.MAYWOODSCHOOLS.ORG"
+  },
+  {
+    "id": 17402,
+    "district": "Monroe Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.monroetwp.k12.nj.us/"
+  },
+  {
+    "id": 17422,
+    "district": "Mullica Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mullicaschools.com"
+  },
+  {
+    "id": 17444,
+    "district": "Northern Highlands Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.northernhighlands.org"
+  },
+  {
+    "id": 17451,
+    "district": "ORANGE BOARD OF EDUCATION School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.orange.k12.nj.us"
+  },
+  {
+    "id": 17475,
+    "district": "Pemberton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pemberton.k12.nj.us"
+  },
+  {
+    "id": 17480,
+    "district": "Perth Amboy Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.paps.net"
+  },
+  {
+    "id": 17485,
+    "district": "Pitman Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://pitman.k12.nj.us"
+  },
+  {
+    "id": 17490,
+    "district": "Pohatcong Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pohatcong.org"
+  },
+  {
+    "id": 17500,
+    "district": "Ramsey School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ramsey.k12.nj.us"
+  },
+  {
+    "id": 17508,
+    "district": "Ridgewood Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rpsnj.us"
+  },
+  {
+    "id": 17513,
+    "district": "Riverdale School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rpsnj.org"
+  },
+  {
+    "id": 17518,
+    "district": "Rockaway Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rockboro.org"
+  },
+  {
+    "id": 17523,
+    "district": "Roselle Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.ROSELLESCHOOLS.ORG"
+  },
+  {
+    "id": 17528,
+    "district": "Rutherford School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rutherfordschools.org"
+  },
+  {
+    "id": 17533,
+    "district": "Sandyston-Walpack Consolidated School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sandystonwalpack.org"
+  },
+  {
+    "id": 17538,
+    "district": "Seaside Heights School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sshschool.org/"
+  },
+  {
+    "id": 17548,
+    "district": "South  Bergen Jointure Commission School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.njsbjc.org"
+  },
+  {
+    "id": 17554,
+    "district": "South Hunterdon Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.shrsd.org"
+  },
+  {
+    "id": 17560,
+    "district": "Sparta Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sparta.org"
+  },
+  {
+    "id": 17565,
+    "district": "Springfield Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.springfieldschool.org"
+  },
+  {
+    "id": 17571,
+    "district": "Stow Creek Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.greenwichstowcreekpartnershipschools.org"
+  },
+  {
+    "id": 17577,
+    "district": "Tabernacle Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.tabschools.org"
+  },
+  {
+    "id": 17582,
+    "district": "Tinton Falls School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.tfschools.org"
+  },
+  {
+    "id": 17588,
+    "district": "Trenton Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.trenton.k12.nj.us"
+  },
+  {
+    "id": 17600,
+    "district": "Vernon Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.vtsd.com"
+  },
+  {
+    "id": 17613,
+    "district": "Washington Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wtschools.org"
+  },
+  {
+    "id": 17623,
+    "district": "West Essex Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.westex.org"
+  },
+  {
+    "id": 17634,
+    "district": "Weymouth Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.weymouthtownshipschool.com"
+  },
+  {
+    "id": 17640,
+    "district": "Winfield Township",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.winfieldschool.org"
+  },
+  {
+    "id": 17645,
+    "district": "Woodbury City Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodburysch.com"
+  },
+  {
+    "id": 17650,
+    "district": "Woodlynne School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodlynne.k12.nj.us"
+  }
+]

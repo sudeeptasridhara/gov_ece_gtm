@@ -1,0 +1,443 @@
+[
+  {
+    "id": 17099,
+    "district": "Alpha Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.apsedu.org"
+  },
+  {
+    "id": 17107,
+    "district": "Avon Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.AVONSCHOOL.COM"
+  },
+  {
+    "id": 17113,
+    "district": "Beach Haven School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.BeachHavenSchool.com"
+  },
+  {
+    "id": 17121,
+    "district": "Berkeley Heights School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bhpsnj.org"
+  },
+  {
+    "id": 17131,
+    "district": "Bloomingdale School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bpsnj.org"
+  },
+  {
+    "id": 17142,
+    "district": "Bridgewater-Raritan Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.brrsd.org"
+  },
+  {
+    "id": 17149,
+    "district": "Burlington Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.burltwpsch.org"
+  },
+  {
+    "id": 17155,
+    "district": "Camden Prep Inc.",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.camdenprep.uncommonschools.org"
+  },
+  {
+    "id": 17161,
+    "district": "Cedar Grove Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.cgschools.org"
+  },
+  {
+    "id": 17168,
+    "district": "Clayton Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.claytonps.org"
+  },
+  {
+    "id": 17174,
+    "district": "Clinton-Glen Gardner School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://cpsnj.org"
+  },
+  {
+    "id": 17185,
+    "district": "Delanco Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.delanco.com"
+  },
+  {
+    "id": 17190,
+    "district": "Demarest School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://demarestpublicschools.org"
+  },
+  {
+    "id": 17196,
+    "district": "Dumont Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dumontnj.org"
+  },
+  {
+    "id": 17203,
+    "district": "East Newark School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eastnewarkschool.org"
+  },
+  {
+    "id": 17218,
+    "district": "Elk Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.auraelementary.us"
+  },
+  {
+    "id": 17229,
+    "district": "Fair Haven School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.fairhaven.edu"
+  },
+  {
+    "id": 17243,
+    "district": "Franklin Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.franklinboe.org"
+  },
+  {
+    "id": 17252,
+    "district": "Galloway Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.GTPS.K12.NJ.US"
+  },
+  {
+    "id": 17261,
+    "district": "Gloucester County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gcsssd.org"
+  },
+  {
+    "id": 17271,
+    "district": "HADDON HEIGHTS School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gogarnets.com"
+  },
+  {
+    "id": 17285,
+    "district": "Hanover Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hanovertwpschools.com"
+  },
+  {
+    "id": 17301,
+    "district": "Hillside Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://hillsidepsnj.sites.thrillshare.com/"
+  },
+  {
+    "id": 17316,
+    "district": "Jamesburg Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.jamesburg.org"
+  },
+  {
+    "id": 17327,
+    "district": "Kittatinny Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.krhs.net"
+  },
+  {
+    "id": 17341,
+    "district": "Lebanon Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lebtwpk8.org"
+  },
+  {
+    "id": 17348,
+    "district": "Linwood City School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.linwoodschools.org"
+  },
+  {
+    "id": 17353,
+    "district": "Livingston Board of Education School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.livingston.org"
+  },
+  {
+    "id": 17357,
+    "district": "Long Hill Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.longhill.org"
+  },
+  {
+    "id": 17363,
+    "district": "Madison Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.madisonpublicschools.org"
+  },
+  {
+    "id": 17370,
+    "district": "Mannington Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://manningtonschool.org"
+  },
+  {
+    "id": 17378,
+    "district": "Mastery Schools of Camden Inc.",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.masterynj.org"
+  },
+  {
+    "id": 17401,
+    "district": "Monmouth-Ocean Educational Services Commission School Distri",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.moesc.org"
+  },
+  {
+    "id": 17421,
+    "district": "Mt. Ephraim School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mtephraimschools.com"
+  },
+  {
+    "id": 17441,
+    "district": "North Warren Regional",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.northwarren.org"
+  },
+  {
+    "id": 17459,
+    "district": "Old Bridge Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.oldbridgeadmin.org"
+  },
+  {
+    "id": 17474,
+    "district": "Paulsboro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.PAULSBORO.K12.NJ.US"
+  },
+  {
+    "id": 17479,
+    "district": "Pequannock Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pequannock.org"
+  },
+  {
+    "id": 17484,
+    "district": "Piscataway Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.piscatawayschools.org"
+  },
+  {
+    "id": 17489,
+    "district": "Plumsted Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.newegypt.us"
+  },
+  {
+    "id": 17499,
+    "district": "Ramapo Indian Hills Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rih.org"
+  },
+  {
+    "id": 17507,
+    "district": "Ridgefield School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ridgefieldschools.com"
+  },
+  {
+    "id": 17512,
+    "district": "River Vale Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rivervaleschools.com"
+  },
+  {
+    "id": 17517,
+    "district": "Rochelle Park School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rochellepark.org"
+  },
+  {
+    "id": 17522,
+    "district": "Roselle Park Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rpsd.org"
+  },
+  {
+    "id": 17527,
+    "district": "Runnemede Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.runnemedeschools.org"
+  },
+  {
+    "id": 17532,
+    "district": "Salem County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://scsssd.org"
+  },
+  {
+    "id": 17537,
+    "district": "Sea Girt Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.seagirt.k12.nj.us"
+  },
+  {
+    "id": 17546,
+    "district": "Somerset Hills Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.shsd.org/"
+  },
+  {
+    "id": 17553,
+    "district": "South Harrison Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.southharrison.k12.nj.us"
+  },
+  {
+    "id": 17559,
+    "district": "Southern Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.srsd.net"
+  },
+  {
+    "id": 17564,
+    "district": "Springfield Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.springfieldschools.com"
+  },
+  {
+    "id": 17570,
+    "district": "Stone Harbor School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.avalonstoneharborschools.org"
+  },
+  {
+    "id": 17575,
+    "district": "Sussex-Wantage Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.swregional.org"
+  },
+  {
+    "id": 17581,
+    "district": "The Lower Alloways Creek School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lacschool.org"
+  },
+  {
+    "id": 17587,
+    "district": "Township of Union School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.twpunionschools.org"
+  },
+  {
+    "id": 17597,
+    "district": "Upper Saddle River School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.usrschoolsk8.com"
+  },
+  {
+    "id": 17612,
+    "district": "Washington Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wtps.org"
+  },
+  {
+    "id": 17620,
+    "district": "Wenonah  Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wenonahsd.org"
+  },
+  {
+    "id": 17632,
+    "district": "Westville Boro Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.westvillesd.com"
+  },
+  {
+    "id": 17639,
+    "district": "Willingboro Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.willingboroschools.org"
+  },
+  {
+    "id": 17644,
+    "district": "Woodbridge Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodbridge.k12.nj.us/"
+  },
+  {
+    "id": 17649,
+    "district": "Woodland Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodlandboe.org"
+  }
+]

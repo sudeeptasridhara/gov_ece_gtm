@@ -1,0 +1,443 @@
+[
+  {
+    "id": 17098,
+    "district": "Alloway Twp School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.allowayschool.org"
+  },
+  {
+    "id": 17106,
+    "district": "Avalon School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.avalonstoneharborschools.org"
+  },
+  {
+    "id": 17112,
+    "district": "Bayshore Jointure Commission School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.theshorecenter.org"
+  },
+  {
+    "id": 17120,
+    "district": "Bergenfield Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bergenfield.org"
+  },
+  {
+    "id": 17129,
+    "district": "Blairstown Elementary Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.blairstownelem.net"
+  },
+  {
+    "id": 17140,
+    "district": "Brick Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.brickschools.org"
+  },
+  {
+    "id": 17148,
+    "district": "Burlington County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bcsssd.k12.nj.us"
+  },
+  {
+    "id": 17154,
+    "district": "Camden City School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.CAMDENCITYSCHOOLS.ORG"
+  },
+  {
+    "id": 17160,
+    "district": "Carteret Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.carteretschools.org"
+  },
+  {
+    "id": 17167,
+    "district": "Clark Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.clarkschools.org"
+  },
+  {
+    "id": 17173,
+    "district": "Clinton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ctsdnj.org"
+  },
+  {
+    "id": 17183,
+    "district": "Deal Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dealschool.org"
+  },
+  {
+    "id": 17189,
+    "district": "Delsea Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.delsearegional.us"
+  },
+  {
+    "id": 17195,
+    "district": "Downe Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.downeschool.org"
+  },
+  {
+    "id": 17200,
+    "district": "East Brunswick Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ebnet.org"
+  },
+  {
+    "id": 17214,
+    "district": "Educational Services Commission of New Jersey",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.escnj.us"
+  },
+  {
+    "id": 17226,
+    "district": "Estell Manor School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.estellmanorschool.com"
+  },
+  {
+    "id": 17241,
+    "district": "Franklin Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.fboe.org"
+  },
+  {
+    "id": 17251,
+    "district": "Frenchtown Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dvrhs.org/FTSD"
+  },
+  {
+    "id": 17260,
+    "district": "Gloucester City Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://gcsd.k12.nj.us"
+  },
+  {
+    "id": 17267,
+    "district": "Greenwich Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.greenwichstowcreekpartnershipschools.org"
+  },
+  {
+    "id": 17284,
+    "district": "Hanover Park Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hpreg.org"
+  },
+  {
+    "id": 17299,
+    "district": "Hillsborough Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.htps.us"
+  },
+  {
+    "id": 17312,
+    "district": "Hunterdon County Educational Services Commission",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hunterdonesc.org"
+  },
+  {
+    "id": 17319,
+    "district": "KIPP: Cooper Norcross A New Jersey Nonprofit Corporation",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.kippnj.org"
+  },
+  {
+    "id": 17334,
+    "district": "Lakewood Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lakewoodpiners.org"
+  },
+  {
+    "id": 17347,
+    "district": "Lindenwold Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lindenwold.k12.nj.us"
+  },
+  {
+    "id": 17352,
+    "district": "Little Silver Boro School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.LITTLESILVERSCHOOLS.ORG"
+  },
+  {
+    "id": 17329,
+    "district": "LONG BRANCH PUBLIC SCHOOL District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.longbranch.k12.nj.us"
+  },
+  {
+    "id": 17362,
+    "district": "Lyndhurst Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lyndhurstschools.net"
+  },
+  {
+    "id": 17368,
+    "district": "Manasquan School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.manasquanschools.org"
+  },
+  {
+    "id": 17376,
+    "district": "Margate City School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.margateschools.org"
+  },
+  {
+    "id": 17398,
+    "district": "Mine Hill Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.minehillcas.org"
+  },
+  {
+    "id": 17415,
+    "district": "Mount Arlington Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mtartlingtonk8.org"
+  },
+  {
+    "id": 17437,
+    "district": "North Haledon School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.nhschools.net/nh"
+  },
+  {
+    "id": 17452,
+    "district": "Oakland Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.oaklandschoolsnj.org"
+  },
+  {
+    "id": 17473,
+    "district": "Paterson Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.paterson.k12.nj.us"
+  },
+  {
+    "id": 17478,
+    "district": "Pennsville School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.psdnet.org"
+  },
+  {
+    "id": 17483,
+    "district": "Pinelands Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pinelandsregional.org"
+  },
+  {
+    "id": 17488,
+    "district": "Pleasantville Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pps-nj.us/pps/"
+  },
+  {
+    "id": 17496,
+    "district": "Prospect Park Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.prospectparknj.com"
+  },
+  {
+    "id": 17506,
+    "district": "Ridgefield Park Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rpps.net"
+  },
+  {
+    "id": 17511,
+    "district": "River Edge School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.riveredgeschools.org"
+  },
+  {
+    "id": 17516,
+    "district": "Robbinsville Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.robbinsville.k12.nj.us/"
+  },
+  {
+    "id": 17521,
+    "district": "Roseland School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.roselandnjboe.org"
+  },
+  {
+    "id": 17526,
+    "district": "Rumson-Fair Haven Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rumsonfairhaven.org"
+  },
+  {
+    "id": 17531,
+    "district": "Salem City School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.SALEMNJ.ORG"
+  },
+  {
+    "id": 17536,
+    "district": "Scotch Plains-Fanwood School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.spfk12.org"
+  },
+  {
+    "id": 17545,
+    "district": "Somerset County Educational Services Commission School Distr",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.somersetcountyesc.org"
+  },
+  {
+    "id": 17552,
+    "district": "South Hackensack School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.shmemorial.org"
+  },
+  {
+    "id": 17558,
+    "district": "Southampton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.stsdwarriors.org"
+  },
+  {
+    "id": 17563,
+    "district": "Spring Lake Heights School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.slheights.org"
+  },
+  {
+    "id": 17569,
+    "district": "Stillwater Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.stillwaterschool.net"
+  },
+  {
+    "id": 17574,
+    "district": "Sussex County Educational Services Commission",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sussexesc.org"
+  },
+  {
+    "id": 17580,
+    "district": "Tewksbury Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.tewksburyschools.org"
+  },
+  {
+    "id": 17585,
+    "district": "Township of Franklin School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.franklintwpschools.org"
+  },
+  {
+    "id": 17595,
+    "district": "Upper Deerfield Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.udts.org"
+  },
+  {
+    "id": 17611,
+    "district": "Washington Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.washboroschools.org"
+  },
+  {
+    "id": 17617,
+    "district": "Waterford Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wtsd.org"
+  },
+  {
+    "id": 17630,
+    "district": "Westampton Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.westamptonschools.org"
+  },
+  {
+    "id": 17637,
+    "district": "Wildwood City School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://nj02210961.schoolwires.net/"
+  },
+  {
+    "id": 17643,
+    "district": "Woodbine School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://woodbineschool.com"
+  },
+  {
+    "id": 17648,
+    "district": "Woodland Park School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wpschools.org"
+  }
+]

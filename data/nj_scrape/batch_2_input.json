@@ -1,0 +1,450 @@
+[
+  {
+    "id": 17096,
+    "district": "Allamuchy Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.aes.k12.nj.us"
+  },
+  {
+    "id": 17101,
+    "district": "Andover Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.andoverregional.org"
+  },
+  {
+    "id": 17110,
+    "district": "Bay Head Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bayheadschool.org"
+  },
+  {
+    "id": 17116,
+    "district": "Bellmawr Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.bellmawrschools.org"
+  },
+  {
+    "id": 17126,
+    "district": "Bethlehem Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.btschools.org"
+  },
+  {
+    "id": 17135,
+    "district": "Boonton Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.btrvs.org"
+  },
+  {
+    "id": 17146,
+    "district": "Buena Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.buenaschools.org"
+  },
+  {
+    "id": 17151,
+    "district": "Byram Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.byramschools.org"
+  },
+  {
+    "id": 17158,
+    "district": "Carlstadt Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.carlstadt.org"
+  },
+  {
+    "id": 17163,
+    "district": "Cherry Hill School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.chclc.org"
+  },
+  {
+    "id": 17170,
+    "district": "Clementon Elementary School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://clementon.k12.nj.us"
+  },
+  {
+    "id": 17180,
+    "district": "Cranford Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://cranfordschools.org"
+  },
+  {
+    "id": 17187,
+    "district": "Delaware Valley Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.dvrhs.org"
+  },
+  {
+    "id": 17193,
+    "district": "Deptford Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.deptfordschools.org/"
+  },
+  {
+    "id": 17198,
+    "district": "Eagleswood Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eagleswood.org"
+  },
+  {
+    "id": 17209,
+    "district": "Eatontown Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.eatontown.org"
+  },
+  {
+    "id": 17220,
+    "district": "Elsinboro Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.elsinboroschool.org"
+  },
+  {
+    "id": 17238,
+    "district": "Folsom Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.folsomschool.org/"
+  },
+  {
+    "id": 17248,
+    "district": "Freehold Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.frhsd.com"
+  },
+  {
+    "id": 17255,
+    "district": "Gateway Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gatewayhs.com"
+  },
+  {
+    "id": 17264,
+    "district": "Greater Egg Harbor Regional High School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.gehrhsd.net"
+  },
+  {
+    "id": 17282,
+    "district": "Hampton Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hamptonpublicschool.ORG"
+  },
+  {
+    "id": 17292,
+    "district": "Hasbrouck Heights School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.hhschools.org"
+  },
+  {
+    "id": 17305,
+    "district": "Holmdel Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.holmdelschools.org"
+  },
+  {
+    "id": 17323,
+    "district": "Keyport School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.kpsdschools.org"
+  },
+  {
+    "id": 17332,
+    "district": "Lakehurst School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lakehurstschool.org"
+  },
+  {
+    "id": 17345,
+    "district": "Lincoln Park School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lincolnparkboe.org"
+  },
+  {
+    "id": 17350,
+    "district": "Little Falls Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lfschools.org"
+  },
+  {
+    "id": 17355,
+    "district": "Logan Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.logantownshipschools.org"
+  },
+  {
+    "id": 17360,
+    "district": "Lower Township Elementary School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.lowertwpschools.com"
+  },
+  {
+    "id": 17366,
+    "district": "Mainland Regional High School",
+    "state": "NJ",
+    "county": "",
+    "website": "http://MAINLANDREGIONAL.NET"
+  },
+  {
+    "id": 17372,
+    "district": "Mansfield Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mansfieldschool.com"
+  },
+  {
+    "id": 17386,
+    "district": "Mercer County Special Services School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.mcsssd.info"
+  },
+  {
+    "id": 17408,
+    "district": "Montville Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.montville.net/"
+  },
+  {
+    "id": 17431,
+    "district": "Newark Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://WWW.NPS.K12.NJ.US"
+  },
+  {
+    "id": 17445,
+    "district": "Northern Region Educational Services Commission",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.nresc.org"
+  },
+  {
+    "id": 17467,
+    "district": "Park Ridge School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.parkridgeschools.org/"
+  },
+  {
+    "id": 17476,
+    "district": "Penns Grove-Carneys Point Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pgcpschools.org"
+  },
+  {
+    "id": 17481,
+    "district": "Phillipsburg School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pburgsd.net"
+  },
+  {
+    "id": 17486,
+    "district": "Pittsgrove Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.pittsgrove.net"
+  },
+  {
+    "id": 17491,
+    "district": "Point Pleasant Beach School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.ptbeach.com"
+  },
+  {
+    "id": 17504,
+    "district": "Red Bank Borough Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rbb.k12.nj.us"
+  },
+  {
+    "id": 17509,
+    "district": "Ringwood School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.njrps.org"
+  },
+  {
+    "id": 17514,
+    "district": "Riverside Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.riverside.k12.nj.us"
+  },
+  {
+    "id": 17519,
+    "district": "Rockaway Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.rocktwp.net"
+  },
+  {
+    "id": 17524,
+    "district": "Roxbury Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.roxbury.org"
+  },
+  {
+    "id": 17529,
+    "district": "Saddle Brook School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sbpsnj.org"
+  },
+  {
+    "id": 17534,
+    "district": "Sayreville School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sayrevillek12.net"
+  },
+  {
+    "id": 17539,
+    "district": "Secaucus School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.sboe.org"
+  },
+  {
+    "id": 17550,
+    "district": "South Bound Brook Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.southboundbrookk8.org"
+  },
+  {
+    "id": 17556,
+    "district": "South Plainfield School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.spboe.org"
+  },
+  {
+    "id": 17561,
+    "district": "Spotswood Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.spsd.us"
+  },
+  {
+    "id": 17566,
+    "district": "Stafford Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.staffordschools.org"
+  },
+  {
+    "id": 17572,
+    "district": "Stratford School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.stratford.k12.nj.us"
+  },
+  {
+    "id": 17578,
+    "district": "Teaneck School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.teaneckschools.org"
+  },
+  {
+    "id": 17583,
+    "district": "Toms River Regional School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.trschools.com"
+  },
+  {
+    "id": 17589,
+    "district": "Tuckerton Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.tesnj.com"
+  },
+  {
+    "id": 17607,
+    "district": "Wallkill Valley Regional High School",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wallkillvrhs.org"
+  },
+  {
+    "id": 17614,
+    "district": "Washington Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.washtwpsd.org"
+  },
+  {
+    "id": 17625,
+    "district": "West Milford Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wmtps.org"
+  },
+  {
+    "id": 17635,
+    "district": "Wharton Borough School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wbps.org"
+  },
+  {
+    "id": 17641,
+    "district": "Winslow Township School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.winslow-schools.com"
+  },
+  {
+    "id": 17646,
+    "district": "Woodbury Heights Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.woodburyhtselem.com"
+  },
+  {
+    "id": 17652,
+    "district": "Wyckoff Township Public School District",
+    "state": "NJ",
+    "county": "",
+    "website": "http://www.wyckoffps.org"
+  }
+]
