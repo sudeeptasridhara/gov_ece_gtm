@@ -1,0 +1,296 @@
+[
+  {
+    "id": 17720,
+    "district": "BRENTWOOD UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.brentwood.k12.ny.us"
+  },
+  {
+    "id": 17755,
+    "district": "CATTARAUGUS-LITTLE VALLEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.cattlv.wnyric.org"
+  },
+  {
+    "id": 17814,
+    "district": "DUNDEE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.dundeecs.org"
+  },
+  {
+    "id": 17851,
+    "district": "FARMINGDALE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.farmingdaleschools.org"
+  },
+  {
+    "id": 17858,
+    "district": "FONDA-FULTONVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fondafultonvilleschools.org"
+  },
+  {
+    "id": 17870,
+    "district": "FRIENDSHIP CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.friendship.wnyric.org"
+  },
+  {
+    "id": 17879,
+    "district": "GENESEE VALLEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.genvalley.org"
+  },
+  {
+    "id": 17888,
+    "district": "GLENS FALLS COMMON SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.abewing.org"
+  },
+  {
+    "id": 17900,
+    "district": "GREENBURGH ELEVEN UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.greenburgheleven.org"
+  },
+  {
+    "id": 17911,
+    "district": "HALDANE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.haldaneschool.org"
+  },
+  {
+    "id": 17922,
+    "district": "HARRISON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.harrisoncsd.org"
+  },
+  {
+    "id": 17929,
+    "district": "HEMPSTEAD UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hempsteadschools.org"
+  },
+  {
+    "id": 17934,
+    "district": "HEUVELTON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.heuvelton.k12.ny.us"
+  },
+  {
+    "id": 17939,
+    "district": "HILTON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hilton.k12.ny.us"
+  },
+  {
+    "id": 17944,
+    "district": "HOMER CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.homercentral.org"
+  },
+  {
+    "id": 17949,
+    "district": "HORNELL CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hornellcityschools.com"
+  },
+  {
+    "id": 17955,
+    "district": "HYDE PARK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hpcsd.org"
+  },
+  {
+    "id": 17960,
+    "district": "ISLAND PARK UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ips.k12.ny.us"
+  },
+  {
+    "id": 17965,
+    "district": "JAMESVILLE-DEWITT CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jamesvilledewitt.org"
+  },
+  {
+    "id": 17970,
+    "district": "JOHNSON CITY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jcschools.com"
+  },
+  {
+    "id": 17977,
+    "district": "KINDERHOOK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ichabodcrane.org"
+  },
+  {
+    "id": 17984,
+    "district": "LAKE GEORGE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lkgeorge.org"
+  },
+  {
+    "id": 17994,
+    "district": "LETCHWORTH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.letchworth.k12.ny.us"
+  },
+  {
+    "id": 17999,
+    "district": "LISBON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://lisboncsd.org"
+  },
+  {
+    "id": 18025,
+    "district": "MARATHON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.marathonschools.org"
+  },
+  {
+    "id": 18041,
+    "district": "MIDDLEBURGH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.middleburghcsd.org"
+  },
+  {
+    "id": 18072,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 2",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18077,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 7",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18082,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #12",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18087,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #17",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18092,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #22",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18097,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #27",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18102,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #32",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18148,
+    "district": "OTEGO-UNADILLA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.unatego.org"
+  },
+  {
+    "id": 18190,
+    "district": "PUTNAM CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.putnamcsd.org"
+  },
+  {
+    "id": 18228,
+    "district": "SALMON RIVER CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.srk12.org"
+  },
+  {
+    "id": 18233,
+    "district": "SAUGERTIES CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.saugerties.k12.ny.us"
+  },
+  {
+    "id": 18238,
+    "district": "SCHENECTADY CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://schenectadyschools.org"
+  },
+  {
+    "id": 18243,
+    "district": "SCHUYLERVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schuylervilleschools.org"
+  },
+  {
+    "id": 18256,
+    "district": "SIDNEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.sidneycsd.org"
+  },
+  {
+    "id": 18300,
+    "district": "TRUMANSBURG CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.tburgschools.org"
+  },
+  {
+    "id": 18360,
+    "district": "WHITEHALL CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.railroaders.net"
+  }
+]

@@ -1,0 +1,289 @@
+[
+  {
+    "id": 17740,
+    "district": "CAMDEN CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.camdenschools.org"
+  },
+  {
+    "id": 17779,
+    "district": "CLEVELAND HILL UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.clevehill.org"
+  },
+  {
+    "id": 17816,
+    "district": "EAST AURORA UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.eastauroraschools.org"
+  },
+  {
+    "id": 17852,
+    "district": "FAYETTEVILLE-MANLIUS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fmschools.org"
+  },
+  {
+    "id": 17860,
+    "district": "FORT ANN CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fortannschool.org"
+  },
+  {
+    "id": 17874,
+    "district": "GANANDA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gananda.org"
+  },
+  {
+    "id": 17882,
+    "district": "GEORGE JUNIOR REPUBLIC UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.georgejuniorrepublic.com"
+  },
+  {
+    "id": 17889,
+    "district": "GLOVERSVILLE CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gesdk12.org"
+  },
+  {
+    "id": 17901,
+    "district": "GREENBURGH-GRAHAM UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.greenburghgraham.org"
+  },
+  {
+    "id": 17914,
+    "district": "HAMILTON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hamiltoncentral.org"
+  },
+  {
+    "id": 17923,
+    "district": "HARRISVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hcsk12.org"
+  },
+  {
+    "id": 17930,
+    "district": "HENDRICK HUDSON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.henhudschools.org"
+  },
+  {
+    "id": 17935,
+    "district": "HEWLETT-WOODMERE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hewlett-woodmere.net"
+  },
+  {
+    "id": 17940,
+    "district": "HINSDALE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hinsdalebobcats.org"
+  },
+  {
+    "id": 17945,
+    "district": "HONEOYE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.honeoye.org"
+  },
+  {
+    "id": 17950,
+    "district": "HORSEHEADS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.horseheadsdistrict.com"
+  },
+  {
+    "id": 17956,
+    "district": "INDIAN LAKE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ilcsd.org"
+  },
+  {
+    "id": 17961,
+    "district": "ISLAND TREES UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.islandtrees.org"
+  },
+  {
+    "id": 17966,
+    "district": "JASPER-TROUPSBURG CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jtcsd.org"
+  },
+  {
+    "id": 17971,
+    "district": "JOHNSTOWN CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.johnstownschools.org"
+  },
+  {
+    "id": 17978,
+    "district": "KINGS PARK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.kpcsd.org"
+  },
+  {
+    "id": 17985,
+    "district": "LAKE PLACID CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lpcsd.org"
+  },
+  {
+    "id": 17995,
+    "district": "LEVITTOWN UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.levittownschools.com"
+  },
+  {
+    "id": 18001,
+    "district": "LITTLE FLOWER UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.littleflowerufsd.org"
+  },
+  {
+    "id": 18027,
+    "district": "MARGARETVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.margaretvillecs.org"
+  },
+  {
+    "id": 18053,
+    "district": "MORIAH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.moriahk12.org"
+  },
+  {
+    "id": 18073,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 3",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18078,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 8",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18083,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #13",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18088,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #18",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18093,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #23",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18098,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #28",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18103,
+    "district": "NEW YORK MILLS UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.newyorkmills.org"
+  },
+  {
+    "id": 18149,
+    "district": "OTSELIC VALLEY CSD",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ovcs.org"
+  },
+  {
+    "id": 18194,
+    "district": "RANDOLPH ACADEMY UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.randolphacademy.org"
+  },
+  {
+    "id": 18229,
+    "district": "SANDY CREEK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.sccs.cnyric.org"
+  },
+  {
+    "id": 18234,
+    "district": "SAUQUOIT VALLEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.svcsd.org"
+  },
+  {
+    "id": 18239,
+    "district": "SCHENEVUS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schenevuscsd.org"
+  },
+  {
+    "id": 18244,
+    "district": "SCIO CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.scio.wnyric.org"
+  },
+  {
+    "id": 18269,
+    "district": "SOUTH LEWIS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.southlewis.org"
+  },
+  {
+    "id": 18317,
+    "district": "VALLEY STREAM CENTRAL HIGH SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.vschsd.org"
+  }
+]

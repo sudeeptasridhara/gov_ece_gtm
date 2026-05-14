@@ -1,0 +1,296 @@
+[
+  {
+    "id": 17718,
+    "district": "BRADFORD CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.bradfordcsd.org"
+  },
+  {
+    "id": 17754,
+    "district": "CATSKILL CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.catskillcsd.org"
+  },
+  {
+    "id": 17808,
+    "district": "DOBBS FERRY UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.dfsd.org"
+  },
+  {
+    "id": 17828,
+    "district": "EAST SYRACUSE MINOA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.esmschools.org"
+  },
+  {
+    "id": 17857,
+    "district": "FLORIDA UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.floridaufsd.org"
+  },
+  {
+    "id": 17869,
+    "district": "FREWSBURG CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.frewsburgcsd.org"
+  },
+  {
+    "id": 17878,
+    "district": "GENERAL BROWN CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gblions.org"
+  },
+  {
+    "id": 17887,
+    "district": "GLENS FALLS CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gfsd.org"
+  },
+  {
+    "id": 17895,
+    "district": "GRANVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.granvillecsd.org"
+  },
+  {
+    "id": 17910,
+    "district": "HADLEY-LUZERNE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hlcs.org"
+  },
+  {
+    "id": 17921,
+    "district": "HARPURSVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hcs.stier.org"
+  },
+  {
+    "id": 17928,
+    "district": "HAWTHORNE-CEDAR KNOLLS UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hcks.org"
+  },
+  {
+    "id": 17933,
+    "district": "HERRICKS UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.herricks.org"
+  },
+  {
+    "id": 17938,
+    "district": "HIGHLAND FALLS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hffmcsd.org"
+  },
+  {
+    "id": 17943,
+    "district": "HOLLEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.holleycsd.org"
+  },
+  {
+    "id": 17948,
+    "district": "HOOSICK FALLS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hoosickfallscsd.org"
+  },
+  {
+    "id": 17953,
+    "district": "HUNTER-TANNERSVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.htcsd.org"
+  },
+  {
+    "id": 17959,
+    "district": "IRVINGTON UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.irvingtonschools.org"
+  },
+  {
+    "id": 17964,
+    "district": "JAMESTOWN CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jpsny.org"
+  },
+  {
+    "id": 17969,
+    "district": "JOHNSBURG CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.johnsburgcsd.org"
+  },
+  {
+    "id": 17974,
+    "district": "KEENE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.keenecentralschool.org"
+  },
+  {
+    "id": 17983,
+    "district": "LAFAYETTE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lafayetteschools.org"
+  },
+  {
+    "id": 17993,
+    "district": "LE ROY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.leroycsd.org"
+  },
+  {
+    "id": 17998,
+    "district": "LINDENHURST UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lindenhurstschools.org"
+  },
+  {
+    "id": 18023,
+    "district": "MANCHESTER-SHORTSVILLE CENTRAL SCHOOL DISTRICT (RED JACKET)",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.redjacket.org"
+  },
+  {
+    "id": 18036,
+    "district": "MEDINA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.medinacsd.org"
+  },
+  {
+    "id": 18071,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 1",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18076,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 6",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18081,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #11",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18086,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #16",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18091,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #21",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18096,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #26",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18101,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #31",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18141,
+    "district": "ONONDAGA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.onondagacsd.org"
+  },
+  {
+    "id": 18186,
+    "district": "POTSDAM CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.potsdam.k12.ny.us"
+  },
+  {
+    "id": 18227,
+    "district": "SALEM CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.salemcsd.org"
+  },
+  {
+    "id": 18232,
+    "district": "SARATOGA SPRINGS CITY SD",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.saratogaschools.org"
+  },
+  {
+    "id": 18237,
+    "district": "SCHALMONT CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schalmont.org"
+  },
+  {
+    "id": 18242,
+    "district": "SCHROON LAKE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schroonschool.org"
+  },
+  {
+    "id": 18254,
+    "district": "SHERRILL CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.vvsschools.org"
+  },
+  {
+    "id": 18277,
+    "district": "SPENCER-VAN ETTEN CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.svecsd.org"
+  },
+  {
+    "id": 18358,
+    "district": "WHEELERVILLE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.wufsk8.org"
+  }
+]

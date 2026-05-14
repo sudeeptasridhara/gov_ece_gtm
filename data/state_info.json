@@ -482,5 +482,28 @@
       "**NJDOE** (NJ Department of Education) is state-level \u2014 NEVER recorded as district staff.",
       "554 of 559 NJ districts now enriched (~99%). Previous data covered 242 districts; this pass added 305 (200+ direct, ~100 inferred) with strong ECE persona match given NJ's preschool ecosystem."
     ]
+  },
+  "NY": {
+    "state": "NY",
+    "state_name": "New York",
+    "last_updated": "2026-05-14",
+    "pre_k_program": "Universal Pre-K (UPK) \u2014 NY state-funded preschool program ($1B+ annually). Most districts offer UPK in some form; many also have Expanded Pre-K state grants for full-day expansion. NYC operates Pre-K for All + 3-K for All as separate citywide universal programs covering 70K+ 3-4yos.",
+    "literacy_initiative": "NY Next Generation Learning Standards (NGLS) replaced Common Core ELA/Math 2021-22. Science of Reading mandate announced 2024 \u2014 districts mid-curriculum review for SoR-aligned ELA (HMH Into Reading, Wit & Wisdom, Knowledge Matters, Wilson, Fundations).",
+    "leadership_terminology": "New York has 717 districts. Big 5 City SDs: NYC (1.1M students), Buffalo, Rochester, Syracuse, Yonkers. District types: City SDs (urban), Central SDs / CSD (K-12, most rural), Union Free SDs / UFSD (mostly K-12 single town), Common SDs (very small K-8), Central HSDs / CHSD (9-12 only \u2014 Bellmore-Merrick, Sewanhaka, Valley Stream on Long Island).",
+    "notes": [
+      "**UPK + Expanded Pre-K** is the dominant ECE funding lever. Many districts run dedicated UPK programs with named directors.",
+      "**NYC Pre-K for All + 3-K for All** is operated centrally (DOE Division of Early Childhood Education); NYC Community Superintendents (32 Geographic Districts + D75 SpEd) own school-level relationships. NYC ECE buying decisions sit centrally but each Community Supt is the right relationship-owner per CSD.",
+      "**Science of Reading mandate (2024)** drives active K-3 curriculum review cycle through 2026-27.",
+      "**Standout dedicated ECE / curriculum leads this pass**: Schenectady (Jessica Valente, Asst Director Pre-K), Farmingdale (central UPK Office), Lake George (Ashley Gershen, Pre-K-6 Curriculum Coord), Le Roy CSD (Lauren Combo, new UPK-3 principal, 2025-26 ECE restructure), Holley CSD (Schiavone with elementary/instruction background), Manchester-Shortsville/Red Jacket (Barnard, former UPK teacher), Harrison (Mulhall Asst Supt C&I), Hempstead (Brown), Saugerties (Westinghouse), Homer (Garback), Jamesville-DeWitt (Franz), Hudson (new Exec Dir T&L June 2024), Hicksville (new Asst Supt C&I July 2025).",
+      "**Active strong buying signals**: Garden City UFSD launching UPK for the first time Sept 2025; Malverne UFSD launching first-ever Pre-K 2026-27; Fort Edward UFSD posted 2025-26 UPK RFP; Jamestown City SD adopted HMH Into Reading 2023; Saratoga Springs running Knowledge Matters campaign; Glens Falls Structured Literacy SME aligned with state SoR mandate.",
+      "**REJECT BOCES (Board of Cooperative Educational Services)** \u2014 37 BOCES serve groups of districts but are NOT district staff. Common BOCES domains: @nassauboces.org, @putnamwestchesterboces.org, @neric.org, @gstboces.org, @cabocesny.org, @oswegoboces.org, @sebocesny.org, @ocmboces.org, @capitalregionboces.org, @swboces.org, @wflboces.org, @sccboces.org, @sceboces.org, @e2ccb.org, @e1b.org, etc.",
+      "**Note on CNYRIC**: Some Central NY districts (e.g., Jamesville-DeWitt) use @district.cnyric.org for staff email \u2014 CNYRIC is a regional info center hosting infrastructure but the email belongs to district staff, not BOCES instructional services. Verify before rejecting.",
+      "**Central HSDs (9-12 only, no PreK)** \u2014 flag low ECE priority but contact retained: Bellmore-Merrick CHSD, Sewanhaka CHSD, Valley Stream CHSD (all Long Island).",
+      "**Special-act / residential / SpEd-only districts** \u2014 low ECE priority: Greenburgh-North Castle UFSD, Mount Pleasant-Blythedale UFSD (hospital-affiliated), Mount Pleasant-Cottage UFSD, Greenburgh Eleven UFSD, Greenburgh-Graham UFSD, Little Flower UFSD, Randolph Academy UFSD, George Junior Republic UFSD, Kiryas Joel UFSD (Hasidic community SpEd-only), NYC D75 (SpEd).",
+      "**Email domain gotchas**: Grand Island uses `gicsd.org` for email (not grandislandschools.org website); Ithaca uses `icsd.k12.ny.us` for email; some districts route staff email through different domain than public website.",
+      "**Leadership transitions to flag**: NYC D3 \u2014 Kamar Samuels promoted to NYC Chancellor Dec 2025 (community supt search underway); Southern Cayuga \u2014 John Lawrence incoming July 1 2026; Hudson \u2014 new Exec Dir T&L June 2024; Hicksville \u2014 new Asst Supt C&I July 2025; Camden CSD \u2014 interim curriculum role; George Jr Republic \u2014 supt vacancy.",
+      "**NYSED** (NY State Ed Dept) is state-level \u2014 NEVER recorded as district staff.",
+      "**Final coverage**: 717 of 717 NY districts have a named director (100%); 511 have director + email (71%). Existing 508 rep-entered contacts preserved (no overwrites). 209 districts filled this pass."
+    ]
   }
 }

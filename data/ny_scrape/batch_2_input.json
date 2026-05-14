@@ -1,0 +1,296 @@
+[
+  {
+    "id": 17707,
+    "district": "BELLMORE-MERRICK CENTRAL HIGH SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.bellmore-merrick.k12.ny.us"
+  },
+  {
+    "id": 17751,
+    "district": "CARTHAGE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.carthagecsd.org"
+  },
+  {
+    "id": 17804,
+    "district": "DELAWARE ACADEMY CENTRAL SCHOOL DISTRICT AT DELHI",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.delhischools.org"
+  },
+  {
+    "id": 17819,
+    "district": "EAST HAMPTON UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ehufsd.org"
+  },
+  {
+    "id": 17854,
+    "district": "FIRE ISLAND UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fi.k12.ny.us"
+  },
+  {
+    "id": 17868,
+    "district": "FREEPORT UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.freeportschools.org"
+  },
+  {
+    "id": 17876,
+    "district": "GARRISON UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gufs.org"
+  },
+  {
+    "id": 17886,
+    "district": "GLEN COVE CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.glencoveschools.org"
+  },
+  {
+    "id": 17894,
+    "district": "GRAND ISLAND CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.grandislandschools.org"
+  },
+  {
+    "id": 17904,
+    "district": "GREENPORT UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gufsd.org"
+  },
+  {
+    "id": 17920,
+    "district": "HARBORFIELDS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.harborfieldscsd.net"
+  },
+  {
+    "id": 17925,
+    "district": "HASTINGS-ON-HUDSON UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hohschools.org"
+  },
+  {
+    "id": 17932,
+    "district": "HERMON-DEKALB CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hdcsk12.org"
+  },
+  {
+    "id": 17937,
+    "district": "HIGHLAND CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.highland-k12.org"
+  },
+  {
+    "id": 17942,
+    "district": "HOLLAND PATENT CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hpschools.org"
+  },
+  {
+    "id": 17947,
+    "district": "HOOSIC VALLEY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hoosicvalley.org"
+  },
+  {
+    "id": 17952,
+    "district": "HUDSON FALLS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hfcsd.org"
+  },
+  {
+    "id": 17958,
+    "district": "IROQUOIS CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.iroquoiscsd.org"
+  },
+  {
+    "id": 17963,
+    "district": "ITHACA CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ithacacityschools.org"
+  },
+  {
+    "id": 17968,
+    "district": "JERICHO UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jerichoschools.org"
+  },
+  {
+    "id": 17973,
+    "district": "KATONAH-LEWISBORO UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.klschools.org"
+  },
+  {
+    "id": 17982,
+    "district": "LACKAWANNA CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lackawannaschools.org"
+  },
+  {
+    "id": 17990,
+    "district": "LANSINGBURGH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lansingburgh.org"
+  },
+  {
+    "id": 17997,
+    "district": "LIBERTY CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.libertyk12.org"
+  },
+  {
+    "id": 18022,
+    "district": "MAMARONECK UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mamkschools.org"
+  },
+  {
+    "id": 18033,
+    "district": "MAYFIELD CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mayfieldk12.com"
+  },
+  {
+    "id": 18061,
+    "district": "MOUNT PLEASANT-COTTAGE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mpcsny.org"
+  },
+  {
+    "id": 18075,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 5",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18080,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #10",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18085,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #15",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18090,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #20",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18095,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #25",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18100,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #30",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18133,
+    "district": "NYC SPECIAL SCHOOLS - DISTRICT 75",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18152,
+    "district": "OYSTER BAY-EAST NORWICH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.obenschools.org"
+  },
+  {
+    "id": 18226,
+    "district": "SALAMANCA CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.salamancany.org"
+  },
+  {
+    "id": 18231,
+    "district": "SARANAC LAKE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.slcs.org"
+  },
+  {
+    "id": 18236,
+    "district": "SCARSDALE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.scarsdaleschools.org"
+  },
+  {
+    "id": 18241,
+    "district": "SCHOHARIE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schoharieschools.org"
+  },
+  {
+    "id": 18248,
+    "district": "SEWANHAKA CENTRAL HIGH SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.sewanhakaschools.org"
+  },
+  {
+    "id": 18274,
+    "district": "SOUTHOLD UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.southoldufsd.com"
+  },
+  {
+    "id": 18353,
+    "district": "WESTFIELD CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.westfieldcsd.org/"
+  }
+]

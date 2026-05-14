@@ -1,0 +1,296 @@
+[
+  {
+    "id": 17697,
+    "district": "BATH CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.bathcsd.org"
+  },
+  {
+    "id": 17748,
+    "district": "CANTON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ccsdk12.org"
+  },
+  {
+    "id": 17794,
+    "district": "CORNING CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.corningareaschools.com"
+  },
+  {
+    "id": 17817,
+    "district": "EAST BLOOMFIELD CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.bloomfieldcsd.org"
+  },
+  {
+    "id": 17853,
+    "district": "FILLMORE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fillmorecsd.org"
+  },
+  {
+    "id": 17861,
+    "district": "FORT EDWARD UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.fortedward.org"
+  },
+  {
+    "id": 17875,
+    "district": "GARDEN CITY UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gardencity.k12.ny.us"
+  },
+  {
+    "id": 17884,
+    "district": "GILBERTSVILLE-MOUNT UPTON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gmucsd.org"
+  },
+  {
+    "id": 17890,
+    "district": "GORHAM-MIDDLESEX CENTRAL SCHOOL DISTRICT (MARCUS WHITMAN)",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mwcsd.org"
+  },
+  {
+    "id": 17902,
+    "district": "GREENBURGH-NORTH CASTLE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.gncufsd.org"
+  },
+  {
+    "id": 17919,
+    "district": "HANNIBAL CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hannibalcsd.org"
+  },
+  {
+    "id": 17924,
+    "district": "HARTFORD CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hartfordcsd.org"
+  },
+  {
+    "id": 17931,
+    "district": "HERKIMER CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.herkimercsd.org"
+  },
+  {
+    "id": 17936,
+    "district": "HICKSVILLE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hicksvillepublicschools.org"
+  },
+  {
+    "id": 17941,
+    "district": "HOLLAND CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hollandcsd.org"
+  },
+  {
+    "id": 17946,
+    "district": "HONEOYE FALLS-LIMA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hflcsd.org"
+  },
+  {
+    "id": 17951,
+    "district": "HUDSON CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.hudsoncsd.org"
+  },
+  {
+    "id": 17957,
+    "district": "INDIAN RIVER CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.ircsd.org"
+  },
+  {
+    "id": 17962,
+    "district": "ISLIP UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.islipufsd.org"
+  },
+  {
+    "id": 17967,
+    "district": "JEFFERSON CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jeffersoncs.org"
+  },
+  {
+    "id": 17972,
+    "district": "JORDAN-ELBRIDGE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.jecsd.org"
+  },
+  {
+    "id": 17980,
+    "district": "KIRYAS JOEL VILLAGE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 17986,
+    "district": "LAKE PLEASANT CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lpschool.com"
+  },
+  {
+    "id": 17996,
+    "district": "LEWISTON-PORTER CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.lew-port.com"
+  },
+  {
+    "id": 18021,
+    "district": "MALVERNE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.malverne.k12.ny.us"
+  },
+  {
+    "id": 18032,
+    "district": "MATTITUCK-CUTCHOGUE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mufsd.com"
+  },
+  {
+    "id": 18060,
+    "district": "MOUNT PLEASANT-BLYTHEDALE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.mpbschools.org"
+  },
+  {
+    "id": 18074,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 4",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18079,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT # 9",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18084,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #14",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18089,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #19",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18094,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #24",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18099,
+    "district": "NEW YORK CITY GEOGRAPHIC DISTRICT #29",
+    "state": "NY",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 18127,
+    "district": "NORTHERN ADIRONDACK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.nacs1.org"
+  },
+  {
+    "id": 18150,
+    "district": "OWEGO-APALACHIN CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.oacsd.org"
+  },
+  {
+    "id": 18209,
+    "district": "ROME CITY SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.romecsd.org"
+  },
+  {
+    "id": 18230,
+    "district": "SARANAC CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.saranac.org"
+  },
+  {
+    "id": 18235,
+    "district": "SAYVILLE UNION FREE SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.sayvilleschools.org"
+  },
+  {
+    "id": 18240,
+    "district": "SCHODACK CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.schodack.k12.ny.us"
+  },
+  {
+    "id": 18245,
+    "district": "SCOTIA-GLENVILLE CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.scotiaglenvilleschools.org"
+  },
+  {
+    "id": 18273,
+    "district": "SOUTHERN CAYUGA CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.southerncayuga.org"
+  },
+  {
+    "id": 18320,
+    "district": "VICTOR CENTRAL SCHOOL DISTRICT",
+    "state": "NY",
+    "county": "",
+    "website": "http://www.victorschools.org"
+  }
+]
