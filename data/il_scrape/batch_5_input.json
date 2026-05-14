@@ -1,0 +1,282 @@
+[
+  {
+    "id": 12748,
+    "district": "Naperville CUSD 203",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.naperville203.org"
+  },
+  {
+    "id": 12682,
+    "district": "Maine Township HSD 207",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.maine207.org"
+  },
+  {
+    "id": 12950,
+    "district": "Skokie SD 69",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd69.org"
+  },
+  {
+    "id": 12293,
+    "district": "Berwyn North SD 98",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bn98.org"
+  },
+  {
+    "id": 12444,
+    "district": "Downers Grove GSD 58",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dg58.org"
+  },
+  {
+    "id": 12417,
+    "district": "Crystal Lake CCSD 47",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d47.org"
+  },
+  {
+    "id": 12744,
+    "district": "Mundelein Cons HSD 120",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d120.org"
+  },
+  {
+    "id": 12642,
+    "district": "Lake Zurich CUSD 95",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.lz95.org"
+  },
+  {
+    "id": 13087,
+    "district": "Zion-Benton Twp HSD 126",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.zb126.org"
+  },
+  {
+    "id": 12780,
+    "district": "Northbrook/Glenview SD 30",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district30.org"
+  },
+  {
+    "id": 12270,
+    "district": "Avoca SD 37",
+    "state": "IL",
+    "county": "",
+    "website": "http://avoca37.org"
+  },
+  {
+    "id": 12381,
+    "district": "Champaign CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://champaignschools.org"
+  },
+  {
+    "id": 12460,
+    "district": "East Peoria SD 86",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.epd86.org"
+  },
+  {
+    "id": 12714,
+    "district": "Metamora CCSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://mgsredbirds.org"
+  },
+  {
+    "id": 12652,
+    "district": "Lewistown CUSD 97",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12678,
+    "district": "Macomb CUSD 185",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.macomb185.org"
+  },
+  {
+    "id": 12984,
+    "district": "Streator Twp HSD 40",
+    "state": "IL",
+    "county": "",
+    "website": "http://streatorhs.org"
+  },
+  {
+    "id": 12904,
+    "district": "Rock Falls Twp HSD 301",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rfhs301.org"
+  },
+  {
+    "id": 12709,
+    "district": "Mercer County School District 404",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mercerschools.org"
+  },
+  {
+    "id": 12825,
+    "district": "Pearl City CUSD 200",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pcwolves.net"
+  },
+  {
+    "id": 12478,
+    "district": "Erie CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ecusd.info"
+  },
+  {
+    "id": 12532,
+    "district": "Gillespie CUSD 7",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gcusd7.org"
+  },
+  {
+    "id": 12462,
+    "district": "East St Louis SD 189",
+    "state": "IL",
+    "county": "",
+    "website": "http://estl189.com"
+  },
+  {
+    "id": 13077,
+    "district": "Wood River-Hartford ESD 15",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wrh15.org"
+  },
+  {
+    "id": 12976,
+    "district": "Staunton CUSD 6",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.stauntonschools.org"
+  },
+  {
+    "id": 12921,
+    "district": "Salem CHSD 600",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.salemhigh.com"
+  },
+  {
+    "id": 12497,
+    "district": "Flora CUSD 35",
+    "state": "IL",
+    "county": "",
+    "website": "http://floraschools.com"
+  },
+  {
+    "id": 12364,
+    "district": "Casey-Westfield CUSD 4C",
+    "state": "IL",
+    "county": "",
+    "website": "http://caseywestfield.org"
+  },
+  {
+    "id": 12793,
+    "district": "Oakwood CUSD 76",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.oakwood76.org"
+  },
+  {
+    "id": 12260,
+    "district": "Arthur CUSD 305",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd305.org"
+  },
+  {
+    "id": 12272,
+    "district": "Ball Chatham CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.chathamschools.org"
+  },
+  {
+    "id": 12823,
+    "district": "Paxton-Buckley-Loda CUD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://pblunit10.com"
+  },
+  {
+    "id": 12237,
+    "district": "Adlai E Stevenson HSD 125",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d125.org"
+  },
+  {
+    "id": 12243,
+    "district": "Allendale CCSD 17",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.allendaleschool.net/"
+  },
+  {
+    "id": 12249,
+    "district": "Anna Jonesboro CHSD 81",
+    "state": "IL",
+    "county": "",
+    "website": "http://aj81.net"
+  },
+  {
+    "id": 12255,
+    "district": "Argenta-Oreana CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.argenta-oreana.org"
+  },
+  {
+    "id": 12262,
+    "district": "Ashton-Franklin Center CUSD 275",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.afcschools.net"
+  },
+  {
+    "id": 12271,
+    "district": "B H R A Cooperative HS",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12281,
+    "district": "Beecher City CUSD 20",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.beechercity.org"
+  },
+  {
+    "id": 12287,
+    "district": "Bement CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bement.k12.il.us"
+  }
+]

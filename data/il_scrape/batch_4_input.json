@@ -1,0 +1,282 @@
+[
+  {
+    "id": 12838,
+    "district": "Plainfield SD 202",
+    "state": "IL",
+    "county": "",
+    "website": "http://psd202.org"
+  },
+  {
+    "id": 12457,
+    "district": "East Maine SD 63",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.emsd63.org"
+  },
+  {
+    "id": 12949,
+    "district": "Skokie SD 68",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.skokie68.org"
+  },
+  {
+    "id": 12888,
+    "district": "River Forest SD 90",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12582,
+    "district": "Hinsdale Twp HSD 86",
+    "state": "IL",
+    "county": "",
+    "website": "http://d86.hinsdale86.org"
+  },
+  {
+    "id": 12590,
+    "district": "Huntley Comm Sch Dist 158",
+    "state": "IL",
+    "county": "",
+    "website": "http://huntley158.org"
+  },
+  {
+    "id": 12968,
+    "district": "St Charles CUSD 303",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d303.org"
+  },
+  {
+    "id": 12639,
+    "district": "Lake Forest SD 67",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12278,
+    "district": "Beach Park CCSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://bpd3.org"
+  },
+  {
+    "id": 12537,
+    "district": "Glenview CCSD 34",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.glenview34.org"
+  },
+  {
+    "id": 12990,
+    "district": "Sunset Ridge SD 29",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sunsetridge29.org"
+  },
+  {
+    "id": 12429,
+    "district": "Decatur SD 61",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dps61.org"
+  },
+  {
+    "id": 12459,
+    "district": "East Peoria CHSD 309",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ep309.org"
+  },
+  {
+    "id": 12958,
+    "district": "South Pekin SD 137",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.spgs.net"
+  },
+  {
+    "id": 12430,
+    "district": "Deer Creek-Mackinaw CUSD 701",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.deemack.org"
+  },
+  {
+    "id": 12727,
+    "district": "Monmouth-Roseville CUSD 238",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mr238.org"
+  },
+  {
+    "id": 12983,
+    "district": "Streator ESD 44",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ses44.net"
+  },
+  {
+    "id": 12903,
+    "district": "Rock Falls ESD 13",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rfsd13.org"
+  },
+  {
+    "id": 12943,
+    "district": "Sherrard CUSD 200",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sherrard.us"
+  },
+  {
+    "id": 12803,
+    "district": "Orangeville CUSD 203",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.orangevillecusd.com"
+  },
+  {
+    "id": 12380,
+    "district": "Chadwick-Milledgeville CUSD 399",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist399.net"
+  },
+  {
+    "id": 12578,
+    "district": "Hillsboro CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12284,
+    "district": "Belleville Twp HSD 201",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bths201.org"
+  },
+  {
+    "id": 12454,
+    "district": "East Alton-Wood River CHSD 14",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.eawr.org"
+  },
+  {
+    "id": 12356,
+    "district": "Carlinville CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd1.com"
+  },
+  {
+    "id": 12377,
+    "district": "Centralia SD 135",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ccs135.com"
+  },
+  {
+    "id": 12487,
+    "district": "Fairfield PSD 112",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.fairfieldcolts.com"
+  },
+  {
+    "id": 12699,
+    "district": "Mattoon CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mattoon.k12.il.us"
+  },
+  {
+    "id": 12681,
+    "district": "Mahomet-Seymour CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mahometseymour.org"
+  },
+  {
+    "id": 12254,
+    "district": "Arcola CUSD 306",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.arcola.k12.il.us"
+  },
+  {
+    "id": 12465,
+    "district": "Edinburg CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://ecusd4.com"
+  },
+  {
+    "id": 12530,
+    "district": "Gibson City-Melvin-Sibley CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gcmsk12.org"
+  },
+  {
+    "id": 12236,
+    "district": "Addison SD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.asd4.org"
+  },
+  {
+    "id": 12242,
+    "district": "Allen-Otter Creek CCSD 65",
+    "state": "IL",
+    "county": "",
+    "website": "http://ransomgradeschool.net"
+  },
+  {
+    "id": 12248,
+    "district": "Anna CCSD 37",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.anna37.com"
+  },
+  {
+    "id": 12253,
+    "district": "Arbor Park SD 145",
+    "state": "IL",
+    "county": "",
+    "website": "http://arbor145.org"
+  },
+  {
+    "id": 12261,
+    "district": "Ashley CCSD 15",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ashleyccsd15.org"
+  },
+  {
+    "id": 12269,
+    "district": "Aviston SD 21",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.avistonk-8.org"
+  },
+  {
+    "id": 12277,
+    "district": "Batavia USD 101",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bps101.net"
+  },
+  {
+    "id": 12286,
+    "district": "Belvidere CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district100.com"
+  }
+]

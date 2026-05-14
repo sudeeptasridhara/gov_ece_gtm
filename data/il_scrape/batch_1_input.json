@@ -1,0 +1,282 @@
+[
+  {
+    "id": 12389,
+    "district": "Chicago Public Schools Dist 299",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cps.k12.il.us"
+  },
+  {
+    "id": 12599,
+    "district": "Indian Prairie CUSD 204",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ipsd.org"
+  },
+  {
+    "id": 12535,
+    "district": "Glenbrook HSD 225",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.glenbrook225.org"
+  },
+  {
+    "id": 12951,
+    "district": "Skokie SD 73-5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd735.org"
+  },
+  {
+    "id": 12294,
+    "district": "Berwyn South SD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bsd100.org"
+  },
+  {
+    "id": 12533,
+    "district": "Glen Ellyn SD 41",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d41.org"
+  },
+  {
+    "id": 12363,
+    "district": "Cary CCSD 26",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cary26.org"
+  },
+  {
+    "id": 12745,
+    "district": "Mundelein ESD 75",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district75.org"
+  },
+  {
+    "id": 12274,
+    "district": "Barrington CUSD 220",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.barrington220.org"
+  },
+  {
+    "id": 12257,
+    "district": "Arlington Heights SD 25",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd25.org"
+  },
+  {
+    "id": 13073,
+    "district": "Winnetka SD 36",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.winnetka36.org"
+  },
+  {
+    "id": 12432,
+    "district": "Deerfield SD 109",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dps109.org"
+  },
+  {
+    "id": 13021,
+    "district": "Urbana SD 116",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.usd116.org"
+  },
+  {
+    "id": 12747,
+    "district": "N Pekin & Marquette Hght SD 102",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist102.org"
+  },
+  {
+    "id": 12480,
+    "district": "Eureka CUD 140",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district140.org"
+  },
+  {
+    "id": 12352,
+    "district": "Canton Union SD 66",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cantonusd.org"
+  },
+  {
+    "id": 12525,
+    "district": "Genoa Kingston CUSD 424",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gkschools.org"
+  },
+  {
+    "id": 12707,
+    "district": "Mendota CCSD 289",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.m289.org"
+  },
+  {
+    "id": 12979,
+    "district": "Sterling CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sterlingpublicschools.org"
+  },
+  {
+    "id": 12514,
+    "district": "Galena USD 120",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gusd120.k12.il.us"
+  },
+  {
+    "id": 12448,
+    "district": "Durand CUSD 322",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.durandbulldogs.com"
+  },
+  {
+    "id": 12607,
+    "district": "Jacksonville SD 117",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.jsd117.org"
+  },
+  {
+    "id": 12467,
+    "district": "Edwardsville CUSD 7",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12346,
+    "district": "Cahokia CUSD 187",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd187.org"
+  },
+  {
+    "id": 12917,
+    "district": "Roxana CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rcusd.org"
+  },
+  {
+    "id": 12696,
+    "district": "Mascoutah CUD 19",
+    "state": "IL",
+    "county": "",
+    "website": "http://msd19.org"
+  },
+  {
+    "id": 12922,
+    "district": "Salem SD 111",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.salem111.com"
+  },
+  {
+    "id": 12468,
+    "district": "Effingham CUSD 40",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.unit40.org"
+  },
+  {
+    "id": 13001,
+    "district": "Tolono CUSD 7",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.unitsevenschools.com"
+  },
+  {
+    "id": 12495,
+    "district": "Fisher CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://district.fisherk12.com/district"
+  },
+  {
+    "id": 12942,
+    "district": "Shelbyville CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12266,
+    "district": "Auburn CUSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.auburn.k12.il.us"
+  },
+  {
+    "id": 12740,
+    "district": "Mt Pulaski CUSD 23",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mtpulaski.k12.il.us"
+  },
+  {
+    "id": 12238,
+    "district": "Akin CCSD 91",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.akin91.com"
+  },
+  {
+    "id": 12244,
+    "district": "Alsip-Hazlgrn-Oaklwn SD 126",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist126.org"
+  },
+  {
+    "id": 12250,
+    "district": "Annawan CUSD 226",
+    "state": "IL",
+    "county": "",
+    "website": "http://annawan226.org"
+  },
+  {
+    "id": 12256,
+    "district": "Argo CHSD 217",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.argohs.net"
+  },
+  {
+    "id": 12263,
+    "district": "Astoria CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.acusd1.org"
+  },
+  {
+    "id": 12273,
+    "district": "Bannockburn SD 106",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12280,
+    "district": "Beecher CUSD 200U",
+    "state": "IL",
+    "county": "",
+    "website": "http://beecher200u.org"
+  }
+]

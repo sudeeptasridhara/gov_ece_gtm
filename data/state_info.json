@@ -435,5 +435,28 @@
       "**Common SD / MSD / CISD distinctions**: Most TX is ISD. Some 'Common SD' (e.g., Boys Ranch Common SD) for residential schools. CISD = Consolidated.",
       "200 of 1,022 TX districts (~20%) enriched in this pass. Remaining 822 districts skewed toward smaller rural ISDs in West Texas, Panhandle, East Texas."
     ]
+  },
+  "IL": {
+    "state": "IL",
+    "state_name": "Illinois",
+    "last_updated": "2026-05-14",
+    "pre_k_program": "Preschool For All (PFA) \u2014 state-funded preschool for at-risk 3-4yos, administered by ISBE via Early Childhood Block Grant (ECBG). Smart Start Illinois (2023 Pritzker initiative) targets Universal Preschool by 2027 with major new funding for ECBG, classroom expansion, and workforce.",
+    "literacy_initiative": "HB 2789 / Illinois Comprehensive Literacy Plan (2024) \u2014 Science of Reading + universal K-3 screening. ISBE released approved literacy curricula list; districts mid-curriculum review for 2025-26.",
+    "leadership_terminology": "Illinois has 854 districts (3rd-most in US). Naming codes: CUSD = Community Unit (K-12), CCSD/CCD = Community Consolidated (K-8), SD = elementary K-8, HSD/CHSD = high school 9-12 ONLY (no PreK \u2014 low ECE priority). Largest: Chicago Public Schools (CPS, Dist 299), Elgin U-46, Rockford 205, Plainfield 202, Indian Prairie 204 (Naperville), Naperville 203, Palatine CCSD 15, Schaumburg 54, Township 211, Township 214, Wheaton 200, McHenry 156, Oswego 308, Aurora West 129/East 131, Springfield 186, Champaign 4, McLean Unit 5.",
+    "notes": [
+      "**Preschool For All (PFA)** is the dominant ECE program \u2014 every PFA grantee district is a strong Brightwheel prospect. ECBG also funds Prevention Initiative (0-3 home visiting).",
+      "**Smart Start Illinois** ramping toward Universal Preschool 2027 \u2014 districts adding classrooms, hiring ECE directors. Major curriculum buying window.",
+      "**IL Comprehensive Literacy Plan (HB 2789)** drives K-3 SoR adoption \u2014 districts mid-review cycle for 2025-26.",
+      "**District type matters**: CUSD/CCSD/SD = ECE prospects. HSD/CHSD = 9-12 only (NO PreK) \u2014 flag low priority. Township High School Districts (Glenbrook 225, New Trier 203, Evanston 202, Maine 207, Leyden 212, Lyons Twp 204, Hinsdale 86, Adlai Stevenson 125, OPRF 200, Proviso 209) are 9-12 only.",
+      "**REJECT ROEs** (Regional Office of Education) \u2014 35 ROEs serve groups of districts but are NOT district staff (e.g., ROE 9, ROE 17, etc.).",
+      "**REJECT Special Ed Coops** \u2014 SEDOL, NSSED, NSSEO, AERO, LEND, SCOPE, BHRA, Northern Illinois Special Ed Cooperative, etc. \u2014 NOT district staff.",
+      "**Standout dedicated ECE leads**: Chicago 299 (Leslie McKinily), Berwyn South 100 (Amanda Thompson \u2014 confirmed Teaching Strategies/Creative Curriculum customer), Effingham 40 (Jennifer Fox \u2014 district just acquired Little Lambs ECC, MAJOR buying signal), Alsip-Hazlgrn-Oaklwn 126 (Craig Gwaltney \u2014 dedicated PreK center, Dr. Martelli incoming 2027), Deerfield 109 (Stephanie Monaco), Indian Prairie 204 (Laura Rosenblum, AsstSupt Elem & ECE), Barrington 220 (Melissa Byrne T&L + free PFA ELC), Mundelein 75 (Tafoya, multi-district Lincoln ELC), Rockford 205 (Kimberly Nelson), Aurora West 129 (Klomhaus), Springfield 186 (Harrison), McLean Unit 5 (Pennington), Pekin 108 (Kenny), Galesburg 205 (Graves), Bellwood 88 (Larson), Oak Park 97 (Suedbeck), Wilmette 39 (Katz-Janssen), Palatine 15 ECE dept, Aurora East 131, Wauconda 118, Hawthorn 73, Antioch 34, Alton 11, East Alton 13, McHenry 15, Bloomington 87, Collinsville 10, East Maine 63 (Golik), Lake Forest 67 (Escobar), St Charles 303 (Mursu), Glenview 34 (Zidron), Monmouth-Roseville 238 (Pilger), Berwyn North 98 (Escobar), Downers Grove 58 (Ehrhart), Zion-Benton 6 (DiGangi), Champaign 4 (Keener), Naperville 203 (Marker).",
+      "**Active buying signals**: Effingham 40 acquired Little Lambs ECC (curriculum integration window); East St Louis 189 has 2 Gold-rated ExceleRate PFA centers; Barrington 220 free PFA ELC; Mundelein 75 multi-district Lincoln ELC; Northbrook-Glenview 30 adopted HMH Into Reading K-5 in 2025; Smart Start expansion classrooms statewide.",
+      "**Sensitive flags**: Roxana, Astoria, Edwardsville, Cahokia, Argo, Mercer Co 404 \u2014 all in active leadership crises / transitions. Handle outreach with care.",
+      "**Leadership transitions**: Alsip-Hazlgrn-Oaklwn 126 (Dr. Martelli incoming 2027), Mundelein 75 (Tafoya new), Mercer Co 404 (interim post Sept 2025 admin leave, 26 positions cut March 2026), several spring 2025 retirements.",
+      "**Email convention**: most districts use `.org` \u2014 `cps.edu` Chicago, `u-46.org` Elgin, `rps205.com` Rockford, `psd202.org` Plainfield, `naperville203.org`, `ipsd.org` Indian Prairie 204, `palatineschools.org`, `d211.org`, `nths.net` New Trier, `oprfhs.org`, `d125.org` Stevenson, `bps101.net` Batavia, `kaneland.org`. Some use `.k12.il.us` legacy. Confirm before sending.",
+      "**ISBE** (Illinois State Board of Education) is state-level \u2014 NEVER recorded as district staff.",
+      "200 of 854 IL districts (~23%) enriched in this pass. Remaining 654 districts skewed toward smaller rural CUSDs in central/southern IL."
+    ]
   }
 }
