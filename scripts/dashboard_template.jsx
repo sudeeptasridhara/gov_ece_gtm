@@ -6415,7 +6415,7 @@ export default function BrightwheelDashboard() {
                                 setSeqSelected(prev => { const s = new Set(prev); stageQueueable.forEach(id => s.add(id)); return s; });
                               }
                             }}
-                            className="rounded border-gray-300 text-indigo-600 cursor-pointer"
+                            className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer"
                           />
                           <span>District / Director</span>
                           <span>Contact</span>
@@ -6426,20 +6426,20 @@ export default function BrightwheelDashboard() {
                         </div>
                         {stageDistricts.map(d => {
                           const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
-                          const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                          const distName = (d.district || "").includes(" — ") ? (d.district || "").split(" — ").slice(1).join(" — ") : (d.district || "");
                           const isNotStarted = !d.status || resolveStatus(d.status) === "not_contacted";
                           const emailStep = getNextEmailStepForDistrict(d, campaign);
                           const checked = seqSelected.has(d.id);
                           return (
-                            <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors ${checked ? "bg-indigo-50" : "hover:bg-indigo-50"} ${d.nextActionDue && !checked ? "bg-red-50/40" : ""}`}
+                            <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors ${checked ? "bg-emerald-50 border-l-4 border-l-emerald-500 -ml-px" : "hover:bg-indigo-50"} ${d.nextActionDue && !checked ? "bg-red-50/40" : ""}`}
                               style={{gridTemplateColumns:"32px 2fr 1.5fr 130px 80px 200px 140px"}}>
                               <input
                                 type="checkbox"
                                 checked={checked}
                                 disabled={!emailStep}
                                 onChange={() => setSeqSelected(prev => { const s = new Set(prev); s.has(d.id) ? s.delete(d.id) : s.add(d.id); return s; })}
-                                className="rounded border-gray-300 text-indigo-600 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                                title={emailStep ? `Select for bulk queue (next: ${emailStep.label})` : "No email next-step — cannot queue"}
+                                className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                                title={emailStep ? `Select to queue / draft (next: ${emailStep.label})` : "No email next-step — cannot queue"}
                               />
                               <div>
                                 <div className="font-medium text-gray-900 text-xs">{distName}</div>
@@ -6470,11 +6470,18 @@ export default function BrightwheelDashboard() {
                               </div>
                               <div className="flex gap-1 items-center">
                                 {emailStep && (
-                                  <button
-                                    onClick={() => queueSequenceEmail(d, campaign)}
-                                    className="text-xs bg-emerald-600 text-white px-2 py-1 rounded hover:bg-emerald-700"
-                                    title={`Queue ${emailStep.label} email to Send Queue`}
-                                  >📧</button>
+                                  <>
+                                    <button
+                                      onClick={() => queueSequenceEmail(d, campaign)}
+                                      className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
+                                      title={`Queue ${emailStep.label} email to Send Queue`}
+                                    >📧</button>
+                                    <button
+                                      onClick={() => bulkDraftSequenceInGmail([d.id], campaign)}
+                                      className="text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+                                      title={`Draft ${emailStep.label} email in Gmail for Yesware tracking`}
+                                    >📬</button>
+                                  </>
                                 )}
                                 <select value={d.status || "not_contacted"} onChange={e => updateStage(d.id, e.target.value)}
                                   className="text-xs border border-gray-200 rounded-lg px-1.5 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300 bg-white flex-1">
@@ -6527,7 +6534,7 @@ export default function BrightwheelDashboard() {
                             setSeqSelected(prev => { const s = new Set(prev); actionDueQueueable.forEach(id => s.add(id)); return s; });
                           }
                         }}
-                        className="rounded border-gray-300 text-indigo-600 cursor-pointer"
+                        className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer"
                         title={`Select all ${actionDueQueueable.length} overdue districts with email next-step`}
                       />
                       <span>District / Director</span>
@@ -6539,19 +6546,19 @@ export default function BrightwheelDashboard() {
                     </div>
                     {actionDue.map(d => {
                       const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
-                      const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                      const distName = (d.district || "").includes(" — ") ? (d.district || "").split(" — ").slice(1).join(" — ") : (d.district || "");
                       const emailStep = getNextEmailStepForDistrict(d, campaign);
                       const checked = seqSelected.has(d.id);
                       return (
-                        <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors ${checked ? "bg-indigo-50" : "hover:bg-red-50"}`}
+                        <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors ${checked ? "bg-emerald-50 border-l-4 border-l-emerald-500 -ml-px" : "hover:bg-red-50"}`}
                           style={{gridTemplateColumns:"32px 2fr 1.5fr 100px 190px 150px 130px"}}>
                           <input
                             type="checkbox"
                             checked={checked}
                             disabled={!emailStep}
                             onChange={() => setSeqSelected(prev => { const s = new Set(prev); s.has(d.id) ? s.delete(d.id) : s.add(d.id); return s; })}
-                            className="rounded border-gray-300 text-indigo-600 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            title={emailStep ? `Select for bulk queue (next: ${emailStep.label})` : "No email next-step — cannot queue"}
+                            className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                            title={emailStep ? `Select to queue / draft (next: ${emailStep.label})` : "No email next-step — cannot queue"}
                           />
                           <div>
                             <div className="font-medium text-gray-900 text-xs">{distName}</div>
@@ -6591,14 +6598,21 @@ export default function BrightwheelDashboard() {
                           </div>
                           <div className="flex gap-1 items-center">
                             {emailStep && (
-                              <button
-                                onClick={() => queueSequenceEmail(d, campaign)}
-                                className="text-xs bg-emerald-600 text-white px-2 py-1 rounded hover:bg-emerald-700"
-                                title={`Queue ${emailStep.label} email to Send Queue`}
-                              >📧</button>
+                              <>
+                                <button
+                                  onClick={() => queueSequenceEmail(d, campaign)}
+                                  className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
+                                  title={`Queue ${emailStep.label} email to Send Queue`}
+                                >📧</button>
+                                <button
+                                  onClick={() => bulkDraftSequenceInGmail([d.id], campaign)}
+                                  className="text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+                                  title={`Draft ${emailStep.label} email in Gmail for Yesware tracking`}
+                                >📬</button>
+                              </>
                             )}
                             <button onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}
-                              className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700">View</button>
+                              className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300">View</button>
                           </div>
                         </div>
                       );
@@ -6663,7 +6677,7 @@ export default function BrightwheelDashboard() {
                             setSeqSelected(prev => { const s = new Set(prev); queueableIds.forEach(id => s.add(id)); return s; });
                           }
                         }}
-                        className="rounded border-gray-300 text-indigo-600 cursor-pointer"
+                        className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer"
                         title={`Select all ${queueableIds.length} districts with an email next-step`}
                       />
                       <span>District / Director</span>
@@ -6675,20 +6689,20 @@ export default function BrightwheelDashboard() {
                     </div>
                     {sortedAll.map(d => {
                       const rep = REP_PROFILES[STATE_REP_EMAIL[d.state || "FL"]];
-                      const distName = d.district.includes(" — ") ? d.district.split(" — ").slice(1).join(" — ") : d.district;
+                      const distName = (d.district || "").includes(" — ") ? (d.district || "").split(" — ").slice(1).join(" — ") : (d.district || "");
                       const isNotStarted = !d.status || resolveStatus(d.status) === "not_contacted";
                       const emailStep = getNextEmailStepForDistrict(d, campaign);
                       const checked = seqSelected.has(d.id);
                       return (
-                        <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors hover:bg-indigo-50 ${checked ? "bg-indigo-50" : d.nextActionDue ? "bg-red-50/40" : ""}`}
+                        <div key={d.id} className={`border-b border-gray-100 px-4 py-3 grid items-center gap-3 transition-colors ${checked ? "bg-emerald-50 border-l-4 border-l-emerald-500 -ml-px" : `hover:bg-indigo-50 ${d.nextActionDue ? "bg-red-50/40" : ""}`}`}
                           style={{gridTemplateColumns:"32px 2fr 1.5fr 130px 80px 200px 160px"}}>
                           <input
                             type="checkbox"
                             checked={checked}
                             disabled={!emailStep}
                             onChange={() => setSeqSelected(prev => { const s = new Set(prev); s.has(d.id) ? s.delete(d.id) : s.add(d.id); return s; })}
-                            className="rounded border-gray-300 text-indigo-600 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            title={emailStep ? `Select for bulk queue (next: ${emailStep.label})` : "No email next-step — cannot queue"}
+                            className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-300 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                            title={emailStep ? `Select to queue / draft (next: ${emailStep.label})` : "No email next-step — cannot queue"}
                           />
                           <div>
                             <div className="font-medium text-gray-900 text-xs">{distName}</div>
@@ -6724,14 +6738,21 @@ export default function BrightwheelDashboard() {
                           </div>
                           <div className="flex gap-1 items-center">
                             {emailStep && (
-                              <button
-                                onClick={() => queueSequenceEmail(d, campaign)}
-                                className="text-xs bg-emerald-600 text-white px-2 py-1 rounded hover:bg-emerald-700"
-                                title={`Queue ${emailStep.label} email to Send Queue`}
-                              >📧 Queue</button>
+                              <>
+                                <button
+                                  onClick={() => queueSequenceEmail(d, campaign)}
+                                  className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
+                                  title={`Queue ${emailStep.label} email to Send Queue`}
+                                >📧</button>
+                                <button
+                                  onClick={() => bulkDraftSequenceInGmail([d.id], campaign)}
+                                  className="text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+                                  title={`Draft ${emailStep.label} email in Gmail for Yesware tracking`}
+                                >📬</button>
+                              </>
                             )}
                             <button onClick={() => { setSelectedDistrict(d); setModalTab("overview"); }}
-                              className="text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700">View</button>
+                              className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300">View</button>
                             {isNotStarted && enrollments[d.id] && (
                               <button onClick={() => unenrollFromCampaign(campaignFilter, d.id)}
                                 className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded hover:bg-red-50 hover:text-red-600" title="Remove from sequence">✕</button>
