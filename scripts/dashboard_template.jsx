@@ -4213,19 +4213,37 @@ export default function BrightwheelDashboard() {
   };
 
   // ── SEQUENCE-TAB BULK ACTIONS ──
-  // Returns the upcoming email step for a district within `campaign`, or null if
-  // there is no email next-action. Honors the same "Ready to Send → step 0" rule
-  // the Sequence tab itself uses, so the button is in lock-step with the UI.
+  // Returns the upcoming email step for a district within `campaign`, or null
+  // if there's no email next-action. Has to bridge two key spaces: the
+  // campaign's step keys ("email_sent", "follow_up_sent", "closing_sent",
+  // etc.) and the SEQUENCE_STAGES keys ("contacted", "responded_active",
+  // etc.) that get auto-applied whenever a rep sends an email. Without that
+  // bridge, every district that's been emailed even once falls out of the
+  // sequence (status="contacted" doesn't match any campaign step key) and the
+  // row shows "Sequence complete" with a disabled checkbox.
   const getNextEmailStepForDistrict = (district, campaign) => {
     if (!district || !campaign || !campaign.steps) return null;
-    const status = resolveStatus(district.status || "not_contacted");
-    if (status === "not_contacted") {
-      // Find the first email step in the campaign
-      return campaign.steps.find(s => s.isEmail && s.templateKey) || null;
+    const resolved = resolveStatus(district.status || "not_contacted");
+    // Terminal pipeline stages — nothing more to send automatically.
+    if (["responded_nurture", "existing_customer", "blocked"].includes(resolved)) return null;
+    const emailSteps = campaign.steps.filter(s => s.isEmail && s.templateKey);
+    if (emailSteps.length === 0) return null;
+    if (resolved === "not_contacted") return emailSteps[0];
+    // SEQUENCE_STAGES keys ("contacted" = at least one email sent, "responded_active"
+    // = they replied / meeting scheduled) — pick the next email step based on
+    // how many email activities are already on the district. This way the
+    // initial-email send → "contacted" → next click queues the follow-up,
+    // next click queues the closing email, etc.
+    if (resolved === "contacted" || resolved === "responded_active") {
+      const sentCount = (district.activities || []).filter(a => a.type === "email" && a.source !== "gmail_reply").length;
+      // emailSteps[sentCount] is the (sentCount+1)th email step — i.e., the
+      // next one. If they've already sent every email step in the campaign,
+      // return null so the UI shows "Sequence complete".
+      return emailSteps[sentCount] || null;
     }
+    // Legacy / raw campaign-step-key statuses (email_sent, follow_up_sent…).
     const idx = campaign.steps.findIndex(s => s.key === district.status);
     if (idx < 0) return null;
-    // Walk forward to the next email step
     for (let i = idx + 1; i < campaign.steps.length; i++) {
       const s = campaign.steps[i];
       if (s.isEmail && s.templateKey) return s;
@@ -6122,7 +6140,15 @@ export default function BrightwheelDashboard() {
             (!d.status || resolveStatus(d.status) === "not_contacted") && !enrollments[d.id]
           );
 
-          // Enrich each enrolled district with sequence progress
+          // Enrich each enrolled district with sequence progress. This needs
+          // to handle three kinds of status values: not_contacted (Ready to
+          // Send), raw campaign-step keys ("email_sent", "follow_up_sent",
+          // etc.), and SEQUENCE_STAGES keys ("contacted", "responded_active",
+          // …) that get auto-applied when a rep sends or drafts an email.
+          // The previous logic only knew about the first two, so districts
+          // sitting at "contacted" all rendered as "Sequence complete" with
+          // disabled checkboxes — making the tab unusable after the first
+          // outreach.
           const enriched = enrolled.map(d => {
             const outbound = (d.activities || []).filter(a => a.type === "email" && a.source !== "gmail_reply");
             const firstEmailDate = outbound.length
@@ -6134,10 +6160,29 @@ export default function BrightwheelDashboard() {
               ? Math.floor((Date.now() - new Date(startDate).getTime()) / 86400000)
               : 0;
 
+            const resolved = resolveStatus(d.status || "not_contacted");
+            const emailSteps = campaign.steps.filter(s => s.isEmail && s.templateKey);
+            const sentCount = outbound.length;
+
             // Not yet emailed but enrolled — show as "Ready to Send"
-            if (!d.status || resolveStatus(d.status) === "not_contacted") {
+            if (!d.status || resolved === "not_contacted") {
               const firstStep = campaign.steps[0];
               return { ...d, daysSinceStart, currentStepIdx: -1, currentStep: null, nextStep: firstStep, nextActionDue: true, daysOverdue: daysSinceStart, enrollDate };
+            }
+
+            // SEQUENCE_STAGES status mapping: "contacted" / "responded_active"
+            // map to "we've sent N emails, next email step is emailSteps[N]".
+            // Terminal stages map to no next step.
+            if (["contacted", "responded_active", "responded_nurture", "existing_customer", "blocked"].includes(resolved)) {
+              const isTerminal = ["responded_nurture", "existing_customer", "blocked"].includes(resolved);
+              // currentStep = the most recent email step we've sent (used to
+              // light up the right bucket in the pipeline swimlane).
+              const currentStep = sentCount > 0 ? emailSteps[Math.min(sentCount - 1, emailSteps.length - 1)] : null;
+              const currentStepIdx = currentStep ? campaign.steps.findIndex(s => s.key === currentStep.key) : -1;
+              const nextStep = isTerminal ? null : (emailSteps[sentCount] || null);
+              const nextActionDue = !!(nextStep && daysSinceStart >= nextStep.day);
+              const daysOverdue = nextActionDue ? daysSinceStart - nextStep.day : 0;
+              return { ...d, daysSinceStart, currentStepIdx, currentStep, nextStep, nextActionDue, daysOverdue, enrollDate };
             }
 
             const currentStepIdx = campaign.steps.findIndex(s => s.key === d.status);
