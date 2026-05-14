@@ -1,0 +1,380 @@
+[
+  {
+    "id": 12594,
+    "district": "Il Valley Central USD 321",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ivcschools.com"
+  },
+  {
+    "id": 12694,
+    "district": "Marshall CUSD 2C",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.marshallk12.net"
+  },
+  {
+    "id": 12778,
+    "district": "Northbrook ESD 27",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.nb27.org"
+  },
+  {
+    "id": 12784,
+    "district": "O Fallon Twp HSD 203",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.oths.us"
+  },
+  {
+    "id": 12791,
+    "district": "Oakdale CCSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.oakdalegs.org"
+  },
+  {
+    "id": 12797,
+    "district": "Oglesby ESD 125",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ops125.net"
+  },
+  {
+    "id": 12802,
+    "district": "Opdyke-Belle-Rive CCSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.obr5.org/"
+  },
+  {
+    "id": 12808,
+    "district": "Ottawa Twp HSD 140",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ottawahigh.com"
+  },
+  {
+    "id": 12816,
+    "district": "Paris Cooperative High School",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12820,
+    "district": "Patoka CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.patokaschool.com"
+  },
+  {
+    "id": 12830,
+    "district": "Pennoyer SD 79",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pennoyerschool.org"
+  },
+  {
+    "id": 12835,
+    "district": "Pikeland CUSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pikeland.org"
+  },
+  {
+    "id": 12841,
+    "district": "Pleasant Hill SD 69",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.phill69.com"
+  },
+  {
+    "id": 12847,
+    "district": "Pontiac Twp HSD 90",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pontiac90.org"
+  },
+  {
+    "id": 12852,
+    "district": "Potomac CUSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pgscardinals.org"
+  },
+  {
+    "id": 12857,
+    "district": "Prairie-Hills ESD 144",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12862,
+    "district": "Prophetstown-Lyndon-Tampico CUSD3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.plt3.org"
+  },
+  {
+    "id": 12868,
+    "district": "R O W V A CUSD 208",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rowva.k12.il.us"
+  },
+  {
+    "id": 12876,
+    "district": "Red Hill CUSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://cusd10.org"
+  },
+  {
+    "id": 12881,
+    "district": "Richland GSD 88A",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d88a.org"
+  },
+  {
+    "id": 12886,
+    "district": "Riley CCSD 18",
+    "state": "IL",
+    "county": "",
+    "website": "http://riley18.org"
+  },
+  {
+    "id": 12892,
+    "district": "Riverdale CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.riverdaleschools.org"
+  },
+  {
+    "id": 12897,
+    "district": "Roanoke Benson CUSD 60",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rb60.com"
+  },
+  {
+    "id": 12902,
+    "district": "Rochester CUSD 3A",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rochester3a.net"
+  },
+  {
+    "id": 12910,
+    "district": "Rome CCSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rome2.net"
+  },
+  {
+    "id": 12915,
+    "district": "Rossville-Alvin CUSD 7",
+    "state": "IL",
+    "county": "",
+    "website": "http://rossville.k12.il.us"
+  },
+  {
+    "id": 12925,
+    "district": "Sandoval CUSD 501",
+    "state": "IL",
+    "county": "",
+    "website": "http://sandoval501.org"
+  },
+  {
+    "id": 12931,
+    "district": "Scales Mound CUSD 211",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12919,
+    "district": "SD 45 DuPage County",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d45.org"
+  },
+  {
+    "id": 12939,
+    "district": "Serena CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.unit2.net"
+  },
+  {
+    "id": 12946,
+    "district": "Shirland CCSD 134",
+    "state": "IL",
+    "county": "",
+    "website": "http://shirland134.org"
+  },
+  {
+    "id": 12955,
+    "district": "South Fork SD 14",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.southforkschools.com"
+  },
+  {
+    "id": 12961,
+    "district": "Southwestern CUSD 9",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.piasabirds.net"
+  },
+  {
+    "id": 12966,
+    "district": "Spring Valley CCSD 99",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sv99.org"
+  },
+  {
+    "id": 12973,
+    "district": "St Libory Cons SD 30",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.stlibory30.org"
+  },
+  {
+    "id": 12980,
+    "district": "Steward ESD 220",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.stewardschool220.org"
+  },
+  {
+    "id": 12988,
+    "district": "Summit SD 104",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12996,
+    "district": "Thomasboro CCSD 130",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.thomasboro.k12.il.us"
+  },
+  {
+    "id": 13002,
+    "district": "Tonica CCSD 79",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.tonicagradeschool.org"
+  },
+  {
+    "id": 13008,
+    "district": "Tri Valley CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.tri-valley3.org"
+  },
+  {
+    "id": 13014,
+    "district": "Twp HSD 113",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist113.org"
+  },
+  {
+    "id": 13019,
+    "district": "Unity Point CCSD 140",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.up140.org"
+  },
+  {
+    "id": 13025,
+    "district": "Vandalia CUSD 203",
+    "state": "IL",
+    "county": "",
+    "website": "http://vandals203.org"
+  },
+  {
+    "id": 13030,
+    "district": "Virginia CUSD 64",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.virginia64.com"
+  },
+  {
+    "id": 13035,
+    "district": "Waltonville CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wcusd1.org/"
+  },
+  {
+    "id": 13040,
+    "district": "Washington CHSD 308",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wacohi.net"
+  },
+  {
+    "id": 13047,
+    "district": "Wesclin CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wesclin.org"
+  },
+  {
+    "id": 13052,
+    "district": "West Northfield SD 31",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district31.net"
+  },
+  {
+    "id": 13057,
+    "district": "Western Springs SD 101",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 13062,
+    "district": "Will County SD 92",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d92.org"
+  },
+  {
+    "id": 13068,
+    "district": "Wilmington CUSD 209U",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wilmington.will.k12.il.us"
+  },
+  {
+    "id": 13074,
+    "district": "Winthrop Harbor SD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.whsd1.org"
+  },
+  {
+    "id": 13080,
+    "district": "Woodlawn Unit School District 209",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 13085,
+    "district": "Zeigler-Royalton CUSD 188",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.zr188.org"
+  }
+]

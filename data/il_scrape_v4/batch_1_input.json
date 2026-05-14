@@ -1,0 +1,380 @@
+[
+  {
+    "id": 12386,
+    "district": "Chester N HSD 122",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.roe45.org"
+  },
+  {
+    "id": 12659,
+    "district": "Limestone Walters CCSD 316",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.limestonewalters.com"
+  },
+  {
+    "id": 12776,
+    "district": "North Wamac SD 186",
+    "state": "IL",
+    "county": "",
+    "website": "http://northwamac.com"
+  },
+  {
+    "id": 12782,
+    "district": "Norwood ESD 63",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.norwood63.org"
+  },
+  {
+    "id": 12787,
+    "district": "Oak Lawn CHSD 229",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.olchs.org"
+  },
+  {
+    "id": 12795,
+    "district": "Odell CCSD 435",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.odellschool.com"
+  },
+  {
+    "id": 12800,
+    "district": "Okaw Valley CUSD 302",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.okawvalley.org"
+  },
+  {
+    "id": 12806,
+    "district": "Orland SD 135",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.orland135.org"
+  },
+  {
+    "id": 12812,
+    "district": "Palos Heights SD 128",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12818,
+    "district": "Park Forest SD 163",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12826,
+    "district": "Pecatonica CUSD 321",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12833,
+    "district": "Peotone CUSD 207U",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.peotoneschools.org"
+  },
+  {
+    "id": 12839,
+    "district": "Plano CUSD 88",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.plano88.org"
+  },
+  {
+    "id": 12844,
+    "district": "Pleasantdale SD 107",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d107.org"
+  },
+  {
+    "id": 12850,
+    "district": "Porta CUSD 202",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.porta202.org"
+  },
+  {
+    "id": 12855,
+    "district": "Prairie Grove CSD 46",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist46.org"
+  },
+  {
+    "id": 12860,
+    "district": "Princeton HSD 500",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.phs-il.org"
+  },
+  {
+    "id": 12866,
+    "district": "Queen Bee SD 16",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.queenbee16.org"
+  },
+  {
+    "id": 12871,
+    "district": "Rankin CSD 98",
+    "state": "IL",
+    "county": "",
+    "website": "http://rankin98.org"
+  },
+  {
+    "id": 12879,
+    "district": "Rich Twp HSD 227",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rich227.org"
+  },
+  {
+    "id": 12884,
+    "district": "Ridgeview CUSD 19",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ridgeview19.org"
+  },
+  {
+    "id": 12890,
+    "district": "River Ridge CUSD 210",
+    "state": "IL",
+    "county": "",
+    "website": "http://riverridge210.org"
+  },
+  {
+    "id": 12895,
+    "district": "Riverton CUSD 14",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rivertonschools.org"
+  },
+  {
+    "id": 12900,
+    "district": "Rochelle CCSD 231",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d231.rochelle.net"
+  },
+  {
+    "id": 12908,
+    "district": "Rockridge CUSD 300",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rr300.org"
+  },
+  {
+    "id": 12913,
+    "district": "Roselle SD 12",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd12.k12.il.us"
+  },
+  {
+    "id": 12923,
+    "district": "Salt Creek SD 48",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.saltcreek48.org"
+  },
+  {
+    "id": 12929,
+    "district": "Saratoga CCSD 60C",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd60c.org"
+  },
+  {
+    "id": 12934,
+    "district": "Schuyler-Industry CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sid5.com"
+  },
+  {
+    "id": 12937,
+    "district": "Seneca CCSD 170",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sgs170.org"
+  },
+  {
+    "id": 12944,
+    "district": "Shiloh CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.shiloh1.org"
+  },
+  {
+    "id": 12952,
+    "district": "Smithton CCSD 130",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sccsd130.com"
+  },
+  {
+    "id": 12959,
+    "district": "South Wilmington CCSD 74",
+    "state": "IL",
+    "county": "",
+    "website": "http://roe.grundy.k12.il.us"
+  },
+  {
+    "id": 12964,
+    "district": "Spring Garden CCSD 178",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12971,
+    "district": "St Joseph CCSD 169",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.stjoe.k12.il.us/"
+  },
+  {
+    "id": 12977,
+    "district": "Steeleville CUSD 138",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.steeleville138.org"
+  },
+  {
+    "id": 12986,
+    "district": "Summersville SD 79",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.summersville79.com"
+  },
+  {
+    "id": 12992,
+    "district": "Taft SD 90",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.taft90.org"
+  },
+  {
+    "id": 12999,
+    "district": "Thornton SD 154",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d154.org"
+  },
+  {
+    "id": 13006,
+    "district": "Tri City CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.tricityschools.org"
+  },
+  {
+    "id": 13011,
+    "district": "Triopia CUSD 27",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.triopiacusd27.org/"
+  },
+  {
+    "id": 13017,
+    "district": "United CUSD 304",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.u304.org"
+  },
+  {
+    "id": 13023,
+    "district": "Valley View CUSD 365U",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.vvsd.org"
+  },
+  {
+    "id": 13028,
+    "district": "Vienna SD 55",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.viennagradeschool.com"
+  },
+  {
+    "id": 13033,
+    "district": "Wallace CCSD 195",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wallacegs.org"
+  },
+  {
+    "id": 13038,
+    "district": "Warrensburg-Latham CUSD 11",
+    "state": "IL",
+    "county": "",
+    "website": "http://wl.k12.il.us"
+  },
+  {
+    "id": 13045,
+    "district": "Waverly CUSD 6",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wsd6.org"
+  },
+  {
+    "id": 13050,
+    "district": "West Chicago ESD 33",
+    "state": "IL",
+    "county": "",
+    "website": "http://wego33.org"
+  },
+  {
+    "id": 13055,
+    "district": "Westchester SD 92-5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd925.org"
+  },
+  {
+    "id": 13060,
+    "district": "Wheeling CCSD 21",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ccsd21.org"
+  },
+  {
+    "id": 13065,
+    "district": "Willow Grove SD 46",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.willowgroveschool.com"
+  },
+  {
+    "id": 13071,
+    "district": "Winfield SD 34",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.winfield34.org"
+  },
+  {
+    "id": 13078,
+    "district": "Woodland CCSD 50",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist50.net"
+  },
+  {
+    "id": 13083,
+    "district": "Worth SD 127",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.worthschools.org"
+  }
+]

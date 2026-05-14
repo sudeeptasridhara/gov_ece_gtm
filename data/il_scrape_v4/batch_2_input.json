@@ -1,0 +1,380 @@
+[
+  {
+    "id": 12543,
+    "district": "Granite City CUSD 9",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gcsd9.net"
+  },
+  {
+    "id": 12689,
+    "district": "Marion CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.marionunit2.org"
+  },
+  {
+    "id": 12777,
+    "district": "North Wayne CUSD 200",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.roe20.12.il.us"
+  },
+  {
+    "id": 12783,
+    "district": "O Fallon CCSD 90",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.of90.net"
+  },
+  {
+    "id": 12788,
+    "district": "Oak Lawn-Hometown SD 123",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d123.org"
+  },
+  {
+    "id": 12796,
+    "district": "Odin PSD 722",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.odinpublicschools.org"
+  },
+  {
+    "id": 12801,
+    "district": "Olympia CUSD 16",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.olympia.org"
+  },
+  {
+    "id": 12807,
+    "district": "Ottawa ESD 141",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.oes141.org"
+  },
+  {
+    "id": 12814,
+    "district": "Panhandle CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.panhandleschools.com"
+  },
+  {
+    "id": 12819,
+    "district": "Park Ridge CCSD 64",
+    "state": "IL",
+    "county": "",
+    "website": "http://d64.org"
+  },
+  {
+    "id": 12829,
+    "district": "Pembroke CCSD 259",
+    "state": "IL",
+    "county": "",
+    "website": "http://psd259.org"
+  },
+  {
+    "id": 12834,
+    "district": "Peru ESD 124",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.perued.net"
+  },
+  {
+    "id": 12840,
+    "district": "Pleasant Hill CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.phwolves.com"
+  },
+  {
+    "id": 12846,
+    "district": "Pontiac CCSD 429",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pontiac429.org"
+  },
+  {
+    "id": 12851,
+    "district": "Posen-Robbins ESD 143-5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.prsd1435.org"
+  },
+  {
+    "id": 12856,
+    "district": "Prairie Hill CCSD 133",
+    "state": "IL",
+    "county": "",
+    "website": "http://prairiehill.org"
+  },
+  {
+    "id": 12861,
+    "district": "Princeville CUSD 326",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.princeville326.org"
+  },
+  {
+    "id": 12867,
+    "district": "Quincy SD 172",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.qps.org"
+  },
+  {
+    "id": 12874,
+    "district": "Reavis Twp HSD 220",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.reavisd220.org"
+  },
+  {
+    "id": 12880,
+    "district": "Richland County CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://rccu1.net"
+  },
+  {
+    "id": 12885,
+    "district": "Ridgewood CHSD 234",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d234.org"
+  },
+  {
+    "id": 12891,
+    "district": "River Trails SD 26",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12896,
+    "district": "Riverview CCSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rgsting.org"
+  },
+  {
+    "id": 12901,
+    "district": "Rochelle Twp HSD 212",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rthsd212.org"
+  },
+  {
+    "id": 12909,
+    "district": "Rockton SD 140",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rockton140.org"
+  },
+  {
+    "id": 12914,
+    "district": "Rosemont ESD 78",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12924,
+    "district": "Salt Fork CUSD 512",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12930,
+    "district": "Saunemin CCSD 438",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.saunemin.org"
+  },
+  {
+    "id": 12935,
+    "district": "Scott-Morgan CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bluffs-school.com"
+  },
+  {
+    "id": 12938,
+    "district": "Seneca Twp HSD 160",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.senecahs.org"
+  },
+  {
+    "id": 12945,
+    "district": "Shiloh Village SD 85",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.shi85.org"
+  },
+  {
+    "id": 12954,
+    "district": "South Central CUD 401",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.southcentralschools.org"
+  },
+  {
+    "id": 12960,
+    "district": "Southeastern CUSD 337",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.southeastern337.com"
+  },
+  {
+    "id": 12965,
+    "district": "Spring Lake CCSD 606",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.springlake606.org"
+  },
+  {
+    "id": 12972,
+    "district": "St Joseph Ogden CHSD 305",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sjo.k12.il.us"
+  },
+  {
+    "id": 12978,
+    "district": "Steger SD 194",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd194.org"
+  },
+  {
+    "id": 12987,
+    "district": "Summit Hill SD 161",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.summithill.org"
+  },
+  {
+    "id": 12993,
+    "district": "Tamaroa School Dist 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://tgs5.com"
+  },
+  {
+    "id": 13000,
+    "district": "Thornton Twp HSD 205",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district205.net"
+  },
+  {
+    "id": 13007,
+    "district": "Tri Point CUSD 6-J",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.tripointschools.org"
+  },
+  {
+    "id": 13012,
+    "district": "Troy CCSD 30C",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.troy30c.org"
+  },
+  {
+    "id": 13018,
+    "district": "United Twp HSD 30",
+    "state": "IL",
+    "county": "",
+    "website": "http://uths.net"
+  },
+  {
+    "id": 13024,
+    "district": "Valmeyer CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 13029,
+    "district": "Villa Grove CUSD 302",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 13034,
+    "district": "Waltham CCSD 185",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wesd185.org"
+  },
+  {
+    "id": 13039,
+    "district": "Warsaw CUSD 316",
+    "state": "IL",
+    "county": "",
+    "website": "http://warsawschool.com"
+  },
+  {
+    "id": 13046,
+    "district": "Wayne City CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.waynecity100.org"
+  },
+  {
+    "id": 13051,
+    "district": "West Lincoln-Broadwell ESD 92",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wlb92.org"
+  },
+  {
+    "id": 13056,
+    "district": "Western CUSD 12",
+    "state": "IL",
+    "county": "",
+    "website": "http://westerncusd12.org"
+  },
+  {
+    "id": 13061,
+    "district": "Whiteside SD 115",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wssd115.org"
+  },
+  {
+    "id": 13066,
+    "district": "Willow Springs SD 108",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.willowspringsschool.org"
+  },
+  {
+    "id": 13072,
+    "district": "Winnebago CUSD 323",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.winnebagoschools.org"
+  },
+  {
+    "id": 13079,
+    "district": "Woodland CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.woodland5.net/"
+  },
+  {
+    "id": 13084,
+    "district": "Yorkville CUSD 115",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.y115.org"
+  }
+]

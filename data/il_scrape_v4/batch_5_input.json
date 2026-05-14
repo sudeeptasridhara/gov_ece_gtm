@@ -1,0 +1,373 @@
+[
+  {
+    "id": 12618,
+    "district": "Kansas CUSD 3",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.kansas.k12.il.us"
+  },
+  {
+    "id": 12775,
+    "district": "North Shore SD 112",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.nssd112.org"
+  },
+  {
+    "id": 12781,
+    "district": "Northwestern CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.northwestern.k12.il.us"
+  },
+  {
+    "id": 12786,
+    "district": "Oak Grove SD 68 Green Oaks",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ogschool.org"
+  },
+  {
+    "id": 12794,
+    "district": "Oblong CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.oblongschools.net"
+  },
+  {
+    "id": 12799,
+    "district": "Ohio CHSD 505",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bhsroe.k12.il.us"
+  },
+  {
+    "id": 12805,
+    "district": "Orion CUSD 223",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.orionschools.us"
+  },
+  {
+    "id": 12811,
+    "district": "Palos CCSD 118",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.palos118.org"
+  },
+  {
+    "id": 12817,
+    "district": "Paris-Union SD 95",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.paris95.k12.il.us"
+  },
+  {
+    "id": 12824,
+    "district": "Payson CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd1.org"
+  },
+  {
+    "id": 12832,
+    "district": "Peoria SD 150",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.psd150.org"
+  },
+  {
+    "id": 12837,
+    "district": "Pinckneyville SD 50",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.jrpanther.com"
+  },
+  {
+    "id": 12843,
+    "district": "Pleasant Valley SD 62",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.pv62.com"
+  },
+  {
+    "id": 12849,
+    "district": "Pope Co CUD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.popek12.org"
+  },
+  {
+    "id": 12854,
+    "district": "Prairie Du Rocher CCSD 134",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12859,
+    "district": "Princeton ESD 115",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.princeton115schools.org"
+  },
+  {
+    "id": 12865,
+    "district": "Putnam County CUSD 535",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12870,
+    "district": "Ramsey CUSD 204",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ramsey.fayette.k12.il.us"
+  },
+  {
+    "id": 12878,
+    "district": "Rhodes SD 84-5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rhodes.k12.il.us"
+  },
+  {
+    "id": 12883,
+    "district": "Ridgeland SD 122",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ridgeland122.com"
+  },
+  {
+    "id": 12889,
+    "district": "River Grove SD 85-5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rivergroveschool.org"
+  },
+  {
+    "id": 12894,
+    "district": "Riverside-Brookfield Twp SD 208",
+    "state": "IL",
+    "county": "",
+    "website": "http://rbhs208.net"
+  },
+  {
+    "id": 12899,
+    "district": "Robinson CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.robinsonschools.com"
+  },
+  {
+    "id": 12906,
+    "district": "Rockdale SD 84",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rockdale84.org"
+  },
+  {
+    "id": 12912,
+    "district": "Rooks Creek CCSD 425",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.rookscreek.k12.il.us"
+  },
+  {
+    "id": 12918,
+    "district": "Rutland CCSD 230",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12927,
+    "district": "Sandwich CUSD 430",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sandwich430.org"
+  },
+  {
+    "id": 12933,
+    "district": "Schiller Park SD 81",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd81.org"
+  },
+  {
+    "id": 12936,
+    "district": "Selmaville CCSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.selmaville.com"
+  },
+  {
+    "id": 12941,
+    "district": "Shawnee CUSD 84",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.shawneedistrict84.com"
+  },
+  {
+    "id": 12948,
+    "district": "Silvis SD 34",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.silvisrockets.com"
+  },
+  {
+    "id": 12957,
+    "district": "South Holland SD 151",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.shsd151.org"
+  },
+  {
+    "id": 12963,
+    "district": "Spoon River Valley CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.spoonrivervalley.us"
+  },
+  {
+    "id": 12970,
+    "district": "St George CCSD 258",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sg258.org"
+  },
+  {
+    "id": 12975,
+    "district": "Stark County CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.stark100.com"
+  },
+  {
+    "id": 12985,
+    "district": "Sullivan CUSD 300",
+    "state": "IL",
+    "county": "",
+    "website": "http://home.sullivan.k12.il.us/"
+  },
+  {
+    "id": 12991,
+    "district": "Sycamore CUSD 427",
+    "state": "IL",
+    "county": "",
+    "website": "http://syc427.org"
+  },
+  {
+    "id": 12998,
+    "district": "Thornton Fractional Twp HSD 215",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 13004,
+    "district": "Township HSD 214",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d214.org"
+  },
+  {
+    "id": 13010,
+    "district": "Trico CUSD 176",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.edline.net/pages/trico_cusd_176"
+  },
+  {
+    "id": 13016,
+    "district": "Union SD 81",
+    "state": "IL",
+    "county": "",
+    "website": "http://union81.com"
+  },
+  {
+    "id": 13022,
+    "district": "V I T CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.vit2.org"
+  },
+  {
+    "id": 13027,
+    "district": "Vienna HSD 133",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.viennahighschool.com/"
+  },
+  {
+    "id": 13032,
+    "district": "Wabash CUSD 348",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wabash348.com"
+  },
+  {
+    "id": 13037,
+    "district": "Warren Twp HSD 121",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d121.org"
+  },
+  {
+    "id": 13044,
+    "district": "Waukegan CUSD 60",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wps60.org"
+  },
+  {
+    "id": 13049,
+    "district": "West Central CUSD 235",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wc235.k12.il.us"
+  },
+  {
+    "id": 13054,
+    "district": "West Washington Co CUD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.okawville-k12.org"
+  },
+  {
+    "id": 13059,
+    "district": "Wethersfield CUSD 230",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.geese230.com"
+  },
+  {
+    "id": 13064,
+    "district": "Williamsville CUSD 15",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wcusd15.org"
+  },
+  {
+    "id": 13070,
+    "district": "Windsor CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.windsorcusd.org/"
+  },
+  {
+    "id": 13076,
+    "district": "Wood Dale SD 7",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.wd7.org"
+  },
+  {
+    "id": 13082,
+    "district": "Woodstock CUSD 200",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.woodstockschools.org"
+  }
+]
