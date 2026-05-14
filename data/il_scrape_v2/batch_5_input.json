@@ -1,0 +1,282 @@
+[
+  {
+    "id": 12291,
+    "district": "Benton Cons HSD 103",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bentonhighschool.org"
+  },
+  {
+    "id": 12299,
+    "district": "Bloom Twp HSD 206",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12305,
+    "district": "Bourbonnais SD 53",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.besd53.org"
+  },
+  {
+    "id": 12310,
+    "district": "Breese ESD 12",
+    "state": "IL",
+    "county": "",
+    "website": "http://d12bobcats.org"
+  },
+  {
+    "id": 12315,
+    "district": "Brookwood SD 167",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.brookwood167.org"
+  },
+  {
+    "id": 12320,
+    "district": "Bunker Hill CUSD 8",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.bhcusd.org"
+  },
+  {
+    "id": 12325,
+    "district": "Butler SD 53",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.butler53.com"
+  },
+  {
+    "id": 12350,
+    "district": "Calumet Public SD 132",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.sd132.org"
+  },
+  {
+    "id": 12357,
+    "district": "Carlyle CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.carlyle1.org"
+  },
+  {
+    "id": 12362,
+    "district": "Carthage ESD 317",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cesd317.org"
+  },
+  {
+    "id": 12330,
+    "district": "CCSD 204",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ccsd204.org"
+  },
+  {
+    "id": 12367,
+    "district": "Central A & M CUD 21",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.camraiders.com"
+  },
+  {
+    "id": 12371,
+    "district": "Central CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd4.org"
+  },
+  {
+    "id": 12378,
+    "district": "Century CUSD 100",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.centuryschool100.com"
+  },
+  {
+    "id": 12385,
+    "district": "Chester CUSD 139",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.chester139.com/"
+  },
+  {
+    "id": 12391,
+    "district": "Christopher USD 99",
+    "state": "IL",
+    "county": "",
+    "website": ""
+  },
+  {
+    "id": 12338,
+    "district": "CHSD 94",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d94.org"
+  },
+  {
+    "id": 12395,
+    "district": "Clinton CUSD 15",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd15.org"
+  },
+  {
+    "id": 12401,
+    "district": "Comm Cons SD 59",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.ccsd59.org"
+  },
+  {
+    "id": 12406,
+    "district": "Coulterville USD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cvillecusd1.com"
+  },
+  {
+    "id": 12411,
+    "district": "Cowden-Herrick CUSD 3A",
+    "state": "IL",
+    "county": "",
+    "website": "http://cowden-herrick.k12.il.us"
+  },
+  {
+    "id": 12416,
+    "district": "Creve Coeur SD 76",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cc76.org"
+  },
+  {
+    "id": 12343,
+    "district": "CUSD 300",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d300.org"
+  },
+  {
+    "id": 12421,
+    "district": "Dallas ESD 327",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dcbulldogs.com"
+  },
+  {
+    "id": 12431,
+    "district": "Deer Park CCSD 82",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.deerpark.k12.il.us"
+  },
+  {
+    "id": 12428,
+    "district": "DeSoto Cons SD 86",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.desoto86.org"
+  },
+  {
+    "id": 12439,
+    "district": "Dixon USD 170",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dps170.org"
+  },
+  {
+    "id": 12445,
+    "district": "Du Quoin CUSD 300",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.duquoinschools.org"
+  },
+  {
+    "id": 12455,
+    "district": "East Coloma - Nelson CESD 20",
+    "state": "IL",
+    "county": "",
+    "website": "http://ecolomanelson.net"
+  },
+  {
+    "id": 12469,
+    "district": "Egyptian CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://egyptianschool.com"
+  },
+  {
+    "id": 12474,
+    "district": "Elmwood Park CUSD 401",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.epcusd401.org"
+  },
+  {
+    "id": 12479,
+    "district": "Eswood CCSD 269",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.leeogle.org/"
+  },
+  {
+    "id": 12488,
+    "district": "Fairmont SD 89",
+    "state": "IL",
+    "county": "",
+    "website": "http://fsd89.org"
+  },
+  {
+    "id": 12496,
+    "district": "Flanagan-Cornell Dist 74",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.fc74.org"
+  },
+  {
+    "id": 12503,
+    "district": "Fox Lake GSD 114",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d114.org"
+  },
+  {
+    "id": 12508,
+    "district": "Franklin Park SD 84",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d84.org"
+  },
+  {
+    "id": 12513,
+    "district": "Galatia CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://http:www.galatiak12.org"
+  },
+  {
+    "id": 12520,
+    "district": "Gavin SD 37",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gavin37.org"
+  },
+  {
+    "id": 12526,
+    "district": "Georgetown-Ridge Farm CUD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.grf.k12.il.us"
+  },
+  {
+    "id": 12534,
+    "district": "Glenbard Twp HSD 87",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.glenbard87.org"
+  }
+]
