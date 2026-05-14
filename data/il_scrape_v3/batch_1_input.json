@@ -1,0 +1,282 @@
+[
+  {
+    "id": 12386,
+    "district": "Chester N HSD 122",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.roe45.org"
+  },
+  {
+    "id": 12538,
+    "district": "Golf ESD 67",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.golf67.net"
+  },
+  {
+    "id": 12543,
+    "district": "Granite City CUSD 9",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.gcsd9.net"
+  },
+  {
+    "id": 12548,
+    "district": "Grayslake CCSD 46",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.d46.org"
+  },
+  {
+    "id": 12553,
+    "district": "Griggsville-Perry CUSD 4",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.griggsvilleperry.org"
+  },
+  {
+    "id": 12559,
+    "district": "Hardin County CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.hardin.k12.il.us"
+  },
+  {
+    "id": 12564,
+    "district": "Hartsburg Emden CUSD 21",
+    "state": "IL",
+    "county": "",
+    "website": "http://logan.k12.il.us/hartem"
+  },
+  {
+    "id": 12570,
+    "district": "Henry-Senachwine CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.hscusd5.org"
+  },
+  {
+    "id": 12576,
+    "district": "High Mount SD 116",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.highmountschool.com"
+  },
+  {
+    "id": 12584,
+    "district": "Homer CCSD 33C",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.homerschools.org"
+  },
+  {
+    "id": 12589,
+    "district": "Hoover-Schrum Memorial SD 157",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.hsdist157.org"
+  },
+  {
+    "id": 12596,
+    "district": "Illini Central CUSD 189",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.illinicentral.org"
+  },
+  {
+    "id": 12602,
+    "district": "Iroquois West CUSD 10",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.iwest.k12.il.us"
+  },
+  {
+    "id": 12606,
+    "district": "J S Morton HSD 201",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.morton201.org/"
+  },
+  {
+    "id": 12612,
+    "district": "Johnston City CUSD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.jcindians.org"
+  },
+  {
+    "id": 12617,
+    "district": "Kankakee SD 111",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.kankakeeschooldistrict.org"
+  },
+  {
+    "id": 12624,
+    "district": "Kings Cons SD 144",
+    "state": "IL",
+    "county": "",
+    "website": "http://kings144.org"
+  },
+  {
+    "id": 12629,
+    "district": "La Grange SD 102",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.dist102.k12.il.us"
+  },
+  {
+    "id": 12634,
+    "district": "La Salle-Peru Twp HSD 120",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.lphs.net"
+  },
+  {
+    "id": 12641,
+    "district": "Lake Villa CCSD 41",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.district41.org/"
+  },
+  {
+    "id": 12649,
+    "district": "Lemont Twp HSD 210",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.lhs210.net"
+  },
+  {
+    "id": 12655,
+    "district": "Liberty CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.libertyschool.net"
+  },
+  {
+    "id": 12661,
+    "district": "Lincoln ESD 156",
+    "state": "IL",
+    "county": "",
+    "website": "http://l156.org"
+  },
+  {
+    "id": 12667,
+    "district": "Lisbon CCSD 90",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.lisbon.k12.il.us"
+  },
+  {
+    "id": 12673,
+    "district": "Lostant CUSD 425",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.lostantcomets.org"
+  },
+  {
+    "id": 12679,
+    "district": "Madison CUSD 12",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.madisoncusd12.org"
+  },
+  {
+    "id": 12686,
+    "district": "Manteno CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.manteno5.org"
+  },
+  {
+    "id": 12691,
+    "district": "Maroa Forsyth CUSD 2",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.mfschools.net"
+  },
+  {
+    "id": 12697,
+    "district": "Massac UD 1",
+    "state": "IL",
+    "county": "",
+    "website": "http://massac.org"
+  },
+  {
+    "id": 12706,
+    "district": "Medinah SD 11",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.medinah11.org"
+  },
+  {
+    "id": 12715,
+    "district": "Midland CUSD 7",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.midland-7.net"
+  },
+  {
+    "id": 12720,
+    "district": "Miller Twp CCSD 210",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.miltonpope.net"
+  },
+  {
+    "id": 12725,
+    "district": "Moline-Coal Valley CUSD 40",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.molineschools.org"
+  },
+  {
+    "id": 12732,
+    "district": "Morris SD 54",
+    "state": "IL",
+    "county": "",
+    "website": "http://dist54.mornet.org"
+  },
+  {
+    "id": 12737,
+    "district": "Mount Olive CUSD 5",
+    "state": "IL",
+    "county": "",
+    "website": "http://mtoliveschools.org"
+  },
+  {
+    "id": 12746,
+    "district": "Murphysboro CUSD 186",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.cusd186.org"
+  },
+  {
+    "id": 12753,
+    "district": "Nettle Creek CCSD 24C",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.nettlecreek.org"
+  },
+  {
+    "id": 12758,
+    "district": "New Lenox SD 122",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.nlsd122.org"
+  },
+  {
+    "id": 12764,
+    "district": "Niles Twp HSD 219",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.niles219.org"
+  },
+  {
+    "id": 12769,
+    "district": "North Boone CUSD 200",
+    "state": "IL",
+    "county": "",
+    "website": "http://www.nbcusd.org"
+  }
+]
