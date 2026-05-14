@@ -1,0 +1,317 @@
+[
+  {
+    "id": 21479,
+    "district": "OLTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.oltonisd.net"
+  },
+  {
+    "id": 21486,
+    "district": "PAINT CREEK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.paintcreek.esc14.net"
+  },
+  {
+    "id": 21495,
+    "district": "PARADISE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pisd.net/"
+  },
+  {
+    "id": 21504,
+    "district": "PENELOPE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.penelopeisd.org/"
+  },
+  {
+    "id": 21509,
+    "district": "PETTUS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pettusisd.com"
+  },
+  {
+    "id": 21521,
+    "district": "PLEMONS-STINNETT-PHILLIPS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pspcisd.net"
+  },
+  {
+    "id": 21528,
+    "district": "POST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.postisd.net"
+  },
+  {
+    "id": 21534,
+    "district": "PRAIRILAND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.prairiland.net"
+  },
+  {
+    "id": 21540,
+    "district": "PROGRESO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.progresoedu.net"
+  },
+  {
+    "id": 21547,
+    "district": "RALLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://rallsisd.org/"
+  },
+  {
+    "id": 21553,
+    "district": "REAGAN COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.reagancountyisd.net/"
+  },
+  {
+    "id": 21561,
+    "district": "RICHARDS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.richardsisd.net"
+  },
+  {
+    "id": 21566,
+    "district": "RIO HONDO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rhisd.net"
+  },
+  {
+    "id": 21576,
+    "district": "ROCHELLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rochelleisd.net/"
+  },
+  {
+    "id": 21582,
+    "district": "ROMA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://romaisd.com"
+  },
+  {
+    "id": 21589,
+    "district": "ROUND TOP-CARMINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rtcisd.net"
+  },
+  {
+    "id": 21595,
+    "district": "S AND S CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sscisd.net/"
+  },
+  {
+    "id": 21603,
+    "district": "SAN ANGELO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.saisd.org/"
+  },
+  {
+    "id": 21609,
+    "district": "SAN FELIPE-DEL RIO CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sfdr-cisd.org"
+  },
+  {
+    "id": 21615,
+    "district": "SANDS CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://sands.esc17.net/"
+  },
+  {
+    "id": 21623,
+    "district": "SANTO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.santoisd.net"
+  },
+  {
+    "id": 21628,
+    "district": "SCURRY-ROSSER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.scurry-rosser.com"
+  },
+  {
+    "id": 21633,
+    "district": "SEYMOUR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.seymour-isd.net"
+  },
+  {
+    "id": 21645,
+    "district": "SILVERTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.silvertonisd.net"
+  },
+  {
+    "id": 21652,
+    "district": "SLOCUM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.slocumisd.org/"
+  },
+  {
+    "id": 21660,
+    "district": "SONORA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sonoraisd.net"
+  },
+  {
+    "id": 21671,
+    "district": "SPRINGLAKE-EARTH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.springlake-earth.org"
+  },
+  {
+    "id": 21680,
+    "district": "STOCKDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.stockdaleisd.org"
+  },
+  {
+    "id": 21688,
+    "district": "SUNRAY COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sunrayisd.org"
+  },
+  {
+    "id": 21700,
+    "district": "TERLINGUA CSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.terlinguacsd.com/"
+  },
+  {
+    "id": 21706,
+    "district": "TEXHOMA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.texhomaisd.net"
+  },
+  {
+    "id": 21711,
+    "district": "THREE WAY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.twisd.us"
+  },
+  {
+    "id": 21721,
+    "district": "TRENTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.trentonisd.org"
+  },
+  {
+    "id": 21733,
+    "district": "UNIVERSITY OF TEXAS AT AUSTIN H S",
+    "state": "TX",
+    "county": "",
+    "website": "http://highschool.utexas.edu"
+  },
+  {
+    "id": 21739,
+    "district": "VALLEY VIEW ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.vvisd.net"
+  },
+  {
+    "id": 21745,
+    "district": "VERIBEST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://veribest.netxv.net"
+  },
+  {
+    "id": 21752,
+    "district": "WALCOTT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.walcottisd.com"
+  },
+  {
+    "id": 21759,
+    "district": "WATER VALLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wvisd.net"
+  },
+  {
+    "id": 21766,
+    "district": "WELLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wells.esc7.net/"
+  },
+  {
+    "id": 21774,
+    "district": "WESTBROOK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.westbrookisd.com"
+  },
+  {
+    "id": 21781,
+    "district": "WHITE OAK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.woisd.net"
+  },
+  {
+    "id": 21789,
+    "district": "WICHITA FALLS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wfisd.net"
+  },
+  {
+    "id": 21795,
+    "district": "WINDHAM SCHOOL DISTRICT",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wsdtx.org"
+  },
+  {
+    "id": 21800,
+    "district": "WINTERS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wintersisd.org"
+  },
+  {
+    "id": 21810,
+    "district": "YOAKUM ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.yoakumisd.net"
+  }
+]

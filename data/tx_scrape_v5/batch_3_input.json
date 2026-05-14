@@ -1,0 +1,317 @@
+[
+  {
+    "id": 21478,
+    "district": "OLNEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.olneyisd.net/"
+  },
+  {
+    "id": 21485,
+    "district": "PADUCAH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.paducahisd.org"
+  },
+  {
+    "id": 21494,
+    "district": "PANTHER CREEK CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pcreek.net"
+  },
+  {
+    "id": 21503,
+    "district": "PECOS-BARSTOW-TOYAH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pbtisd.net/"
+  },
+  {
+    "id": 21508,
+    "district": "PETROLIA CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://petroliaisd.org/"
+  },
+  {
+    "id": 21520,
+    "district": "PLEASANTON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pisd.us"
+  },
+  {
+    "id": 21525,
+    "district": "PORT ARANSAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.paisd.net"
+  },
+  {
+    "id": 21533,
+    "district": "PRAIRIE VALLEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.prairievalleyisd.net"
+  },
+  {
+    "id": 21539,
+    "district": "PRINGLE-MORSE CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pringlemorsecisd.net"
+  },
+  {
+    "id": 21546,
+    "district": "RAINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rainsisd.org"
+  },
+  {
+    "id": 21552,
+    "district": "RAYMONDVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.raymondvilleisd.org"
+  },
+  {
+    "id": 21559,
+    "district": "RICE CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ricecisd.org"
+  },
+  {
+    "id": 21565,
+    "district": "RIO GRANDE CITY GRULLA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.myrgcgisd.org/"
+  },
+  {
+    "id": 21574,
+    "district": "ROBSTOWN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.robstownisd.org"
+  },
+  {
+    "id": 21581,
+    "district": "ROGERS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rogersisd.org"
+  },
+  {
+    "id": 21586,
+    "district": "ROSEBUD-LOTT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rlisd.org/"
+  },
+  {
+    "id": 21594,
+    "district": "RUSK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ruskisd.net"
+  },
+  {
+    "id": 21602,
+    "district": "SAM RAYBURN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.srisd.org"
+  },
+  {
+    "id": 21608,
+    "district": "SAN ELIZARIO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.seisd.net"
+  },
+  {
+    "id": 21614,
+    "district": "SAN VICENTE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.svisd.com"
+  },
+  {
+    "id": 21622,
+    "district": "SANTA ROSA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.srtx.org"
+  },
+  {
+    "id": 21627,
+    "district": "SCHULENBURG ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.schulenburgisd.net"
+  },
+  {
+    "id": 21632,
+    "district": "SEMINOLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.seminoleisd.net"
+  },
+  {
+    "id": 21643,
+    "district": "SIERRA BLANCA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sierrablancaisd.net"
+  },
+  {
+    "id": 21651,
+    "district": "SLIDELL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.slidellisd.net"
+  },
+  {
+    "id": 21659,
+    "district": "SOMERVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.somervilleisd.org"
+  },
+  {
+    "id": 21666,
+    "district": "SPEARMAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://spearmanisd.net"
+  },
+  {
+    "id": 21679,
+    "district": "STERLING CITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sterlingcityisd.net"
+  },
+  {
+    "id": 21686,
+    "district": "SUNDOWN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sundownisd.com"
+  },
+  {
+    "id": 21697,
+    "district": "TEAGUE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.teagueisd.org"
+  },
+  {
+    "id": 21705,
+    "district": "TEXAS TECH UNIVERSITY K-12",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.k12.ttu.edu"
+  },
+  {
+    "id": 21710,
+    "district": "THREE RIVERS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.trisd.org"
+  },
+  {
+    "id": 21720,
+    "district": "TRENT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.TRENTISD.org"
+  },
+  {
+    "id": 21731,
+    "district": "UNION HILL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.uhisd.com"
+  },
+  {
+    "id": 21738,
+    "district": "VALLEY VIEW ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.vviewisd.net"
+  },
+  {
+    "id": 21744,
+    "district": "VENUS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.venusisd.net"
+  },
+  {
+    "id": 21751,
+    "district": "WAELDER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.waelderisd.org"
+  },
+  {
+    "id": 21756,
+    "district": "WALNUT SPRINGS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.walnutspringsisd.net/"
+  },
+  {
+    "id": 21765,
+    "district": "WELLMAN-UNION CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://wellman.esc17.net"
+  },
+  {
+    "id": 21772,
+    "district": "WEST RUSK COUNTY CONSOLIDATED ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.westrusk.esc7.net/"
+  },
+  {
+    "id": 21780,
+    "district": "WHITE DEER ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.whitedeerisd.net"
+  },
+  {
+    "id": 21788,
+    "district": "WHITNEY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.whitney.isd.org"
+  },
+  {
+    "id": 21793,
+    "district": "WILSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://wilsonisd.org"
+  },
+  {
+    "id": 21799,
+    "district": "WINONA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.winonaisd.org"
+  },
+  {
+    "id": 21809,
+    "district": "YANTIS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.yantisisd.net"
+  }
+]

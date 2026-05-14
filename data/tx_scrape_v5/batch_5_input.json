@@ -1,0 +1,317 @@
+[
+  {
+    "id": 21480,
+    "district": "ONALASKA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.onalaskaisd.net"
+  },
+  {
+    "id": 21487,
+    "district": "PAINT ROCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.paintrockisd.net"
+  },
+  {
+    "id": 21498,
+    "district": "PATTON SPRINGS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pattonsprings.net"
+  },
+  {
+    "id": 21505,
+    "district": "PERRIN-WHITT CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pwcisd.net"
+  },
+  {
+    "id": 21516,
+    "district": "PLAINS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.plainsisd.net"
+  },
+  {
+    "id": 21522,
+    "district": "POINT ISABEL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.pi-isd.net"
+  },
+  {
+    "id": 21529,
+    "district": "POTEET ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.poteetisd.org"
+  },
+  {
+    "id": 21535,
+    "district": "PREMONT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.premontisd.net"
+  },
+  {
+    "id": 21542,
+    "district": "QUANAH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.qisd.net"
+  },
+  {
+    "id": 21548,
+    "district": "RAMIREZ CSD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.ramirezcsd.net"
+  },
+  {
+    "id": 21554,
+    "district": "RED LICK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.redlickisd.com"
+  },
+  {
+    "id": 21562,
+    "district": "RICHARDSON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.risd.org"
+  },
+  {
+    "id": 21567,
+    "district": "RIO VISTA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rvisd.net/"
+  },
+  {
+    "id": 21577,
+    "district": "ROCKDALE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.rockdaleisd.net"
+  },
+  {
+    "id": 21583,
+    "district": "ROOSEVELT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.risdtx.us"
+  },
+  {
+    "id": 21590,
+    "district": "ROYAL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.royal-isd.net"
+  },
+  {
+    "id": 21598,
+    "district": "SABINE PASS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sabinepass.net"
+  },
+  {
+    "id": 21605,
+    "district": "SAN AUGUSTINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.saisd.us"
+  },
+  {
+    "id": 21610,
+    "district": "SAN ISIDRO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sanisidroisd.org"
+  },
+  {
+    "id": 21616,
+    "district": "SANFORD-FRITCH ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sfisd.net"
+  },
+  {
+    "id": 21624,
+    "district": "SAVOY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.savoyisd.org"
+  },
+  {
+    "id": 21629,
+    "district": "SEAGRAVES ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.seagravesisd.net"
+  },
+  {
+    "id": 21635,
+    "district": "SHAMROCK ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.shamrockisd.net"
+  },
+  {
+    "id": 21648,
+    "district": "SIVELLS BEND ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sivellsbendisd.net"
+  },
+  {
+    "id": 21653,
+    "district": "SMITHVILLE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.smithvilleisd.org"
+  },
+  {
+    "id": 21662,
+    "district": "SOUTH TEXAS ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.stisd.net"
+  },
+  {
+    "id": 21673,
+    "district": "SPUR ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.spurbulldogs.com"
+  },
+  {
+    "id": 21681,
+    "district": "STRATFORD ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.stratfordisd.net"
+  },
+  {
+    "id": 21690,
+    "district": "SWEET HOME ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.sweethomeisd.org"
+  },
+  {
+    "id": 21701,
+    "district": "TERRELL COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://terrell.esc18.net/"
+  },
+  {
+    "id": 21707,
+    "district": "TEXLINE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://texlineisd.net"
+  },
+  {
+    "id": 21712,
+    "district": "THROCKMORTON COLLEGIATE ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.throck.org"
+  },
+  {
+    "id": 21723,
+    "district": "TRINITY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.trinityisd.net"
+  },
+  {
+    "id": 21734,
+    "district": "UTOPIA ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.utopiaisd.net"
+  },
+  {
+    "id": 21741,
+    "district": "VAN ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.vanisd.org"
+  },
+  {
+    "id": 21746,
+    "district": "VERNON ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.vernonisd.org"
+  },
+  {
+    "id": 21753,
+    "district": "WALL ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wallisd.net"
+  },
+  {
+    "id": 21762,
+    "district": "WEBB CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.webbcisd.org"
+  },
+  {
+    "id": 21768,
+    "district": "WEST HARDIN COUNTY CISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.westhardin.org/"
+  },
+  {
+    "id": 21775,
+    "district": "WESTHOFF ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://westhoffisd.org"
+  },
+  {
+    "id": 21782,
+    "district": "WHITE SETTLEMENT ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://wsisd.com"
+  },
+  {
+    "id": 21790,
+    "district": "WILDORADO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wildoradoisd.org"
+  },
+  {
+    "id": 21796,
+    "district": "WINDTHORST ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.windthorstisd.net"
+  },
+  {
+    "id": 21803,
+    "district": "WOODSBORO ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.wisd.net/"
+  },
+  {
+    "id": 21813,
+    "district": "ZAPATA COUNTY ISD",
+    "state": "TX",
+    "county": "",
+    "website": "http://www.zcisd.org"
+  }
+]
