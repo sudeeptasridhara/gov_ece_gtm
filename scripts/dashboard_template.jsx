@@ -3158,6 +3158,11 @@ export default function BrightwheelDashboard() {
       // Custom templates + sequences shared across all reps via the sheet
       const sheetCustomTemplates = {};  // id -> { deleted, loggedAt, data }
       const sheetCustomSequences = {};  // id -> { deleted, loggedAt, data }
+      // Campaign enrollments shared across reps. Keyed by `${campaignKey}_${districtId}`
+      // so re-enrolling the same district doesn't pile up rows. We track both
+      // active enrollments and tombstones so an unenroll on one machine
+      // propagates to everyone else.
+      const sheetEnrollments = {}; // key -> { deleted, loggedAt, campaignKey, districtId, enrolledAt }
 
       for (const row of rows.slice(1)) {
         // Template override rows — district_id is 0, district_name holds the key
@@ -3202,6 +3207,31 @@ export default function BrightwheelDashboard() {
               try { data = JSON.parse(col(row, "full_notes")); } catch {}
             }
             sheetCustomSequences[id] = { deleted: isDelete, loggedAt, data };
+          }
+          continue;
+        }
+        // Campaign enrollment rows (shared so every rep sees districts that
+        // anyone has added to a custom or built-in sequence).
+        // Format:
+        //   district_name = campaignKey
+        //   notes         = enrollment date (yyyy-mm-dd)
+        //   district_id   = districtId
+        //   dedup_id      = `${campaignKey}_${districtId}`
+        if (col(row, "type") === "campaign_enrollment" || col(row, "type") === "campaign_unenrollment") {
+          const campaignKey = col(row, "district_name");
+          const distId = parseInt(col(row, "district_id"));
+          const key = col(row, "dedup_id") || `${campaignKey}_${distId}`;
+          const loggedAt = col(row, "logged_at");
+          const existing = sheetEnrollments[key];
+          if (campaignKey && distId && (!existing || loggedAt > (existing.loggedAt || ""))) {
+            const isDelete = col(row, "type") === "campaign_unenrollment";
+            sheetEnrollments[key] = {
+              deleted: isDelete,
+              loggedAt,
+              campaignKey,
+              districtId: distId,
+              enrolledAt: col(row, "notes") || (loggedAt || "").split("T")[0],
+            };
           }
           continue;
         }
@@ -3394,6 +3424,24 @@ export default function BrightwheelDashboard() {
           for (const [id, entry] of Object.entries(sheetCustomSequences)) {
             if (entry.deleted) { delete next[id]; }
             else if (entry.data) { next[id] = { ...entry.data, isCustom: true }; }
+          }
+          return next;
+        });
+      }
+      // Merge campaign enrollments from sheet so every rep sees the districts
+      // anyone enrolled in any sequence — without this, custom sequences only
+      // ever show districts to the rep who created the enrollment locally.
+      if (Object.keys(sheetEnrollments).length > 0) {
+        setCampaignEnrollments(prev => {
+          const next = { ...prev };
+          for (const entry of Object.values(sheetEnrollments)) {
+            const ck = entry.campaignKey;
+            const did = entry.districtId;
+            if (!ck || !did) continue;
+            const bucket = { ...(next[ck] || {}) };
+            if (entry.deleted) { delete bucket[did]; }
+            else if (!bucket[did]) { bucket[did] = entry.enrolledAt; }
+            next[ck] = bucket;
           }
           return next;
         });
@@ -4432,12 +4480,34 @@ export default function BrightwheelDashboard() {
   // Enroll one or more district IDs in a campaign (records today as enrollment date)
   const enrollInCampaign = (campaignKey, districtIds) => {
     const today = new Date().toISOString().split("T")[0];
+    const nowIso = new Date().toISOString();
     setCampaignEnrollments(prev => {
       const existing = prev[campaignKey] || {};
       const updated = { ...existing };
       districtIds.forEach(id => { if (!updated[id]) updated[id] = today; });
       return { ...prev, [campaignKey]: updated };
     });
+    // Persist each enrollment to the shared activity log so every rep sees
+    // them. Without this, custom-sequence enrollments stay local to the rep
+    // who clicked Add Districts and the rest of the team has no visibility.
+    const rows = districtIds.map(id => {
+      const d = districts.find(x => x.id === id);
+      return [
+        `enroll_${campaignKey}_${id}_${Date.now()}`,
+        String(id),
+        campaignKey,
+        "campaign_enrollment",
+        today,
+        today,                             // notes = enrolled date (yyyy-mm-dd)
+        "",                                // full_notes
+        "manual",
+        gmailUser || "",
+        d?.director || "",
+        `${campaignKey}_${id}`,            // dedup_id
+        nowIso,
+      ];
+    });
+    if (rows.length > 0) writeToSheet(rows);
   };
 
   // Remove a district from a campaign enrollment
@@ -4447,6 +4517,23 @@ export default function BrightwheelDashboard() {
       delete updated[districtId];
       return { ...prev, [campaignKey]: updated };
     });
+    const today = new Date().toISOString().split("T")[0];
+    const nowIso = new Date().toISOString();
+    const d = districts.find(x => x.id === districtId);
+    writeToSheet([[
+      `unenroll_${campaignKey}_${districtId}_${Date.now()}`,
+      String(districtId),
+      campaignKey,
+      "campaign_unenrollment",
+      today,
+      today,
+      "",
+      "manual",
+      gmailUser || "",
+      d?.director || "",
+      `${campaignKey}_${districtId}`,
+      nowIso,
+    ]]);
   };
 
   const updateStage = (districtId, newStage, note = "") => {
@@ -5077,7 +5164,33 @@ export default function BrightwheelDashboard() {
         })()}
 
         {/* ── PROSPECTS TAB ── */}
-        {activeTab === "prospects" && (
+        {activeTab === "prospects" && (() => {
+          // Narrow the State dropdown to only show states where the team
+          // actually has data for the selected Source. So if a rep filters to
+          // "MDR (any)", the State dropdown only lists states with at least
+          // one MDR-sourced contact. When Source is "All", every state is
+          // available as before.
+          let stateOptionsForSource = STATE_OPTIONS;
+          if (filterContactSource === "mdr" || filterContactSource === "govspend" || filterContactSource === "scraper" || filterContactSource === "mdr_scraper") {
+            const wantedProvider = filterContactSource === "mdr" ? "MDR"
+                                 : filterContactSource === "govspend" ? "GovSpend"
+                                 : null;
+            const wantsScraper = filterContactSource === "scraper" || filterContactSource === "mdr_scraper";
+            const statesWithSource = new Set();
+            districts.forEach(d => {
+              const st = d.state;
+              if (!st) return;
+              const hasProviderPrimary = wantedProvider && d.contactSource === wantedProvider;
+              const hasProviderAdditional = wantedProvider && (d.additionalContacts || []).some(c => c?.source === wantedProvider);
+              const hasScraperPrimary = wantsScraper && d.contactSource === "scraper";
+              if (filterContactSource === "mdr" && (hasProviderPrimary || hasProviderAdditional)) statesWithSource.add(st);
+              else if (filterContactSource === "govspend" && (hasProviderPrimary || hasProviderAdditional)) statesWithSource.add(st);
+              else if (filterContactSource === "scraper" && hasScraperPrimary) statesWithSource.add(st);
+              else if (filterContactSource === "mdr_scraper" && (hasProviderPrimary || hasProviderAdditional) && hasScraperPrimary) statesWithSource.add(st);
+            });
+            stateOptionsForSource = STATE_OPTIONS.filter(([code]) => statesWithSource.has(code));
+          }
+          return (
           <div>
             {/* Filters — single scrollable row */}
             <div className="mb-4">
@@ -5089,7 +5202,7 @@ export default function BrightwheelDashboard() {
                   className="border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs flex-shrink-0 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 />
                 {[
-                  { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all","All States"], ...STATE_OPTIONS], style:{} },
+                  { label: "State",      val: filterState,      setter: setFilterState,      opts: [["all", filterContactSource === "all" ? "All States" : `States w/ ${filterContactSource === "mdr" ? "MDR" : filterContactSource === "govspend" ? "GovSpend" : "selected source"}`], ...stateOptionsForSource], style:{} },
                   { label: "Level",      val: filterLevel,      setter: setFilterLevel,      opts: [["all","All Levels"],["isd","🏫 ISDs only"],["district","🏛️ Districts only"]], style:{} },
                   { label: "Priority",   val: filterPriority,   setter: setFilterPriority,   opts: [["all","All"],["priority","⭐ Priority"],["not_priority","Not Priority"]], style:{} },
                   { label: "Stage",      val: filterStatus,     setter: setFilterStatus,     opts: [["all","All Stages"], ...Object.entries(SEQUENCE_STAGES).map(([k,v]) => [k, v.label])], style:{} },
@@ -5472,7 +5585,8 @@ export default function BrightwheelDashboard() {
               </div>
             )}
           </div>
-        )}
+          );
+        })()}
 
         {/* ── MAP TAB ── */}
         {activeTab === "map" && (

@@ -289,6 +289,8 @@ function buildPayload() {
       type === "custom_template_deleted" ||
       type === "custom_sequence" ||
       type === "custom_sequence_deleted" ||
+      type === "campaign_enrollment" ||
+      type === "campaign_unenrollment" ||
       type === "template_override" ||
       type === "district_note" ||
       type === "stage_update" ||
