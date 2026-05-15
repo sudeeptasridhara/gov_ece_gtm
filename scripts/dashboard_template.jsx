@@ -4221,12 +4221,26 @@ export default function BrightwheelDashboard() {
   // bridge, every district that's been emailed even once falls out of the
   // sequence (status="contacted" doesn't match any campaign step key) and the
   // row shows "Sequence complete" with a disabled checkbox.
+  // Helper: returns true if a campaign step is an email step. Built-in
+  // campaigns set `isEmail` directly on the step object, but custom sequences
+  // built through the sequence builder only carry `type` ("email" / "followup"
+  // / "closing" / "call" / "linkedin" / "mailer") and the isEmail flag lives
+  // on STEP_TYPES[type]. The previous code only checked `s.isEmail`, which
+  // was undefined for every custom step and made every custom-sequence row's
+  // checkbox grey out. This helper bridges both shapes.
+  const stepIsEmail = (s) => {
+    if (!s) return false;
+    if (s.isEmail !== undefined) return !!s.isEmail;
+    if (s.type && STEP_TYPES[s.type]) return !!STEP_TYPES[s.type].isEmail;
+    return false;
+  };
+
   const getNextEmailStepForDistrict = (district, campaign) => {
     if (!district || !campaign || !campaign.steps) return null;
     const resolved = resolveStatus(district.status || "not_contacted");
     // Terminal pipeline stages — nothing more to send automatically.
     if (["responded_nurture", "existing_customer", "blocked"].includes(resolved)) return null;
-    const emailSteps = campaign.steps.filter(s => s.isEmail && s.templateKey);
+    const emailSteps = campaign.steps.filter(s => stepIsEmail(s) && s.templateKey);
     if (emailSteps.length === 0) return null;
     if (resolved === "not_contacted") return emailSteps[0];
     // SEQUENCE_STAGES keys ("contacted" = at least one email sent, "responded_active"
@@ -4246,7 +4260,7 @@ export default function BrightwheelDashboard() {
     if (idx < 0) return null;
     for (let i = idx + 1; i < campaign.steps.length; i++) {
       const s = campaign.steps[i];
-      if (s.isEmail && s.templateKey) return s;
+      if (stepIsEmail(s) && s.templateKey) return s;
     }
     return null;
   };
@@ -6161,7 +6175,7 @@ export default function BrightwheelDashboard() {
               : 0;
 
             const resolved = resolveStatus(d.status || "not_contacted");
-            const emailSteps = campaign.steps.filter(s => s.isEmail && s.templateKey);
+            const emailSteps = campaign.steps.filter(s => stepIsEmail(s) && s.templateKey);
             const sentCount = outbound.length;
 
             // Not yet emailed but enrolled — show as "Ready to Send"
