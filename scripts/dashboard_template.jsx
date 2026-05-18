@@ -1460,6 +1460,54 @@ export default function BrightwheelDashboard() {
     try { localStorage.setItem('bw_campaign_enrollments_v1', JSON.stringify(campaignEnrollments)); } catch(e) {}
   }, [campaignEnrollments]);
 
+  // One-shot migration: enrollments used to live only in localStorage, so the
+  // AE who set them up could see their custom-sequence districts but nobody
+  // else could. The recent fix writes new enrollments to the shared sheet on
+  // every enroll/unenroll, but pre-existing local-only enrollments still
+  // need to land on the sheet so other reps see them on next refresh. This
+  // effect runs once per browser after the sheet has synced (we use
+  // sheetConnected as the signal), writes every local enrollment as a
+  // campaign_enrollment row, and marks itself done so we don't re-fire.
+  // dedup_id is `${campaignKey}_${districtId}` so the sheet parser collapses
+  // duplicates if multiple reps happen to run the migration on overlapping
+  // local data.
+  useEffect(() => {
+    if (!sheetConnected) return;
+    try {
+      const flagKey = "bw_enrollments_backfilled_v1";
+      if (localStorage.getItem(flagKey) === "done") return;
+      const rows = [];
+      const today = new Date().toISOString().split("T")[0];
+      const nowIso = new Date().toISOString();
+      Object.entries(campaignEnrollments || {}).forEach(([campaignKey, byDist]) => {
+        Object.entries(byDist || {}).forEach(([districtIdStr, enrolledAt]) => {
+          const districtId = parseInt(districtIdStr);
+          if (!districtId) return;
+          const d = districts.find(x => x.id === districtId);
+          rows.push([
+            `enroll_backfill_${campaignKey}_${districtId}_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+            String(districtId),
+            campaignKey,
+            "campaign_enrollment",
+            enrolledAt || today,
+            enrolledAt || today,
+            "",
+            "backfill",
+            gmailUser || "",
+            d?.director || "",
+            `${campaignKey}_${districtId}`,
+            nowIso,
+          ]);
+        });
+      });
+      if (rows.length > 0) {
+        writeToSheet(rows);
+        showNotif(`📤 Shared ${rows.length} sequence enrollment${rows.length !== 1 ? "s" : ""} with the team`, "green");
+      }
+      localStorage.setItem(flagKey, "done");
+    } catch (e) { /* non-blocking */ }
+  }, [sheetConnected, districts]);
+
   // Persist template overrides to localStorage whenever they change
   useEffect(() => {
     try { localStorage.setItem("bw_template_overrides_v1", JSON.stringify(templateOverrides)); } catch(e) {}
